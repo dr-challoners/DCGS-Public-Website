@@ -1,0 +1,2 @@
+/* Fixed issue: when the content in the main column is very short, the site does not otherwise fill correctly according to the iPad screen's width */
+div.mcol, div.mcol-rgt { min-height: 1024px; }
