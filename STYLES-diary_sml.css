@@ -1,0 +1,92 @@
+div.page { margin-bottom: 17.4em;}
+div.mcol-rgt { padding-top: 6.2em; }
+a.anchor { height: 16.7em; margin: -16.7em 0 0 0; }
+
+div.linkbox {
+    position: fixed; bottom: 5.4em; width: 92%; margin: 0 1% 0 1%;
+    background-color: #FFF7D7;
+    text-align: center; text-transform: uppercase;
+    padding: 0.5em 3% 1.2em 3%;
+    }
+    div.linkbox a {
+       color: #000000; text-decoration: none;
+       display: block;
+       padding: 1em;
+       }
+
+/* Calendar widget */
+div.calendar { }
+
+div.calendar a { text-decoration: none; }
+
+	p.month { text-align: center; }
+       p.month a {
+          display: block;
+          font-size: 1.8em;
+          margin-top: -0.06em; padding: 0 1em 0 1em;    
+          }
+          a.lmonth { float: left; }
+	      a.nmonth { float: right; }
+
+div.weekdays, div.week {
+    
+    }
+div.week p, div.weekdays p {
+	float: left;
+    width: 14.25%;
+    text-align: center;
+	
+	}
+
+    div.weekdays { }
+    div.weekdays p {
+       margin-top: 0.8em; padding-bottom: 0.3em;
+       text-transform: uppercase; border-bottom: 1px solid #aaaaaa; }
+    
+    div.week { }
+    div.week p { margin-top: 0; }
+       div.week p.today { font-weight: bold; }
+    div.week a {
+       color: #000000;
+       display: block;
+       padding: 0.6em 0 0.6em 0;
+       }
+       p.xmonth a { color: #aaaaaa; }
+       div.week a:hover { background-color: #EFA207; }
+
+/* Event display */
+div.day {  }
+    div.day hr {
+       clear: both;
+       border-bottom: 1px solid #aaaaaa;
+       padding-top: 1.5em; margin-bottom: 1em;
+       }
+       
+div.day strong { color: red; }
+
+div.day h2 { }
+    div.day h2 span { float: right; }
+    h2.noevents { }
+
+p.time { margin-top: 0.8em; font-style: italic; }
+
+div.day h3 { margin-top: -0.2em; }
+
+p.allevents { display: none; }
+
+p.details {
+    margin-top: 0.1em; line-height: 1.5em; padding: 0;
+    
+    }
+
+div.browse {
+    position: fixed; top: 7.8em; width: 94%;
+    padding: 0 3% 0.5em 3%;
+    background-color: #ffffff; border-bottom: 1px solid #aaaaaa;
+    }
+    div.browse p {
+       text-align: right; margin-top: 0.8em;
+       font-size: 3em;
+       }
+       span.lft { float: left; }
+    div.browse a { text-decoration: none; }
