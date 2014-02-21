@@ -1,0 +1,38 @@
+* {	margin: 0; padding: 0; border: 0;	}
+
+body {
+	background-color: #ffffff;
+    }
+    
+/* General typography */
+p { font-family: Trebuchet, Verdana, sans-serif; }
+
+h1, h2, h3 {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-weight: normal;
+    }
+
+a { color: #173f7a; }
+a:hover { color: #3E70EF; }
+
+/* Header and footer typography */
+
+/* General structure */
+.clear { clear: both; }
+.noclear {clear: none !important; }
+
+/* Colours */
+#englishanddrama h2 { border-color: #72CEE3; }
+#mathematics h2 { border-color: #25549B; }
+#physicaleducation h2 { border-color: #b21614; }
+#geography h2 { border-color: #FF6801; }
+#languages h2 { border-color: #FFEE00; }
+#religiousstudies h2 { border-color: #B259D6; }
+#businessstudies h2 { border-color: #896604; }
+#artsandgraphics h2 { border-color: #097987; }
+#history h2 { border-color: #7B828D; }
+#music h2 { border-color: #381952; }
+#ict h2 { border-color: #78BD37; }
+#science h2 { border-color: #01800B; }
+#economics h2 { border-color: #BF3C0E; }
+#politics h2 { border-color: #866A81; }
