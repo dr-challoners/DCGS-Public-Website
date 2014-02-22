@@ -1,0 +1,147 @@
+/* For dropping in and out items that are small/large screen only. */
+.lrg { display: none; }
+.sml {  }
+
+/* General structure */
+body {  }
+
+div.page { margin: 10.8em 0 34em 0; }
+
+div.submenu {
+    position: fixed; bottom: 5.45em;
+    max-height: 23em; overflow: auto;
+    background-color: #C1D8FC;
+    width: 98%; margin: 0 1% 0 1%; padding: 6.45em 0 2em 0;
+    }
+    div.submenu h3 {
+       position: fixed; width: 96.5%; margin: -2em 0 0 0;
+       text-transform: uppercase; font-size: 3.2em; text-align: center;
+       background-color: #9BBDF2; padding: 0.4em 0 0.2em 1.5%;
+       }
+    div.submenu li {
+       list-style-type: none; font-size: 2.8em;
+       }
+    div.submenu a {
+       display: block;
+       text-decoration: none;
+       padding: 0.5em;
+       background-color: #C1D8FC;
+       }
+
+div.mcol, div.mcol-rgt, div.intranet {
+    padding: 0 2% 4.5em 2%;
+    }
+	
+div.mcol img, div.mcol-rgt img {
+    float: right;
+    width: 40%; margin: 1.8em 0 0.8em 1.8em;
+    }
+div.mcol img.left, div.mcol-rgt img.left {
+    float: left;
+	width: 40%; margin: 1.8em 1.8em 0.8em 0;
+    }
+
+/* General typography */
+h1 { font-size: 4.5em; line-height: 1.2em; }
+h2 { font-size: 3.6em; }
+h3 { font-size: 2.8em; margin-top: 0.3em;}
+p { font-size: 2.3em; line-height: 1.7em; margin-top: 1em; }
+li { font-size: 2.3em; line-height: 1.2em; }
+
+a.anchor { height: 9.5em; margin: -9.5em 0 0 0; display: block; background-color: transparent; }
+
+/* Header */
+div.header {
+    background-color: #ffffff;
+    }
+
+img.banner_img {
+    position: fixed; z-index: 1;
+    margin: 0.3em 0 0 0.8em;
+    }
+
+div.nav_dropdown {
+    position: fixed; top: 0; z-index: 1;
+    width: 100%;
+    }
+    div.nav_dropdown span { padding: 0.3em 0.5em 0.2em 0.5em; }
+    div.nav_dropdown span:hover { background-color: #2358A3; }
+    div.nav_dropdown p {
+       padding: 0.4em 0.8em 0.3em 0; margin-top: 0;
+       color: #ffffff; background-color: #173F7A;
+       text-align: right; line-height: 1.35em;
+       font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; text-transform: uppercase;
+       font-size: 3.8em;
+       }
+    div.nav_dropdown p span.spacer { padding: 0; }
+
+div.nav_about, div.nav_links {
+    visibility: hidden; position: fixed;
+    background-color: #C1D8FC;
+    margin: 0 1% 0 1%;
+    padding: 0.8em 0 1.5em 0;
+    }
+    div.nav_dropdown li {
+       float: left;
+       width: 50%; 
+       font-size: 3.2em;
+       list-style-type: none;
+       }
+       div.nav_dropdown li a {
+          display: block; padding: 0.35em 1.5em 0.35em 1.5em;
+          color: #000000; text-decoration: none;
+          }
+
+/* Footer */
+div.footer {
+    position: fixed; bottom: 0px;
+    height: 4.8em; width: 100%;
+    background-color: #ffffff; border-top: 0.65em solid #173F7A;
+    }
+    div.footer p {
+       text-align: right; font-size: 1.8em; line-height: 1.35em;
+       padding: 0.5em 1.2em 0 1.2em; margin-top: 0;
+       }
+    div.footer span.left { float: left; }
+
+/* News story */
+p.credit { text-align: right; font-style: italic; }
+
+div.newsimg {
+    margin: 2em 0 0 0;
+    width: 100%; height: 22.3em;
+    background-position: center top; background-repeat: no-repeat; background-size: cover;
+    }
+
+/* Intranet links */
+div.intranet {  }
+h1.intranet { margin: 0 2% 0 2%; }
+
+div.column {
+    width: 100%; margin: 0 0 3em 0;
+    }
+
+div.linksbox { clear: left; }
+    div.linksbox h3, div.subjectbox h2 {
+       padding: 0.4em 0.6em 0.4em 0.6em; margin: 0.8em 0 1.2em 0;
+       background-color: #FFF7D7;
+       }
+    div.linksbox li {
+       list-style-type: none;
+       float: left; width: 44%;
+       padding: 0 3% 1.4em 3%; margin-top: -0.55em;
+       font-size: 2.8em;
+       }
+
+div.subjectbar { }
+div.subjectbox { }
+    div.subjectbox h2 {
+       padding: 0.2em; margin: 0.8em 0 0.3em 0;
+       background-color: #FFF7D7;
+       border-bottom: 0.65em solid;
+       }
+    div.subjectbox li {
+       list-style-type: none;
+       margin: 0 0.2em 0 0.2em;
+       font-size: 2.8em; line-height: 1.6em;
+       }

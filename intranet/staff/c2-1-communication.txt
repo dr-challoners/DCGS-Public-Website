@@ -1,0 +1,6 @@
+﻿###Communication
+
++ [School e-mail](https://internal.challoners.com/owa/)  
++ [Add register message](https://internal.challoners.com/x/admin/content/AddMessage.aspx)
++ [Check register messages](https://internal.challoners.com/x/admin/content/StaffMessages.aspx)
++ [Manage groups](https://internal.challoners.com/x/admin/content/CreateMessageGroupX.aspx)

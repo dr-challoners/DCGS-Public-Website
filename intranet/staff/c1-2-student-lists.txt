@@ -1,0 +1,12 @@
+﻿###Student lists
+
++ [My Groups](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=User&Year=)  
++ [Year 7](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=7)
++ [Year 8](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=8)
++ [Year 9](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=9)
++ [Year 10](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=10)
++ [Year 11](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=11)
++ [Year 12](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=12)
++ [Year 13](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=13)  
++ [All Groups](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=All)
++ [Use Mask](https://internal.challoners.com/x/admin/content/SimpleLists.aspx?Type=Year&Year=0)

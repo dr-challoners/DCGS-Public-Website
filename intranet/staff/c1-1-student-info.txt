@@ -1,0 +1,13 @@
+﻿###Student information
+
++ [Year 7](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=7)
++ [Year 8](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=8)
++ [Year 9](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=9)
++ [Year 10](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=10)
++ [Year 11](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=11)
++ [Year 12](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=12)
++ [Year 13](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=13)  
++ [All Current](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Current&Year=)
++ [Pre-administration](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Year&Year=6)
++ [Past Students](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Left&Year=14)  
++ [Use Mask](https://internal.challoners.com/x/admin/content/PupilChoice.aspx?Type=Mask&Year=0)

@@ -1,0 +1,8 @@
+﻿###Information
+
++ [Staff timetables](https://internal.challoners.com/x/admin/content/StaffInfo.aspx?Type=staff)
++ [Room timetables](https://internal.challoners.com/x/admin/content/StaffInfo.aspx?Type=room)  
++ [Daily orders screen](https://internal.challoners.com/x/beta/dcgs.ui.tv/info-hd.aspx)
++ [Today's calendar items](https://internal.challoners.com/x/admin/)
++ [School calendar](https://internal.challoners.com/x/admin/content/CalendarForm.aspx)
++ [Timetable plan](https://internal.challoners.com/x/admin/content/NextTT/NextYearTTChoice.aspx)

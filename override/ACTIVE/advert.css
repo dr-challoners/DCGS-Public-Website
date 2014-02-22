@@ -1,0 +1,7 @@
+/* Override */
+div.override {
+    color: #ffffff; background-color: #303030;
+    padding-left: 240px;
+    }
+    div.override a { color: #f9287c; }
+    div.override a:hover { color: #39b54a; }

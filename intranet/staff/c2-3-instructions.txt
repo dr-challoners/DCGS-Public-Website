@@ -1,0 +1,7 @@
+﻿###Instructions
+
++ [Connect to the wireless](https://internal.challoners.com/x/content/guest-wireless.pdf)
++ [Laptop TV instructions](https://internal.challoners.com/x/content/IPTV-Instructions-v1.pdf)
++ [Video streaming](https://internal.challoners.com/x/content/streaming.pdf)
++ [iPads](http://portal.challoners.net:33639/sites/extended-learning/TiE/iPads/Home.aspx)
++ [Filesharing best practice](http://www.challoners.com/staff/resources/best-practices.html)

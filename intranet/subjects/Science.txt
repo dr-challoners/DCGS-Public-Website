@@ -1,0 +1,9 @@
+﻿+ [Science VLE](https://internal.challoners.com/sites/science)
++ [Biology VLE](https://internal.challoners.com/sites/science/biology)
++ [Chemistry VLE](https://internal.challoners.com/sites/science/chemistry)
++ [Physics VLE](https://internal.challoners.com/sites/science/physics)
++ [Electronics VLE](https://internal.challoners.com/sites/electronics)
++ [WinScope](file:///U:/Science/WinScope/WINSCOPE.EXE)
+
+
+
