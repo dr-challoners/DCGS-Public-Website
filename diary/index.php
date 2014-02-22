@@ -1,7 +1,7 @@
 <?php include('../header_declarations.php'); ?>
 
-<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/rebuild/styles/diary_lrg.css"/>
-<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/rebuild/styles/diary_sml.css"/>
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>
+<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>
 
 <?php
 
@@ -16,10 +16,10 @@ if ($_GET['event'] != "") { //We want to be looking at an events page: deal with
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
 		echo "</h1>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/rebuild/diary/#".date(Ymd)."\"><h3>Main diary</h3></a>";
+			echo "<a href=\"/diary/#".date(Ymd)."\"><h3>Main diary</h3></a>";
 		echo "</div>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/rebuild/about/termdates/\"><h3>Term dates</h3></a>";
+			echo "<a href=\"/about/termdates/\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "</div>";
 	
@@ -42,7 +42,7 @@ if (($_GET['device'] == "mobile" && $_GET['display'] == "calendar") || $_GET['de
 	echo "<div class=\"ncol lft\">";
 		include ('calendar.php');
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/rebuild/about/termdates/\">";
+			echo "<a href=\"/about/termdates/\">";
 			if ($_GET['device'] == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
 			else { echo "<h3>Term dates</h3>"; }
 			echo "</a>";
@@ -61,8 +61,8 @@ else { //Mobile only navigation
 	echo "</div>";
 	
 	echo "<div class=\"linkbox\">";
-		echo "<a href=\"/rebuild/diary/?device=mobile&display=calendar\"><h3>Browse the calendar</h3></a>";
-		echo "<a href=\"/rebuild/about/termdates/\"><h3>See term dates</h3></a>";
+		echo "<a href=\"/diary/?device=mobile&display=calendar\"><h3>Browse the calendar</h3></a>";
+		echo "<a href=\"/about/termdates/\"><h3>See term dates</h3></a>";
 	echo "</div>";
 	}
 	

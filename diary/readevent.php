@@ -69,9 +69,9 @@ if (file_exists("./items/".$type.".xml")) { $eventread = simplexml_load_file("./
 	else { echo "<hr>"; }
 	}
 else { //Displays an error if the event file can't be found
-	echo "<style> body { background-image: url('/rebuild/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>It seems the file for this type of event has been misplaced... or perhaps <em>it never existed at all.</em><br />You could go back to the diary to try again, or you could <a href=\"/rebuild/about/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>It seems the file for this type of event has been misplaced... or perhaps <em>it never existed at all.</em><br />You could go back to the diary to try again, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
 	} 
 
 ?>

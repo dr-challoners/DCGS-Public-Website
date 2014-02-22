@@ -7,25 +7,25 @@
 		
 		<title>Dr Challoner's Grammar School</title>
 		
-		<link rel="icon" href="/rebuild/main_imgs/favicon.png" />
-		<link rel="shortcut icon" href="/rebuild/main_imgs/favicon.png" />
+		<link rel="icon" href="/main_imgs/favicon.png" />
+		<link rel="shortcut icon" href="/main_imgs/favicon.png" />
 		
 		<!-- Homescreen icons for iPhone/iPad. Android should detect these as well. -->
-		<link rel="apple-touch-icon" sizes="57x57" href="/rebuild/main_imgs/apple-icon-60.png" />
-		<link rel="apple-touch-icon" sizes="72x72" href="/rebuild/main_imgs/apple-icon-76.png" />
-		<link rel="apple-touch-icon" sizes="114x114" href="/rebuild/main_imgs/apple-icon-120.png" />
-		<link rel="apple-touch-icon" sizes="144x144" href="/rebuild/main_imgs/apple-icon-152.png" />
+		<link rel="apple-touch-icon" sizes="57x57" href="/main_imgs/apple-icon-60.png" />
+		<link rel="apple-touch-icon" sizes="72x72" href="/main_imgs/apple-icon-76.png" />
+		<link rel="apple-touch-icon" sizes="114x114" href="/main_imgs/apple-icon-120.png" />
+		<link rel="apple-touch-icon" sizes="144x144" href="/main_imgs/apple-icon-152.png" />
 		
-		<link rel="stylesheet" type="text/css" media="screen" href="/rebuild/styles/general.css"/>
-		<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/rebuild/styles/screen_lrg.css"/>
-		<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/rebuild/styles/screen_sml.css"/>
+		<link rel="stylesheet" type="text/css" media="screen" href="/styles/general.css"/>
+		<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/screen_lrg.css"/>
+		<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/screen_sml.css"/>
 		<?php //Dirty rotten browser hacks
 			if(strpos($_SERVER['HTTP_USER_AGENT'],"Trident") != "") { //Hits IE by spotting the IE rendering engine
-				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/rebuild/styles/screen_lrg_ie.css\"/>";
+				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/styles/screen_lrg_ie.css\"/>";
 				}
 			if(strpos($_SERVER['HTTP_USER_AGENT'],"iPad") != "") { //Hits iPads by spotting... that they're iPads
-				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/rebuild/styles/screen_lrg_ipad.css\"/>";
-				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen	and (orientation : portrait)\" href=\"/rebuild/styles/screen_lrg_ipad_portrait.css\"/>";
+				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/styles/screen_lrg_ipad.css\"/>";
+				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen	and (orientation : portrait)\" href=\"/styles/screen_lrg_ipad_portrait.css\"/>";
 				}
 		?>
 		

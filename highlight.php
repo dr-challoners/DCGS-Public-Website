@@ -62,7 +62,7 @@ $highlights = array();
 foreach ($highlights as $highlight) {
 		if ($highlight[1] >= $currentdate && $highlight[0] <= $twomonths) { //Only gives highlights for now (including currently happening) until two and a half months away
 			$start = date("l jS F",mktime(0,0,0,substr($highlight[0],4,2),substr($highlight[0],6,2),substr($highlight[0],0,4)));
-			echo "\"<a href=\\\"/rebuild/diary/?date=".$highlight[0]."&y=".substr($highlight[0],0,4)."&m=".substr($highlight[0],4,2)."#".$highlight[0]."\\\">";
+			echo "\"<a href=\\\"./diary/?date=".$highlight[0]."&y=".substr($highlight[0],0,4)."&m=".substr($highlight[0],4,2)."#".$highlight[0]."\\\">";
 			echo "<p><strong>".$start;
 			if ($highlight[0] != $highlight[1]) { //If there's a duration to the highlight, give start and end dates
 				$end = date("l jS F",mktime(0,0,0,substr($highlight[1],4,2),substr($highlight[1],6,2),substr($highlight[1],0,4)));

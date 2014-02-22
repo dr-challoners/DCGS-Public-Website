@@ -2,7 +2,7 @@
 
 //Find all the images in a gallery
 $directory = rtrim($_SERVER['PHP_SELF'],"index.php");
-$directory = ltrim($directory,"/rebuild/");
+$directory = ltrim($directory,"/");
 $directory = $directory."gallery-".$_GET['gallery'];
 
 if (is_dir("../../".$directory) == TRUE) { //Check to make sure gallery exists
@@ -74,16 +74,16 @@ if ($_GET['image'] != "") { echo "</div></div>"; }
 echo "<hr />";
 
 	}
-	else {
-	echo "<style> body { background-image: url('/rebuild/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+	else { //If the folder has been found, but is empty
+	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/rebuild/about/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
 	}
 	}
-	else {
-	echo "<style> body { background-image: url('/rebuild/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+	else { //If the folder has not been found
+	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/rebuild/about/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
 	}
 
 ?>

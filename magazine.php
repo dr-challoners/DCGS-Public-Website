@@ -96,7 +96,7 @@ $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] == "BIG") {
 		echo "<a href=\"./news/?story=".$file."\">";
 		echo "<div class=\"big\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/rebuild/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/news/".$image."');\"></div>";
 			echo "<h2>".$component[2]."</h2>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,120)." ...";
@@ -108,7 +108,7 @@ $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] == "STD") {
 		echo "<a href=\"./news/?story=".$file."\">";
 		echo "<div class=\"std\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/rebuild/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,140)." ...";
@@ -131,7 +131,7 @@ $count = 1; foreach ($newsposts as $post) {
 		echo "<div class=\"bar\"";
 			if ($bcount == 3) { echo " id=\"end\""; }
 		echo ">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/rebuild/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p class=\"sml\"><em>".$date."</em></p>"; //Going for just the date on these story stubs
 		echo "</div>";

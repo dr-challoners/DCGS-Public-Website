@@ -1,20 +1,20 @@
 <?php include('header_declarations.php'); ?>
 
-<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/rebuild/styles/homepage_lrg.css"/>
-<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/rebuild/styles/homepage_sml.css"/>
+<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/homepage_lrg.css"/>
+<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/homepage_sml.css"/>
 
 <?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
 
 	<div class="linkbox">
-		<a href="/rebuild/about/admissions/"><h3>Admissions</h3>
+		<a href="/about/admissions/"><h3>Admissions</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/rebuild/about/learning/?page=results"><h3>Results</h3>
+		<a href="/about/learning/?page=results"><h3>Results</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/rebuild/about/vacancies/"><h3>Vacancies</h3>
+		<a href="/about/vacancies/"><h3>Vacancies</h3>
 	</div>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews"><p>DCGS News <span>Follow</span></p></a></div>

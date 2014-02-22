@@ -2,8 +2,8 @@
 
 include('../../header_declarations.php');
 if ($_GET['gallery'] != "") {
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/rebuild/styles/gallery_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/rebuild/styles/gallery_sml.css\"/>";
+	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/gallery_lrg.css\"/>";
+	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/gallery_sml.css\"/>";
 	}
 include('../../header_navigation.php');
 
