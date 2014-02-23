@@ -63,16 +63,15 @@
 				</ul><hr class="sml clear" /></div>
 				
 				<div class="nav_links" id="n1" onmouseover="mcancelclosetime()"><ul>
+					<li class="lrg"><a href="/">Home</a></li>
 					<!-- This goes to the diary with the current day set-->
 					<li class="lrg"><a href="/diary/#<? echo date(Ymd); ?>">Diary</a></li>
 					<li class="sml"><a href="/diary/?device=mobile#<? echo date(Ymd); ?>">Diary</a></li>
 					<li class="sml"><a href="/about/termdates/">Term dates</a></li>
-					<li class="nolink lrg">&middot;</li>
 					<li id="parents"><a href="/intranet/parents/">Parents</a></li>
 					<li id="students"><a href="/intranet/students/">Students</a></li>
 					<li id="subjects"><a href="/intranet/subjects/">Subjects</a></li>
 					<li id="staff"><a href="/intranet/staff/">Staff</a></li>
-					<li class="nolink lrg">&middot;</li>
 					<li class="sml"><a href="/about/admissions/">Admissions</a></li>
 					<li><a href="/about/supporting/">Supporting</a></li>
 					<li class="sml"><a href="/about/vacancies/">Vacancies</a></li>
