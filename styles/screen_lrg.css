@@ -30,13 +30,16 @@ div.mcol, div.mcol-rgt { width: 710px; }
 div.mcol-rgt { margin-left: 270px; }
 
 div.mcol img, div.mcol-rgt img {
-    float: right;
+    margin-top: 20px; margin-bottom: 8px;
     width: 260px;
-    margin: 6px 0px 8px 14px;
     }
 div.mcol img.left, div.mcol-rgt img.left {
     float: left;
-    margin: 6px 14px 8px 0px;
+    margin-right: 14px;
+    }
+div.mcol img.right, div.mcol-rgt img.right {
+    float: right;
+    margin-left: 14px;
     }
 
 div.linkbox {
