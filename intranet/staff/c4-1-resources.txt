@@ -1,8 +1,0 @@
-﻿###Resources
-
-+ [Confucius](https://internal.challoners.com/x/confucius/)
-+ [Staff documents](https://internal.challoners.com/x/admin/content/StaffDocuments.aspx)
-+ [Streaming videos](https://internal.challoners.com/x/video/videos.html)  
-+ [Reprographics](https://internal.challoners.com/x/beta/Sawmill.UI.Web/)  
-+ [Software deployment](https://internal.challoners.com/x/deployment/)
-+ [iOS apps](http://www.challoners.com/staff/resources/ios-apps.html)

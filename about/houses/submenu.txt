@@ -1,5 +1,0 @@
-+ [History of the Houses](./?page=houses_history)
-+ [House representatives](./representatives.php)
-+ [Current scores](./scores.php)
-+ [Recent news](./?page=recentnews)
-+ [Roll of honour](./?page=houses-roll-of-honour)

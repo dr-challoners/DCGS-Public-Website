@@ -1,7 +1,0 @@
-﻿+ [French VLE](https://internal.challoners.com/sites/french)
-+ [German VLE](https://internal.challoners.com/sites/german)
-+ [Spanish VLE](https://internal.challoners.com/sites/spanish)
-+ [Russian VLE](https://internal.challoners.com/sites/russian)
-
-
-

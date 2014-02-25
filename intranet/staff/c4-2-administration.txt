@@ -1,9 +1,0 @@
-﻿###Administration
-
-+ [STEARsoft registration](http://registration.challoners.net:13031/)  
-+ [IT support tickets](https://internal.challoners.com/x/beta/icarus4/)
-+ [Premises tickets](https://internal.challoners.com/x/beta/icarus-estate/)
-+ [Cerval data management](https://internal.challoners.com/x/beta/cerval.ui.web/)  
-+ [Admin tasks](https://internal.challoners.com/x/admin/content/AdminTasks.aspx?Type=Lists)
-+ [Student surveys](https://internal.challoners.com/x/beta/surveys/)  
-+ [Network status](https://internal.challoners.com/x/info/status.aspx)
