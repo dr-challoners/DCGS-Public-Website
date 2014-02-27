@@ -5,7 +5,7 @@ include('../../header_navigation.php');
 
 echo "<h1 class=\"intranet\">Staff intranet</h1>";
 
-$links = scandir("./");
+$links = scandir("./links/");
 $boxes = count($links);
 $boxes = $boxes-3;
 $boxes = $boxes/4;
@@ -35,8 +35,8 @@ echo "</div></div>";
 
 echo "<h1 class=\"clear lrg\">Subject resources</h1>";
 echo "<div class=\"intranet lrg\">";
-	$links = scandir("../subjects/");
-	include('../subjects/subject_list.php');
+	$links = scandir("./subjects/");
+	include('subject_list.php');
 echo "</div>";
 
 include('../../footer.php'); ?>
