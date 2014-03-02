@@ -1,31 +1,16 @@
-<?
-
-include('../../header_declarations.php');
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-width : 480px)\" href=\"./scores_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-width : 480px)\" href=\"./scores_sml.css\"/>";
-include('../../header_navigation.php');
-
-$submenu = file_get_contents('submenu.txt', true);
-
-echo "<div class=\"ncol lft submenu\">";
-	echo Parsedown::instance()->parse($submenu);
-echo "</div>";
-
-echo "<div class=\"mcol-rgt\">";
-
-?>
-
 <h1>House representatives and staff</h1>
 <p>Student representatives are elected for their houses by both their peers and members of staff. The captains and vice captains in each house help organise teams for house competitions for each of the forms in their house, while the Sixth Form mentors work with students in their house in lower years, particularly Year 7. The form representatives help with the daily organisation of their form, as well as representing their form in Student Voice.</p>
 <p>Members of staff take an active involvement within the Challoner's community and their house, and can often be seen wearing their house colour with pride - particularly on Sports Day!</p>
 
 <?php
 
+include ('house_styles.php');
+
 $positions = array("C","VC","M","R11","R10","R9","R8","R7","S");
 $houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 $representatives = array();
 
-$file = fopen("captains.csv","r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/about/houses/captains.csv',"r");
 
 while(! feof($file)) {
 	$line = fgetcsv($file);
@@ -36,7 +21,7 @@ while(! feof($file)) {
 
 fclose($file);
 
-$file = fopen("staff.csv","r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/about/houses/staff.csv',"r", 1);
 
 while(! feof($file)) {
 	$line = fgetcsv($file);
@@ -139,13 +124,5 @@ foreach ($positions as $rank) {
 	}
 
 //echo "<pre>"; print_r($representatives); echo "</pre>";
-
-?> 
-	
-<?
-
-echo "</div>";
-
-include('../../footer.php');
 
 ?>

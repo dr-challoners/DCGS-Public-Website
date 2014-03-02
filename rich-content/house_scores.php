@@ -1,25 +1,10 @@
-<?
-
-include('../../header_declarations.php');
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-width : 480px)\" href=\"./scores_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-width : 480px)\" href=\"./scores_sml.css\"/>";
-include('../../header_navigation.php');
-
-$submenu = file_get_contents('submenu.txt', true);
-
-echo "<div class=\"ncol lft submenu\">";
-	echo Parsedown::instance()->parse($submenu);
-echo "</div>";
-
-echo "<div class=\"mcol-rgt\">";
-
-?>
-
 <?php
 
-	require ('./db-funcs.php');	
+	include ('house_styles.php');
+
+	require ('db-funcs.php');	
 	
-	open_db("./results.csv");
+	open_db($_SERVER['DOCUMENT_ROOT'].'/about/houses/results.csv');
 	$houselist=array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 
 	reset($houselist);
@@ -60,7 +45,7 @@ echo "<div class=\"mcol-rgt\">";
 
 <?php
 
-$file = fopen("results.csv","r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/about/houses/results.csv',"r");
 
 while(! feof($file)) {
 	$line = fgetcsv($file);
@@ -94,11 +79,3 @@ while(! feof($file)) {
 fclose($file);
 
 ?> 
-	
-<?
-
-echo "</div>";
-
-include('../../footer.php');
-
-?>

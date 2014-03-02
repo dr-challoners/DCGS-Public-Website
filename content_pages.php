@@ -22,21 +22,29 @@ echo "<div class=\"mcol-rgt\">";
 		//Selects the file specified, or gives the default file
 		if ($_GET['page'] != "") { $content = $_GET['page']; }
 		else { $content = "default"; } 
-
-		if (file_exists("about/".$_GET['folder']."/".$content.".txt")) {
-			$content = file_get_contents("about/".$_GET['folder']."/".$content.'.txt', true); //Open the appropriate text file for parsing
-			echo Parsedown::instance()->parse($content);
+		
+		switch ($content) { //This allows particular pages to be highlights as having 'rich' content: for instance a contact form, or the House scores
+		case "house_scores":
+			include ('rich-content/house_scores.php');
+			break;
+		case "house_representatives":
+			include ('rich-content/house_representatives.php');
+			break;
+		default: //If it's not a special case, go through the normal process
+			if (file_exists("about/".$_GET['folder']."/".$content.".txt")) {
+				$content = file_get_contents("about/".$_GET['folder']."/".$content.'.txt', true); //Open the appropriate text file for parsing
+				echo Parsedown::instance()->parse($content);
+				}
+			elseif ($content == "default") { //If there's no page found and it's looking for the default page, then display some generic text
+				echo "<h1>Welcome to this section</h1>";
+				echo "<p>Use the links on the left to navigate.</p>";
+				}
+			else { //Displays an error if the page can't be found
+				echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+				echo "<h2>Oh dear!</h2>";
+				echo "<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there's an error, you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
+				} 
 			}
-		elseif ($content = "default") { //If there's no page found and it's looking for the default page, then display some generic text
-			echo "<h1>Welcome to this section</h1>";
-			echo "<p>Use the links on the left to navigate.</p>";
-			}
-		else { //Displays an error if the page can't be found
-			echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
-			echo "<h2>Oh dear!</h2>";
-			echo "<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there's an error, you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
-			} 
-	
 	}
 	
 echo "</div>";

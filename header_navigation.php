@@ -50,16 +50,16 @@
 				</div>
 				
 				<div class="nav_about" id="n2" onmouseover="mcancelclosetime()"><ul>
-					<li><a href="/about/students/">Our students</a></li>
-					<li><a href="/about/learning/">Learning</a></li>
-					<li class="sml"><a href="/about/learning/?page=results">Results</a></li>
+					<li><a href="/">Our students</a></li>
+					<li><a href="/">Learning</a></li>
+					<li class="sml"><a href="/">Results</a></li>
 					<li><a href="/pages/the-arts/">The Arts</a></li>
-					<li><a href="/about/sports/">Sports</a></li>
-					<li><a href="/about/visits/">Visits</a></li>
-					<li><a href="/about/houses/">Houses</a></li>
-					<li><a href="/about/history/">History</a></li>
-					<li class="sml"><a href="/about/admissions/prospectus.pdf">Prospectus</a></li>
-					<li class="sml"><a href="/about/academyinfo/">Academy info</a></li>
+					<li><a href="/">Sports</a></li>
+					<li><a href="/">Visits</a></li>
+					<li><a href="/pages/houses/">Houses</a></li>
+					<li><a href="/">History</a></li>
+					<li class="sml"><a href="/">Prospectus</a></li>
+					<li class="sml"><a href="/">Academy info</a></li>
 				</ul><hr class="sml clear" /></div>
 				
 				<div class="nav_links" id="n1" onmouseover="mcancelclosetime()"><ul>
@@ -67,15 +67,15 @@
 					<!-- This goes to the diary with the current day set-->
 					<li class="lrg"><a href="/diary/<? echo date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
 					<li class="sml"><a href="/diary/m/<? echo date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
-					<li class="sml"><a href="/about/termdates/">Term dates</a></li>
-					<li id="parents"><a href="/intranet/parents/">Parents</a></li>
-					<li id="students"><a href="/intranet/students/">Students</a></li>
-					<li id="subjects"><a href="/intranet/subjects/">Subjects</a></li>
-					<li id="staff"><a href="/intranet/staff/">Staff</a></li>
-					<li class="sml"><a href="/about/admissions/">Admissions</a></li>
-					<li><a href="/about/supporting/">Supporting</a></li>
-					<li class="sml"><a href="/about/vacancies/">Vacancies</a></li>
-					<li><a href="/about/contact/">Contact us</a></li>
+					<li class="sml"><a href="/">Term dates</a></li>
+					<li id="parents"><a href="/">Parents</a></li>
+					<li id="students"><a href="/">Students</a></li>
+					<li id="subjects"><a href="/">Subjects</a></li>
+					<li id="staff"><a href="/">Staff</a></li>
+					<li class="sml"><a href="/">Admissions</a></li>
+					<li><a href="/">Supporting</a></li>
+					<li class="sml"><a href="/">Vacancies</a></li>
+					<li><a href="/">Contact us</a></li>
 				</ul><hr class="sml clear" /></div>
 				
 				</div>

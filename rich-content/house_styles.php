@@ -1,3 +1,4 @@
+<style>
 #foxell			{ background-color: #fac800; }
 #holman			{ background-color: #e87b19; }
 #newman			{ background-color: #d32918; color: #ffffff; }
@@ -63,3 +64,4 @@ div.house {
        border-bottom: none;
        padding-top: 6px; margin-bottom: 10px;
        }
+</style>
