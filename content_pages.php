@@ -37,7 +37,8 @@ echo "<div class=\"mcol-rgt\">";
 				}
 			elseif ($content == "default") { //If there's no page found and it's looking for the default page, then display some generic text
 				echo "<h1>Welcome to this section</h1>";
-				echo "<p>Use the links on the left to navigate.</p>";
+				echo "<p class=\"lrg\">Use the links on the left to navigate.</p>";
+				echo "<p class=\"sml\">Use the links below to navigate.</p>";
 				}
 			else { //Displays an error if the page can't be found
 				echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";

@@ -3,10 +3,11 @@
 				<span class="left lrg">Dr Challoner's Grammar School, &copy; 2005-<? echo date("y"); ?></span>
 				<span class="left sml">DCGS, &copy; 2005-<? echo date("y"); ?></span>
 				<a href="/">Home</a> - 
+				<span class="lrg"><a href="/pages/overview/">Overview</a> - </span>
 				<span class="lrg"><a href="/">Term dates</a> - </span>
-				<span class="lrg"><a href="/">Admissions</a> - </span>
-				<span class="lrg"><a href="/">Academy information</a> - </span>
+				<span class="lrg"><a href="/pages/admissions/">Admissions</a> - </span>
 				<span class="lrg"><a href="/">Vacancies</a> - </span>
+				<span class="lrg"><a href="/">Academy information</a> - </span>
 				<a href="/">Privacy and Cookies</a>
 				<span class="lrg"> - <a href="/">Contact us</a></span>
 			</p></div>

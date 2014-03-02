@@ -50,14 +50,14 @@
 				</div>
 				
 				<div class="nav_about" id="n2" onmouseover="mcancelclosetime()"><ul>
-					<li><a href="/">Our students</a></li>
-					<li><a href="/">Learning</a></li>
+					<li class="sml"><a href="/pages/overview/">Overview</a></li>
+					<li><a href="/pages/learning/">Learning</a></li>
 					<li class="sml"><a href="/">Results</a></li>
 					<li><a href="/pages/the-arts/">The Arts</a></li>
 					<li><a href="/">Sports</a></li>
-					<li><a href="/">Visits</a></li>
+					<li><a href="/pages/enrichment/">Enrichment</a></li>
 					<li><a href="/pages/houses/">Houses</a></li>
-					<li><a href="/">History</a></li>
+					<li><a href="/pages/history/">History</a></li>
 					<li class="sml"><a href="/">Prospectus</a></li>
 					<li class="sml"><a href="/">Academy info</a></li>
 				</ul><hr class="sml clear" /></div>
@@ -70,8 +70,9 @@
 					<li class="sml"><a href="/">Term dates</a></li>
 					<li><a href="/portal/parents/">Parents</a></li>
 					<li><a href="/portal/intranet/">Intranet</a></li>
-					<li class="sml"><a href="/">Admissions</a></li>
-					<li><a href="/">Supporting</a></li>
+					<li class="sml"><a href="/pages/admissions/">Admissions</a></li>
+					<li><a href="/">Alumni</a></li>
+					<li><a href="/">Support us</a></li>
 					<li class="sml"><a href="/">Vacancies</a></li>
 					<li><a href="/">Contact us</a></li>
 				</ul><hr class="sml clear" /></div>

@@ -4,8 +4,8 @@ $override = 0;
 	
 $status = file_get_contents("controls/override_status.txt", true);
 
-if ($status == "none" && $_GET['override'] == "") { $status = ""; } //If there's no status being given, stop the override from happening
-elseif ($status == "none" && $_GET['override'] != "") { $status = $_GET['override']; } //If there's no formal override, check for a test override
+if ($_GET['override'] != "") { $status = $_GET['override']; } //First check to see if an override is being tested
+elseif ($status == "none") { $status = ""; } //If there's no status being given, stop the override from happening
 
 if ($status != "") { //If any form of status has been set, display the override
 

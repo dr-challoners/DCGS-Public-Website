@@ -59,6 +59,8 @@ div.linkbox {
        div.linkbox h3:hover {
           background-color: #2358A3; color: #ffffff;
           }
+
+iframe {margin-top: 20px; }
     
 /* Header */
 div.header { position: fixed; z-index: 2; top: 0px; }
@@ -102,20 +104,16 @@ div.nav_about, div.nav_links {
         }
         
 div.nav_links li, div.nav_about li { font-size: 17px; }
-div.nav_links li#parents { padding: 0px 4px 0px 8px; }
-div.nav_links li#students { padding: 0px 5px 0px 5px; }
-div.nav_links li#subjects { padding: 0px 5px 0px 5px; }
-div.nav_links li#staff { padding: 0px 8px 0px 5px; }
 
 div.nav_about a {
-    padding: 5px 11px 0px 11px;
+    padding: 5px 14px 0px 14px;
     height: 38px;
     color: #ffffff;
     }
     div.nav_about a:hover {
         background-color: #2358A3;
         }
-div.nav_links a { padding: 5px 10px 0px 10px; }
+div.nav_links a { padding: 5px 8px 0px 8px; }
 div.nav_links a, div.nav_about a {
     height: 30px;
     text-transform: uppercase;
@@ -152,6 +150,13 @@ div.submenu {
     border-right: 1px solid #aaaaaa;
     width: 245px;
     padding: 10px 0px 10px 0px;
+    }
+    div.submenu ul { margin-bottom: 26px; }
+
+div.ncol h2 { margin: 2px 0px 15px 0px; text-align: center; }
+div.ncol ul h2 {
+    font-style: normal;
+    margin: -2px 0px 8px 0px;
     }
 
 div.submenu li {

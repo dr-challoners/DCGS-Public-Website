@@ -8,10 +8,10 @@
 <div class="ncol rgt lrg">
 	
 	<div class="linkbox">
-		<a href="/"><h3>Admissions</h3>
+		<a href="/pages/overview/"><h3>Overview</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/"><h3>Results</h3>
+		<a href="/pages/admissions/"><h3>Admissions</h3>
 	</div>
 	<div class="linkbox">
 		<a href="/"><h3>Vacancies</h3>

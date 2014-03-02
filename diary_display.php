@@ -12,9 +12,9 @@ if ($_GET['event'] != "") { //We want to be looking at an events page: deal with
 	$type = $_GET['event'];
 	
 	echo "<div class=\"ncol lft\">";
-		echo "<h1>".$type;
+		echo "<h2>".$type;
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
-		echo "</h1>";
+		echo "</h2>";
 		echo "<div class=\"linkbox\">";
 			echo "<a href=\"/diary/".date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd)."\"><h3>Main diary</h3></a>";
 		echo "</div>";
