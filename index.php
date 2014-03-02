@@ -6,12 +6,12 @@
 <?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
-
+	
 	<div class="linkbox">
 		<a href="/"><h3>Admissions</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/><h3>Results</h3>
+		<a href="/"><h3>Results</h3>
 	</div>
 	<div class="linkbox">
 		<a href="/"><h3>Vacancies</h3>
@@ -31,7 +31,7 @@
 <h1 class="dcgs sml">Welcome to Dr Challoner's Grammar School</h1>
 
 <?
-include ('override.php');
+include ('override_display.php');
 include ('magazine.php');
 include ('highlight.php');
 ?>

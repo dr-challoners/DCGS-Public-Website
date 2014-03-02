@@ -21,16 +21,15 @@ div.override {
 
 #closure {
     color: #ffffff; background-color: #303030;
-    background-image: url('/rebuild/main_imgs/override_closure.png');
+    background-image: url(/main_imgs/override_closure.png);
     padding-right: 250px;
     }
     #closure a { color: #F2A106; }
     #closure a:hover { color: #FFC405; }
 #snow_amber {
-    background-image: url('/rebuild/main_imgs/override_snow_amber.png');
+    background-image: url(/main_imgs/override_snow_amber.png);
     padding-right: 250px;
     }
-#advert { background-image: url('/rebuild/override/ACTIVE/advert.jpg'); }
 
 /* Magazine */
 div.magazine { margin-top: 5px; }
