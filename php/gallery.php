@@ -1,13 +1,10 @@
 <?php
 
 //Find all the images in a gallery
-$directory = rtrim($_SERVER['PHP_SELF'],"index.php");
-$directory = ltrim($directory,"/");
-$directory = $directory."gallery-".$_GET['gallery'];
+$gallery = "gallery-".$_GET['gallery'];
+if (is_dir("about/".$_GET['folder']."/".$gallery) == TRUE) { //Check to make sure gallery exists
 
-if (is_dir("../../".$directory) == TRUE) { //Check to make sure gallery exists
-
-$photos = scandir("../../".$directory, 1);
+$photos = scandir("about/".$_GET['folder']."/".$gallery, 1);
 array_pop($photos);
 array_pop($photos);
 
@@ -20,7 +17,7 @@ if ($_GET['image'] != "") { //We're looking at a specific image, so go to that v
 	
 	echo "<div class=\"viewphoto\">";
 		echo "<h2>".str_replace("_"," ",strchr($_GET['image'],".",true))."</h2>";
-		echo "<div class=\"photo\" style=\" background-image: url('gallery-".$_GET['gallery']."/".$_GET['image']."');\"></div>";
+		echo "<div class=\"photo\" style=\" background-image: url('/about/".$_GET['folder']."/".$gallery."/".$_GET['image']."');\"></div>";
 		echo "<div class=\"stublist\">";
 	}
 else { //Otherwise it's the gallery preview
@@ -29,8 +26,8 @@ else { //Otherwise it's the gallery preview
 	$hplace = array("left","center","right"); //To randomly align the snapshot of the image in its box
 	$vplace = array("left","center","right");
 	
-	if (file_exists("../../".$directory."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
-		$description = file_get_contents("../../".$directory."/description.txt", true);
+	if (file_exists("about/".$_GET['folder']."/".$gallery."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
+		$description = file_get_contents("about/".$_GET['folder']."/".$gallery."/description.txt", true);
 		echo "<div class=\"description\">";
 			echo Parsedown::instance()->parse($description);
 		echo "</div>";

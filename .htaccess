@@ -2,16 +2,21 @@ RewriteEngine On    #Turn on the rewriting engine
 
 #See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
 
+#General content pages
+RewriteRule    ^pages/(.+)/(.*)$    content_pages.php?folder=$1&page=$2    [L]
+RewriteRule    ^gallery/(.+)/(.*)$    content_pages.php?folder=$1&gallery=$2    [L]
+RewriteRule    ^image/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&gallery=$2&image=$3    [L]
+
 #News stories
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
 
 #Diary entries, where $1 is the year, $2 the month and $3 the full date - the first two variables are for browsing the calendar
-RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)$    diary_display.php?date=$3&y=$1&m=$2    [NE,L]
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)$    diary_display.php?date=$3&y=$1&m=$2    [L]
 
 #Diary event entries
-RewriteRule    ^diary/event/(.+)$    diary_display.php?event=$1    [NE,L]
+RewriteRule    ^diary/event/(.+)$    diary_display.php?event=$1    [L]
 
 #Diary rules for mobile
-RewriteRule    ^diary/m/([0-9]+)$    diary_display.php?date=$1&device=mobile    [NE,L]
-RewriteRule    ^diary/m/c/([0-9]+)/([0-9]+)/$    diary_display.php?date=$3&y=$1&m=$2&device=mobile&display=calendar    [NE,L]
-RewriteRule    ^diary/m/event/(.+)$    diary_display.php?event=$1&device=mobile    [NE,L]
+RewriteRule    ^diary/m/([0-9]+)$    diary_display.php?date=$1&device=mobile    [L]
+RewriteRule    ^diary/m/c/([0-9]+)/([0-9]+)/$    diary_display.php?date=$3&y=$1&m=$2&device=mobile&display=calendar    [L]
+RewriteRule    ^diary/m/event/(.+)$    diary_display.php?event=$1&device=mobile    [L]

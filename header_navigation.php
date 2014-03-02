@@ -53,7 +53,7 @@
 					<li><a href="/about/students/">Our students</a></li>
 					<li><a href="/about/learning/">Learning</a></li>
 					<li class="sml"><a href="/about/learning/?page=results">Results</a></li>
-					<li><a href="/about/arts/">The Arts</a></li>
+					<li><a href="/pages/the-arts/">The Arts</a></li>
 					<li><a href="/about/sports/">Sports</a></li>
 					<li><a href="/about/visits/">Visits</a></li>
 					<li><a href="/about/houses/">Houses</a></li>
