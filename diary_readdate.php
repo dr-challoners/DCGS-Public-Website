@@ -6,7 +6,7 @@ $calweekday = date("N",$makedate);
 $caldate = date("l jS",$makedate); //Puts the date in a friendly format for display, eg 'Saturday 15th'
 $calmonth = date("F Y",$makedate); //For displaying month and year
 
-if (file_exists("./items/".$datestamp.".xml")) { $date = simplexml_load_file("./items/".$datestamp.".xml"); //If there are events this date then it loads them
+if (file_exists("diary/".$datestamp.".xml")) { $date = simplexml_load_file("diary/".$datestamp.".xml"); //If there are events this date then it loads them
 	echo "<h2>".$caldate; //Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
 	if ($calday == "1" || $calweekday == "1") { //If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
 		echo "<span>".$calmonth."</span>";
@@ -34,7 +34,7 @@ if (file_exists("./items/".$datestamp.".xml")) { $date = simplexml_load_file("./
 				}
 				else { echo "<p class=\"time\"></p>"; }
 			echo "<h3>".$title."</h3>";
-			echo "<p class=\"allevents\"><a id=\"".$type."\" href=\"./?event=".$type."\"> See all ".strtolower($type)."";
+			echo "<p class=\"allevents\"><a id=\"".$type."\" href=\"/diary/event/".$type."\"> See all ".strtolower($type)."";
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //Just sorts out grammar
 			echo "</a></p>";
 		

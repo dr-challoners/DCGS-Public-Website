@@ -1,6 +1,6 @@
 <?php
 
-if (file_exists("./items/".$type.".xml")) { $eventread = simplexml_load_file("./items/".$type.".xml"); //If there are events this date then it loads them
+if (file_exists("diary/".$type.".xml")) { $eventread = simplexml_load_file("diary/".$type.".xml"); //If there are events this date then it loads them
 	$count = 1;
 	$notblank = 0;
 	foreach($eventread->events->event as $event) { //Work through each event one at a time
@@ -42,7 +42,7 @@ if (file_exists("./items/".$type.".xml")) { $eventread = simplexml_load_file("./
 				}
 				else { echo "<p class=\"time\"></p>"; }
 			echo "<h3>".$title."</h3>";
-			echo "<p class=\"allevents\"><a href=\"?date=".date(Ymd,$date)."&y=".substr(date(Ymd,$date),0,4)."&m=".substr(date(Ymd,$date),4,2)."#".date(Ymd,$date)."\">See in the diary</a></p>";
+			echo "<p class=\"allevents\"><a href=\"/diary/".substr(date(Ymd,$date),0,4)."/".substr(date(Ymd,$date),4,2)."/".date(Ymd,$date)."#".date(Ymd,$date)."\">See in the diary</a></p>";
 		
 			//Further details
 			if ($depart != "") { //This indicates that it's an away sporting fixture, which then prompts further details
