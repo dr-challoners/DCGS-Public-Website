@@ -1,0 +1,5 @@
+RewriteEngine On    #Turn on the rewriting engine
+
+#See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
+
+RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]    #News stories
