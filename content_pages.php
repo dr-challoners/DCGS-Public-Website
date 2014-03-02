@@ -7,7 +7,7 @@ if ($_GET['gallery'] != "") {
 	}
 include('header_navigation.php');
 
-$submenu = file_get_contents("about/".$_GET['folder']."/submenu.txt", true);
+$submenu = file_get_contents("content_plain/".$_GET['folder']."/submenu.txt", true);
 
 echo "<div class=\"ncol lft submenu\">";
 	echo "<h3 class=\"sml\">See more in this section</h3>";
@@ -25,14 +25,14 @@ echo "<div class=\"mcol-rgt\">";
 		
 		switch ($content) { //This allows particular pages to be highlights as having 'rich' content: for instance a contact form, or the House scores
 		case "house_scores":
-			include ('rich-content/house_scores.php');
+			include ('content_rich/house_scores.php');
 			break;
 		case "house_representatives":
-			include ('rich-content/house_representatives.php');
+			include ('content_rich/house_representatives.php');
 			break;
 		default: //If it's not a special case, go through the normal process
-			if (file_exists("about/".$_GET['folder']."/".$content.".txt")) {
-				$content = file_get_contents("about/".$_GET['folder']."/".$content.'.txt', true); //Open the appropriate text file for parsing
+			if (file_exists("content_plain/".$_GET['folder']."/".$content.".txt")) {
+				$content = file_get_contents("content_plain/".$_GET['folder']."/".$content.'.txt', true); //Open the appropriate text file for parsing
 				echo Parsedown::instance()->parse($content);
 				}
 			elseif ($content == "default") { //If there's no page found and it's looking for the default page, then display some generic text

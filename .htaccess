@@ -7,6 +7,9 @@ RewriteRule    ^pages/(.+)/(.*)$    content_pages.php?folder=$1&page=$2    [L]
 RewriteRule    ^gallery/(.+)/(.*)$    content_pages.php?folder=$1&gallery=$2    [L]
 RewriteRule    ^image/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&gallery=$2&image=$3    [L]
 
+#Intranet pages
+RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]
+
 #News stories
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
 

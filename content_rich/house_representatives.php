@@ -10,7 +10,7 @@ $positions = array("C","VC","M","R11","R10","R9","R8","R7","S");
 $houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 $representatives = array();
 
-$file = fopen($_SERVER['DOCUMENT_ROOT'].'/about/houses/captains.csv',"r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/houses/captains.csv',"r");
 
 while(! feof($file)) {
 	$line = fgetcsv($file);
@@ -21,7 +21,7 @@ while(! feof($file)) {
 
 fclose($file);
 
-$file = fopen($_SERVER['DOCUMENT_ROOT'].'/about/houses/staff.csv',"r", 1);
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/houses/staff.csv',"r", 1);
 
 while(! feof($file)) {
 	$line = fgetcsv($file);

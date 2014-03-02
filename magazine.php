@@ -1,6 +1,6 @@
 <?php
 
-$newsfiles = scandir("about/news/", 1); //Calls up all the files in the news folder
+$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
 	
 for ($non = 0; $non <= 12;) { //Mark posts that don't have images
@@ -90,13 +90,13 @@ $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] != "NON") { $image = addcslashes($newsfiles[array_search($component[2],$newsimages)],"'"); }
 	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4),0));
 	$file = substr($post,4);
-	$story = file_get_contents('about/news/'.substr($post,4).".txt", true);
+	$story = file_get_contents('content_plain/news/'.substr($post,4).".txt", true);
 	
 	//Format according to type
 	if ($component[0] == "BIG") {
 		echo "<a href=\"news/".$file."\">";
 		echo "<div class=\"big\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/about/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
 			echo "<h2>".$component[2]."</h2>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,120)." ...";
@@ -108,7 +108,7 @@ $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] == "STD") {
 		echo "<a href=\"news/".$file."\">";
 		echo "<div class=\"std\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/about/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,140)." ...";
@@ -131,7 +131,7 @@ $count = 1; foreach ($newsposts as $post) {
 		echo "<div class=\"bar\"";
 			if ($bcount == 3) { echo " id=\"end\""; }
 		echo ">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/about/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p class=\"sml\"><em>".$date."</em></p>"; //Going for just the date on these story stubs
 		echo "</div>";

@@ -68,10 +68,8 @@
 					<li class="lrg"><a href="/diary/<? echo date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
 					<li class="sml"><a href="/diary/m/<? echo date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
 					<li class="sml"><a href="/">Term dates</a></li>
-					<li id="parents"><a href="/">Parents</a></li>
-					<li id="students"><a href="/">Students</a></li>
-					<li id="subjects"><a href="/">Subjects</a></li>
-					<li id="staff"><a href="/">Staff</a></li>
+					<li><a href="/portal/parents/">Parents</a></li>
+					<li><a href="/portal/intranet/">Intranet</a></li>
 					<li class="sml"><a href="/">Admissions</a></li>
 					<li><a href="/">Supporting</a></li>
 					<li class="sml"><a href="/">Vacancies</a></li>

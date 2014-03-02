@@ -2,9 +2,9 @@
 
 //Find all the images in a gallery
 $gallery = "gallery-".$_GET['gallery'];
-if (is_dir("about/".$_GET['folder']."/".$gallery) == TRUE) { //Check to make sure gallery exists
+if (is_dir("content_plain/".$_GET['folder']."/".$gallery) == TRUE) { //Check to make sure gallery exists
 
-$photos = scandir("about/".$_GET['folder']."/".$gallery, 1);
+$photos = scandir("content_plain/".$_GET['folder']."/".$gallery, 1);
 array_pop($photos);
 array_pop($photos);
 
@@ -17,7 +17,7 @@ if ($_GET['image'] != "") { //We're looking at a specific image, so go to that v
 	
 	echo "<div class=\"viewphoto\">";
 		echo "<h2>".str_replace("_"," ",strchr($_GET['image'],".",true))."</h2>";
-		echo "<div class=\"photo\" style=\" background-image: url('/about/".$_GET['folder']."/".$gallery."/".$_GET['image']."');\"></div>";
+		echo "<div class=\"photo\" style=\" background-image: url('/content_plain/".$_GET['folder']."/".$gallery."/".$_GET['image']."');\"></div>";
 		echo "<div class=\"stublist\">";
 	}
 else { //Otherwise it's the gallery preview
@@ -26,8 +26,8 @@ else { //Otherwise it's the gallery preview
 	$hplace = array("left","center","right"); //To randomly align the snapshot of the image in its box
 	$vplace = array("left","center","right");
 	
-	if (file_exists("about/".$_GET['folder']."/".$gallery."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
-		$description = file_get_contents("about/".$_GET['folder']."/".$gallery."/description.txt", true);
+	if (file_exists("content_plain/".$_GET['folder']."/".$gallery."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
+		$description = file_get_contents("content_plain/".$_GET['folder']."/".$gallery."/description.txt", true);
 		echo "<div class=\"description\">";
 			echo Parsedown::instance()->parse($description);
 		echo "</div>";
@@ -74,13 +74,13 @@ echo "<hr />";
 	else { //If the folder has been found, but is empty
 	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/content_plain/contact/\">contact us</a> to report the problem.</p>";
 	}
 	}
 	else { //If the folder has not been found
 	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/content_plain/contact/\">contact us</a> to report the problem.</p>";
 	}
 
 ?>

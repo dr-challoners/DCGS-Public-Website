@@ -9,7 +9,7 @@ if ($_GET['story'] != "index.php") {
 <div class="ncol lft submenu">
 
 <?
-$newsfiles = scandir("about/news/", 1); //Calls up all the files in the news folder
+$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
 echo "<h3 class=\"sml\">See more in this section</h3>";
 echo "<ul>";
@@ -36,10 +36,10 @@ echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($compone
 $image = array_search($component[1],$newsimages);
 if ($image != "") {
 	$image = addcslashes($newsfiles[array_search($component[1],$newsimages)],"'");
-	echo "<div class=\"newsimg\" style=\"background-image: url('/about/news/".$image."');\"></div>";
+	echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
 	}
 
-$content = file_get_contents('about/news/'.$_GET['story'].".txt", true);
+$content = file_get_contents('content_plain/news/'.$_GET['story'].".txt", true);
 echo Parsedown::instance()->parse($content);
 
 echo "<p class=\"credit\">".$component[2];

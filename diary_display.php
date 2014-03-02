@@ -19,7 +19,7 @@ if ($_GET['event'] != "") { //We want to be looking at an events page: deal with
 			echo "<a href=\"/diary/".date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd)."\"><h3>Main diary</h3></a>";
 		echo "</div>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/about/termdates/\"><h3>Term dates</h3></a>";
+			echo "<a href=\"/content_plain/termdates/\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "</div>";
 	
@@ -42,7 +42,7 @@ if (($_GET['device'] == "mobile" && $_GET['display'] == "calendar") || $_GET['de
 	echo "<div class=\"ncol lft\">";
 		include ('diary_calendar.php');
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/about/termdates/\">";
+			echo "<a href=\"/content_plain/termdates/\">";
 			if ($_GET['device'] == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
 			else { echo "<h3>Term dates</h3>"; }
 			echo "</a>";
