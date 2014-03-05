@@ -16,7 +16,7 @@ if ($_GET['event'] != "") { //We want to be looking at an events page: deal with
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
 		echo "</h2>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/diary/".date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd)."\"><h3>Main diary</h3></a>";
+			echo "<a href=\"/diary/".date('Y')."/".date('m')."/".date('Ymd')."#".date('Ymd')."\"><h3>Main diary</h3></a>";
 		echo "</div>";
 		echo "<div class=\"linkbox\">";
 			echo "<a href=\"/content_plain/termdates/\"><h3>Term dates</h3></a>";
@@ -61,7 +61,7 @@ else { //Mobile only navigation
 	echo "</div>";
 	
 	echo "<div class=\"linkbox\">";
-		echo "<a href=\"/diary/m/c/".date(Y)."/".date(m)."/\"><h3>Browse the calendar</h3></a>";
+		echo "<a href=\"/diary/m/c/".date('Y')."/".date('m')."/\"><h3>Browse the calendar</h3></a>";
 		echo "<a href=\"/about/termdates/\"><h3>See term dates</h3></a>";
 	echo "</div>";
 	}

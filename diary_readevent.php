@@ -8,9 +8,10 @@ if (file_exists("diary/".$type.".xml")) { $eventread = simplexml_load_file("diar
 		
 		//Process general event details:
 		$date = $event -> date;
-		$date = mktime(0,0,0,substr($date,4,2),substr($date,0,2),substr($date,6,4));
+		$datecheck = substr($date,6,4).substr($date,3,2).substr($date,0,2);
+		$date = mktime(0,0,0,substr($date,3,2),substr($date,0,2),substr($date,6,4));
 		
-		if ($date >= mktime()) { //Only display the event if it hasn't happened yet
+		if ($datecheck >= date('Ymd')) { //Only display the event if it hasn't happened yet
 		$displayday = date("l jS",$date);
 		$displaymonth = date("F Y",$date);
 			
@@ -42,7 +43,7 @@ if (file_exists("diary/".$type.".xml")) { $eventread = simplexml_load_file("diar
 				}
 				else { echo "<p class=\"time\"></p>"; }
 			echo "<h3>".$title."</h3>";
-			echo "<p class=\"allevents\"><a href=\"/diary/".substr(date(Ymd,$date),0,4)."/".substr(date(Ymd,$date),4,2)."/".date(Ymd,$date)."#".date(Ymd,$date)."\">See in the diary</a></p>";
+			echo "<p class=\"allevents\"><a href=\"/diary/".substr(date('Ymd',$date),0,4)."/".substr(date('Ymd',$date),4,2)."/".date('Ymd',$date)."#".date('Ymd',$date)."\">See in the diary</a></p>";
 		
 			//Further details
 			if ($depart != "") { //This indicates that it's an away sporting fixture, which then prompts further details

@@ -64,8 +64,8 @@
 				<div class="nav_links" <?php if ($_GET['open'] == "links") { echo "style=\"visibility:visible;\""; } ?>><ul>
 					<li class="lrg"><a href="/">Home</a></li>
 					<!-- This goes to the diary with the current day set-->
-					<li class="lrg"><a href="/diary/<?php echo date(Y)."/".date(m)."/".date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
-					<li class="sml"><a href="/diary/m/<?php echo date(Ymd)."#".date(Ymd); ?>">Diary</a></li>
+					<li class="lrg"><a href="/diary/<?php echo date('Y')."/".date(m)."/".date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
+					<li class="sml"><a href="/diary/m/<?php echo date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
 					<li class="sml"><a href="/pages/information/termdates">Term dates</a></li>
 					<li><a href="/portal/parents/">Parents</a></li>
 					<li><a href="/portal/intranet/">Intranet</a></li>

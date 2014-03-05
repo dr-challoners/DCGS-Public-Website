@@ -29,6 +29,9 @@
 				}
 		?>
 		
-		<?php include('php/parsedown.php'); //See parsedown.org ?>
+		<?php
+			include('php/parsedown.php'); //See parsedown.org
+			date_default_timezone_set("Europe/London");
+		?>
 		
 		<!-- The head tag concludes in header_navigation.php: this allows more code to be added to the head tag. -->
