@@ -80,7 +80,7 @@ div.twitter-header {
 
 div.twitter-header p {
     padding: 5px 31px 5px 7px; margin: 0px;
-    background-image: url('/rebuild/main_imgs/twitter.png');
+    background-image: url('/main_imgs/twitter.png');
     background-position: right 8px;
     background-repeat: no-repeat;
     transition: background-color 0.2s, color 0.2s;
@@ -104,6 +104,8 @@ div.twitter-header#sprt { background-color: #b21614; }
     div.twitter-header#sprt a { color: #ffffff; }
 
 .twitter-timeline { height: 390px; margin-bottom: -5px; }
+
+iframe { margin-top: 0px; }
 
 /* Highlight */
 div.highlight {

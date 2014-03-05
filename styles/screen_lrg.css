@@ -139,8 +139,20 @@ p {
     line-height: 22px;
     margin-top: 14px;
     }
+    h4 {
+    font-size: 20px;
+    line-height: 22px; margin-top: 14px;
+    }
+
+div.mcol ul, div.mcol-rgt ul { margin-top: 14px; }
+div.mcol li, div.mcol-rgt li {
+    font-family: Trebuchet, Verdana, sans-serif;
+    font-size: 14px;
+    line-height: 26px;
+    margin-left: 24px; padding-left: 8px;
+}
     
-h2 { margin-top: 20px; }
+h2 { margin: 20px 0px -8px 0px; }
 h3 {margin-top: 5px; }
 
 a.anchor { height: 185px; margin: -185px 0px 0px 0px; display: block; background-color: transparent; }

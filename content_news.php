@@ -8,7 +8,7 @@ if ($_GET['story'] != "index.php") {
 
 <div class="ncol lft submenu">
 
-<?
+<?php
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
 echo "<h3 class=\"sml\">See more in this section</h3>";
@@ -27,7 +27,7 @@ echo "</ul>";
 </div>
 <div class="mcol-rgt">
 
-<?
+<?php
 $component = explode("~",$_GET['story']);
 
 echo "<h1>".$component[1]."</h1>";
@@ -53,7 +53,7 @@ echo "</p>";
 
 </div>
 
-<?
+<?php
 	}
 else { //Displays an error if a story hasn't been set
 	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";

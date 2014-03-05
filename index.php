@@ -14,7 +14,7 @@
 		<a href="/pages/admissions/"><h3>Admissions</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/"><h3>Vacancies</h3>
+		<a href="/pages/information/vacancies"><h3>Vacancies</h3>
 	</div>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews"><p>DCGS News <span>Follow</span></p></a></div>
@@ -30,7 +30,7 @@
 
 <h1 class="dcgs sml">Welcome to Dr Challoner's Grammar School</h1>
 
-<?
+<?php
 include ('override_display.php');
 include ('magazine.php');
 include ('highlight.php');
@@ -38,4 +38,4 @@ include ('highlight.php');
 
 </div>
 
-<? include('footer.php'); ?>
+<?php include('footer.php'); ?>

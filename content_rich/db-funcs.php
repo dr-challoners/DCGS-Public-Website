@@ -1,4 +1,4 @@
-<?
+<?php
 function open_db($dbName)
 {
  global $fp_db;

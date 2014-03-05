@@ -6,6 +6,7 @@ RewriteEngine On    #Turn on the rewriting engine
 RewriteRule    ^pages/(.+)/(.*)$    content_pages.php?folder=$1&page=$2    [L]
 RewriteRule    ^gallery/(.+)/(.*)$    content_pages.php?folder=$1&gallery=$2    [L]
 RewriteRule    ^image/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&gallery=$2&image=$3    [L]
+RewriteRule    ^documents/(.*)$    content_plain/documents/$1    [L]    #For listing documents in the documents folder (so it's the same directory as the current site)
 
 #Intranet pages
 RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]

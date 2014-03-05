@@ -3,7 +3,7 @@
 include('header_declarations.php');
 include('header_navigation.php');
 
-echo "<h1 class=\"intranet\">Staff intranet</h1>";
+echo "<h1 class=\"intranet\">Staff and student intranet</h1>";
 
 $directory = "content_plain/portal/intranet/links/";
 

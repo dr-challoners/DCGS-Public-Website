@@ -7,20 +7,20 @@ if ($_GET['m'] != "") { $m = $_GET['m']; } else { $m = date("m"); }
 
 <div class="calendar">
 		<p class="month">
-			<?
+			<?php
 			$lyear = date("Y",mktime(0,0,0,$m-1,1,$y)); $lmonth = date("m",mktime(0,0,0,$m-1,1,$y));
 			$nyear = date("Y",mktime(0,0,0,$m+1,1,$y)); $nmonth = date("m",mktime(0,0,0,$m+1,1,$y));
 			?>
 			
-			<a class="lmonth" href="/diary/<?
+			<a class="lmonth" href="/diary/<?php
 				if ($_GET['device'] == "mobile") { echo "m/c/"; } //If we're on a mobile, stay on the mobile view
 				echo $lyear."/".$lmonth."/";
 				if ($_GET['device'] != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
 			?>">&#171;</a>
 			
-			<? echo date("F Y",mktime(0,0,0,$m,1,$y)); ?>
+			<?php echo date("F Y",mktime(0,0,0,$m,1,$y)); ?>
 			
-			<a class="nmonth" href="/diary/<?
+			<a class="nmonth" href="/diary/<?php
 				if ($_GET['device'] == "mobile") { echo "m/c/"; }
 				echo $nyear."/".$nmonth."/";
 				if ($_GET['device'] != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
@@ -36,7 +36,7 @@ if ($_GET['m'] != "") { $m = $_GET['m']; } else { $m = date("m"); }
 			<p>Sun</p>
 		</div>
 		
-<?
+<?php
 
 $startday = date("N",mktime(0,0,0,$m,1,$y)); //Determines at what point in the week the month starts
 $previews = array(); //We'll put things in this later (dates for which previews are needed - ie there's events on that day)

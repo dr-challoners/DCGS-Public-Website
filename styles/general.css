@@ -11,6 +11,7 @@ h1, h2, h3 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     font-weight: normal;
     }
+    h4 { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
 
 a { color: #173f7a; }
 a:hover { color: #3E70EF; }
