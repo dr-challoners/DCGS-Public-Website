@@ -9,9 +9,12 @@ include('header_navigation.php');
 
 $submenu = file_get_contents("content_plain/".$_GET['folder']."/submenu.txt", true);
 
+
 echo "<div class=\"ncol lft submenu\">";
-	echo "<h3 class=\"sml\">See more in this section</h3>";
-	echo Parsedown::instance()->parse($submenu);
+	echo "<h3 class=\"sml\"><a href=\"javascript:openClose('n3','n1','n2')\">See more in this section</a></h3>";
+	echo "<div id=\"n3\">";
+		echo Parsedown::instance()->parse($submenu);
+	echo "</div>";
 echo "</div>";
 
 echo "<div class=\"mcol-rgt\">";

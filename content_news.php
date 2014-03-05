@@ -7,12 +7,12 @@ if ($_GET['story'] != "index.php") {
 ?>
 
 <div class="ncol lft submenu">
+<h3 class="sml"><a href="javascript:openClose('n3','n1','n2')">See more in this section</a></h3>";
 
 <?php
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
-echo "<h3 class=\"sml\">See more in this section</h3>";
-echo "<ul>";
+echo "<ul id=\"n3\">";
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
 		echo "<li>";

@@ -1,39 +1,23 @@
 	</head>
 	<body>
 		
-		<script type="text/javascript"> // Copyright 2006-2007 javascript-array.com
-			var timeout	= 0;
-			var closetimer	= 0;
-			var ddmenuitem	= 0;
-		
-			function mopen(id) { // open hidden layer
-				mcancelclosetime(); // cancel close timer
-				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden'; // close old layer
-				ddmenuitem = document.getElementById(id);
-				ddmenuitem.style.visibility = 'visible'; // get new layer and show it
-				}
-
-			function mclose() { // close displayed layer
-				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-				}
-
-			function mclosetime() { // go close timer
-				closetimer = window.setTimeout(mclose, timeout);
-				}
-
-			function mcancelclosetime() { // cancel close timer
-				if(closetimer) {
-					window.clearTimeout(closetimer);
-					closetimer = null;
-					}
-				}
-
-			document.onclick = mclose; // close layer when click-out
-		</script>
-		
 		<!-- These divs create the blue and white bars across the top and bottom of the page. On small screens, appropriate elements can handle this styling as the screen width will equal the page width. -->
 		<div class="colourbar lrg" id="top"></div>
 		<div class="colourbar lrg" id="btm"></div>
+		
+		<script type="text/javascript">
+			function openClose(div1,div2,div3) {
+				if(document.getElementById(div1).style.display == 'block') {
+					document.getElementById(div1).style.display='none';
+					}
+				else {
+					document.getElementById(div1).style.display = 'block';
+					}
+					
+				document.getElementById(div2).style.display='none';
+				document.getElementById(div3).style.display='none';
+				}
+		</script>
 
 		<div class="page"><!--On large screens, this constrains the elements to 980px wide and centres them in the browser. On small screens it does nothing. -->
 			<div class="header"><!--Fixes all these items to the top of the browser-->
@@ -46,10 +30,10 @@
 				<div class="nav_dropdown">
 				<div class="sml">
 				<a class="bannerlink" href="/"><img class="banner_img" src="/main_imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
-				<p><span><a href="?open=links">Links</a></span> <span class="spacer">&middot;</span> <span onclick="mopen('n2')">About us</span></p>
+				<p><span><a href="javascript:openClose('n1','n2','n3')">Links</a></span> <span class="spacer">&middot;</span> <span><a onclick="openClose('n2','n1','n3')">About us</a></span></p>
 				</div>
 				
-				<div class="nav_about" id="n2" onmouseover="mcancelclosetime()"><ul>
+				<div class="nav_about" id="n2"><ul>
 					<li class="sml"><a href="/pages/overview/">Overview</a></li>
 					<li><a href="/pages/learning/">Learning</a></li>
 					<li><a href="/pages/the-arts/">The Arts</a></li>
@@ -61,7 +45,7 @@
 					<li class="sml"><a href="/">Academy info</a></li>
 				</ul><hr class="sml clear" /></div>
 				
-				<div class="nav_links" <?php if ($_GET['open'] == "links") { echo "style=\"visibility:visible;\""; } ?>><ul>
+				<div class="nav_links" id="n1"><ul>
 					<li class="lrg"><a href="/">Home</a></li>
 					<!-- This goes to the diary with the current day set-->
 					<li class="lrg"><a href="/diary/<?php echo date('Y')."/".date(m)."/".date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>

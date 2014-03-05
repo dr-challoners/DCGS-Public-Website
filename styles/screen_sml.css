@@ -5,14 +5,15 @@
 /* General structure */
 body {  }
 
-div.page { margin: 10.8em 0 34em 0; }
+div.page { margin: 10.8em 0 14em 0; }
 
 div.submenu {
     position: fixed; bottom: 5.45em;
-    max-height: 23em; overflow: auto;
-    background-color: #C1D8FC;
+    max-height: 50em; overflow: auto;
+    background-color: #C1D8FC; outline: 1px solid #C1D8FC;
     width: 98%; margin: 0 1% 0 1%; padding: 6.45em 0 2em 0;
     }
+	#n3 { display: none; }
     div.submenu h2 {
        font-size: 1.3em;
        margin: 0.5em 0 0.1em 0.4em;
@@ -20,8 +21,9 @@ div.submenu {
     div.submenu h3 {
        position: fixed; width: 96.5%; margin: -2em 0 0 0;
        text-transform: uppercase; font-size: 3.2em; text-align: center;
-       background-color: #9BBDF2; padding: 0.4em 0 0.2em 1.5%;
+       background-color: #9BBDF2; outline: 1px solid #9BBDF2; padding: 0.4em 0 0.2em 1.5%;
        }
+	   div.submenu h3 a { padding: 0.1em 0 0.1em 0; background-color: transparent; color: #000000; }
     div.submenu li {
        list-style-type: none; font-size: 2.8em;
        }
@@ -82,6 +84,7 @@ div.nav_dropdown {
     }
     div.nav_dropdown span { padding: 0.3em 0.5em 0.2em 0.5em; }
     div.nav_dropdown span:hover { background-color: #2358A3; }
+	div.nav_dropdown a { color: #ffffff; text-decoration: none; }
     div.nav_dropdown p {
        padding: 0.4em 0.4em 0.3em 0; margin-top: 0;
        color: #ffffff; background-color: #173F7A;
@@ -92,8 +95,8 @@ div.nav_dropdown {
     div.nav_dropdown p span.spacer { padding: 0; }
 
 div.nav_about, div.nav_links {
-    visibility: hidden; position: fixed;
-    background-color: #C1D8FC;
+    display: none; position: fixed;
+    background-color: #C1D8FC; outline: 1px solid #C1D8FC;
     margin: 0 1% 0 1%;
     padding: 0.8em 0 1.5em 0;
     }
