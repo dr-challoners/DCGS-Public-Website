@@ -1,6 +1,6 @@
 <?php
 
-if (file_exists("diary/".$type.".xml")) { $eventread = simplexml_load_file("diary/".$type.".xml"); //If there are events this date then it loads them
+if (file_exists("content_plain/diary/".$type.".xml")) { $eventread = simplexml_load_file("content_plain/diary/".$type.".xml"); //If there are events this date then it loads them
 	$count = 1;
 	$notblank = 0;
 	foreach($eventread->events->event as $event) { //Work through each event one at a time

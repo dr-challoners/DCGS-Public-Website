@@ -1,6 +1,6 @@
 <?php
 
-$file = simplexml_load_file("diary/Highlight.xml");
+$file = simplexml_load_file("content_plain/diary/Highlight.xml");
 
 $highlights = array();
 

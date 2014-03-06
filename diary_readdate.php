@@ -6,7 +6,7 @@ $calweekday = date("N",$makedate);
 $caldate = date("l jS",$makedate); //Puts the date in a friendly format for display, eg 'Saturday 15th'
 $calmonth = date("F Y",$makedate); //For displaying month and year
 
-if (file_exists("diary/".$datestamp.".xml")) { $date = simplexml_load_file("diary/".$datestamp.".xml"); //If there are events this date then it loads them
+if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_load_file("content_plain/diary/".$datestamp.".xml"); //If there are events this date then it loads them
 	echo "<h2>".$caldate; //Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
 	if ($calday == "1" || $calweekday == "1") { //If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
 		echo "<span>".$calmonth."</span>";
