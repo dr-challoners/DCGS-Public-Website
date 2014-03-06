@@ -1,4 +1,11 @@
-<?php include('header_declarations.php'); ?>
+<?php include('header_declarations.php');
+
+if (!isset($_GET['event'])) { $get_event = ""; } else { $get_event = $_GET['event']; }
+if (!isset($_GET['date'])) { $get_date = ""; } else { $get_date = $_GET['date']; }
+if (!isset($_GET['device'])) { $get_device = ""; } else { $get_device = $_GET['device']; }
+if (!isset($_GET['display'])) { $get_display = ""; } else { $get_display = $_GET['display']; }
+
+?>
 
 <link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>
 <link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>
@@ -37,9 +44,9 @@
 
 include('header_navigation.php');
 
-if ($_GET['event'] != "") { //We want to be looking at an events page: deal with this first
+if ($get_event != "") { //We want to be looking at an events page: deal with this first
 
-	$type = $_GET['event'];
+	$type = $get_event;
 	
 	echo "<div class=\"ncol lft\">";
 		echo "<h2>".$type;
@@ -61,19 +68,19 @@ if ($_GET['event'] != "") { //We want to be looking at an events page: deal with
 
 	} else { //This is the actual calendar output
 
-	if ($_GET['date'] != "") { $focusdate = $_GET['date']; }
+	if ($get_date != "") { $focusdate = $get_date; }
 	else { $focusdate = date("Ymd"); }
 
 	$weekday = date("N",mktime(0,0,0,substr($focusdate,4,2),substr($focusdate,6,2),substr($focusdate,0,4)))-1;
 	$datestamp = date("Ymd",mktime(0,0,0,substr($focusdate,4,2),substr($focusdate,6,2)-$weekday,substr($focusdate,0,4))); //This is the date on the Monday of the selected week.
 
-if (($_GET['device'] == "mobile" && $_GET['display'] == "calendar") || $_GET['device'] == "") { //Don't display the calendar on mobiles, unless the request has been made specifically
+if (($get_device == "mobile" && $get_display == "calendar") || $get_device == "") { //Don't display the calendar on mobiles, unless the request has been made specifically
 	
 	echo "<div class=\"ncol lft\">";
 		include ('diary_calendar.php');
 		echo "<div class=\"linkbox\">";
 			echo "<a href=\"/content_plain/termdates/\">";
-			if ($_GET['device'] == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
+			if ($get_device == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
 			else { echo "<h3>Term dates</h3>"; }
 			echo "</a>";
 		echo "</div>";
@@ -96,7 +103,7 @@ else { //Mobile only navigation
 	echo "</div>";
 	}
 	
-if (($_GET['device'] == "mobile" && $_GET['display'] != "calendar") || $_GET['device'] == "") { //Only display dates on mobiles when the calendar is not being viewed
+if (($get_device == "mobile" && $get_device != "calendar") || $get_device == "") { //Only display dates on mobiles when the calendar is not being viewed
 
 	echo "<div class=\"mcol-rgt\" id=\"diary\">";
 	for ($day = 0; $day <= 6;) {

@@ -48,7 +48,7 @@
 				<div class="nav_links" id="n1"><ul>
 					<li class="lrg"><a href="/">Home</a></li>
 					<!-- This goes to the diary with the current day set-->
-					<li class="lrg"><a href="/diary/<?php echo date('Y')."/".date(m)."/".date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
+					<li class="lrg"><a href="/diary/<?php echo date('Y')."/".date('m')."/".date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
 					<li class="sml"><a href="/diary/m/<?php echo date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
 					<li class="sml"><a href="/pages/information/termdates">Term dates</a></li>
 					<li><a href="/portal/parents/">Parents</a></li>

@@ -1,23 +1,25 @@
 <?php
 
-//Find all the images in a gallery
-$gallery = "gallery-".$_GET['gallery'];
-if (is_dir("content_plain/".$_GET['folder']."/".$gallery) == TRUE) { //Check to make sure gallery exists
+if (!isset($_GET['image'])) { $get_image = ""; } else { $get_image = $_GET['image']; }
 
-$photos = scandir("content_plain/".$_GET['folder']."/".$gallery, 1);
+//Find all the images in a gallery
+$gallery = "gallery-".$get_gallery;
+if (is_dir("content_plain/".$get_folder."/".$gallery) == TRUE) { //Check to make sure gallery exists
+
+$photos = scandir("content_plain/".$get_folder."/".$gallery, 1);
 array_pop($photos);
 array_pop($photos);
 
 if(count($photos) != 0) { //Check to make sure gallery contains photos
 
-if ($_GET['image'] != "") { //We're looking at a specific image, so go to that view mode
+if ($get_image != "") { //We're looking at a specific image, so go to that view mode
 	$boxtypes = array("tny"); //Only tiny boxes if we're focused on an image
 	$hplace = array("center"); //Don't move the images around in this mode because it looks weird
 	$vplace = array("center");
 	
 	echo "<div class=\"viewphoto\">";
-		echo "<h2>".str_replace("_"," ",strchr($_GET['image'],".",true))."</h2>";
-		echo "<div class=\"photo\" style=\" background-image: url('/content_plain/".$_GET['folder']."/".$gallery."/".$_GET['image']."');\"></div>";
+		echo "<h2>".str_replace("_"," ",strchr($get_image,".",true))."</h2>";
+		echo "<div class=\"photo\" style=\" background-image: url('/content_plain/".$get_folder."/".$gallery."/".$get_image."');\"></div>";
 		echo "<div class=\"stublist\">";
 	}
 else { //Otherwise it's the gallery preview
@@ -26,8 +28,8 @@ else { //Otherwise it's the gallery preview
 	$hplace = array("left","center","right"); //To randomly align the snapshot of the image in its box
 	$vplace = array("left","center","right");
 	
-	if (file_exists("content_plain/".$_GET['folder']."/".$gallery."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
-		$description = file_get_contents("content_plain/".$_GET['folder']."/".$gallery."/description.txt", true);
+	if (file_exists("content_plain/".$get_folder."/".$gallery."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
+		$description = file_get_contents("content_plain/".$get_folder."/".$gallery."/description.txt", true);
 		echo "<div class=\"description\">";
 			echo Parsedown::instance()->parse($description);
 		echo "</div>";
@@ -67,7 +69,7 @@ foreach($photos as $photo) {
 	}
 	if($tiny != 1) { echo "</div>"; } //Closes up a half-finished set of tiny boxes
 	
-if ($_GET['image'] != "") { echo "</div></div>"; }
+if ($get_image != "") { echo "</div></div>"; }
 echo "<hr />";
 
 	}

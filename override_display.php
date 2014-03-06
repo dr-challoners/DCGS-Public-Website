@@ -1,10 +1,12 @@
 <?php
 
+if (!isset($_GET['override'])) { $get_override = ""; } else { $get_override = $_GET['override']; }
+
 $override = 0;
 	
 $status = file_get_contents("controls/override_status.txt", true);
 
-if ($_GET['override'] != "") { $status = $_GET['override']; } //First check to see if an override is being tested
+if ($get_override != "") { $status = $get_override; } //First check to see if an override is being tested
 elseif ($status == "none") { $status = ""; } //If there's no status being given, stop the override from happening
 
 if ($status != "") { //If any form of status has been set, display the override

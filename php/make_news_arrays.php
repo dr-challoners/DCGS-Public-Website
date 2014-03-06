@@ -9,7 +9,7 @@ $newsposts = array_diff($newsfiles,$notnews); //Then remove all the files that a
 $newsposts = array_values($newsposts); //Re-value the keys so that the news stories go sequentially
 $newsposts = array_slice($newsposts,0,15); //Return the first 15 files (12 or 13 will display on the front page, then all of them on an individual news story)
 
-for ($post = 0; $post < 15;) { //Cut .txt from the end of the filename (this just helps to disguise the file later, when passing it through the URL to an individual news story)
+$post = ""; for ($post = 0; $post < 15;) { //Cut .txt from the end of the filename (this just helps to disguise the file later, when passing it through the URL to an individual news story)
 	$filename = explode(".",$newsposts[$post]);
 	$newsposts[$post] = $filename[0];
 	$post++;

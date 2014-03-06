@@ -1,7 +1,10 @@
 <?php
 
-if ($_GET['y'] != "") { $y = $_GET['y']; } else { $y = date("Y"); } //If no year and month are selected, get the current one
-if ($_GET['m'] != "") { $m = $_GET['m']; } else { $m = date("m"); }
+if (!isset($_GET['y'])) { $get_y = ""; } else { $get_y = $_GET['y']; }
+if (!isset($_GET['m'])) { $get_m = ""; } else { $get_m = $_GET['m']; }
+
+if ($get_y != "") { $y = $get_y; } else { $y = date("Y"); } //If no year and month are selected, get the current one
+if ($get_m != "") { $m = $get_m; } else { $m = date("m"); }
 
 ?>
 
@@ -13,17 +16,17 @@ if ($_GET['m'] != "") { $m = $_GET['m']; } else { $m = date("m"); }
 			?>
 			
 			<a class="lmonth" href="/diary/<?php
-				if ($_GET['device'] == "mobile") { echo "m/c/"; } //If we're on a mobile, stay on the mobile view
+				if ($get_device == "mobile") { echo "m/c/"; } //If we're on a mobile, stay on the mobile view
 				echo $lyear."/".$lmonth."/";
-				if ($_GET['device'] != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
+				if ($get_device != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
 			?>">&#171;</a>
 			
 			<?php echo date("F Y",mktime(0,0,0,$m,1,$y)); ?>
 			
 			<a class="nmonth" href="/diary/<?php
-				if ($_GET['device'] == "mobile") { echo "m/c/"; }
+				if ($get_device == "mobile") { echo "m/c/"; }
 				echo $nyear."/".$nmonth."/";
-				if ($_GET['device'] != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
+				if ($get_device != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
 			?>">&#187;</a> 
 		</p>
 		<div class="weekdays">
@@ -51,21 +54,21 @@ for ($day = 1; $day <= 42;) {
 	if ($day < $startday || $day >= date("t",mktime(0,0,0,$m,1,$y))+$startday ) { echo "xmonth"; } //If we're not displaying a day from the current month, grey it out.
 	if ($fulldate == date("Ymd")) { echo " today"; } //Mark today
 	echo "\"";
-	if (file_exists("diary/".$fulldate.".xml") && strpos($_SERVER['HTTP_USER_AGENT'],"iPad") == "" && $_GET['device'] == "") { //There's something to preview, so create a preview (but don't do this on the iPad or mobiles, because then you have to click to preview and then again to go to a date...)
+	if (file_exists("diary/".$fulldate.".xml") && strpos($_SERVER['HTTP_USER_AGENT'],"iPad") == "" && $get_device == "") { //There's something to preview, so create a preview (but don't do this on the iPad or mobiles, because then you have to click to preview and then again to go to a date...)
 		echo " onmouseover=\"mopen('c".$fulldate."')\" onmouseout=\"mclosetime()\""; //Create a JS cue with an appropriate id
 		array_push($previews,$fulldate); //Save the date to be acknowledged later
 		}
 	echo ">";
 		echo "<a href=\"/diary/";
-		if ($_GET['device'] == "mobile") { echo "m/"; } //If we're on a mobile, stay on the mobile view
-		if ($_GET['device'] != "mobile") { echo substr($fulldate,0,4)."/".substr($fulldate,4,2)."/"; } //Mobiles don't take calendar date and month when displaying actual days' events
+		if ($get_device == "mobile") { echo "m/"; } //If we're on a mobile, stay on the mobile view
+		if ($get_device != "mobile") { echo substr($fulldate,0,4)."/".substr($fulldate,4,2)."/"; } //Mobiles don't take calendar date and month when displaying actual days' events
 		echo $fulldate."#".$fulldate."\">";
 		echo date("j",mktime(0,0,0,substr($fulldate,4,2),substr($fulldate,6,2),substr($fulldate,0,4)));
 	echo "</a></p>";
 	if ($day %7 == 0) { echo "</div>"; } //Shut down a week box at the end of the week
 $day++; }
 
-if ($_GET['device'] == "") { //Don't produce for mobiles
+if ($get_device == "") { //Don't produce for mobiles
 
 $charmax = 30; //Maximum number of letters in a preview title (see below)
 foreach($previews as $row) {

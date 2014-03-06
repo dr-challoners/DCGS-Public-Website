@@ -3,7 +3,7 @@
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
 	
-for ($non = 0; $non <= 12;) { //Mark posts that don't have images
+$non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
 	$components = explode("~",$newsposts[$non]);
 	if (!in_array($components[1],$newsimages)) { //First identify the current post as not having an image
 		$newsposts[$non] = "NON~".$newsposts[$non]; //Then mark it as being so in the array
@@ -35,7 +35,7 @@ for ($non = 0; $non <= 12;) { //Then mark appropriate neighbours to each post
 	}
 	
 if ($override != 1) { //As long as there's not an override happening
-$a = 0; while ($big == "") { //Find the first post with an image and mark it as the leading 'big' story
+$a = 0; $big = ""; while ($big == "") { //Find the first post with an image and mark it as the leading 'big' story
 	if (substr($newsposts[$a],0,4) != "NON~") {
 		$newsposts[$a] = "BIG~".$newsposts[$a];
 		$big++;
@@ -45,7 +45,7 @@ $a = 0; while ($big == "") { //Find the first post with an image and mark it as 
 	}
 	
 $runs = array();
-for ($bar = 0; $bar <= 8;) { //Find every run of four stories all with images by first finding the key of the first image in each run
+$bar = ""; for ($bar = 0; $bar <= 8;) { //Find every run of four stories all with images by first finding the key of the first image in each run
 	if (substr($newsposts[$bar],3,1) != "~" && substr($newsposts[$bar+1],3,1) != "~" && substr($newsposts[$bar+2],3,1) != "~" && substr($newsposts[$bar+3],3,1) != "~") { //They have neither a NON~ nor BIG~ marker
 		array_push($runs,$bar);
 		}
@@ -56,14 +56,14 @@ $barstart = array_rand($runs); //Pick one possible starting point at random
 $barstart = $runs[$barstart];
 
 if ($barstart != "") { //Provided there's room for a run (and there should be, otherwise you should be taking more photos!), this marks out the run
-	for ($plus = 0; $plus <= 3;) {
+	$plus = ""; for ($plus = 0; $plus <= 3;) {
 		$barpoint = $barstart+$plus;
 		$newsposts[$barpoint] = "BAR~".$newsposts[$barpoint];
 		$plus++;
 		}
 	}
 
-for ($std = 0; $std <= 12;) { //Finally, mark the remaining posts as being normal (this will make reading them for output easier)
+$std = ""; for ($std = 0; $std <= 12;) { //Finally, mark the remaining posts as being normal (this will make reading them for output easier)
 	if (substr($newsposts[$std],3,1) != "~") {
 		$newsposts[$std] = "STD~".$newsposts[$std];
 		}

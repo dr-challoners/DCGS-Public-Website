@@ -2,7 +2,7 @@
 
 <?php
 
-if ($_GET['override'] != "") { //A change to the override status has been requested, so make the change
+if (isset($_GET['override']) && $_GET['override'] != "") { //A change to the override status has been requested, so make the change
 	file_put_contents("override_status.txt",$_GET['override']);
 	echo "<p>The override status has been changed to <strong>".$_GET['override']."</strong></p>";
 	}

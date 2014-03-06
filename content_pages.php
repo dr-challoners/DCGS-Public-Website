@@ -1,13 +1,17 @@
 <?php 
-
 include('header_declarations.php');
-if ($_GET['gallery'] != "") {
+
+if (!isset($_GET['gallery'])) { $get_gallery = ""; } else { $get_gallery = $_GET['gallery']; }
+if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = $_GET['folder']; }
+if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = $_GET['page']; }
+
+if ($get_gallery != "") {
 	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/gallery_lrg.css\"/>";
 	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/gallery_sml.css\"/>";
 	}
 include('header_navigation.php');
 
-$submenu = file_get_contents("content_plain/".$_GET['folder']."/submenu.txt", true);
+$submenu = file_get_contents("content_plain/".$get_folder."/submenu.txt", true);
 
 
 echo "<div class=\"ncol lft submenu\">";
@@ -19,11 +23,11 @@ echo "</div>";
 
 echo "<div class=\"mcol-rgt\">";
 
-	if ($_GET['gallery'] != "") { include('php/gallery.php'); } //If the request is for a gallery page
+	if ($get_gallery != "") { include('php/gallery.php'); } //If the request is for a gallery page
 	else { //Otherwise, parse the appropriate content for the page
 
 		//Selects the file specified, or gives the default file
-		if ($_GET['page'] != "") { $content = $_GET['page']; }
+		if ($get_page != "") { $content = $get_page; }
 		else { $content = "default"; } 
 		
 		switch ($content) { //This allows particular pages to be highlights as having 'rich' content: for instance a contact form, or the House scores
@@ -34,8 +38,8 @@ echo "<div class=\"mcol-rgt\">";
 			include ('content_rich/house_representatives.php');
 			break;
 		default: //If it's not a special case, go through the normal process
-			if (file_exists("content_plain/".$_GET['folder']."/".$content.".txt")) {
-				$content = file_get_contents("content_plain/".$_GET['folder']."/".$content.'.txt', true); //Open the appropriate text file for parsing
+			if (file_exists("content_plain/".$get_folder."/".$content.".txt")) {
+				$content = file_get_contents("content_plain/".$get_folder."/".$content.'.txt', true); //Open the appropriate text file for parsing
 				echo Parsedown::instance()->parse($content);
 				}
 			elseif ($content == "default") { //If there's no page found and it's looking for the default page, then display some generic text

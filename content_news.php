@@ -2,12 +2,14 @@
 include ('header_declarations.php');
 include ('header_navigation.php');
 
-if ($_GET['story'] != "index.php") {
+if (!isset($_GET['story'])) { $get_story = ""; } else { $get_story = $_GET['story']; }
+
+if ($get_story != "index.php") {
 
 ?>
 
 <div class="ncol lft submenu">
-<h3 class="sml"><a href="javascript:openClose('n3','n1','n2')">See more in this section</a></h3>";
+<h3 class="sml"><a href="javascript:openClose('n3','n1','n2')">See more in this section</a></h3>
 
 <?php
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
@@ -16,7 +18,11 @@ echo "<ul id=\"n3\">";
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
 		echo "<li>";
-			echo "<a href=\"".$component[0]."~".$component[1]."~".$component[2]."\">";
+			echo "<a href=\"".$component[0]."~".$component[1];
+			if ($component[2] != "") {
+				echo "~".$component[2];
+				}
+			echo "\">";
 			echo $component[1];
 			echo "</a>";
 		echo "</li>";
@@ -28,7 +34,7 @@ echo "</ul>";
 <div class="mcol-rgt">
 
 <?php
-$component = explode("~",$_GET['story']);
+$component = explode("~",$get_story);
 
 echo "<h1>".$component[1]."</h1>";
 echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4),0))."</h3>";
@@ -39,7 +45,7 @@ if ($image != "") {
 	echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
 	}
 
-$content = file_get_contents('content_plain/news/'.$_GET['story'].".txt", true);
+$content = file_get_contents('content_plain/news/'.$get_story.".txt", true);
 echo Parsedown::instance()->parse($content);
 
 echo "<p class=\"credit\">".$component[2];
