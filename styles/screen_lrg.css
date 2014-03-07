@@ -143,6 +143,7 @@ p {
     font-size: 20px;
     line-height: 22px; margin-top: 14px;
     }
+    p.noline { margin-top: 0px; }
 
 div.mcol ul, div.mcol-rgt ul { margin-top: 14px; }
 div.mcol li, div.mcol-rgt li {
@@ -152,6 +153,7 @@ div.mcol li, div.mcol-rgt li {
     margin-left: 24px; padding-left: 8px;
 }
     
+h1.second { margin-top: 24px;}
 h2 { margin: 20px 0px -8px 0px; }
 h3 {margin-top: 5px; }
 
@@ -238,3 +240,13 @@ div.subjectbox {
        list-style-type: none;
        margin: 0px 8px 5px 8px;
        }
+
+/* Term dates */
+
+p.termdate#toprow {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #173F7A;
+    }
+
+p.termdate span { display: inline-block; width: 270px; }
+    p.termdate span#firstcol { width: 170px;}

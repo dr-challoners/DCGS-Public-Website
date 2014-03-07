@@ -8,6 +8,7 @@ include ('house_styles.php');
 
 $positions = array("C","VC","M","R11","R10","R9","R8","R7","S");
 $houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
+
 $representatives = array();
 
 $file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/houses/captains.csv',"r");

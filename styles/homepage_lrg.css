@@ -38,7 +38,7 @@ div.magazine { margin-top: 5px; }
     div.magazine hr { clear: left; }
 
 div.big, div.std, div.non, div.bar {
-    overflow: hidden; margin-bottom: 14px;
+    overflow: hidden; 
     transition: background-color 0.2s, color 0.2s;
     -webkit-transition: background-color 0.2s, color 0.2s;
     }
@@ -49,24 +49,24 @@ div.magazine .newsimg {
     background-position: top center; background-repeat: no-repeat; background-size: cover;
     }
 
-div.big { clear: left; height: 210px; padding-right: 14px; }
+div.big { clear: left; height: 210px; padding-right: 14px; margin-bottom: 16px; }
     div.big h2 { margin-top: 5px; }
-    div.big .newsimg { height: 210px; width: 430px; margin-right: 14px; }
+    div.big .newsimg { height: 210px; width: 430px; margin-right: 18px; }
 
-div.std { clear: left; height: 140px; padding-right: 14px; }
+div.std { clear: left; height: 140px; padding-right: 14px; margin-bottom: 12px; }
     div.std h3 { margin-top: 8px; }
-    div.std .newsimg { height: 140px; width: 250px; margin-right: 14px; }
+    div.std .newsimg { height: 140px; width: 250px; margin-right: 16px; }
 
 div.non {
     background-color: #FFF7D7;
     height: 62px; width: 331px;
     float: left;
-    padding: 0px 12px 0px 12px;
+    padding: 0px 12px 0px 12px; margin-bottom: 16px;
     }
     div.non p { margin-top: 0px; }
 
 div.bar {
-    width: 170px; margin-right: 10px;
+    width: 170px; margin: 4px 10px 14px 0px;
     float: left;
     }
     div.bar#end { margin-right: 0px; }

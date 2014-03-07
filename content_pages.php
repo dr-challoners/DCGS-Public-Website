@@ -31,6 +31,9 @@ echo "<div class=\"mcol-rgt\">";
 		else { $content = "default"; } 
 		
 		switch ($content) { //This allows particular pages to be highlights as having 'rich' content: for instance a contact form, or the House scores
+		case "termdates":
+			include ('content_rich/termdates.php');
+			break;
 		case "house_scores":
 			include ('content_rich/house_scores.php');
 			break;
