@@ -37,7 +37,7 @@ echo "</ul>";
 $component = explode("~",$get_story);
 
 echo "<h1>".$component[1]."</h1>";
-echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4),0))."</h3>";
+echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
 
 $image = array_search($component[1],$newsimages);
 if ($image != "") {
@@ -50,7 +50,7 @@ echo Parsedown::instance()->parse($content);
 
 echo "<p class=\"credit\">".$component[2];
 $imagecredit = explode("~",$image);
-if ($imagecredit[1] != "") {
+if (isset($imagecredit[1])) {
 	$imagecredit = explode(".",$imagecredit[1]);
 	echo "<br />Photograph by ".$imagecredit[0];
 	}

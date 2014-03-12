@@ -13,6 +13,7 @@ RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]
 
 #News stories
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
+RewriteRule    ^news_image/(.+)$    content_plain/news/$1    [L]
 
 #Diary entries, where $1 is the year, $2 the month and $3 the full date - the first two variables are for browsing the calendar
 RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)$    diary_display.php?date=$3&y=$1&m=$2    [L]

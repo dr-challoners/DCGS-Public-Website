@@ -4,7 +4,9 @@ if (!isset($_GET['override'])) { $get_override = ""; } else { $get_override = $_
 
 $override = 0;
 	
-$status = file_get_contents("controls/override_status.txt", true);
+if (file_exists("controls/override_status.txt")) { //First check to see if there's any file to declare overrides - if there isn't, then there shan't be an override
+  
+  $status = file_get_contents("controls/override_status.txt", true);
 
 if ($get_override != "") { $status = $get_override; } //First check to see if an override is being tested
 elseif ($status == "none") { $status = ""; } //If there's no status being given, stop the override from happening
@@ -87,5 +89,5 @@ O8:::$88~O88::::::~8~78+8:::=8+:888888:::888888::888888~:8Z
 
 -->
 
-<?php } ?>
+<?php }} ?>
 

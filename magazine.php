@@ -10,7 +10,7 @@ $non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
 		}
 	$non++;
 	}
-for ($non = 0; $non <= 12;) { //Then mark appropriate neighbours to each post
+$odd = ""; for ($non = 0; $non <= 12;) { //Then mark appropriate neighbours to each post
 	if (substr($newsposts[$non],0,4) == "NON~") { //Only perform a check if the current post has no image
 		if ($non == 0 && (substr($newsposts[$non+1],0,4) != "NON~")) { //If the first story doesn't have an image and the second one does, match up the second one
 			$newsposts[$non+1] = "NON~".$newsposts[$non+1];
@@ -53,7 +53,7 @@ $bar = ""; for ($bar = 0; $bar <= 8;) { //Find every run of four stories all wit
 	}
 	
 $barstart = array_rand($runs); //Pick one possible starting point at random
-$barstart = $runs[$barstart];
+if ($barstart != "") { $barstart = $runs[$barstart]; }
 
 if ($barstart != "") { //Provided there's room for a run (and there should be, otherwise you should be taking more photos!), this marks out the run
 	$plus = ""; for ($plus = 0; $plus <= 3;) {
@@ -81,14 +81,14 @@ function word_cutoff($text, $length) {
 
 echo "<div class=\"magazine\">";	
 	
-$count = 1; foreach ($newsposts as $post) {
+$npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	
 	if ($count < 13 || ($count == 13 && $npic%2 == 1)) { //This determines a sensible place to end (12 ideally, or one more if a row with no pictures needs to be finished)
 	
 	//Pull out necessary components of the story
 	$component = explode("~",$post);
 	if ($component[0] != "NON") { $image = addcslashes($newsfiles[array_search($component[2],$newsimages)],"'"); }
-	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4),0));
+	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4)));
 	$file = substr($post,4);
 	$story = file_get_contents('content_plain/news/'.substr($post,4).".txt", true);
 	

@@ -23,7 +23,7 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 		$depart = $event -> timed -> {'envelope-start'}; $pickup = $event -> timed -> {'envelope-end'}; //Away game details
 		if ($event -> location != "") { $where = $event -> location -> attributes(); } //Driving directions to an away game (checks if the location node exists first)
 		
-		if (strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
+		if (isset($comparetitle) && strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
 			echo "<p class=\"details\">".$title."</p>";
 			} 
 		else { //Otherwise, display a full event
@@ -34,9 +34,11 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 				}
 				else { echo "<p class=\"time\"></p>"; }
 			echo "<h3>".$title."</h3>";
-			echo "<p class=\"allevents\"><a id=\"".$type."\" href=\"/diary/event/".$type."\"> See all ".strtolower($type)."";
-			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //Just sorts out grammar
-			echo "</a></p>";
+      if ($type != "") {
+			  echo "<p class=\"allevents\"><a id=\"".$type."\" href=\"/diary/event/".$type."\"> See all ".strtolower($type)."";
+			  if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //Just sorts out grammar
+			  echo "</a></p>";
+      }
 		
 			//Further details
 			if ($depart != "") { //This indicates that it's an away sporting fixture, which then prompts further details
@@ -47,7 +49,7 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 		
 			if ($type != "") { //Provides a fix for when a type has not been provided (there should always be a type, but this avoids errors if it's been left out by mistake)
 				$comparetitle = explode($type,$title);
-				$comparetitle = $comparetitle[1];
+        if (isset($comparetitle[1])) { $comparetitle = $comparetitle[1]; } else { $comparetitle = "0"; }
 				$comparetype = $type;
 				}
 			else {
