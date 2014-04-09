@@ -4,7 +4,7 @@
 
 	require ('db-funcs.php');	
 	
-	open_db($_SERVER['DOCUMENT_ROOT'].'/content_plain/houses/results.csv');
+	open_db($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/House system/results.csv');
 	$houselist=array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 
 	reset($houselist);
@@ -45,7 +45,7 @@
 
 <?php
 
-$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/houses/results.csv',"r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/House system/results.csv',"r");
 
 while(! feof($file)) {
 	$line = fgetcsv($file);

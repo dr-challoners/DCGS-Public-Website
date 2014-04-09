@@ -36,6 +36,9 @@ foreach ($dir as $subdir) { //List all the subdirectories
           elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
             echo "<li><a href=\"/gallery/".$get_folder."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
             }
+          elseif ($detail[2] == "SPECIAL.txt") { // Point to the content_rich folder. Note that most of the navigation details given will be unnecessary for finding the file: they're there to display the submenu.
+            echo "<li><a href=\"/rich/".$get_folder."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
+            }
           }
         elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
           $pagename = explode(".",$detail[1]);
@@ -54,6 +57,7 @@ echo "</div>";
 echo "<div class=\"mcol-rgt\">";
 
 	if ($get_gallery != "") { include('php/gallery.php'); } //If the request is for a gallery page
+  elseif (isset($_GET['special'])) { include('content_rich/'.$get_page.'.php'); } // If the request is for rich content
 	else { //Otherwise, parse the appropriate content for the page
     
     if ($get_page != "") {
