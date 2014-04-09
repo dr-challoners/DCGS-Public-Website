@@ -158,17 +158,17 @@ div.submenu {
     }
     div.submenu ul { margin-bottom: 10px; }
 
-div.ncol h2 { margin: -2px 0px 8px 0px; }
+div.ncol h2 { margin: -2px 0px 10px 0px; }
 
 div.submenu li {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 18px;
     list-style-type: none;
-    margin: -10px 0px -5px 0px;
+    margin: -4px 0px -5px 0px;
     }
 
 div.submenu a {
     text-decoration: none; color: #000000;
-    display: block; padding: 8px 0px 8px 10px;
+    display: block; padding: 6px 0px 7px 10px;
     transition: background-color 0.2s, color 0.2s;
     -webkit-transition: background-color 0.2s, color 0.2s;
     }
