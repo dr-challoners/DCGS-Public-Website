@@ -1,10 +1,7 @@
 <?php
 
-if (!isset($_GET['y'])) { $get_y = ""; } else { $get_y = $_GET['y']; }
-if (!isset($_GET['m'])) { $get_m = ""; } else { $get_m = $_GET['m']; }
-
-if ($get_y != "") { $y = $get_y; } else { $y = date("Y"); } //If no year and month are selected, get the current one
-if ($get_m != "") { $m = $get_m; } else { $m = date("m"); }
+if (!isset($_GET['y'])) { $y = substr($focusdate,0,4); } else { $y = $_GET['y']; } //If no year and month are selected in calendar navigation, match the calendar to the date being displayed
+if (!isset($_GET['m'])) { $m = substr($focusdate,4,2); } else { $m = $_GET['m']; }
 
 ?>
 
@@ -16,17 +13,15 @@ if ($get_m != "") { $m = $get_m; } else { $m = date("m"); }
 			?>
 			
 			<a class="lmonth" href="/diary/<?php
-				if ($get_device == "mobile") { echo "m/c/"; } //If we're on a mobile, stay on the mobile view
-				echo $lyear."/".$lmonth."/";
-				if ($get_device != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
+				echo substr($focusdate,6,2)."/".substr($focusdate,4,2)."/".substr($focusdate,0,4)."/&y=".$lyear."&m=".$lmonth;
+				if ($get_device == "mobile") { echo "&device=mobile&display=calendar"; } //If we're on a mobile, stay on the mobile view
 			?>">&#171;</a>
 			
 			<?php echo date("F Y",mktime(0,0,0,$m,1,$y)); ?>
 			
 			<a class="nmonth" href="/diary/<?php
-				if ($get_device == "mobile") { echo "m/c/"; }
-				echo $nyear."/".$nmonth."/";
-				if ($get_device != "mobile") { echo $focusdate."#".$focusdate; } //Mobile view does not use the current date for the calendar
+				echo substr($focusdate,6,2)."/".substr($focusdate,4,2)."/".substr($focusdate,0,4)."/&y=".$nyear."&m=".$nmonth;
+				if ($get_device == "mobile") { echo "&device=mobile&display=calendar"; } //If we're on a mobile, stay on the mobile view
 			?>">&#187;</a> 
 		</p>
 		<div class="weekdays">
@@ -60,9 +55,9 @@ for ($day = 1; $day <= 42;) {
 		}
 	echo ">";
 		echo "<a href=\"/diary/";
-		if ($get_device == "mobile") { echo "m/"; } //If we're on a mobile, stay on the mobile view
-		if ($get_device != "mobile") { echo substr($fulldate,0,4)."/".substr($fulldate,4,2)."/"; } //Mobiles don't take calendar date and month when displaying actual days' events
-		echo $fulldate."#".$fulldate."\">";
+		echo substr($fulldate,6,2)."/".substr($fulldate,4,2)."/".substr($fulldate,0,4);
+		if ($get_device == "mobile") { echo "/&device=mobile"; } //If we're on a mobile, stay on the mobile view
+		echo "\">";
 		echo date("j",mktime(0,0,0,substr($fulldate,4,2),substr($fulldate,6,2),substr($fulldate,0,4)));
 	echo "</a></p>";
 	if ($day %7 == 0) { echo "</div>"; } //Shut down a week box at the end of the week

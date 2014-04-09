@@ -1,5 +1,5 @@
 	</head>
-	<body>
+	<body onload="moveWindow()"> <!-- The moveWindow function only has any effect in the diary display. -->
 		
 		<!-- These divs create the blue and white bars across the top and bottom of the page. On small screens, appropriate elements can handle this styling as the screen width will equal the page width. -->
 		<div class="colourbar lrg" id="top"></div>
@@ -48,8 +48,8 @@
 				<div class="nav_links" id="n1"><ul>
 					<li class="lrg"><a href="/">Home</a></li>
 					<!-- This goes to the diary with the current day set-->
-					<li class="lrg"><a href="/diary/<?php echo date('Y')."/".date('m')."/".date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
-					<li class="sml"><a href="/diary/m/<?php echo date('Ymd')."#".date('Ymd'); ?>">Diary</a></li>
+					<li class="lrg"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
+					<li class="sml"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">Diary</a></li>
 					<li class="sml"><a href="/pages/information/termdates">Term dates</a></li>
 					<li><a href="/portal/parents/">Parents</a></li>
 					<li><a href="/portal/intranet/">Intranet</a></li>

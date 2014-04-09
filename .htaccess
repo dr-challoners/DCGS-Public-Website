@@ -7,6 +7,7 @@ RewriteRule    ^pages/(.+)/(.*)$    content_pages.php?folder=$1&page=$2    [L]
 RewriteRule    ^gallery/(.+)/(.*)$    content_pages.php?folder=$1&gallery=$2    [L]
 RewriteRule    ^image/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&gallery=$2&image=$3    [L]
 RewriteRule    ^documents/(.*)$    content_plain/documents/$1    [L]    #For listing documents in the documents folder (so it's the same directory as the current site)
+RewriteRule    ^images/(.+)/(.*)$    content_plain/$1/$2    [L]    #For embedding images in articles
 
 #Intranet pages
 RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]
@@ -15,13 +16,9 @@ RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
 RewriteRule    ^news_image/(.+)$    content_plain/news/$1    [L]
 
-#Diary entries, where $1 is the year, $2 the month and $3 the full date - the first two variables are for browsing the calendar
-RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)$    diary_display.php?date=$3&y=$1&m=$2    [L]
+#Diary entries, where $1 is the day, $2 the month and $3 the year
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary_display.php?date=$3$2$1    [L]
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/(.+)$    diary_display.php?date=$3$2$1$4    [L]    #For adding calendar navigation info
 
 #Diary event entries
 RewriteRule    ^diary/event/(.+)$    diary_display.php?event=$1    [L]
-
-#Diary rules for mobile
-RewriteRule    ^diary/m/([0-9]+)$    diary_display.php?date=$1&device=mobile    [L]
-RewriteRule    ^diary/m/c/([0-9]+)/([0-9]+)/$    diary_display.php?date=$3&y=$1&m=$2&device=mobile&display=calendar    [L]
-RewriteRule    ^diary/m/event/(.+)$    diary_display.php?event=$1&device=mobile    [L]

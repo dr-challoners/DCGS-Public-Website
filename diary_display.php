@@ -11,34 +11,37 @@ if (!isset($_GET['display'])) { $get_display = ""; } else { $get_display = $_GET
 <link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>
 
 <script type="text/javascript"> // Copyright 2006-2007 javascript-array.com
-			var timeout	= 0;
-			var closetimer	= 0;
-			var ddmenuitem	= 0;
-		
-			function mopen(id) { // open hidden layer
-				mcancelclosetime(); // cancel close timer
-				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden'; // close old layer
-				ddmenuitem = document.getElementById(id);
-				ddmenuitem.style.visibility = 'visible'; // get new layer and show it
-				}
+	var timeout	= 0;
+	var closetimer	= 0;
+	var ddmenuitem	= 0;
 
-			function mclose() { // close displayed layer
-				if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
-				}
+	function mopen(id) { // open hidden layer
+		mcancelclosetime(); // cancel close timer
+		if(ddmenuitem) ddmenuitem.style.visibility = 'hidden'; // close old layer
+		ddmenuitem = document.getElementById(id);
+		ddmenuitem.style.visibility = 'visible'; // get new layer and show it
+		}
 
-			function mclosetime() { // go close timer
-				closetimer = window.setTimeout(mclose, timeout);
-				}
+	function mclose() { // close displayed layer
+		if(ddmenuitem) ddmenuitem.style.visibility = 'hidden';
+		}
 
-			function mcancelclosetime() { // cancel close timer
-				if(closetimer) {
-					window.clearTimeout(closetimer);
-					closetimer = null;
-					}
-				}
+	function mclosetime() { // go close timer
+		closetimer = window.setTimeout(mclose, timeout);
+		}
 
-			document.onclick = mclose; // close layer when click-out
-		</script>
+	function mcancelclosetime() { // cancel close timer
+		if(closetimer) {
+			window.clearTimeout(closetimer);
+			closetimer = null;
+			}
+		}
+
+	document.onclick = mclose; // close layer when click-out
+</script>
+<script type="text/javascript" language="javascript"> // Jumps the page to the actual day being navigated
+	function moveWindow (){window.location.hash="<?php echo $get_date; ?>";}
+</script>
 
 <?php
 
@@ -93,17 +96,17 @@ else { //Mobile only navigation
 	$nextmonday = date("Ymd",mktime(0,0,0,substr($datestamp,4,2),substr($datestamp,6,2)+7,substr($datestamp,0,4)));
 	
 	echo "<div class=\"browse\">";
-		echo "<p><span class=\"lft\"><a href=\"/diary/m/".$lastmonday."\">&#171; Last week</a></span> ";
-		echo "<a href=\"/diary/m/".$nextmonday."\">Next week &#187;</a></p>";
+		echo "<p><span class=\"lft\"><a href=\"/diary/".substr($lastmonday,6,2)."/".substr($lastmonday,4,2)."/".substr($lastmonday,0,4)."/&device=mobile\">&#171; Last week</a></span> ";
+		echo "<a href=\"/diary/".substr($nextmonday,6,2)."/".substr($nextmonday,4,2)."/".substr($nextmonday,0,4)."/&device=mobile\">Next week &#187;</a></p>";
 	echo "</div>";
 	
 	echo "<div class=\"linkbox\">";
-		echo "<a href=\"/diary/m/c/".date('Y')."/".date('m')."/\"><h3>Browse the calendar</h3></a>";
+		echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar\"><h3>Browse the calendar</h3></a>";
 		echo "<a href=\"/pages/information/termdates\"><h3>See term dates</h3></a>";
 	echo "</div>";
 	}
 	
-if (($get_device == "mobile" && $get_device != "calendar") || $get_device == "") { //Only display dates on mobiles when the calendar is not being viewed
+if (($get_device == "mobile" && $get_display != "calendar") || $get_device == "") { //Only display dates on mobiles when the calendar is not being viewed
 
 	echo "<div class=\"mcol-rgt\" id=\"diary\">";
 	for ($day = 0; $day <= 6;) {

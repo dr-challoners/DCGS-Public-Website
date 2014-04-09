@@ -43,7 +43,7 @@ if (file_exists("content_plain/diary/".$type.".xml")) { $eventread = simplexml_l
 				}
 				else { echo "<p class=\"time\"></p>"; }
 			echo "<h3>".$title."</h3>";
-			echo "<p class=\"allevents\"><a href=\"/diary/".substr(date('Ymd',$date),0,4)."/".substr(date('Ymd',$date),4,2)."/".date('Ymd',$date)."#".date('Ymd',$date)."\">See in the diary</a></p>";
+			echo "<p class=\"allevents\"><a href=\"/diary/".substr(date('Ymd',$date),6,2)."/".substr(date('Ymd',$date),4,2)."/".substr(date('Ymd',$date),0,4)."\">See in the diary</a></p>";
 		
 			//Further details
 			if ($depart != "") { //This indicates that it's an away sporting fixture, which then prompts further details

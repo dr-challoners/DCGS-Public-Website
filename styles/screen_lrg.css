@@ -41,6 +41,10 @@ div.mcol img.right, div.mcol-rgt img.right {
     float: right;
     margin-left: 14px;
     }
+div.mcol img.wide, div.mcol-rgt img.wide {
+    width: 710px;
+    margin-bottom: 0px;
+    }
 
 div.linkbox {
     background-color: #FFF7D7;
