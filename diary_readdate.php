@@ -56,7 +56,7 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 				$comparetitle = $title;
 				$comparetype = "None";
 				}
-			$comparewhere = $where;
+      if (isset($where)) { $comparewhere = $where; } else { $comparewhere = ""; }
 			//This sets up a check for sporting events fixtures
 		
 			}

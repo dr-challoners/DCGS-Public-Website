@@ -22,15 +22,15 @@ if (file_exists("content_plain/diary/".$type.".xml")) { $eventread = simplexml_l
 		$depart = $event -> timed -> {'envelope-start'}; $pickup = $event -> timed -> {'envelope-end'}; //Away game details
 		if ($event -> location != "") { $where = $event -> location -> attributes(); } //Driving directions to an away game (checks if the location node exists first)
 		
-		if (strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
+		if ((isset($comparetitle) && strpos($title,$comparetitle) !== false) && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
 			echo "<p class=\"details\">".$title."</p>";
 			} 
 		else { //Otherwise, display a full event
 		
-			if ($displayday !== $compareday) { //If it's a new day, show this
+			if ((isset($compareday) && $displayday !== $compareday) || !isset($compareday)) { //If it's a new day, show this
 				if ($count > 1) { echo "<hr>"; }
 				echo "<h2 class=\"events\">".$displayday;
-				if ($displaymonth !== $comparemonth) { //And if it's a new month, show this too
+				if ((isset($comparemonth) && $displaymonth !== $comparemonth) || !isset($comparemonth)) { //And if it's a new month, show this too
 					echo "<span>".$displaymonth."</span>";
 					}
 				echo "</h2>";
@@ -52,10 +52,19 @@ if (file_exists("content_plain/diary/".$type.".xml")) { $eventread = simplexml_l
 				echo "<p class=\"details\"><a class=\"detaillink\" href=\"".$where[1]."\">Driving directions</a>.</p>";
 				}
 		
-			$comparetitle = explode($type,$title);
-			$comparetitle = $comparetitle[1];
-			$comparetype = $type;
-			$comparewhere = $where;
+      if ($type != "") { //Provides a fix for when a type has not been provided (there should always be a type, but this avoids errors if it's been left out by mistake)
+        if (strpos($type,$title) !== false) { //Checks to see if the event type is in the title itself (typically if it's a sporting fixture) and then provides just the detail after it
+			    $comparetitle = explode($type,$title);
+			    $comparetitle = $comparetitle[1];
+          }
+        else { $comparetitle = $title; } //Otherwise, gives the whole title to compare
+			  $comparetype = $type;
+        }
+      else {
+				$comparetitle = $title;
+				$comparetype = "None";
+				}
+			if (isset($where)) { $comparewhere = $where; } else { $comparewhere = ""; }
 			//This sets up a check for sporting events fixtures
 			
 			$compareday = $displayday;
