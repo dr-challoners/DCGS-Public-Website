@@ -11,8 +11,12 @@ RewriteRule    ^image/(.+)/(.*)/(.*)/(.*)$    content_pages.php?folder=$1&subfol
 RewriteRule    ^documents/(.*)$    content_plain/documents/$1    [L]    #For listing documents in the documents folder (so it's the same directory as the current site)
 RewriteRule    ^images/(.+)/(.*)/(.*)$    content_plain/$1/$2/$3    [L]    #For embedding images in articles
 
+#Search page
+RewriteRule    ^search/    search.php    [L]
+
 #Intranet pages
-RewriteRule    ^portal/(.+)/$    portal_$1.php    [L]
+RewriteRule    ^intranet/?$    intranet.php    [L]
+RewriteRule    ^intranet/(.+)$    intranet.php?user=$1    [L]
 
 #News stories
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]

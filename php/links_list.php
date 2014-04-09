@@ -3,7 +3,7 @@
 $links = scandir($directory);
 $boxes = count($links);
 $boxes = $boxes-2;
-$boxes = $boxes/4;
+$boxes = $boxes/3;
 
 $current = 1;
 $col_count = 1;
@@ -14,7 +14,7 @@ echo "<div class=\"intranet\">";
 foreach ($links as $row) {
 	if (strpos($directory.$row,".txt") !== false) { //It's a text file (thereby containing links in markdown)
 		
-		if (($current >= $boxes && $col_count < 2) || ($current >= 2*$boxes && $col_count < 3) || ($current >= 3*$boxes && $col_count < 4)) { //Breaks the content into four columns for better organisation
+		if (($current >= $boxes && $col_count < 2) || ($current >= 2*$boxes && $col_count < 3)) { //Breaks the content into three columns for better organisation
 			echo "</div><div class=\"column\">";
 			$col_count++; }
 		

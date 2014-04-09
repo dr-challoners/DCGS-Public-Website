@@ -114,6 +114,35 @@ div.main_nav {
        height: 31px; padding: 7px 2px 0px 2px;
        }
 
+div.sub_nav {
+    visibility: hidden;
+    position: absolute;
+    top: 145px; left: 5px;
+    width: 970px; text-align: center;
+    }
+    div.centred {
+       display: inline-block;
+       background-color: #d4e8ff;
+       padding: 10px; 
+       }
+    div.category {
+       display: inline-block;
+       float: left; width: 179px;
+       padding: 0px 5px 0px 5px;
+       border-left: 1px solid #a7cdf4;
+       }
+    div.sub_nav h2 {
+       margin: 0px 5px 0px 5px;
+       font-size: 16px; font-weight: bold;
+       }
+    div.sub_nav a {
+       color: #000000;
+       padding: 5px; width: 169px;
+       }
+       div.sub_nav a:hover {
+          color: #ffffff;
+          background-color: #2358A3;
+          }
 /* Footer */
 div.footer { position: fixed; z-index: 2; bottom: 0px; }
 
@@ -196,7 +225,7 @@ div.column {
     }
 
 div.linksbox {
-    width: 236px; padding-bottom: 10px; margin-bottom: 12px;
+    width: 228px; padding-bottom: 10px; margin-bottom: 12px;
     }
     div.linksbox h3 {
        background-color: #FFF7D7;
@@ -209,13 +238,12 @@ div.linksbox {
        }
 
 div.subjectbar {
-    clear: left;
     margin-left: -10px;
     }
 
 div.subjectbox {
     float: left;
-    width: 312px; margin: 0px 0px 25px 22px;
+    width: 228px; margin: 0px 0px 25px 12px;
     }
     div.subjectbox h2 {
        margin: 0px 0px 8px 0px;
