@@ -43,7 +43,7 @@ fclose($file);
 foreach ($positions as $rank) {
 	switch ($rank) {
 		case "C":
-			echo "<div class=\"line noclear\" id=\"header\">";
+			echo "<div class=\"line\" id=\"header\">";
 				echo "<div class=\"rank\"><h3>Captains</h3></div>";
 				echo "<div class=\"house\" id=\"foxell\"><p>Foxell</p></div>";
 				echo "<div class=\"house\" id=\"holman\"><p>Holman</p></div>";
@@ -52,7 +52,7 @@ foreach ($positions as $rank) {
 				echo "<div class=\"house\" id=\"rayner\"><p>Rayner</p></div>";
 				echo "<div class=\"house\" id=\"thorne\"><p>Thorne</p></div>";
 			echo "</div>";
-			echo "<div class=\"line noclear\">";
+			echo "<div class=\"line\">";
 				echo "<div class=\"rank\"></div>";
 			break;
 		case "VC":

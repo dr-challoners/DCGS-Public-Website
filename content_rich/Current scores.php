@@ -3,7 +3,6 @@
 	include ('house_styles.php');
 
 	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/4~House system/results.csv',"r");
-	echo "<pre>";
 	$houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 	$totals = array(0,0,0,0,0,0);
 	while(! feof($file)) {
@@ -24,27 +23,26 @@
 			}
 		}
 		$totals = array_combine($houses,$totals); // Makes each key the house name, for more human-readable matching later
-	echo "</pre>";
 	fclose($file);
 	
 	$biggest = max($totals["Foxell"],$totals["Holman"],$totals["Newman"],$totals["Pearson"],$totals["Rayner"],$totals["Thorne"]);
 	
-	$foxellwidth = (630*$totals["Foxell"]/$biggest)-18;
-	$holmanwidth = (630*$totals["Holman"]/$biggest)-18;
-	$newmanwidth = (630*$totals["Newman"]/$biggest)-18;
-	$pearsonwidth = (630*$totals["Pearson"]/$biggest)-18;
-	$raynerwidth = (630*$totals["Rayner"]/$biggest)-18;
-	$thornewidth = (630*$totals["Thorne"]/$biggest)-18;	
+	$foxellwidth = (700*$totals["Foxell"]/$biggest);
+	$holmanwidth = (700*$totals["Holman"]/$biggest)-8;
+	$newmanwidth = (700*$totals["Newman"]/$biggest)-8;
+	$pearsonwidth = (700*$totals["Pearson"]/$biggest)-8;
+	$raynerwidth = (700*$totals["Rayner"]/$biggest)-8;
+	$thornewidth = (700*$totals["Thorne"]/$biggest)-8;	
 			
 ?>
 	<h1>Current scores</h1>
 	<div class="house_scores">
-		<p class="position" id="foxell" style="width: <? echo $foxellwidth; ?>px;">Foxell <span><? echo $totals["Foxell"] ?></span></p>
-		<p class="position" id="holman" style="width: <? echo $holmanwidth; ?>px;">Holman <span><? echo $totals["Holman"] ?></span></p>
-		<p class="position" id="newman" style="width: <? echo $newmanwidth; ?>px;">Newman <span><? echo $totals["Newman"] ?></span></p>
-		<p class="position" id="pearson" style="width: <? echo $pearsonwidth; ?>px;">Pearson <span><? echo $totals["Pearson"] ?></span></p>
-		<p class="position" id="rayner" style="width: <? echo $raynerwidth; ?>px;">Rayner <span><? echo $totals["Rayner"] ?></span></p>
-		<p class="position" id="thorne" style="width: <? echo $thornewidth; ?>px;">Thorne <span><? echo $totals["Thorne"] ?></span></p>
+		<p class="position" id="foxell" style="width: <?php echo $foxellwidth; ?>px;">Foxell <span><?php echo $totals["Foxell"] ?></span></p>
+		<p class="position" id="holman" style="width: <?php echo $holmanwidth; ?>px;">Holman <span><?php echo $totals["Holman"] ?></span></p>
+		<p class="position" id="newman" style="width: <?php echo $newmanwidth; ?>px;">Newman <span><?php echo $totals["Newman"] ?></span></p>
+		<p class="position" id="pearson" style="width: <?php echo $pearsonwidth; ?>px;">Pearson <span><?php echo $totals["Pearson"] ?></span></p>
+		<p class="position" id="rayner" style="width: <?php echo $raynerwidth; ?>px;">Rayner <span><?php echo $totals["Rayner"] ?></span></p>
+		<p class="position" id="thorne" style="width: <?php echo $thornewidth; ?>px;">Thorne <span><?php echo $totals["Thorne"] ?></span></p>
 	</div>
 	
 	<div class="event_breakdown">
@@ -54,10 +52,10 @@
 <?php
 
 $file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/4~House system/results.csv',"r");
-
+$count = 0;
 while(! feof($file)) {
 	$line = fgetcsv($file);
-	if ($count != "" && $line[0] != "") { //To skip the first line (there's probably a better approach than this); also skips blank lines
+	if ($count != 0 && $line[0] != "") { //To skip the first line (there's probably a better approach than this); also skips blank lines
 		if ($line[0] == "New Term") { //It's starting a new term's set of results, so put in header lines
 			echo "<div class=\"line\" id=\"header\">";
 				echo "<h3>".$line[1]."</h3>";

@@ -15,7 +15,7 @@ p.position {
 	p.position span { float: right; }
 
 /* Scores breakdown */
-div.line { clear: right; }
+div.line { clear: right; float: right; }
     div.line p { margin-top: 0px; }
     
 div.line#header { padding-top: 20px;}
@@ -54,7 +54,7 @@ div.house {
     div.house p { line-height: 16px; margin: 0px 8px 8px 8px; font-size: 12px; }
 
  hr {
-       clear: both;
+       clear: right;
        border-bottom: 1px solid #aaaaaa;
        padding-top: 6px; margin-bottom: 10px;
        }
