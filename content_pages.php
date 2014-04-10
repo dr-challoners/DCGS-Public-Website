@@ -74,7 +74,7 @@ echo "<div class=\"mcol-rgt\">";
             }
           }
     
-      if (file_exists("content_plain/".$get_folder."/".$this_subdir."/".$this_page)) {
+      if (isset($this_page) && file_exists("content_plain/".$get_folder."/".$this_subdir."/".$this_page)) {
       	$content = file_get_contents("content_plain/".$get_folder."/".$this_subdir."/".$this_page, true); //Open the appropriate text file for parsing
       	echo Parsedown::instance()->parse($content);
       	}
@@ -82,7 +82,7 @@ echo "<div class=\"mcol-rgt\">";
 			  else { //Displays an error if the page can't be found
 				  echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 				  echo "<h2>Oh dear!</h2>";
-				  echo "<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there's an error, you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
+          echo "<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there's an error, you could <a href=\"/pages/Information/General information/Contact us\">contact us</a> to report the problem.</p>";
 			  	} 
 			  }
       else { // We're not looking at a specific page, so display the welcome message

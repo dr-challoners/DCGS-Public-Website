@@ -9,6 +9,7 @@ if ($get_story != "index.php") {
 ?>
 
 <div class="ncol lft submenu">
+  <h2 class="news">News</h2>
 <h3 class="sml"><a href="javascript:openClose('n3','n1','n2')">See more in this section</a></h3>
 
 <?php
@@ -48,13 +49,19 @@ if ($image != "") {
 $content = file_get_contents('content_plain/news/'.$get_story.".txt", true);
 echo Parsedown::instance()->parse($content);
 
+  if (isset($component[2])) { // Checks to see if an author has been given
 echo "<p class=\"credit\">".$component[2];
 $imagecredit = explode("~",$image);
-if (isset($imagecredit[1])) {
+    if (isset($imagecredit[1])) { // Tag on photography credit if necessary
 	$imagecredit = explode(".",$imagecredit[1]);
 	echo "<br />Photography by ".$imagecredit[0];
 	}
 echo "</p>";
+  }
+  elseif (isset($imagecredit[1])) { // If no author has been given, but there is a photography credit, display that
+	$imagecredit = explode(".",$imagecredit[1]);
+    echo "<p>Photography by ".$imagecredit[0]."</p>";
+	}
 ?>
 
 </div>

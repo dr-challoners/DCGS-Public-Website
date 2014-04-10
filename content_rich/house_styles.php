@@ -15,7 +15,7 @@ p.position {
 	p.position span { float: right; }
 
 /* Scores breakdown */
-div.line { clear: left; }
+div.line { clear: right; }
     div.line p { margin-top: 0px; }
     
 div.line#header { padding-top: 20px;}
@@ -25,14 +25,14 @@ div.line#header { padding-top: 20px;}
        }
 
 p.event, div.line h3 {
-    float: left;
-    width: 206px; height: 25px;
+    float: right;
+    width: 266px; height: 24px;
     }
-    div.line h3 {margin-top: 0px; }
+    div.line h3 {margin: 0px 0px 10px 0px; }
 
 p.score {
     float: left;
-    width: 84px;
+    width: 70px;
     text-align: center;
     }
 

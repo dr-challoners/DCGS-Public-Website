@@ -194,6 +194,7 @@ div.submenu {
     div.submenu ul.intranet { display: block; }
 
 div.ncol h2 { margin: -8px 0px 5px 0px; }
+/* div.submenu h2 { margin: -2px 0px 12px 10px; } */
 
 div.submenu li {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 18px;
