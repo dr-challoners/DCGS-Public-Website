@@ -1,21 +1,31 @@
 	</head>
-	<body onload="moveWindow()"> <!-- The moveWindow function only has any effect in the diary display. -->
+	<?php // Generating the body tag with onload functions for different pages
+		echo "<body";
+			if (isset($_GET['date'])) { echo " onload=\"moveWindow()\""; } // Diary pages - jumps to current day
+			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace("'","",$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
+		echo ">";
+	?>
 		
 		<!-- These divs create the blue and white bars across the top and bottom of the page. On small screens, appropriate elements can handle this styling as the screen width will equal the page width. -->
 		<div class="colourbar lrg" id="top"></div>
 		<div class="colourbar lrg" id="btm"></div>
 		
 		<script type="text/javascript">
-			function openClose(div1,div2,div3) {
-				if(document.getElementById(div1).style.display == 'block') {
-					document.getElementById(div1).style.display='none';
+			function openClose(divId) {
+				
+//var inputs = document.getElementsByName("submenu");
+//for(var i = 0; i < inputs.length; i++) {
+    //inputs[i].style.display='none';
+    //}
+
+				
+				if(document.getElementById(divId).style.display == 'block') { // Close the selected div if it's open
+					document.getElementById(divId).style.display='none';
 					}
 				else {
-					document.getElementById(div1).style.display = 'block';
+					document.getElementById(divId).style.display = 'block'; // Otherwise open it
 					}
-					
-				document.getElementById(div2).style.display='none';
-				document.getElementById(div3).style.display='none';
+				
 				}
 		</script>
 		<script type="text/javascript"> // Copyright 2006-2007 javascript-array.com
@@ -60,24 +70,24 @@
 					<ul>
 						<li><a href="/pages/Overview/" onmouseover="mopen('n1')" onmouseout="mclosetime()">Overview</a></li>
 						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
-						<li><a href="/intranet/">Intranet</a></li><!--This will need to do something different.-->
+						<li><a href="/intranet/">Intranet</a></li>
 						<li><a href="/pages/Student life/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Student life</a></li>
 						<li><a href="/pages/Showcase/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Showcase</a></li>
-						<li><a href="/pages/Alumni/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Alumni</a></li>
-						<li><a href="/pages/Overview/Information/Contact us">Contact us</a></li>
+						<li><a href="/pages/Information/Alumni/Introduction">Alumni</a></li>
+						<li><a href="/pages/Information/General information/Contact us">Contact us</a></li>
 					</ul>
 				<a class="rbutton" href="/search/"><img src="/main_imgs/search.png" alt="Search" /></a>
 				</div>
 				
 				<?php //This next section creates the drop-down menus for the main navigation
 				
-				$dropdowns = array("Overview","Student life","Showcase","Alumni");
+				$dropdowns = array("Overview","Student life","Showcase");
 				$div_id = 1;
 				
 				foreach ($dropdowns as $maindir) {
 				
-					echo "<div class=\"sub_nav\">";
-						echo "<div class=\"centred\" id=\"n".$div_id."\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
+					echo "<div class=\"sub_nav\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
+						echo "<div class=\"centred\" id=\"n".$div_id."\">";
 				
 					$dir = scandir("content_plain/".$maindir, 1); //First, get all the subdirectories in the main directory being looked at
 					$dir = array_reverse($dir);

@@ -132,10 +132,12 @@ div.sub_nav {
        border-left: 1px solid #a7cdf4;
        }
     div.sub_nav h2 {
+       text-align: left;
        margin: 0px 5px 0px 5px;
        font-size: 16px; font-weight: bold;
        }
     div.sub_nav a {
+       text-align: left;
        color: #000000;
        padding: 5px; width: 169px;
        }
@@ -182,12 +184,16 @@ a.anchor { height: 185px; margin: -185px 0px 0px 0px; display: block; background
 /* Side menu */
 div.submenu {
     border-right: 1px solid #aaaaaa;
-    width: 245px;
+    width: 255px; margin-left: -10px;
     padding: 10px 0px 10px 0px;
     }
-    div.submenu ul { margin-bottom: 10px; }
+    div.submenu ul {
+       display: none;
+       margin: -10px 0px 8px 0px;
+       }
+    div.submenu ul.intranet { display: block; }
 
-div.ncol h2 { margin: -2px 0px 10px 0px; }
+div.ncol h2 { margin: -8px 0px 5px 0px; }
 
 div.submenu li {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 18px;
@@ -215,8 +221,9 @@ p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
 
 /* Intranet links */
 div.intranet {
-    margin: 10px 0px 0px -12px;
+    margin-left: -12px;
     }
+h1.intranet { margin-bottom: 10px; }
 div.intranet hr { clear: left; }
 
 div.column {

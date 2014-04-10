@@ -20,12 +20,12 @@ $dir = array_reverse($dir);
 foreach ($dir as $subdir) { //List all the subdirectories
   $dirname = explode("~",$subdir);
   if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
-    echo "<h2>".$dirname[1]."</h2>";
+    echo "<h2><a href=\"javascript:openClose('".str_replace("'","",$dirname[1])."')\">".$dirname[1]."</a></h2>";
     
       $files = scandir("content_plain/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
       $files = array_reverse($files);
     
-      echo "<ul>";
+      echo "<ul id=\"".str_replace("'","",$dirname[1])."\">";
     
       foreach ($files as $page) {
         $detail = explode("~",$page);
@@ -78,26 +78,6 @@ echo "<div class=\"mcol-rgt\">";
       	$content = file_get_contents("content_plain/".$get_folder."/".$this_subdir."/".$this_page, true); //Open the appropriate text file for parsing
       	echo Parsedown::instance()->parse($content);
       	}
-
-    //		//Selects the file specified, or gives the default file
-    //		if ($get_page != "") { $content = $get_page; }
-    //		else { $content = "default"; } 
-		
-    //		switch ($content) { //This allows particular pages to be highlights as having 'rich' content: for instance a contact form, or the House scores
-    //		case "termdates":
-    //			include ('content_rich/termdates.php');
-    //			break;
-    //		case "house_scores":
-    //			include ('content_rich/house_scores.php');
-    //			break;
-    //		case "house_representatives":
-    //			include ('content_rich/house_representatives.php');
-    //			break;
-    //		default: //If it's not a special case, go through the normal process
-    //			if (file_exists("content_plain/".$get_folder."/".$content.".txt")) {
-    //				$content = file_get_contents("content_plain/".$get_folder."/".$content.'.txt', true); //Open the appropriate text file for parsing
-    //				echo Parsedown::instance()->parse($content);
-    //				}
 
 			  else { //Displays an error if the page can't be found
 				  echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";

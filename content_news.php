@@ -14,7 +14,7 @@ if ($get_story != "index.php") {
 <?php
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
 include ('php/make_news_arrays.php');
-echo "<ul id=\"n3\">";
+echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
 		echo "<li>";
@@ -52,7 +52,7 @@ echo "<p class=\"credit\">".$component[2];
 $imagecredit = explode("~",$image);
 if (isset($imagecredit[1])) {
 	$imagecredit = explode(".",$imagecredit[1]);
-	echo "<br />Photograph by ".$imagecredit[0];
+	echo "<br />Photography by ".$imagecredit[0];
 	}
 echo "</p>";
 ?>

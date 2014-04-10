@@ -8,13 +8,13 @@
 <div class="ncol rgt lrg">
 	
 	<div class="linkbox">
-		<a href="/pages/Overview/Admissions/General information"><h3>Admissions</h3>
+		<a href="/pages/Information/Admissions/General information"><h3>Admissions</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/pages/Overview/Information/Vacancies"><h3>Vacancies</h3>
+		<a href="/pages/Information/Vacancies/Introduction"><h3>Vacancies</h3>
 	</div>
 	<div class="linkbox">
-		<a href="/pages/Overview/Information/Supporting us"><h3>Supporting us</h3>
+		<a href="/pages/Information/Supporting us/Introduction"><h3>Supporting us</h3>
 	</div>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews"><p>DCGS News <span>Follow</span></p></a></div>

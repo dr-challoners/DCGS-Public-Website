@@ -87,6 +87,8 @@ div.day h2 { margin-top: 2px; }
     div.day h2 span { float: right; }
     h2.noevents { padding-bottom: 15px; }
 
+div.ncol h2 { margin-top: 2px; text-align: center; }
+
 p.time {
     clear: both; float: left;
     margin-top: 9px; width: 115px;

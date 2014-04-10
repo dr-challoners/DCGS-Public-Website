@@ -23,14 +23,14 @@ if ($get_event != "") { //We want to be looking at an events page: deal with thi
 	$type = $get_event;
 	
 	echo "<div class=\"ncol lft\">";
-		echo "<h2>".$type;
+		echo "<h2 class=\"event_title\">".$type;
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
 		echo "</h2>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/diary/".date('Y')."/".date('m')."/".date('Ymd')."#".date('Ymd')."\"><h3>Main diary</h3></a>";
+			echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."\"><h3>Main diary</h3></a>";
 		echo "</div>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/pages/information/termdates\"><h3>Term dates</h3></a>";
+			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "</div>";
 	
@@ -53,7 +53,7 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	echo "<div class=\"ncol lft\">";
 		include ('diary_calendar.php');
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/pages/information/termdates\">";
+			echo "<a href=\"/rich/Information/General information/Term dates\">";
 			if ($get_device == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
 			else { echo "<h3>Term dates</h3>"; }
 			echo "</a>";
@@ -73,7 +73,7 @@ else { //Mobile only navigation
 	
 	echo "<div class=\"linkbox\">";
 		echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar\"><h3>Browse the calendar</h3></a>";
-		echo "<a href=\"/pages/information/termdates\"><h3>See term dates</h3></a>";
+		echo "<a href=\"/rich/Information/General information/Term dates\"><h3>See term dates</h3></a>";
 	echo "</div>";
 	}
 	

@@ -4,7 +4,7 @@
 ?>
 
 <div class="ncol lft submenu">
-	<ul>
+	<ul class="intranet">
 		<li><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
 		<li><a href="/intranet/Parent portal">Parent portal</a></li>
 		<li><a href="/intranet/Subject resources">Subject resources</a></li>
@@ -16,7 +16,7 @@
 if (isset($_GET['user'])) {
 	switch ($_GET['user']) {
 	case "Subject resources":
-		echo "<h1>Subject resources</h1>";
+		echo "<h1 class=\"intranet\">Subject resources</h1>";
 			$directory = "content_plain/intranet/subjects/";
 			$links = scandir($directory);
 	
