@@ -6,9 +6,7 @@ $boxes = $boxes-2;
 $boxes = $boxes/3;
 
 $current = 1;
-$col_count = 1;
 
-echo "<div class=\"intranet\">";
 	echo "<div class=\"column\">";
 
 foreach ($links as $row) {
@@ -26,6 +24,6 @@ foreach ($links as $row) {
 		$current++; }
 	}
 	
-echo "</div></div>";
+echo "</div>";
 
 ?>
