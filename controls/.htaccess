@@ -1,4 +1,4 @@
 AuthName "DCGS override controls"
 AuthType Basic
-AuthUserFile /home/openmath/public_html/ITF/controls/.htpasswd
+AuthUserFile /workspace/www/controls/.htpasswd
 require valid-user
