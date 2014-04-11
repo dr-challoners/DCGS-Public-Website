@@ -2,18 +2,6 @@ div.page { margin-bottom: 17.4em;}
 div.mcol-rgt { padding-top: 6.2em; }
 a.anchor { height: 16.7em; margin: -16.7em 0 0 0; }
 
-div.linkbox {
-    position: fixed; bottom: 5.4em; width: 92%; margin: 0 1% 0 1%;
-    background-color: #FFF7D7;
-    text-align: center; text-transform: uppercase;
-    padding: 0.5em 3% 1.2em 3%;
-    }
-    div.linkbox a {
-       color: #000000; text-decoration: none;
-       display: block;
-       padding: 1em;
-       }
-
 /* Calendar widget */
 div.calendar { }
 
@@ -80,7 +68,7 @@ p.details {
     }
 
 div.browse {
-    position: fixed; top: 7.8em; width: 94%;
+    width: 94%;
     padding: 0 3% 0.5em 3%;
     background-color: #ffffff; border-bottom: 1px solid #aaaaaa;
     }

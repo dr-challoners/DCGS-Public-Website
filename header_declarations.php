@@ -17,9 +17,9 @@
 		<link rel="apple-touch-icon" sizes="144x144" href="/main_imgs/apple-icon-152.png" />
 		
 		<link rel="stylesheet" type="text/css" media="screen" href="/styles/general.css"/>
-		<!-- <link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/screen_lrg.css"/>
-		<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/screen_sml.css"/> -->
-		<link rel="stylesheet" type="text/css" href="/styles/screen_sml.css"/>
+		<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/screen_lrg.css"/>
+		<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/screen_sml.css"/>
+		<!-- <link rel="stylesheet" type="text/css" href="/styles/screen_sml.css"/> For testing/re-styling -->
 		<?php //Dirty rotten browser hacks
 			if(strpos($_SERVER['HTTP_USER_AGENT'],"Trident") != "") { //Hits IE by spotting the IE rendering engine
 				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/styles/screen_lrg_ie.css\"/>";

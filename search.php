@@ -15,6 +15,8 @@
     s.parentNode.insertBefore(gcse, s);
   })();
 </script>
+<div>
 <gcse:search></gcse:search>
+</div>
 
 <?php include('footer.php'); ?>

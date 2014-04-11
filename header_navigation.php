@@ -105,8 +105,12 @@
 				</div>
 				
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
-					<h1 class="sub_nav sml"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">Diary</a></h1>
-					<h1 class="sub_nav sml"><a href="/rich/Information/General information/Term dates">Term dates</a></h1>
+					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
+						<div class="sub_nav sub_menu" name="submenu" id="n0"><ul>
+							<li id="first"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">This week's events</a></li>
+							<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar"; ?>">Browse the calendar</a></li>
+							<li><a href="/rich/Information/General information/Term dates">See term dates</a></li>
+						</ul></div>
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
 						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
 							<li id="first"><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>

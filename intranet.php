@@ -3,7 +3,7 @@
 	include('header_navigation.php');
 ?>
 
-<div class="ncol lft submenu">
+<div class="ncol lft submenu lrg">
 	<ul class="intranet">
 		<li><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
 		<li><a href="/intranet/Parent portal">Parent portal</a></li>
@@ -58,7 +58,7 @@ if (isset($_GET['user'])) {
 		echo "<h1 class=\"intranet\">Parent portal</h1>";
 		$directory = "content_plain/intranet/parents/";
 		echo "<div class=\"intranet\">";
-			echo "<div class=\"column\">"; // This repeats the information in the Information content folder, to give parents another opportunity to find it all
+			echo "<div class=\"column lrg\">"; // This repeats the information in the Information content folder, to give parents another opportunity to find it all
 				
 				$dir = scandir("content_plain/Information", 1); //First, get all the subdirectories in the main directory being looked at
 				$dir = array_reverse($dir);

@@ -10,11 +10,12 @@ if (!isset($_GET['display'])) { $get_display = ""; } else { $get_display = $_GET
 <link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>
 <link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>
 
+<?php if ($get_device != "mobile") { ?>
 <script type="text/javascript" language="javascript"> // Jumps the page to the actual day being navigated
 	function moveWindow (){window.location.hash="<?php echo $get_date; ?>";}
 </script>
 
-<?php
+<?php }
 
 include('header_navigation.php');
 
@@ -52,11 +53,8 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	
 	echo "<div class=\"ncol lft\">";
 		include ('diary_calendar.php');
-		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/rich/Information/General information/Term dates\">";
-			if ($get_device == "mobile") { echo "<h3>See term dates</h3>"; } //Just because this wording makes slightly more sense for the mobile version
-			else { echo "<h3>Term dates</h3>"; }
-			echo "</a>";
+		echo "<div class=\"linkbox lrg\">";
+			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "</div>";
 	
@@ -71,10 +69,6 @@ else { //Mobile only navigation
 		echo "<a href=\"/diary/".substr($nextmonday,6,2)."/".substr($nextmonday,4,2)."/".substr($nextmonday,0,4)."/&device=mobile\">Next week &#187;</a></p>";
 	echo "</div>";
 	
-	echo "<div class=\"linkbox\">";
-		echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar\"><h3>Browse the calendar</h3></a>";
-		echo "<a href=\"/rich/Information/General information/Term dates\"><h3>See term dates</h3></a>";
-	echo "</div>";
 	}
 	
 if (($get_device == "mobile" && $get_display != "calendar") || $get_device == "") { //Only display dates on mobiles when the calendar is not being viewed
