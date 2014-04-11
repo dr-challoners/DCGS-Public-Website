@@ -3,6 +3,7 @@
 				<span class="left lrg">Dr Challoner's Grammar School, &copy; 2005-<?php echo date("y"); ?></span>
 				<span class="left sml">DCGS, &copy; 2005-<?php echo date("y"); ?></span>
 				<a href="/">Home</a> - 
+				<span class="sml"><a href="#">Page top</a> - </span>
 				<span class="lrg"><a href="/rich/Information/General information/Term dates">Term dates</a> - </span>
 				<span class="lrg"><a href="/pages/Information/Admissions/General information">Admissions</a> - </span>
 				<span class="lrg"><a href="/pages/Information/Vacancies/Introduction">Vacancies</a> - </span>

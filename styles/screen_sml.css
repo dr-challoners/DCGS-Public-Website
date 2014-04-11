@@ -5,7 +5,7 @@
 /* General structure */
 body {  }
 
-div.page { margin: 10.8em 0 14em 0; }
+div.page { margin: 0; }
 
 div.submenu {
     position: fixed; bottom: 5.45em;
@@ -13,7 +13,6 @@ div.submenu {
     background-color: #C1D8FC; outline: 1px solid #C1D8FC;
     width: 98%; margin: 0 1% 0 1%; padding: 6.45em 0 2em 0;
     }
-	#n3 { display: none; }
     div.submenu h2 {
        font-size: 1.3em;
        margin: 0.5em 0 0.1em 0.4em;
@@ -35,7 +34,7 @@ div.submenu {
        }
 
 div.mcol, div.mcol-rgt, div.intranet {
-    padding: 0 2% 4.5em 2%;
+    padding: 2.4em 2% 4.5em 2%;
     }
 	
 div.mcol img, div.mcol-rgt img {
@@ -71,55 +70,70 @@ a.anchor { height: 9.5em; margin: -9.5em 0 0 0; display: block; background-color
 div.header {
     background-color: #ffffff;
     }
-
-img.banner_img {
-    width: 194px;
-    position: fixed; z-index: 1;
-    margin: 0.3em 0 0 0.8em;
-    }
-
-div.nav_dropdown {
-    position: fixed; top: 0; z-index: 1;
-    width: 100%;
-    }
-    div.nav_dropdown span { padding: 0.3em 0.5em 0.2em 0.5em; }
-    div.nav_dropdown span:hover { background-color: #2358A3; }
-	div.nav_dropdown a { color: #ffffff; text-decoration: none; }
-    div.nav_dropdown p {
-       padding: 0.4em 0.4em 0.3em 0; margin-top: 0;
-       color: #ffffff; background-color: #173F7A;
-       text-align: right; line-height: 1.35em;
-       font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; text-transform: uppercase;
-       font-size: 3.8em;
+    div.main_nav {
+       width: 100%; height: 7.8em;
+       background-color: #173F7A;
        }
-    div.nav_dropdown p span.spacer { padding: 0; }
-
-div.nav_about, div.nav_links {
-    display: none; position: fixed;
-    background-color: #C1D8FC; outline: 1px solid #C1D8FC;
-    margin: 0 1% 0 1%;
-    padding: 0.8em 0 1.5em 0;
-    }
-    div.nav_dropdown li {
-       float: left;
-       width: 50%; 
-       font-size: 3.2em;
-       list-style-type: none;
-       }
-       div.nav_dropdown li a {
-          display: block; padding: 0.35em 1.5em 0.35em 1.5em;
-          color: #000000; text-decoration: none;
+       div.main_nav a {
+          color: #ffffff; text-decoration: none; 
           }
+       .rbutton { float: right; }
+       div.main_nav img { padding-top: 0.3em; }
+          img.banner_img { padding-left: 0.6em; }
+          img.rbutton { margin-bottom: -0.8em; }
+       div.main_nav p {
+          margin-top: 0.18em;
+          font-size: 3.7em;
+          border-width: 0 1px;
+          border-style: solid;
+          border-color: #286EC9;
+          }
+          div.main_nav span {
+             vertical-align: top; margin-left: 11.8em;
+             font-size: 0.55em;
+             }
+          div.main_nav p a { padding: 0.35em; }
+    div.nav_menu {
+       display: none;
+       padding: 1.8em 0 0.2em 0;
+       background-color: #2358A2;
+       }
+       h1.sub_nav {
+          font-size: 4.5em; float: left; width: 50%;
+          }
+          h1.sub_nav span {  }
+          h1.sub_nav a {
+             display: block;
+             padding: 0 0.5em 0.4em 0.5em;
+             color: #ffffff;  text-decoration: none;
+             }
+          h1.sub_nav#last { float: none; }
+       div.sub_nav {
+          clear: left;
+          background-color: #d4e8ff;
+          padding: 0.4em 0 1em 0; margin-bottom: 1.2em;
+          }
+          div.sub_menu { display: none; }
+          div.sub_nav h2 {
+             font-size: 3.3em; font-weight: bold;
+             padding: 0.3em 0.4em 0.15em 0.4em;
+             }
+          div.sub_nav li { font-size: 3.3em; }
+             div.sub_nav li#first { padding-top: 0.3em; }
+          div.sub_nav a {
+             display: block; padding: 0 0.4em 0.2em 0.4em;
+             color: #000000; text-decoration: none;
+             }
+
 
 /* Footer */
 div.footer {
-    position: fixed; bottom: 0px;
     height: 4.8em; width: 100%;
     background-color: #ffffff; border-top: 0.65em solid #173F7A;
     }
     div.footer p {
        text-align: right; font-size: 1.8em; line-height: 1.35em;
-       padding: 0.5em 1.2em 0 1.2em; margin-top: 0;
+       padding: 0.5em 1.2em 0 1.2em; margin: 0;
        }
     div.footer span.left { float: left; }
 

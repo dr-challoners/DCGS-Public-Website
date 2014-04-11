@@ -28,6 +28,25 @@
 				
 				}
 		</script>
+		<script type="text/javascript">
+			function openCloseAll(divId) {
+			
+				if(document.getElementById(divId).style.display == 'block') { var open = 1; }
+				
+				var inputs = document.getElementsByName("submenu");
+				for(var i = 0; i < inputs.length; i++) {
+					inputs[i].style.display='none';
+					}
+				
+				if(open == 1) { // Close the selected div if it's open
+					document.getElementById(divId).style.display='none';
+					}
+				else {
+					document.getElementById(divId).style.display = 'block'; // Otherwise open it
+					}
+				
+				}
+		</script>
 		<script type="text/javascript"> // Copyright 2006-2007 javascript-array.com
 			var timeout	= 0;
 			var closetimer	= 0;
@@ -65,7 +84,7 @@
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
 				<img class="banner_img lrg" src="/main_imgs/logo_lrg.png" alt="Dr Challoner's Grammar School" />
 				
-				<div class="main_nav">
+				<div class="main_nav lrg">
 				<a class="lbutton" href="/"><img src="/main_imgs/home.png" alt="Home" /></a>
 					<ul>
 						<li><a href="/pages/Overview/" onmouseover="mopen('n1')" onmouseout="mclosetime()">Overview</a></li>
@@ -79,15 +98,32 @@
 				<a class="rbutton" href="/search/"><img src="/main_imgs/search.png" alt="Search" /></a>
 				</div>
 				
+				<div class="main_nav sml">
+					<a class="bannerlink" href="/"><img class="banner_img" src="/main_imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
+					<a href="/search/"><img class="rbutton" src="/main_imgs/sml_search.png" alt="Search" /></a>
+					<p class="rbutton"><a href="javascript:openClose('main_nav')">Menu <span>&#9660;</span></a></p>
+				</div>
+				
+				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
+					<h1 class="sub_nav sml"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">Diary</a></h1>
+					<h1 class="sub_nav sml"><a href="/rich/Information/General information/Term dates">Term dates</a></h1>
+					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
+						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
+							<li id="first"><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
+							<li><a href="/intranet/Parent portal">Parent portal</a></li>
+							<li><a href="/intranet/Subject resources">Subject resources</a></li>
+						</ul></div>
+					
 				<?php //This next section creates the drop-down menus for the main navigation
 				
-				$dropdowns = array("Overview","Student life","Showcase");
+				$dropdowns = array("Information", "Overview","Student life","Showcase");
 				$div_id = 1;
 				
 				foreach ($dropdowns as $maindir) {
-				
-					echo "<div class=\"sub_nav\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
-						echo "<div class=\"centred\" id=\"n".$div_id."\">";
+					
+					echo "<h1 class=\"sub_nav sml\"><a href=\"javascript:openCloseAll('n".$div_id."')\">".$maindir."</a></h1>";
+					echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n".$div_id."\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
+						echo "<div class=\"centred\">";
 				
 					$dir = scandir("content_plain/".$maindir, 1); //First, get all the subdirectories in the main directory being looked at
 					$dir = array_reverse($dir);
@@ -132,45 +168,33 @@
 					echo "</div></div>";
 					
 					$div_id++; }
-				
+
 				?>
 					
-				
-				<!--Let's break the mobile view entirely, shall we?
-				<!-- On small screens very little will be displayed in the footer: it will all go in the drop-down menus here. --
-				<div class="nav_dropdown">
-				<div class="sml">
-				<a class="bannerlink" href="/"><img class="banner_img" src="/main_imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
-				<p><span><a href="javascript:openClose('n1','n2','n3')">Links</a></span> <span class="spacer">&middot;</span> <span><a onclick="openClose('n2','n1','n3')">About us</a></span></p>
-				</div>
-				
-				<div class="nav_about" id="n2"><ul>
-					<li class="sml"><a href="/pages/overview/">Overview</a></li>
-					<li><a href="/pages/learning/">Learning</a></li>
-					<li><a href="/pages/the-arts/">The Arts</a></li>
-					<li><a href="/pages/sports/">Sports</a></li>
-					<li><a href="/pages/enrichment/">Enrichment</a></li>
-					<li><a href="/pages/houses/">Houses</a></li>
-					<li><a href="/pages/history/">History</a></li>
-					<li class="sml"><a href="/pages/admissions/">Prospectus</a></li>
-					<li class="sml"><a href="/">Academy info</a></li>
-				</ul><hr class="sml clear" /></div>
-				
-				<div class="nav_links" id="n1"><ul>
-					<li class="lrg"><a href="/">Home</a></li>
-					<!-- This goes to the diary with the current day set--
-					<li class="lrg"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
-					<li class="sml"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">Diary</a></li>
-					<li class="sml"><a href="/pages/information/termdates">Term dates</a></li>
-					<li><a href="/portal/parents/">Parents</a></li>
-					<li><a href="/portal/intranet/">Intranet</a></li>
-					<li class="sml"><a href="/pages/admissions/">Admissions</a></li>
-					<li><a href="/">Alumni</a></li>
-					<li><a href="/">Support us</a></li>
-					<li class="sml"><a href="/pages/information/vacancies">Vacancies</a></li>
-					<li><a href="/pages/information/contactus">Contact us</a></li>
-				</ul><hr class="sml clear" /></div>
-				
-				</div> -->
+					<!-- Remainder of the links for the mobile menu. -->
+					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
+					<?php
+						$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
+						include_once ('php/make_news_arrays.php');
+						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
+						$n = 0; foreach ($newsposts as $row) {
+							$component = explode("~",$row);
+							echo "<li";
+							if ($n == 0) { echo " id=\"first\""; }
+							echo ">";
+							echo "<a href=\"news/".$component[0]."~".$component[1];
+							if ($component[2] != "") {
+								echo "~".$component[2];
+								}
+							echo "\">";
+							echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
+							echo "</a>";
+							echo "</li>";
+							}
+						echo "</ul></div>";
+					?>
+					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General information/Contact us">Contact us</a></h1>
+					
+					</div>
 
 			</div>

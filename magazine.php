@@ -1,7 +1,7 @@
 <?php
 
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
-include ('php/make_news_arrays.php');
+include_once ('php/make_news_arrays.php');
 	
 $non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
 	$components = explode("~",$newsposts[$non]);

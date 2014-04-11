@@ -8,13 +8,12 @@ if ($get_story != "index.php") {
 
 ?>
 
-<div class="ncol lft submenu">
+<div class="ncol lft submenu lrg">
   <h2 class="news">News</h2>
-<h3 class="sml"><a href="javascript:openClose('n3','n1','n2')">See more in this section</a></h3>
 
 <?php
 $newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
-include ('php/make_news_arrays.php');
+include_once ('php/make_news_arrays.php');
 echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
