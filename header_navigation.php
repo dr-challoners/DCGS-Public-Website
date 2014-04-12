@@ -87,11 +87,11 @@
 				<div class="main_nav lrg">
 				<a class="lbutton" href="/"><img src="/main_imgs/home.png" alt="Home" /></a>
 					<ul>
-						<li><a href="/pages/Overview/" onmouseover="mopen('n1')" onmouseout="mclosetime()">Overview</a></li>
+						<li><a href="/pages/Overview/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Overview</a></li>
 						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
 						<li><a href="/intranet/">Intranet</a></li>
-						<li><a href="/pages/Student life/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Student life</a></li>
-						<li><a href="/pages/Showcase/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Showcase</a></li>
+						<li><a href="/pages/Student life/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Student life</a></li>
+						<li><a href="/pages/Showcase/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Showcase</a></li>
 						<li><a href="/pages/Information/Alumni/Introduction">Alumni</a></li>
 						<li><a href="/pages/Information/General information/Contact us">Contact us</a></li>
 					</ul>
@@ -186,7 +186,7 @@
 							echo "<li";
 							if ($n == 0) { echo " id=\"first\""; }
 							echo ">";
-							echo "<a href=\"news/".$component[0]."~".$component[1];
+              echo "<a href=\"/news/".$component[0]."~".$component[1];
 							if ($component[2] != "") {
 								echo "~".$component[2];
 								}

@@ -211,6 +211,8 @@ div.submenu a {
     div.submenu a:hover { background-color: #2358A3; color: #ffffff; }
 	
 /* News story display */
+h2.news { padding: 6px 0 7px 10px; }
+
 div.mcol-rgt .newsimg {
     height: 200px; width: 355px;
     margin: 18px 0px 8px 14px;

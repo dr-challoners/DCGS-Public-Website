@@ -34,7 +34,7 @@ div.submenu {
        }
 
 div.mcol, div.mcol-rgt, div.intranet {
-    padding: 2.4em 2% 4.5em 2%;
+    padding: 2.9em 2% 4.5em 2%;
     }
 	
 div.mcol img, div.mcol-rgt img {
@@ -45,14 +45,22 @@ div.mcol img.left, div.mcol-rgt img.left {
     float: left;
 	width: 40%; margin: 1.8em 1.8em 0.8em 0;
     }
+div.mcol img.right, div.mcol-rgt img.right {
+    float: right;
+    width: 40% margin: 1.8em 0 0.8em 1.8em;
+    }
+div.mcol img.wide, div.mcol-rgt img.wide {
+    width: 100%;
+    margin: -0.5em 0 1.2em 0;
+    }
 
 iframe {margin-top: 1em; width: 100%; }
 
 /* General typography */
-h1 { font-size: 4.5em; line-height: 1.2em; }
-h2 { font-size: 3.6em; }
+h1 { font-size: 4.5em; line-height: 1.2em; margin-bottom: 0.2em; }
+h2 { font-size: 3.6em; margin-top: 0.4em; }
 h3 { font-size: 2.8em; margin-top: 0.3em;}
-p { font-size: 2.3em; line-height: 1.7em; margin-top: 1em; }
+p { font-size: 2.3em; line-height: 1.7em; margin-bottom: 1em; }
 h4 { font-size: 3.6em; margin-top: 1em; }
 li { font-size: 2.3em; line-height: 1.2em; }
 
@@ -141,7 +149,7 @@ div.footer {
 p.credit { text-align: right; font-style: italic; }
 
 div.newsimg {
-    margin: 2em 0 0 0;
+    margin: 2em 0 2em 0;
     width: 100%; height: 22.3em;
     background-position: center top; background-repeat: no-repeat; background-size: cover;
     }
@@ -151,19 +159,18 @@ div.intranet {  }
 h1.intranet { margin: 0 2% 0 2%; }
 
 div.column {
-    width: 100%; margin: 0 0 3em 0;
+    width: 48%; float: left; margin: 0 1% 3em 1%;
     }
 
 div.linksbox { clear: left; }
     div.linksbox h3, div.subjectbox h2 {
-       padding: 0.4em 0.6em 0.4em 0.6em; margin: 0.8em 0 1.2em 0;
+       padding: 0.4em 0.6em 0.4em 0.6em; margin-bottom: 0.8em;
        background-color: #FFF7D7;
        }
     div.linksbox li {
        list-style-type: none;
-       float: left; width: 44%;
-       padding: 0 3% 1.4em 3%; margin-top: -0.55em;
-       font-size: 2.8em;
+       padding: 0 0 1em 0.7em; margin: 0;
+       font-size: 2.8em; line-height: 1.2em;
        }
 
 div.subjectbar { }
@@ -178,3 +185,13 @@ div.subjectbox { }
        margin: 0 0.2em 0 0.2em;
        font-size: 2.8em; line-height: 1.6em;
        }
+
+/* Term dates */
+
+p.termdate#toprow {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #173F7A;
+    }
+
+p.termdate span { display: inline-block; width: 40%; }
+    p.termdate span#firstcol { width: 20%;}
