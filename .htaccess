@@ -5,7 +5,7 @@ RewriteEngine On    #Turn on the rewriting engine
 #General content pages
 RewriteRule    ^pages/(.+)/$    content_pages.php?folder=$1   [L]
 RewriteRule    ^pages/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3    [L]
-RewriteRule    ^rich/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3&special=y    [L]
+RewriteRule    ^rich/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3&special=$3    [L]
 RewriteRule    ^gallery/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&gallery=$3    [L]
 RewriteRule    ^image/(.+)/(.*)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&gallery=$3&image=$4    [L]
 RewriteRule    ^documents/(.*)$    content_plain/documents/$1    [L]    #For listing documents in the documents folder (so it's the same directory as the current site)
