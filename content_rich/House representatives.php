@@ -4,8 +4,6 @@
 
 <?php
 
-include ('house_styles.php');
-
 $positions = array("C","VC","M","R11","R10","R9","R8","R7","S");
 $houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 
@@ -45,12 +43,12 @@ foreach ($positions as $rank) {
 		case "C":
 			echo "<div class=\"line\" id=\"header\">";
 				echo "<div class=\"rank\"><h3>Captains</h3></div>";
-				echo "<div class=\"house\" id=\"foxell\"><p>Foxell</p></div>";
-				echo "<div class=\"house\" id=\"holman\"><p>Holman</p></div>";
-				echo "<div class=\"house\" id=\"newman\"><p>Newman</p></div>";
-				echo "<div class=\"house\" id=\"pearson\"><p>Pearson</p></div>";
-				echo "<div class=\"house\" id=\"rayner\"><p>Rayner</p></div>";
-				echo "<div class=\"house\" id=\"thorne\"><p>Thorne</p></div>";
+				echo "<div class=\"house lrg\" id=\"foxell\"><p>Foxell</p></div>";
+				echo "<div class=\"house lrg\" id=\"holman\"><p>Holman</p></div>";
+				echo "<div class=\"house lrg\" id=\"newman\"><p>Newman</p></div>";
+				echo "<div class=\"house lrg\" id=\"pearson\"><p>Pearson</p></div>";
+				echo "<div class=\"house lrg\" id=\"rayner\"><p>Rayner</p></div>";
+				echo "<div class=\"house lrg\" id=\"thorne\"><p>Thorne</p></div>";
 			echo "</div>";
 			echo "<div class=\"line\">";
 				echo "<div class=\"rank\"></div>";
@@ -68,12 +66,12 @@ foreach ($positions as $rank) {
 		case "R11":
 			echo "<div class=\"line\" id=\"header\">";
 				echo "<div class=\"rank\"><h3>Form Reps</h3></div>";
-				echo "<div class=\"house\" id=\"foxell\"><p>Foxell</p></div>";
-				echo "<div class=\"house\" id=\"holman\"><p>Holman</p></div>";
-				echo "<div class=\"house\" id=\"newman\"><p>Newman</p></div>";
-				echo "<div class=\"house\" id=\"pearson\"><p>Pearson</p></div>";
-				echo "<div class=\"house\" id=\"rayner\"><p>Rayner</p></div>";
-				echo "<div class=\"house\" id=\"thorne\"><p>Thorne</p></div>";
+				echo "<div class=\"house lrg\" id=\"foxell\"><p>Foxell</p></div>";
+				echo "<div class=\"house lrg\" id=\"holman\"><p>Holman</p></div>";
+				echo "<div class=\"house lrg\" id=\"newman\"><p>Newman</p></div>";
+				echo "<div class=\"house lrg\" id=\"pearson\"><p>Pearson</p></div>";
+				echo "<div class=\"house lrg\" id=\"rayner\"><p>Rayner</p></div>";
+				echo "<div class=\"house lrg\" id=\"thorne\"><p>Thorne</p></div>";
 			echo "</div>";
 			echo "<div class=\"line\">";
 				echo "<div class=\"rank\"><p>Year 11</p></div>";
@@ -99,31 +97,30 @@ foreach ($positions as $rank) {
 				echo "<div class=\"rank\"><p>Year 7</p></div>";
 			break;
 		case "S":
+      echo "<hr class=\"sml\" />";
 			echo "<div class=\"line\" id=\"header\">";
 				echo "<div class=\"rank\"><h3>Staff</h3></div>";
-				echo "<div class=\"house\" id=\"foxell\"><p>Foxell</p></div>";
-				echo "<div class=\"house\" id=\"holman\"><p>Holman</p></div>";
-				echo "<div class=\"house\" id=\"newman\"><p>Newman</p></div>";
-				echo "<div class=\"house\" id=\"pearson\"><p>Pearson</p></div>";
-				echo "<div class=\"house\" id=\"rayner\"><p>Rayner</p></div>";
-				echo "<div class=\"house\" id=\"thorne\"><p>Thorne</p></div>";
+				echo "<div class=\"house lrg\" id=\"foxell\"><p>Foxell</p></div>";
+				echo "<div class=\"house lrg\" id=\"holman\"><p>Holman</p></div>";
+				echo "<div class=\"house lrg\" id=\"newman\"><p>Newman</p></div>";
+				echo "<div class=\"house lrg\" id=\"pearson\"><p>Pearson</p></div>";
+				echo "<div class=\"house lrg\" id=\"rayner\"><p>Rayner</p></div>";
+				echo "<div class=\"house lrg\" id=\"thorne\"><p>Thorne</p></div>";
 			echo "</div>";
 			echo "<div class=\"line\">";
 				echo "<div class=\"rank\"></div>";
 			break;
 		}
 	foreach ($houses as $house) {
-		echo "<div class=\"house\">";
+		echo "<div class=\"house\"><p class=\"label sml\" id=\"".strtolower($house)."\">".$house."</p>";
 		foreach ($representatives as $person) {
 			if ($person[1] == $rank && $person[0] == $house) {
-				echo "<p>".$person[2]."</p>";
+				echo "<p class=\"person\">".$person[2]."</p>";
 				}
 			}
 		echo "</div>";
 		}
 	echo "</div>";
 	}
-
-//echo "<pre>"; print_r($representatives); echo "</pre>";
 
 ?>

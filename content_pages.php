@@ -12,8 +12,8 @@ if ($get_gallery != "") {
 	}
 	
 if (isset($_GET['special'])) {
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/".strtolower(str_replace(" ","",$_GET['special']))."_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/".strtolower(str_replace(" ","",$_GET['special']))."_sml.css\"/>";
+	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/rich_".strtolower(str_replace(" ","",$_GET['special']))."_lrg.css\"/>";
+	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/rich_".strtolower(str_replace(" ","",$_GET['special']))."_sml.css\"/>";
 	}
 	
 include('header_navigation.php');

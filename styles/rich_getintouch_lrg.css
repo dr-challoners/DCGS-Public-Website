@@ -1,0 +1,52 @@
+form { margin-top: 22px; }
+  
+form p {
+    float: left;
+    width: 220px; height: 26px;
+    padding-top: 2px; margin: 0px 12px 12px 0px; 
+    text-align: right;
+    }
+
+form input, form textarea {
+    border: 1px solid #aaaaaa;
+    float: left;
+    padding: 1px 4px 2px 4px;
+    font-size: 14px; font-family: Trebuchet, Verdana, sans-serif;
+    }
+    form input {
+       width: 386px; height: 24px;
+       padding-top: 0px;
+       }
+    form textarea {
+       width: 386px; height: 195px;
+       margin-bottom: 12px;
+       line-height: 22px;
+       resize: vertical;
+       }
+    input.submit {
+       width: 140px; height: 30px;
+       margin-left: 488px;
+       transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+       -webkit-transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+       }
+       input.submit:hover {
+          border-color: #173F7A;
+          background-color: #2358A3;
+          color: #ffffff;
+          cursor: pointer;
+          }
+
+p.require {
+    width: 70px; margin: 0px 0px 12px 12px;
+    text-align: left; color: #173F7A;
+    }
+  
+p.error {
+    padding: 5px 10px 8px 12px; border-right: 2px solid #303030;
+    color: #ffffff; font-weight: bold;
+    background-color: #303030;
+    background-image: url(/main_imgs/override_closure.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top right;
+    }

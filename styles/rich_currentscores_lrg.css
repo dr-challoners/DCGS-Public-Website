@@ -1,11 +1,3 @@
-<style>
-#foxell			{ background-color: #fac800; }
-#holman			{ background-color: #e87b19; }
-#newman			{ background-color: #d32918; color: #ffffff; }
-#pearson		{ background-color: #96c4f8; }
-#rayner			{ background-color: #2542a1; color: #ffffff; }
-#thorne 		{ background-color: #247703; color: #ffffff; }
-
 div.house_scores { margin-top: 12px; }
 
 p.position {
@@ -16,7 +8,7 @@ p.position {
 
 /* Scores breakdown */
 div.line { clear: right; float: right; }
-    div.line p { margin-top: 0px; }
+    div.line p { margin: 0px; padding: 0px; }
     
 div.line#header { padding-top: 20px;}
     div.line#header p {
@@ -25,10 +17,11 @@ div.line#header { padding-top: 20px;}
        }
 
 p.event, div.line h3 {
-    float: right;
+    float: right; 
     width: 266px; height: 24px;
     }
-    div.line h3 {margin: 0px 0px 10px 0px; }
+    div.line h3 {margin: 0px 0px 9px 24px; }
+    div.line p.event { margin-left: 24px; }
 
 p.score {
     float: left;
@@ -64,4 +57,3 @@ div.house {
        border-bottom: none;
        padding-top: 6px; margin-bottom: 10px;
        }
-</style>

@@ -7,3 +7,6 @@ p.termdate#toprow {
 
 p.termdate span { display: inline-block; width: 40%; }
     p.termdate span#firstcol { width: 20%;}
+
+h1.second { margin-top: 1em; }
+h2 { margin-top: 1.2em; }

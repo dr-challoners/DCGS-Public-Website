@@ -1,7 +1,5 @@
 <?php
 
-	include ('house_styles.php');
-
 	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/4~House system/results.csv',"r");
 	$houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 	$totals = array(0,0,0,0,0,0);
