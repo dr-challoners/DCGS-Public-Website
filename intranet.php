@@ -1,4 +1,5 @@
 <?php
+	$intranet = "y";
 	include('header_declarations.php');
 	include('header_navigation.php');
 ?>

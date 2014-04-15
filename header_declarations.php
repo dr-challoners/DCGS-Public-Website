@@ -5,7 +5,24 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		
-		<title>Dr Challoner's Grammar School</title>
+		<title>
+		<?php // Creating more informative titles
+		
+		if (isset($_GET['subfolder'])) { echo $_GET['subfolder']." - "; } // General content pages
+		if (isset($_GET['page'])) { echo $_GET['page']." - "; }
+		if (isset($_GET['gallery'])) { echo $_GET['gallery']." - "; }
+		
+		if (isset($_GET['story'])) { // News stories
+			$news_title = explode ("~",$_GET['story']);
+			echo "News - ".$news_title[1]." - ";
+			}
+			
+		if (isset($intranet)) { echo "Intranet - "; }
+		
+		if (isset($_GET['date']) || isset($_GET['event'])) { echo "Diary - "; } // Diary and events pages
+		
+		?>
+		Dr Challoner's Grammar School</title>
 		
 		<link rel="icon" href="/main_imgs/favicon.png" />
 		<link rel="shortcut icon" href="/main_imgs/favicon.png" />
