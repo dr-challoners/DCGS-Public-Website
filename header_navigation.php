@@ -78,7 +78,7 @@
 		</script>
 
 		<div class="page"><!--On large screens, this constrains the elements to 980px wide and centres them in the browser. On small screens it does nothing. -->
-			<div class="header"><!--Fixes all these items to the top of the browser-->
+			<!--googleoff: all--><div class="header"><!--Fixes all these items to the top of the browser-->
 				
 				<a class="bannerlink lrg" href="/"></a>
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
@@ -201,4 +201,4 @@
 					
 					</div>
 
-			</div>
+			<!--googleon: all--></div>

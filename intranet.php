@@ -4,13 +4,13 @@
 	include('header_navigation.php');
 ?>
 
-<div class="ncol lft submenu lrg">
+<!--googleoff: all--><div class="ncol lft submenu lrg">
 	<ul class="intranet">
 		<li><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
 		<li><a href="/intranet/Parent portal">Parent portal</a></li>
 		<li><a href="/intranet/Subject resources">Subject resources</a></li>
 	</ul>
-</div>
+<!--googleon: all--></div>
 <div class="mcol-rgt">
 
 <?php

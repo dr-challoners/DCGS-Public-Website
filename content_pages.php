@@ -18,7 +18,7 @@ if (isset($_GET['special'])) {
 	
 include('header_navigation.php');
 
-echo "<div class=\"ncol lft submenu lrg\">"; //Building the submenu
+echo "<!--googleoff: all--><div class=\"ncol lft submenu lrg\">"; //Building the submenu
 
 $dir = scandir("content_plain/".$get_folder, 1); //First, get all the subdirectories in the main directory being looked at
 $dir = array_reverse($dir);
@@ -58,7 +58,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
     }
   }
       
-echo "</div>";
+echo "<!--googleon: all--></div>";
 
 echo "<div class=\"mcol-rgt\">";
 

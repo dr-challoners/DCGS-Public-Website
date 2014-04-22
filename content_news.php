@@ -8,7 +8,7 @@ if ($get_story != "index.php") {
 
 ?>
 
-<div class="ncol lft submenu lrg">
+<!--googleoff: all--><div class="ncol lft submenu lrg">
   <h2 class="news">News</h2>
 
 <?php
@@ -31,7 +31,7 @@ echo "</ul>";
 ?>
 
 </div>
-<div class="mcol-rgt">
+<!--googleon: all--><div class="mcol-rgt">
 
 <?php
 $component = explode("~",$get_story);

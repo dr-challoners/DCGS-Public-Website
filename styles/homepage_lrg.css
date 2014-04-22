@@ -35,7 +35,7 @@ div.override {
 div.magazine { margin-top: 5px; }
     div.magazine a { text-decoration: none; color: #000000; }
     div.magazine p { margin-top: 5px; }
-    div.magazine h2 { line-height: 26px; margin-bottom: 6px; }
+    div.magazine h2 { line-height: 26px; padding: 10px 0px 8px 0px; }
     div.magazine hr { clear: left; }
 
 div.big, div.std, div.non, div.bar {

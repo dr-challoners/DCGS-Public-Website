@@ -1,5 +1,5 @@
 			<hr class="clear" /><!-- Sorts out any floating elements - stops them from disappearing behind the footer -->
-			<div class="footer"><p>
+			<!--googleoff: all--><div class="footer"><p>
 				<span class="left lrg">Dr Challoner's Grammar School, &copy; 2005-<?php echo date("y"); ?></span>
 				<span class="left sml">DCGS, &copy; 2005-<?php echo date("y"); ?></span>
 				<a href="/">Home</a> - 
@@ -12,7 +12,7 @@
 				<a href="/pages/Information/General information/Privacy and cookies">Privacy and cookies</a>
 				<span class="lrg"> - <a href="/pages/Information/General information/Contact us">Contact us</a></span>
 				<span class="lrg"> - <a href="/search/">Search</a></span>
-			</p></div>
+			</p><!--googleon: all--></div>
 			
 		</div><!-- This ends page.div -->
 	</body>

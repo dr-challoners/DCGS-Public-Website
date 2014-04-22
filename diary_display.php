@@ -5,6 +5,10 @@ if (!isset($_GET['date'])) { $get_date = ""; } else { $get_date = $_GET['date'];
 if (!isset($_GET['device'])) { $get_device = ""; } else { $get_device = $_GET['device']; }
 if (!isset($_GET['display'])) { $get_display = ""; } else { $get_display = $_GET['display']; }
 
+if ($get_device != "mobile") {
+	echo "<meta name=\"robots\" content=\"noindex\">"; // Prevents mobile versions of the page from appearing in Google searches, so it isn't broken when you click on it (breaks in mobiles then, of course, but oh well)
+	}
+	
 ?>
 
 <link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>
@@ -23,7 +27,7 @@ if ($get_event != "") { //We want to be looking at an events page: deal with thi
 
 	$type = $get_event;
 	
-	echo "<div class=\"ncol lft\">";
+	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		echo "<h2 class=\"event_title\">".$type;
 			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
 		echo "</h2>";
@@ -33,7 +37,7 @@ if ($get_event != "") { //We want to be looking at an events page: deal with thi
 		echo "<div class=\"linkbox\">";
 			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
-	echo "</div>";
+	echo "<!--googleon: all--></div>";
 	
 	echo "<div class=\"mcol-rgt\" id=\"diary\">";
 		echo "<div class=\"day\">";
@@ -51,12 +55,12 @@ if ($get_event != "") { //We want to be looking at an events page: deal with thi
 
 if (($get_device == "mobile" && $get_display == "calendar") || $get_device == "") { //Don't display the calendar on mobiles, unless the request has been made specifically
 	
-	echo "<div class=\"ncol lft\">";
+	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		include ('diary_calendar.php');
 		echo "<div class=\"linkbox lrg\">";
 			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
-	echo "</div>";
+	echo "<!--googleon: all--></div>";
 	
 	}
 else { //Mobile only navigation
