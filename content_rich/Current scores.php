@@ -1,6 +1,6 @@
 <?php
 
-	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/4~House system/results.csv',"r");
+	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_main/Student life/4~House system/results.csv',"r");
 	$houses = array("Foxell","Holman","Newman","Pearson","Rayner","Thorne");
 	$totals = array(0,0,0,0,0,0);
 	while(! feof($file)) {
@@ -49,7 +49,7 @@
 
 <?php
 
-$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Student life/4~House system/results.csv',"r");
+$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_main/Student life/4~House system/results.csv',"r");
 $count = 0;
 while(! feof($file)) {
 	$line = fgetcsv($file);

@@ -6,7 +6,7 @@ if (!isset($_GET['image'])) { $get_image = ""; } else { $get_image = $_GET['imag
 foreach ($dir as $subdir) { // In content_pages, all the submenu links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
-            $files = scandir("content_plain/".$get_folder."/".$subdir, 1);
+            $files = scandir("content_main/".$get_folder."/".$subdir, 1);
             foreach ($files as $page) {
               if (strpos($page,$get_gallery) !== false) {
                 $gallery = $page;
@@ -15,7 +15,7 @@ foreach ($dir as $subdir) { // In content_pages, all the submenu links are made 
             }
           }
 
-$photos = scandir("content_plain/".$get_folder."/".$subdir."/".$gallery, 1);
+$photos = scandir("content_main/".$get_folder."/".$subdir."/".$gallery, 1);
 array_pop($photos);
 array_pop($photos);
 
@@ -28,7 +28,7 @@ if ($get_image != "") { //We're looking at a specific image, so go to that view 
 	
 	echo "<div class=\"viewphoto\">";
 		echo "<h2>".str_replace("_"," ",strchr($get_image,".",true))."</h2>";
-		echo "<div class=\"photo\" style=\" background-image: url('/content_plain/".$get_folder."/".$subdir."/".$gallery."/".$get_image."');\"></div>";
+		echo "<div class=\"photo\" style=\" background-image: url('/content_main/".$get_folder."/".$subdir."/".$gallery."/".$get_image."');\"></div>";
 		echo "<div class=\"stublist\">";
 	}
 else { //Otherwise it's the gallery preview
@@ -37,8 +37,8 @@ else { //Otherwise it's the gallery preview
 	$hplace = array("left","center","right"); //To randomly align the snapshot of the image in its box
 	$vplace = array("left","center","right");
 	
-	if (file_exists("content_plain/".$get_folder."/".$gallery."/".$subdir."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
-		$description = file_get_contents("content_plain/".$get_folder."/".$subdir."/".$gallery."/description.txt", true);
+	if (file_exists("content_main/".$get_folder."/".$gallery."/".$subdir."/description.txt")) { //If there's a description file accompanying the gallery, then display it on the main gallery page
+		$description = file_get_contents("content_main/".$get_folder."/".$subdir."/".$gallery."/description.txt", true);
 		echo "<div class=\"description\">";
 			echo Parsedown::instance()->parse($description);
 		echo "</div>";
@@ -86,7 +86,7 @@ echo "<hr />";
 	else { //If the folder has been found, but is empty
 	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 	echo "<h2>Oh dear!</h2>";
-	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/content_plain/contact/\">contact us</a> to report the problem.</p>";
+	echo "<p>This gallery cannot be found. Perhaps it is still being built - or perhaps you only dreamed that it was real. You could try again later, or you could <a href=\"/content_main/contact/\">contact us</a> to report the problem.</p>";
 	}
 
 ?>

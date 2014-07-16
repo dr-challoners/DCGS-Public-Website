@@ -12,7 +12,7 @@ if ($get_story != "index.php") {
   <h2 class="news">News</h2>
 
 <?php
-$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
+$newsfiles = scandir("content_news/", 1); //Calls up all the files in the news folder
 include_once ('php/make_news_arrays.php');
 echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
 foreach ($newsposts as $row) {
@@ -42,10 +42,10 @@ echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($compone
 $image = array_search($component[1],$newsimages);
 if ($image != "") {
 	$image = addcslashes($newsfiles[array_search($component[1],$newsimages)],"'");
-	echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
+	echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
 	}
 
-$content = file_get_contents('content_plain/news/'.$get_story.".txt", true);
+$content = file_get_contents('content_news/'.$get_story.".txt", true);
 echo Parsedown::instance()->parse($content);
 
   if (isset($component[2])) { // Checks to see if an author has been given

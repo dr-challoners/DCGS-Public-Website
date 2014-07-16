@@ -4,32 +4,33 @@ if (!isset($_GET['override'])) { $get_override = ""; } else { $get_override = $_
 
 $override = 0;
 	
-if (file_exists("controls/override_status.txt")) { //First check to see if there's any file to declare overrides - if there isn't, then there shan't be an override
+if (file_exists("content_system/override/override_status.txt")) { //First check to see if there's any file to declare overrides - if there isn't, then there shan't be an override
   
-  $status = file_get_contents("controls/override_status.txt", true);
+  $status = file_get_contents("content_system/override/override_status.txt", true);
+  $status = strtolower($status); //Compensates for auto-capitalisation when editing the override_status file from a mobile device
 
 if ($get_override != "") { $status = $get_override; } //First check to see if an override is being tested
 elseif ($status == "none") { $status = ""; } //If there's no status being given, stop the override from happening
 
 if ($status != "") { //If any form of status has been set, display the override
 
-	if (file_exists("content_plain/override/".$status.".css")) { //Option for a stylesheet, if you want to get technical!
-		echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 361px)\" href=\"content_plain/override/".$status.".css\"/>";
+	if (file_exists("content_system/override/".$status.".css")) { //Option for a stylesheet, if you want to get technical!
+		echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 361px)\" href=\"content_system/override/".$status.".css\"/>";
 		}
 
 	echo "<div class=\"override\" id=\"".$status."\""; //There are built-in styles for some overrides, identified by the corresponding status. Built-in statuses are: closure, snow_amber
 	
-		if (file_exists("content_plain/override/".$status.".jpg")) { //Checks for pngs or jpgs matching the status: if one exists, it sets it as a background picture
-			echo " style=\"background-image: url(content_plain/override/".$status.".jpg);\"";
+		if (file_exists("content_system/override/".$status.".jpg")) { //Checks for pngs or jpgs matching the status: if one exists, it sets it as a background picture
+			echo " style=\"background-image: url(content_system/override/".$status.".jpg);\"";
 			}
-		elseif (file_exists("content_plain/override/".$status.".jpg")) { //Checks for pngs or jpgs matching the status: if one exists, it sets it as a background picture
-			echo " style=\"background-image: url(content_plain/override/".$status.".jpg);\"";
+		elseif (file_exists("content_system/override/".$status.".jpg")) { //Checks for pngs or jpgs matching the status: if one exists, it sets it as a background picture
+			echo " style=\"background-image: url(content_system/override/".$status.".jpg);\"";
 			}
 	
 		echo ">";
 		
-		if (file_exists("content_plain/override/".$status.".txt")) { //If you want a message (which generally you will unless a picture contains the message), make sure the filename matches the status
-			$message = file_get_contents("content_plain/override/".$status.".txt", true);
+		if (file_exists("content_system/override/".$status.".txt")) { //If you want a message (which generally you will unless a picture contains the message), make sure the filename matches the status
+			$message = file_get_contents("content_system/override/".$status.".txt", true);
 			echo Parsedown::instance()->parse($message);
 			}
 	

@@ -20,7 +20,7 @@ include('header_navigation.php');
 
 echo "<!--googleoff: all--><div class=\"ncol lft submenu lrg\">"; //Building the submenu
 
-$dir = scandir("content_plain/".$get_folder, 1); //First, get all the subdirectories in the main directory being looked at
+$dir = scandir("content_main/".$get_folder, 1); //First, get all the subdirectories in the main directory being looked at
 $dir = array_reverse($dir);
 
 foreach ($dir as $subdir) { //List all the subdirectories
@@ -28,7 +28,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
   if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
     echo "<h2><a href=\"javascript:openClose('".str_replace("'","",$dirname[1])."')\">".$dirname[1]."</a></h2>";
     
-      $files = scandir("content_plain/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
+      $files = scandir("content_main/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
       $files = array_reverse($files);
     
       echo "<ul id=\"".str_replace("'","",$dirname[1])."\">";
@@ -37,7 +37,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
         $detail = explode("~",$page);
         if (isset($detail[2])) { // If there's a third part to the array, then that means a particular instruction like an external LINK or a GALLERY or a SPECIAL content_rich page
           if ($detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link infor is written inside the text file
-            echo "<li><a href=\"".file_get_contents("content_plain/".$get_folder."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
+            echo "<li><a href=\"".file_get_contents("content_main/".$get_folder."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
             }
           elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
             echo "<li><a href=\"/gallery/".$get_folder."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
@@ -71,7 +71,7 @@ echo "<div class=\"mcol-rgt\">";
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
-            $files = scandir("content_plain/".$get_folder."/".$subdir, 1);
+            $files = scandir("content_main/".$get_folder."/".$subdir, 1);
             foreach ($files as $page) {
               if (strpos($page,$get_page) !== false) {
                 $this_page = $page;
@@ -80,8 +80,8 @@ echo "<div class=\"mcol-rgt\">";
             }
           }
     
-      if (isset($this_page) && file_exists("content_plain/".$get_folder."/".$this_subdir."/".$this_page)) {
-      	$content = file_get_contents("content_plain/".$get_folder."/".$this_subdir."/".$this_page, true); //Open the appropriate text file for parsing
+      if (isset($this_page) && file_exists("content_main/".$get_folder."/".$this_subdir."/".$this_page)) {
+      	$content = file_get_contents("content_main/".$get_folder."/".$this_subdir."/".$this_page, true); //Open the appropriate text file for parsing
       	echo Parsedown::instance()->parse($content);
       	}
 

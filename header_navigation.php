@@ -129,7 +129,7 @@
 					echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n".$div_id."\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
 						echo "<div class=\"centred\">";
 				
-					$dir = scandir("content_plain/".$maindir, 1); //First, get all the subdirectories in the main directory being looked at
+					$dir = scandir("content_main/".$maindir, 1); //First, get all the subdirectories in the main directory being looked at
 					$dir = array_reverse($dir);
 
 					foreach ($dir as $subdir) { //List all the subdirectories
@@ -139,7 +139,7 @@
 							echo "<div class=\"category\">";
 							echo "<h2>".$dirname[1]."</h2>";
     
-							$files = scandir("content_plain/".$maindir."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
+							$files = scandir("content_main/".$maindir."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
 							$files = array_reverse($files);
     
 							echo "<ul>";
@@ -148,7 +148,7 @@
 								$detail = explode("~",$page);
 								if (isset($detail[2])) { // If there's a third part to the array, then that means a particular instruction like an external LINK or a GALLERY or a SPECIAL content_rich page
 								if ($detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo "<li><a href=\"".file_get_contents("content_plain/".$maindir."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
+									echo "<li><a href=\"".file_get_contents("content_main/".$maindir."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
 									}
 								elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
 									echo "<li><a href=\"/gallery/".$maindir."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
@@ -178,7 +178,7 @@
 					<!-- Remainder of the links for the mobile menu. -->
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
 					<?php
-						$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
+						$newsfiles = scandir("content_news/", 1); //Calls up all the files in the news folder
 						include_once ('php/make_news_arrays.php');
 						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
 						$n = 0; foreach ($newsposts as $row) {

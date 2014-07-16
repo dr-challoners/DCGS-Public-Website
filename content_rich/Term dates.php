@@ -1,6 +1,6 @@
 <?php
 
-$files = scandir("content_plain/Information/1~General information/");
+$files = scandir("content_main/Information/1~General information/");
 
 $termdates = array();
 foreach ($files as $row) { //From the general files in information/, take only the files related to termdates (which should all be csv files full of dates)
@@ -19,7 +19,7 @@ foreach ($termdates as $row) { //Processing whatever termdates files there are, 
 	
 	$dates = array(); //Now turn the file into an array, in order to parse as content
 	
-	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_plain/Information/1~General information/'.$row,"r");
+	$file = fopen($_SERVER['DOCUMENT_ROOT'].'/content_main/Information/1~General information/'.$row,"r");
 
 	while(! feof($file)) {
 		$line = fgetcsv($file);

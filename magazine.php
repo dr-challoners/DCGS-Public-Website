@@ -1,6 +1,6 @@
 <?php
 
-$newsfiles = scandir("content_plain/news/", 1); //Calls up all the files in the news folder
+$newsfiles = scandir("content_news/", 1); //Calls up all the files in the news folder
 include_once ('php/make_news_arrays.php');
 	
 $non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
@@ -91,7 +91,7 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4)));
 	$file = substr($post,4);
 	
-	$lines = file('content_plain/news/'.$file.".txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
+	$lines = file('content_news/'.$file.".txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
 	$story = ""; foreach ($lines as $line) {
 		$line = Parsedown::instance()->parse($line);
 		if (substr($line,0,2) != "<h") { // If it's a header, it's ignored
@@ -106,7 +106,7 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] == "BIG") {
 		echo "<a href=\"news/".$file."\">";
 		echo "<div class=\"big\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
 			echo "<h2>".$component[2]."</h2>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,120)." ...";
@@ -118,7 +118,7 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] == "STD") {
 		echo "<a href=\"news/".$file."\">";
 		echo "<div class=\"std\">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p><em>".$date."</em><span class=\"lrg\"><em>:</em> ";
 			echo word_cutoff($story,140)." ...";
@@ -141,7 +141,7 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 		echo "<div class=\"bar\"";
 			if ($bcount == 3) { echo " id=\"end\""; }
 		echo ">";
-			echo "<div class=\"newsimg\" style=\"background-image: url('/content_plain/news/".$image."');\"></div>";
+			echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
 			echo "<h3>".$component[2]."</h3>";
 			echo "<p class=\"sml\"><em>".$date."</em></p>"; //Going for just the date on these story stubs
 		echo "</div>";

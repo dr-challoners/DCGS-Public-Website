@@ -41,11 +41,11 @@ echo "<h2>Finding files</h2>";
 //If we're not being told to do processing and there are no folders set to GET then we're at the start of the process. Set the initial folder to look in on Box and open the file to write Box data to.  
 if (!isset($_GET['folders'])) {
   $folders = array($initial);
-  $checkfile = fopen($initial."_latest.txt", "w");
+  $checkfile = fopen("../sync_logs/".$initial."_latest.txt", "w");
   }
 else { //Otherwise we're looking through folders - carry on doing so
   $folders = explode(",",$_GET['folders']);
-  $checkfile = fopen($initial."_latest.txt", "a");
+  $checkfile = fopen("../sync_logs/".$initial."_latest.txt", "a");
   }
 
 //Take one folder at a time and look at the files in it
@@ -67,7 +67,7 @@ foreach($folder['item_collection']['entries'] as $entry) {
       }
     $path[] = $subfolder['name'];
     $path = implode("/",$path);
-    $path = substr($path,10); //Cuts out the 'All files' from Box at the beginning
+    $path = substr($path,33); //Cuts out the 'All files/Public Website Content/' from Box at the beginning
     fwrite($checkfile,$subfolder['id']."|".$subfolder['modified_at']."|".$subfolder['type']."|".$path.PHP_EOL);
     $folders[] = $entry['id']; //It's a folder, so add it to the list to look through in a bit
     }
@@ -80,7 +80,7 @@ foreach($folder['item_collection']['entries'] as $entry) {
       }
     $path[] = $file['name'];
     $path = implode("/",$path);
-    $path = substr($path,10); //Cuts out the 'All files' from Box at the beginning
+    $path = substr($path,33); //Cuts out the 'All files' from Box at the beginning
     fwrite($checkfile,$file['id']."|".$file['modified_at']."|".$file['type']."|".$path.PHP_EOL);
     }
   }
@@ -108,11 +108,11 @@ else {
     if(isset($_GET['file'])) { $f = $_GET['file']; } else { $f = 0; } $f_end = $f+5; //Setting up a file count for steps 5 and 6
     }
   
-  if(!file_exists($initial."_current.txt")) { //Make the 'current' file if this is the first time working with this directory
-    fopen($initial."_current.txt", "x+");
+  if(!file_exists("../sync_logs/".$initial."_current.txt")) { //Make the 'current' file if this is the first time working with this directory
+    fopen("../sync_logs/".$initial."_current.txt", "x+");
     }
-  $current = file($initial."_current.txt");
-  $latest = file($initial."_latest.txt");
+  $current = file("../sync_logs/".$initial."_current.txt");
+  $latest = file("../sync_logs/".$initial."_latest.txt");
   
   $additions = array_diff($latest,$current); //Also returns all modified files 
   $deletions = array_diff($current,$latest); //Also returns all modified files, which will need to be ignored as they're dealt with in additions
@@ -192,12 +192,6 @@ else {
           fclose($file);
           }
           echo "<b>Changed file:</b> ".$path."/".$filename."\n";
-        /*if($key >= $f) { $f++; }
-        if($f == $f_end && $f_end <= count($additions)) {
-          echo "<p>Continuing to process files - please wait.</p>";
-          echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&processing=".$p."&file=".$f."\">";
-          break;
-          }*/
         }
       }
     else { //Create new directories and files
@@ -217,12 +211,6 @@ else {
         fclose($file);
         echo "<b>New file:</b> ".$path."/".$filename."\n";
         }
-      /*if($key >= $f) { $f++; }
-      if($f == $f_end && $f_end <= count($additions)) {
-        echo "<p>Continuing to process files - please wait.</p>";
-        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&processing=".$p."&file=".$f."\">";
-        break;
-        }*/
       }
     }
     if(isset($f)) {
@@ -253,8 +241,8 @@ else {
   } 
   
   if($p == 10) { //Set up the new 'current' file and end the process
-    copy($initial."_latest.txt",$initial."_current.txt");
-    unlink($initial."_latest.txt");
+    copy("../sync_logs/".$initial."_latest.txt","../sync_logs/".$initial."_current.txt");
+    unlink("../sync_logs/".$initial."_latest.txt");
     echo "<p>This directory is up to date.</p>";
     echo "<p>Options:</p>";
     echo "<ul>";

@@ -1,4 +1,0 @@
-AuthName "DCGS override controls"
-AuthType Basic
-AuthUserFile /workspace/www/controls/.htpasswd
-require valid-user
