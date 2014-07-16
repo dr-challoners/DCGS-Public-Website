@@ -1,0 +1,109 @@
+2176734456|2014-07-08T04:05:16-07:00|folder|content_main/Information
+2176719294|2014-07-08T03:58:44-07:00|folder|content_main/Overview
+2176717064|2014-07-08T03:57:55-07:00|folder|content_main/Showcase
+2176715084|2014-07-08T03:56:59-07:00|folder|content_main/Student life
+2176737512|2014-07-08T04:05:16-07:00|folder|content_main/Information/1~General information
+2176737304|2014-07-08T04:04:59-07:00|folder|content_main/Information/2~Academy information
+2176736030|2014-07-08T04:04:54-07:00|folder|content_main/Information/3~Policies
+2176735498|2014-07-08T04:04:21-07:00|folder|content_main/Information/4~Admissions
+2176735390|2014-07-08T04:04:10-07:00|folder|content_main/Information/4~Vacancies
+2176734978|2014-07-08T04:04:08-07:00|folder|content_main/Information/5~Alumni
+2176734468|2014-07-08T04:03:58-07:00|folder|content_main/Information/6~Supporting us
+2176720588|2014-07-08T03:58:44-07:00|folder|content_main/Overview/1~Introduction
+2176719968|2014-07-08T03:58:29-07:00|folder|content_main/Overview/2~History of DCGS
+2176719638|2014-07-08T03:58:13-07:00|folder|content_main/Overview/3~Learning@Challoner's
+2176719296|2014-07-08T03:58:04-07:00|folder|content_main/Overview/4~Governors and Friends
+2176719184|2014-07-08T03:57:55-07:00|folder|content_main/Showcase/1~Art and Graphics
+2176718926|2014-07-08T03:57:52-07:00|folder|content_main/Showcase/2~English and Drama
+2176718360|2014-07-08T03:57:45-07:00|folder|content_main/Showcase/3~Music
+2176717072|2014-07-08T03:57:30-07:00|folder|content_main/Showcase/4~Sports
+2176716218|2014-07-08T03:56:59-07:00|folder|content_main/Student life/1~Student perspective
+2176716116|2014-07-08T03:56:35-07:00|folder|content_main/Student life/2~Clubs and societies
+2176715924|2014-07-08T03:56:32-07:00|folder|content_main/Student life/2~Enrichment
+2176715088|2014-07-08T03:56:27-07:00|folder|content_main/Student life/4~House system
+18809688212|2014-07-08T04:05:01-07:00|file|content_main/Information/1~General information/1~Contact us.txt
+18809689156|2014-07-08T04:05:04-07:00|file|content_main/Information/1~General information/2~Term dates~SPECIAL.txt
+18809690184|2014-07-08T04:05:07-07:00|file|content_main/Information/1~General information/3~School Shop - Uniform and Stationery.txt
+18809691126|2014-07-08T04:05:10-07:00|file|content_main/Information/1~General information/9~Privacy and cookies.txt
+18809692072|2014-07-08T04:05:13-07:00|file|content_main/Information/1~General information/termdates~2013 - 2014.csv
+18809693000|2014-07-08T04:05:16-07:00|file|content_main/Information/1~General information/termdates~2014 - 2015.csv
+18809686462|2014-07-08T04:04:56-07:00|file|content_main/Information/2~Academy information/1~Accounts and value for money.txt
+18809687314|2014-07-08T04:04:59-07:00|file|content_main/Information/2~Academy information/2~Pupil and Service premium.txt
+18809675002|2014-07-08T04:04:23-07:00|file|content_main/Information/3~Policies/10~Social networking.txt
+18809675882|2014-07-08T04:04:25-07:00|file|content_main/Information/3~Policies/11~Special educational needs.txt
+18809676838|2014-07-08T04:04:28-07:00|file|content_main/Information/3~Policies/12~e-Safety.txt
+18809677786|2014-07-08T04:04:31-07:00|file|content_main/Information/3~Policies/1~Anti-bullying.txt
+18809678664|2014-07-08T04:04:33-07:00|file|content_main/Information/3~Policies/2~Behaviour.txt
+18809679682|2014-07-08T04:04:36-07:00|file|content_main/Information/3~Policies/3~Child protection.txt
+18809680574|2014-07-08T04:04:38-07:00|file|content_main/Information/3~Policies/4~Confidentiality.txt
+18809681498|2014-07-08T04:04:41-07:00|file|content_main/Information/3~Policies/5~Drugs.txt
+18809682786|2014-07-08T04:04:45-07:00|file|content_main/Information/3~Policies/6~Equality.txt
+18809683676|2014-07-08T04:04:48-07:00|file|content_main/Information/3~Policies/7~Home-school agreement.txt
+18809684566|2014-07-08T04:04:51-07:00|file|content_main/Information/3~Policies/8~Refunds.txt
+18809685480|2014-07-08T04:04:53-07:00|file|content_main/Information/3~Policies/9~Sex and relationship education.txt
+18809671352|2014-07-08T04:04:13-07:00|file|content_main/Information/4~Admissions/1~General information.txt
+18809672200|2014-07-08T04:04:15-07:00|file|content_main/Information/4~Admissions/2~11plus admissions.txt
+18809673214|2014-07-08T04:04:18-07:00|file|content_main/Information/4~Admissions/3~Sixth Form admissions.txt
+18809674096|2014-07-08T04:04:20-07:00|file|content_main/Information/4~Admissions/4~Prospectus.txt
+18809670434|2014-07-08T04:04:10-07:00|file|content_main/Information/4~Vacancies/1~Introduction.txt
+18809667036|2014-07-08T04:04:00-07:00|file|content_main/Information/5~Alumni/1~Introduction.txt
+18809667918|2014-07-08T04:04:03-07:00|file|content_main/Information/5~Alumni/2~Get in touch~SPECIAL.txt
+18809668694|2014-07-08T04:04:05-07:00|file|content_main/Information/5~Alumni/3~Alumni Facebook page~LINK.txt
+18809669580|2014-07-08T04:04:08-07:00|file|content_main/Information/5~Alumni/4~DCGS archives~LINK.txt
+18809662568|2014-07-08T04:03:48-07:00|file|content_main/Information/6~Supporting us/1~Annual Giving Programme.txt
+18809663680|2014-07-08T04:03:51-07:00|file|content_main/Information/6~Supporting us/2~Sponsorship.txt
+18809664890|2014-07-08T04:03:54-07:00|file|content_main/Information/6~Supporting us/3~Leaving a legacy.txt
+18809666016|2014-07-08T04:03:57-07:00|file|content_main/Information/6~Supporting us/4~Raising the Roof.txt
+18809550856|2014-07-08T03:58:31-07:00|file|content_main/Overview/1~Introduction/1~Headmaster's welcome.txt
+18809551980|2014-07-08T03:58:35-07:00|file|content_main/Overview/1~Introduction/2~Prospectus.txt
+18809553108|2014-07-08T03:58:38-07:00|file|content_main/Overview/1~Introduction/3~Inspection.txt
+18809554178|2014-07-08T03:58:41-07:00|file|content_main/Overview/1~Introduction/4~Results.txt
+18809555366|2014-07-08T03:58:44-07:00|file|content_main/Overview/1~Introduction/5~Leavers.txt
+18809545522|2014-07-08T03:58:16-07:00|file|content_main/Overview/2~History of DCGS/1~The story of a school.txt
+18809546420|2014-07-08T03:58:18-07:00|file|content_main/Overview/2~History of DCGS/5~Headmasters, past and present.txt
+18809547450|2014-07-08T03:58:21-07:00|file|content_main/Overview/2~History of DCGS/A_Challoner_s_physics_laboratory_c1925.jpg
+18809548470|2014-07-08T03:58:24-07:00|file|content_main/Overview/2~History of DCGS/Doctor_Challoner_s_1895.jpg
+18809549656|2014-07-08T03:58:28-07:00|file|content_main/Overview/2~History of DCGS/School_photo_1941.jpg
+18809542114|2014-07-08T03:58:06-07:00|file|content_main/Overview/3~Learning@Challoner's/1~Introduction.txt
+18809542930|2014-07-08T03:58:08-07:00|file|content_main/Overview/3~Learning@Challoner's/2~Rationale.txt
+18809543726|2014-07-08T03:58:10-07:00|file|content_main/Overview/3~Learning@Challoner's/3~Development.txt
+18809544576|2014-07-08T03:58:13-07:00|file|content_main/Overview/3~Learning@Challoner's/4~Sixth Form.txt
+18809539276|2014-07-08T03:57:58-07:00|file|content_main/Overview/4~Governors and Friends/1~Governors and Academy Trust.txt
+18809540466|2014-07-08T03:58:01-07:00|file|content_main/Overview/4~Governors and Friends/2~Committees.txt
+18809541282|2014-07-08T03:58:03-07:00|file|content_main/Overview/4~Governors and Friends/3~Friends of DCGS.txt
+18809538240|2014-07-08T03:57:55-07:00|file|content_main/Showcase/1~Art and Graphics/1~SmugMug gallery~LINK.txt
+18809536162|2014-07-08T03:57:49-07:00|file|content_main/Showcase/2~English and Drama/1~BBC School Report.txt
+18809537164|2014-07-08T03:57:51-07:00|file|content_main/Showcase/2~English and Drama/2~Musicals.txt
+18809530632|2014-07-08T03:57:33-07:00|file|content_main/Showcase/3~Music/1~KS3 work.txt
+18809531768|2014-07-08T03:57:36-07:00|file|content_main/Showcase/3~Music/2~GCSE work.txt
+18809532918|2014-07-08T03:57:39-07:00|file|content_main/Showcase/3~Music/3~A-Level work.txt
+18809534000|2014-07-08T03:57:42-07:00|file|content_main/Showcase/3~Music/4~Public events.txt
+18809534988|2014-07-08T03:57:45-07:00|file|content_main/Showcase/3~Music/5~Jazz Band.txt
+2176717182|2014-07-08T03:57:30-07:00|folder|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY
+18809519434|2014-07-08T03:57:01-07:00|file|content_main/Showcase/4~Sports/1~Introduction.txt
+18809511130|2014-07-08T03:56:37-07:00|file|content_main/Student life/1~Student perspective/1~My first year.txt
+18809511914|2014-07-08T03:56:39-07:00|file|content_main/Student life/1~Student perspective/2~Life as a Year 7.txt
+18809512816|2014-07-08T03:56:42-07:00|file|content_main/Student life/1~Student perspective/3~Life in the Sixth Form.txt
+18809513614|2014-07-08T03:56:44-07:00|file|content_main/Student life/1~Student perspective/4~Student involvement.txt
+18809514698|2014-07-08T03:56:47-07:00|file|content_main/Student life/1~Student perspective/artclay.jpg
+18809515702|2014-07-08T03:56:50-07:00|file|content_main/Student life/1~Student perspective/frenchquestions.jpg
+18809517000|2014-07-08T03:56:54-07:00|file|content_main/Student life/1~Student perspective/historywork.jpg
+18809518456|2014-07-08T03:56:58-07:00|file|content_main/Student life/1~Student perspective/outsidehistory.jpg
+18809510224|2014-07-08T03:56:34-07:00|file|content_main/Student life/2~Clubs and societies/1~Introduction.txt
+18809508382|2014-07-08T03:56:29-07:00|file|content_main/Student life/2~Enrichment/1~Introduction.txt
+18809509236|2014-07-08T03:56:31-07:00|file|content_main/Student life/2~Enrichment/5~Sixth Form.txt
+18809500474|2014-07-08T03:56:06-07:00|file|content_main/Student life/4~House system/1~History of the Houses.txt
+18809501352|2014-07-08T03:56:09-07:00|file|content_main/Student life/4~House system/2~House representatives~SPECIAL.txt
+18809502272|2014-07-08T03:56:11-07:00|file|content_main/Student life/4~House system/3~Current scores~SPECIAL.txt
+18809503242|2014-07-08T03:56:14-07:00|file|content_main/Student life/4~House system/4~Recent news.txt
+18809504194|2014-07-08T03:56:17-07:00|file|content_main/Student life/4~House system/5~Roll of honour.txt
+18809505074|2014-07-08T03:56:19-07:00|file|content_main/Student life/4~House system/captains.csv
+18809506480|2014-07-08T03:56:24-07:00|file|content_main/Student life/4~House system/results.csv
+18809507462|2014-07-08T03:56:26-07:00|file|content_main/Student life/4~House system/staff.csv
+18809520690|2014-07-08T03:57:05-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0035.jpg
+18809522012|2014-07-08T03:57:09-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0065.jpg
+18809523712|2014-07-08T03:57:13-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0120.jpg
+18809525138|2014-07-08T03:57:17-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0167.jpg
+18809526642|2014-07-08T03:57:22-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0351.jpg
+18809528330|2014-07-08T03:57:26-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0505.jpg
+18809529566|2014-07-08T03:57:30-07:00|file|content_main/Showcase/4~Sports/7~Photo gallery~GALLERY/IMG_0530.jpg

@@ -1,0 +1,111 @@
+2194863379|2014-07-12T16:53:34-07:00|folder|content_learn/web_design/01~Getting started
+2194863407|2014-07-12T16:49:13-07:00|folder|content_learn/web_design/09~Help
+2194863491|2014-07-12T16:48:30-07:00|folder|content_learn/web_design/INDEX
+18957224969|2014-07-12T16:48:22-07:00|file|content_learn/web_design/config.txt
+2194863517|2014-07-12T16:50:20-07:00|folder|content_learn/web_design/01~Getting started/02~Hello, World!
+2194863539|2014-07-12T16:53:34-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage
+2194863575|2014-07-12T16:52:57-07:00|folder|content_learn/web_design/01~Getting started/04~Multiple webpages
+2194863597|2014-07-12T16:49:13-07:00|folder|content_learn/web_design/09~Help/01~Useful links
+18957226705|2014-07-12T16:48:30-07:00|file|content_learn/web_design/INDEX/01~.txt
+2194863683|2014-07-12T16:49:39-07:00|folder|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box
+2194863709|2014-07-12T16:49:55-07:00|folder|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page
+2194863729|2014-07-12T16:50:08-07:00|folder|content_learn/web_design/01~Getting started/02~Hello, World!/03~Basic HTML
+2194863755|2014-07-12T16:50:20-07:00|folder|content_learn/web_design/01~Getting started/02~Hello, World!/04~Page declarations
+2194863769|2014-07-12T16:50:46-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS
+2194863803|2014-07-12T16:53:34-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements
+2194863823|2014-07-12T16:51:13-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page
+2194863851|2014-07-12T16:51:38-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography
+2194863869|2014-07-12T16:51:57-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images
+2194863885|2014-07-12T16:52:20-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button
+2194863913|2014-07-12T16:52:40-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site
+2194863929|2014-07-12T16:52:49-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/Web design tips and tricks
+2194863941|2014-07-12T16:52:57-07:00|folder|content_learn/web_design/01~Getting started/04~Multiple webpages/05~Introducing PHP
+18957230205|2014-07-12T16:48:45-07:00|file|content_learn/web_design/09~Help/01~Useful links/00~.txt
+18957230961|2014-07-12T16:48:48-07:00|file|content_learn/web_design/09~Help/01~Useful links/00~Nitrous.IO~LINK.txt
+18957231703|2014-07-12T16:48:51-07:00|file|content_learn/web_design/09~Help/01~Useful links/01~.txt
+18957232377|2014-07-12T16:48:55-07:00|file|content_learn/web_design/09~Help/01~Useful links/02~W3 Schools~LINK.txt
+18957233175|2014-07-12T16:48:58-07:00|file|content_learn/web_design/09~Help/01~Useful links/03~Stack Overflow~LINK.txt
+18957234229|2014-07-12T16:49:03-07:00|file|content_learn/web_design/09~Help/01~Useful links/04~.txt
+18957234935|2014-07-12T16:49:06-07:00|file|content_learn/web_design/09~Help/01~Useful links/05~CSS Tricks~LINK.txt
+18957235637|2014-07-12T16:49:09-07:00|file|content_learn/web_design/09~Help/01~Useful links/06~CSS3.info~LINK.txt
+18957236379|2014-07-12T16:49:12-07:00|file|content_learn/web_design/09~Help/01~Useful links/99~.txt
+18957237051|2014-07-12T16:49:15-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/01~.txt
+18957237681|2014-07-12T16:49:18-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/02~Nitrous.IO~LINK.txt
+18957238399|2014-07-12T16:49:21-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/03~.txt
+18957239095|2014-07-12T16:49:25-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/04~Collaborating.txt
+18957239951|2014-07-12T16:49:28-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/05~Online Users.jpg
+18957240665|2014-07-12T16:49:31-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/06~.txt
+18957241439|2014-07-12T16:49:35-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/07~Collab Mode.jpg
+18957242197|2014-07-12T16:49:38-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/01~Setting up a development box/08~.txt
+18957242943|2014-07-12T16:49:41-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page/00~Website for this lesson~LINK.txt
+18957243643|2014-07-12T16:49:44-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page/01~.txt
+18957244371|2014-07-12T16:49:48-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page/02~List of project URLs~LINK.txt
+18957245025|2014-07-12T16:49:51-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page/03~.txt
+18957245669|2014-07-12T16:49:54-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/02~Testing your first page/04~Daring Fireball - Markdown syntax~LINK.txt
+18957246257|2014-07-12T16:49:57-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/03~Basic HTML/00~Website for this lesson~LINK.txt
+18957246855|2014-07-12T16:49:59-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/03~Basic HTML/01~.txt
+18957248191|2014-07-12T16:50:05-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/03~Basic HTML/02~View image.jpg
+18957248795|2014-07-12T16:50:08-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/03~Basic HTML/03~.txt
+18957249531|2014-07-12T16:50:11-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/04~Page declarations/00~Website for this lesson~LINK.txt
+18957250213|2014-07-12T16:50:14-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/04~Page declarations/01~.txt
+18957250901|2014-07-12T16:50:17-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/04~Page declarations/02~DOCTYPE declaration - W3 Schools~LINK.txt
+18957251595|2014-07-12T16:50:20-07:00|file|content_learn/web_design/01~Getting started/02~Hello, World!/04~Page declarations/03~.txt
+18957252219|2014-07-12T16:50:23-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/00~Website for this lesson~LINK.txt
+18957252881|2014-07-12T16:50:26-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/01~.txt
+18957253501|2014-07-12T16:50:28-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/02~List of HTML colour names~LINK.txt
+18957254143|2014-07-12T16:50:31-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/03~.txt
+18957254773|2014-07-12T16:50:34-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/04~Online colour picker~LINK.txt
+18957255313|2014-07-12T16:50:36-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/05~.txt
+18957255987|2014-07-12T16:50:39-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/06~Properties of the background attribute~LINK.txt
+18957256683|2014-07-12T16:50:42-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/07~Properties of the font attribute~LINK.txt
+18957257417|2014-07-12T16:50:45-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/01~Introducing CSS/08~.txt
+2194867309|2014-07-12T16:53:34-07:00|folder|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY
+18957258153|2014-07-12T16:50:48-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/00~Website for this lesson~LINK.txt
+18957258811|2014-07-12T16:50:51-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/01~.txt
+18957259747|2014-07-12T16:50:55-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/03~.txt
+18957260395|2014-07-12T16:50:58-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page/00~Website for this lesson~LINK.txt
+18957261171|2014-07-12T16:51:02-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page/01~.txt
+18957261901|2014-07-12T16:51:05-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page/02~Lorem ipsum generator~LINK.txt
+18957262731|2014-07-12T16:51:09-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page/03~.txt
+18957263507|2014-07-12T16:51:12-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/03~Styling the page/07~.txt
+18957264287|2014-07-12T16:51:15-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/00~Website for this lesson~LINK.txt
+18957264973|2014-07-12T16:51:19-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/01~.txt
+18957265665|2014-07-12T16:51:22-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/02~List of web safe fonts~LINK.txt
+18957266371|2014-07-12T16:51:25-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/03~.txt
+18957267159|2014-07-12T16:51:28-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/04~Serif~RIGHT.jpg
+18957267907|2014-07-12T16:51:31-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/05~.txt
+18957268567|2014-07-12T16:51:34-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/06~Online colour picker~LINK.txt
+18957269425|2014-07-12T16:51:37-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/04~Simple typography/07~.txt
+18957270451|2014-07-12T16:51:41-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/00~Website for this lesson~LINK.txt
+18957271177|2014-07-12T16:51:44-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/01~.txt
+18957271901|2014-07-12T16:51:48-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/02~Shadows - W3 Schools~LINK.txt
+18957272613|2014-07-12T16:51:51-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/03~Shadows - CSS3 Info~LINK.txt
+18957273257|2014-07-12T16:51:54-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/04~Background images.txt
+18957273955|2014-07-12T16:51:57-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/05~Better images/05~Background images - W3 Schools~LINK.txt
+18957274571|2014-07-12T16:51:59-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/00~Website for this lesson~LINK.txt
+18957275203|2014-07-12T16:52:02-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/01~.txt
+18957275901|2014-07-12T16:52:05-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/02~Border radius - W3 Schools~LINK.txt
+18957276561|2014-07-12T16:52:08-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/03~.txt
+18957277277|2014-07-12T16:52:10-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/04~Background gradient - W3 Schools~LINK.txt
+18957278087|2014-07-12T16:52:13-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/05~.txt
+18957278905|2014-07-12T16:52:16-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/06~Transitions - W3 Schools~LINK.txt
+18957279829|2014-07-12T16:52:19-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/06~Making a fancy button/07~.txt
+18957280635|2014-07-12T16:52:22-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/01~.txt
+18957281339|2014-07-12T16:52:25-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/02~New DCGS website (not yet launched)~LINK.txt
+18957282071|2014-07-12T16:52:29-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/03~Greenwich Free School website~LINK.txt
+18957282791|2014-07-12T16:52:32-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/04~Birth Right Hypnobirthing website~LINK.txt
+18957283399|2014-07-12T16:52:35-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/05~OpenMaths (this is a bit old now)~LINK.txt
+18957283981|2014-07-12T16:52:37-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/06~Experimentation magazine (MUCH older)~LINK.txt
+18957284577|2014-07-12T16:52:40-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Designing the site/10~.txt
+18957285463|2014-07-12T16:52:43-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Web design tips and tricks/01~.txt
+18957286211|2014-07-12T16:52:46-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Web design tips and tricks/02~Hubspot - good website design~LINK.txt
+18957286919|2014-07-12T16:52:49-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/Web design tips and tricks/03~.txt
+18957287489|2014-07-12T16:52:52-07:00|file|content_learn/web_design/01~Getting started/04~Multiple webpages/05~Introducing PHP/00~Website for this lesson~LINK.txt
+18957288085|2014-07-12T16:52:54-07:00|file|content_learn/web_design/01~Getting started/04~Multiple webpages/05~Introducing PHP/01~.txt
+18957288725|2014-07-12T16:52:57-07:00|file|content_learn/web_design/01~Getting started/04~Multiple webpages/05~Introducing PHP/02~Using the PHP 'include' function~YOUTUBE.txt
+18957290527|2014-07-12T16:53:05-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/BBC News.jpg
+18957292073|2014-07-12T16:53:11-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/Dolphins World.jpg
+18957293577|2014-07-12T16:53:18-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/Games Workshop.jpg
+18957295085|2014-07-12T16:53:24-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/Mangahigh.jpg
+18957296457|2014-07-12T16:53:30-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/Miami Dolphins.jpg
+18957297339|2014-07-12T16:53:34-07:00|file|content_learn/web_design/01~Getting started/03~A simple webpage/02~Container elements/02~GALLERY/WolframAlpha.jpg
