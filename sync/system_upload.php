@@ -3,10 +3,7 @@
 
   //Handling authorisation with Box API
 	include('BoxAPI.class.php');
-
-	$client_id		= 'noh636jyorxaw6e4f72pbvh66jr56h1h';
-	$client_secret 	= '1SCFdIfqXH6zGwaI44yekwOEjV3QdRLp';
-	$redirect_uri 	= 'https://kings-landing-php-89376.use1.nitrousbox.com/sync/system_upload.php';
+	include('client_config.php');
 	
 	$box = new Box_API($client_id, $client_secret, $redirect_uri);
 	
