@@ -1,3 +1,18 @@
+<script type="text/javascript">
+			function boxOpen(divId,boxType) {
+				if(document.getElementById(divId).className.match(/(?:^|\s)open(?!\S)/)) { var open = 1; } // Check to see if the specific item is currently open
+				
+				var inputs = document.getElementsByName(boxType);
+				for(var i = 0; i < inputs.length; i++) { // Close everything
+					inputs[i].className = document.getElementById(divId).className.replace( /(?:^|\s)open(?!\S)/g , '' );
+					}
+				
+				if(open != 1) { // Only open the selected item if it was originally closed
+					document.getElementById(divId).className += " open";
+					}
+				}
+		</script>
+
 <?php
 
 $parts = array_reverse($parts); // Puts the array in ascending order first
@@ -16,7 +31,7 @@ $parts = array_reverse($parts); // Puts the array in ascending order first
 					
 					echo "<div class=\"dropdown\" name=\"youtube\" id=\"$id\">";
 						echo "<p class=\"linkout\"><img src=\"/".$rootpath."styles/imgs/icons/YouTube video.png\" alt=\"YouTube video: \" class=\"icon\" />";
-						echo "<a href=\"javascript:openClose('".$id."','youtube')\">$file[1]</a></p>";
+						echo "<a href=\"javascript:boxOpen('".$id."','youtube')\">$file[1]</a></p>";
 						echo "<iframe ";
 						echo "width=\"670\" height=\"377\"";
 						echo " src=\"//www.youtube-nocookie.com/embed/$id?rel=0\" frameborder=\"0\" allowfullscreen></iframe>";
