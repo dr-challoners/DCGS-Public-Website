@@ -12,8 +12,8 @@ if ($get_story != "index.php") {
   <h2 class="news">News</h2>
 
 <?php
-$newsfiles = scandir("content_news/", 1); //Calls up all the files in the news folder
-include_once ('php/make_news_arrays.php');
+$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
+$newsposts = array_slice($newsposts,0,15);
 echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
@@ -39,28 +39,15 @@ $component = explode("~",$get_story);
 echo "<h1>".$component[1]."</h1>";
 echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
 
-$image = array_search($component[1],$newsimages);
-if ($image != "") {
-	$image = addcslashes($newsfiles[array_search($component[1],$newsimages)],"'");
-	echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
-	}
+$rootpath = "";
+$dir = 'content_news/'.$get_story;
+$parts = scandir($dir, 1);
+include('php/content_parsing.php');
 
-$content = file_get_contents('content_news/'.$get_story.".txt", true);
-echo Parsedown::instance()->parse($content);
-
-  if (isset($component[2])) { // Checks to see if an author has been given
-echo "<p class=\"credit\">".$component[2];
-$imagecredit = explode("~",$image);
-    if (isset($imagecredit[1])) { // Tag on photography credit if necessary
-	$imagecredit = explode(".",$imagecredit[1]);
-	echo "<br />Photography by ".$imagecredit[0];
-	}
-echo "</p>";
+if (isset($component[2])) { // Checks to see if an author has been given
+  echo "<p class=\"credit\">".$component[2]."</p>";
   }
-  elseif (isset($imagecredit[1])) { // If no author has been given, but there is a photography credit, display that
-	$imagecredit = explode(".",$imagecredit[1]);
-    echo "<p>Photography by ".$imagecredit[0]."</p>";
-	}
+
 ?>
 
 </div>

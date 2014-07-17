@@ -178,8 +178,8 @@
 					<!-- Remainder of the links for the mobile menu. -->
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
 					<?php
-						$newsfiles = scandir("content_news/", 1); //Calls up all the files in the news folder
-						include_once ('php/make_news_arrays.php');
+						$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
+						$newsposts = array_slice($newsposts,0,15);
 						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
 						$n = 0; foreach ($newsposts as $row) {
 							$component = explode("~",$row);

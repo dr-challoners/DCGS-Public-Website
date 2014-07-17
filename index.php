@@ -33,7 +33,7 @@
 <?php
 include ('override_display.php');
 include ('magazine.php');
-include ('highlight.php');
+//include ('highlight.php');
 ?>
 
 </div>

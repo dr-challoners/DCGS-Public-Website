@@ -1,4 +1,4 @@
-<?php include('parsedown.php'); // This converts the Markdown to HTML - see parsedown.org for more information/updates
+<?php include('../php/parsedown.php'); // This converts the Markdown to HTML - see parsedown.org for more information/updates
 
 // Content links should be in the form challoners.com/learn/SUBJECT/FOLDER/SUBFOLDER/PAGE
 
@@ -11,12 +11,12 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 
 	// all of the folders, subfolders and page folders should be given in the form NUMBER~NAME for easy ordering. However, we don't want to have to include NUMBER in the URL. This finds the appropriate folders etc without the NUMBER being there.
 	
-	$folders = scandir("../content_learn/".$_GET['subject'], 1);
+	$folders = scandir($contentpath.$_GET['subject'], 1);
 	foreach ($folders as $folder) {
 		$foldername = explode("~",$folder);
 		if (isset($foldername[1])) { $foldername = $foldername[1]; } else { $foldername = $foldername[0]; } // This is so that hidden directories and pages, which don't begin NUMBER~ are still possible to navigate to.
 		if (strtolower($foldername) == strtolower($_GET['folder'])) {
-			$subfolders = scandir("../content_learn/".$_GET['subject']."/".$folder, 1);
+			$subfolders = scandir($contentpath.$_GET['subject']."/".$folder, 1);
 			break;
 			}
 		}
@@ -25,7 +25,7 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 			$subfoldername = explode("~",$subfolder);
 			if (isset($subfoldername[1])) { $subfoldername = $subfoldername[1]; } else { $subfoldername = $subfoldername[0]; }
 			if (strtolower($subfoldername) == strtolower($_GET['subfolder'])) {
-				$pages = scandir("../content_learn/".$_GET['subject']."/".$folder."/".$subfolder, 1);
+				$pages = scandir($contentpath.$_GET['subject']."/".$folder."/".$subfolder, 1);
 				break;
 				}
 			}
@@ -33,7 +33,7 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 			$pagename = explode("~",$page);
 			if (isset($pagename[1])) { $pagename = $pagename[1]; } else { $pagename = $pagename[0]; }
 			if (strtolower($pagename) == strtolower($_GET['page'])) {
-				$parts = scandir("../content_learn/".$_GET['subject']."/".$folder."/".$subfolder."/".$page, 1);
+				$parts = scandir($contentpath.$_GET['subject']."/".$folder."/".$subfolder."/".$page, 1);
 				$page_check = 1;
 				break;
 				}
@@ -44,7 +44,7 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 			$pagename = explode("~",$page);
 			if (isset($pagename[1])) { $pagename = $pagename[1]; } else { $pagename = $pagename[0]; }
 			if (strtolower($pagename) == strtolower($_GET['page'])) {
-				$parts = scandir("../content_learn/".$_GET['subject']."/".$folder."/".$page, 1);
+				$parts = scandir($contentpath.$_GET['subject']."/".$folder."/".$page, 1);
 				$page_check = 1;
 				break;
 				}
@@ -68,12 +68,12 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 		echo "<h1>".$pagetitle."</h1>";
 		
 		if (isset($_GET['subfolder'])) {
-			$dir = "../content_learn/".$_GET['subject']."/".$folder."/".$subfolder."/".$page; // Declare this variable so the whole directory structure doesn't have to be repeated below
+			$dir = $contentpath.$_GET['subject']."/".$folder."/".$subfolder."/".$page; // Declare this variable so the whole directory structure doesn't have to be repeated below
 			}
 		else {
-			$dir = "../content_learn/".$_GET['subject']."/".$folder."/".$page;
+			$dir = $contentpath.$_GET['subject']."/".$folder."/".$page;
 			}
-		include('content_parsing.php');
+		include($parsingpath.'content_parsing.php'); //Need to change the dir depending on the way the system is set up
 		
 		}
 	}
@@ -82,9 +82,9 @@ elseif (isset($_GET['subject'])) { // There needs to be a subject set. If there 
 	if (isset($ConfigWelcomeTitle)) { echo "<h1>".$ConfigWelcomeTitle."</h1>"; }
 	else { echo "<h1>Welcome</h1>"; }
 
-	$dir = "../content_learn/".$_GET['subject']."/INDEX";
+	$dir = $contentpath.$_GET['subject']."/INDEX";
 	$parts = scandir($dir, 1);
-	include('content_parsing.php');
+	include($parsingpath.'content_parsing.php');
 
 	}
 else {

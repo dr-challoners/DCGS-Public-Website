@@ -24,7 +24,7 @@ echo "<p>Please select one of the directories below to synchronise.</p>";
 echo "<h2>DCGS public website</h2>";
 echo "<ul>"; //Change the initial values as appropriate for the Box folder being referred to
   echo "<p><li><a href=\"./system_upload.php?initial=2176714940\">Main content</a></li></p>"; //content_main
-  echo "<p><li><a href=\"./system_upload.php?initial=2194227433\">News stories</a></li></p>"; //content_news
+  echo "<p><li><a href=\"./system_upload.php?initial=2209250189\">News stories</a></li></p>"; //content_news
   echo "<p><li><a href=\"./system_upload.php?initial=2176731094\">Intranet links</a><br /></li></p>"; //content_system/intranet
   echo "<p><li><a href=\"./system_upload.php?initial=2176721210\">Override messages</a></li></p>"; //content_system/override
 echo "</ul>";

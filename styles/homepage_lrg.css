@@ -1,6 +1,6 @@
-/* Footer changes (to allow room for the highlights ticker) */
+/* Footer changes (to allow room for the highlights ticker) 
 div#btm { border-top: 27px solid #173f7a; }
-div.page { padding-bottom: 72px; }
+div.page { padding-bottom: 72px; } */
 
 /* Override */
 div.override {
