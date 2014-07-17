@@ -62,7 +62,7 @@ echo "<!--googleon: all--></div>";
 
 echo "<div class=\"mcol-rgt\">";
 
-	if ($get_gallery != "") { include('php/gallery.php'); } //If the request is for a gallery page
+	if ($get_gallery != "") { include('php/old_gallery/gallery.php'); } //If the request is for a gallery page
   elseif (isset($_GET['special'])) { include('content_rich/'.$get_page.'.php'); } // If the request is for rich content
 	else { //Otherwise, parse the appropriate content for the page
     

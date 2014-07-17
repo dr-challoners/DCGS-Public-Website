@@ -4,10 +4,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="Content-Style-Type" content="text/css" />
 		
-		<?php $rootpath = "learn/"; // Set this if this system is not in the main directory. Include a "/" at the end of the path. ?>
+		<?php
+      $rootpath = "learn/"; // Set this if this system is not in the main directory. Include a "/" at the end of the path.
+      $parsingpath = "../php/"; //Set this for to find content_parsing.php. Include a "/" at the end of the path.
+      $contentpath = "../content_learn/"; //Set this for the folder that contains the content. Does not affect content_parsing.php. Include a "/" at the end of the path.
 		
-		<?php // We need to get data from the config file in order to display the name of the micro-site we're looking at, and get other data
-		
+		// We need to get data from the config file in order to display the name of the micro-site we're looking at, and get other data
 		if (isset($_GET['subject']) && file_exists("../content_learn/".$_GET['subject']."/config.txt")) { // There needs to be a config file in the specified subject folder
 			$data = file("../content_learn/".$_GET['subject']."/config.txt", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 			foreach ($data as $datum) { // All lines in the config file should be in the form 'Var: Data'. This turns that into $ConfigVar == "Data".
