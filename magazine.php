@@ -100,6 +100,7 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
   $file = substr($post,4);
   $parts = scandir("content_news/".$file, 1);
   $component = explode("~",$post);
+  $parts = array_reverse($parts);
 	
 	//Pull out necessary components of the story
 	if ($component[0] != "NON") { //If there's meant to be an image with the story, then the first image is found and displayed
