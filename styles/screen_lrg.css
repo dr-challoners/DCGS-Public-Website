@@ -18,7 +18,7 @@ div.colourbar { position: fixed; z-index: 1; width: 100%;}
 	#btm {
 	   bottom: 0px; height: 30px;
 	   background-color: #ffffff;
-	   border-top: 4px solid #173f7a;
+	   border-top: 3px solid #173f7a;
 	   }
 
 div.ncol { width: 255px; }
@@ -27,24 +27,6 @@ div.rgt { float: right; }
 
 div.mcol, div.mcol-rgt { width: 710px; }
 div.mcol-rgt { margin-left: 270px; }
-
-div.mcol img, div.mcol-rgt img {
-    display: block;
-    margin: 20px auto 8px auto;
-    max-width: 100%;
-    }
-div.mcol img.left, div.mcol-rgt img.left {
-    float: left; width: 260px;
-    margin-right: 14px;
-    }
-div.mcol img.right, div.mcol-rgt img.right {
-    float: right; width: 260px;
-    margin-left: 14px;
-    }
-div.mcol img.wide, div.mcol-rgt img.wide {
-    width: 710px;
-    margin-bottom: 0px;
-    }
 
 div.linkbox {
     background-color: #FFF7D7;
@@ -64,8 +46,6 @@ div.linkbox {
           background-color: #2358A3; color: #ffffff;
           }
 
-iframe {margin-top: 20px; }
-    
 /* Header */
 div.header { position: fixed; z-index: 2; top: 0px; }
 
@@ -214,46 +194,7 @@ div.submenu a {
 /* News story display */
 h2.news { padding: 6px 0 7px 10px; }
 
-div.mcol-rgt img.lft, div.mcol-rgt img.rgt {
-    width: 341px;
-    margin: 18px 0px 8px 0px;
-    }
-    div.mcol-rgt img.rgt {
-      margin-left: 14px; float: right;
-      }
-    div.mcol-rgt img.lft {
-      margin-right: 14px; float: left;
-      }
-    div.mcol-rgt img.wde { width: 100%; }
-
 p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
-
-/* GALLERY */
-
-div.gallery { margin: 12px 0px 0px -12px; }
-
-div.photostub {
-    float: left;
-    margin: 0px 0px 12px 12px;
-    background-color: #f0f0f0;
-    background-size: cover;
-    }
-    div.med { width: 228px; height: 228px; }
-    div.tny { width: 108px; height: 108px; }
-    div.wde { width: 468px; height: 228px; }
-
-    div.photostub a {
-       display: block; height: 212px; border: 8px solid transparent;
-       transition: border-color 0.2s;
-       -webkit-transition: border-color 0.2s;
-       }
-       div.tny a { height: 96px; border-width: 6px; }
-       div.photostub a:hover { border-color: #2358A3; }
-
-div.tny-box {
-    float: left;
-    width: 240px; height: 240px;
-    }
 
 /* Intranet links */
 div.intranet {

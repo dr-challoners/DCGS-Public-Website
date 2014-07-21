@@ -1,4 +1,4 @@
-<?php include('../php/parsedown.php'); // This converts the Markdown to HTML - see parsedown.org for more information/updates
+<?php
 
 // Content links should be in the form challoners.com/learn/SUBJECT/FOLDER/SUBFOLDER/PAGE
 
@@ -73,7 +73,7 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 		else {
 			$dir = $contentpath.$_GET['subject']."/".$folder."/".$page;
 			}
-		include($parsingpath.'content_parsing.php'); //Need to change the dir depending on the way the system is set up
+		include('..'.$codepath.'parsebox.php'); //Need to change the dir depending on the way the system is set up
 		
 		}
 	}
@@ -84,7 +84,7 @@ elseif (isset($_GET['subject'])) { // There needs to be a subject set. If there 
 
 	$dir = $contentpath.$_GET['subject']."/INDEX";
 	$parts = scandir($dir, 1);
-	include($parsingpath.'content_parsing.php');
+	include('..'.$codepath.'parsebox.php');
 
 	}
 else {

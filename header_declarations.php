@@ -46,14 +46,9 @@
 				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen	and (orientation : portrait)\" href=\"/styles/screen_lrg_ipad_portrait.css\"/>";
 				}
 		?>
-		
-    <!-- Pop-up images in galleries -->
-		<script src="/learn/js/jquery-1.11.0.min.js"></script>
-		<script src="/learn/js/lightbox.min.js"></script>
-		<link rel="stylesheet" type="text/css" media="screen" href="/learn/styles/lightbox.css"/>
     
 		<?php
-			include('php/parsedown.php'); //See parsedown.org
+      include('parsing/config_dcgs.php');
 			date_default_timezone_set("Europe/London");
 		?>
 		

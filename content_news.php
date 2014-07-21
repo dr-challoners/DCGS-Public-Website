@@ -39,10 +39,8 @@ $component = explode("~",$get_story);
 echo "<h1>".$component[1]."</h1>";
 echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
 
-$rootpath = "";
 $dir = 'content_news/'.$get_story;
-$parts = scandir($dir, 1);
-include('php/content_parsing.php');
+include('parsing/parsebox.php');
 
 if (isset($component[2])) { // Checks to see if an author has been given
   echo "<p class=\"credit\">".$component[2]."</p>";

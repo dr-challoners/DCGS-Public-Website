@@ -44,24 +44,3 @@ a:hover { color: #3E70EF; }
 #pearson		{ background-color: #96c4f8; }
 #rayner			{ background-color: #2542a1; color: #ffffff; }
 #thorne 		{ background-color: #247703; color: #ffffff; }
-
-/*CONTENT PARSING*/
-div.dropdown h2 span.open { display: none; }
-    div.open h2 span.clsd { display: none; }
-    div.open h2 span.open { display: inline; }
-    div.navigation h2 a {
-       text-decoration: none; display: block;
-       }
-
-p.linkout { margin: -5px -5px 0px 0px; }
-    p.linkout a {
-       display: inline-block;
-       width: 625px; height: 30px;
-       vertical-align: top; padding: 25px 0px 0px 10px;
-       }
-    img.icon { float: left; background-color: #666666; }
-
- /* This is for YouTube videos 
-    div.dropdown iframe { display: none; }
-    div.open iframe { display: block; margin-top: 16px; }
-    div.open p.linkout { display: none; } */
