@@ -1,20 +1,9 @@
 <?php 
 include('header_declarations.php');
 
-if (!isset($_GET['gallery'])) { $get_gallery = ""; } else { $get_gallery = $_GET['gallery']; }
 if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = $_GET['folder']; }
 if (!isset($_GET['subfolder'])) { $get_subfolder = ""; } else { $get_subfolder = $_GET['subfolder']; }
 if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = $_GET['page']; }
-
-if ($get_gallery != "") {
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/gallery_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/gallery_sml.css\"/>";
-	}
-	
-if (isset($_GET['special'])) {
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 480px)\" href=\"/styles/rich_".strtolower(str_replace(" ","",$_GET['special']))."_lrg.css\"/>";
-	echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (max-device-width : 480px)\" href=\"/styles/rich_".strtolower(str_replace(" ","",$_GET['special']))."_sml.css\"/>";
-	}
 	
 include('header_navigation.php');
 
@@ -35,18 +24,10 @@ foreach ($dir as $subdir) { //List all the subdirectories
     
       foreach ($files as $page) {
         $detail = explode("~",$page);
-        if (isset($detail[2])) { // If there's a third part to the array, then that means a particular instruction like an external LINK or a GALLERY or a SPECIAL content_rich page
-          if ($detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link infor is written inside the text file
+        if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link infor is written inside the text file
             echo "<li><a href=\"".file_get_contents("content_main/".$get_folder."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
             }
-          elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
-            echo "<li><a href=\"/gallery/".$get_folder."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
-            }
-          elseif ($detail[2] == "SPECIAL.txt") { // Point to the content_rich folder. Note that most of the navigation details given will be unnecessary for finding the file: they're there to display the submenu.
-            echo "<li><a href=\"/rich/".$get_folder."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
-            }
-          }
-        elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
+        elseif (isset ($detail[1])) {
           $pagename = explode(".",$detail[1]);
           $pagename = $pagename[0];
           echo "<li><a href=\"/pages/".$get_folder."/".$dirname[1]."/".$pagename."\">".$pagename."</a></li>";
@@ -62,12 +43,7 @@ echo "<!--googleon: all--></div>";
 
 echo "<div class=\"mcol-rgt\">";
 
-	if ($get_gallery != "") { include('php/old_gallery/gallery.php'); } //If the request is for a gallery page
-  elseif (isset($_GET['special'])) { include('content_rich/'.$get_page.'.php'); } // If the request is for rich content
-	else { //Otherwise, parse the appropriate content for the page
-    
-    if ($get_page != "") {
-    
+    if ($get_page != "") { //Parse the appropriate content for the page
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
@@ -81,8 +57,14 @@ echo "<div class=\"mcol-rgt\">";
           }
     
       if (isset($this_page) && file_exists("content_main/".$get_folder."/".$this_subdir."/".$this_page)) {
-      	$content = file_get_contents("content_main/".$get_folder."/".$this_subdir."/".$this_page, true); //Open the appropriate text file for parsing
-      	echo Parsedown::instance()->parse($content);
+        $dir = "content_main/".$get_folder."/".$this_subdir."/".$this_page;
+        if(strpos($this_page, ".txt") !== false) { //This page is just a plain text file, so parse it as pure markdown
+      	  $content = file_get_contents($dir, true); //Open the appropriate text file for parsing
+          include('parsing/parsedown.php'); //Converts markdown text to HTML - see parsedown.org
+      	  echo Parsedown::instance()->parse($content);
+          } else { //Otherwise we're talking about a folder, indicating a rich page to be parsed with ParseBox
+          include('parsing/parsebox.php');
+          }
       	}
 
 			  else { //Displays an error if the page can't be found
@@ -96,7 +78,6 @@ echo "<div class=\"mcol-rgt\">";
 			  echo "<p class=\"lrg\">Use the links on the left to navigate.</p>";
 			  echo "<p class=\"sml\">Use the links below to navigate.</p>";
         }
-	}
 	
 echo "</div>";
 

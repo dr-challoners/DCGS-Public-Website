@@ -12,13 +12,13 @@ div.override {
 
 #closure {
     color: #ffffff; background-color: #303030;
-    background-position: right top; background-image: url('/rebuild/main_imgs/override_closure.png');
+    background-position: right top; background-image: url('/styles/imgs/override_closure.png');
     padding-right: 15.3em;
     }
     #closure a { color: #F2A106; }
     #closure a:hover { color: #FFC405; }
 #snow_amber {
-    background-position: right bottom; background-image: url('/rebuild/main_imgs/override_snow_amber.png');
+    background-position: right bottom; background-image: url('/styles/imgs/override_snow_amber.png');
     padding-right: 15.3em;
     }
 

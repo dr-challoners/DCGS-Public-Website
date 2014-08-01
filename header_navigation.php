@@ -82,10 +82,10 @@
 				
 				<a class="bannerlink lrg" href="/"></a>
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
-				<img class="banner_img lrg" src="/main_imgs/logo_lrg.png" alt="Dr Challoner's Grammar School" />
+				<img class="banner_img lrg" src="/styles/imgs/logo_lrg.png" alt="Dr Challoner's Grammar School" />
 				
 				<div class="main_nav lrg">
-				<a class="lbutton" href="/"><img src="/main_imgs/home.png" alt="Home" /></a>
+				<a class="lbutton" href="/"><img src="/styles/imgs/home.png" alt="Home" /></a>
 					<ul>
 						<li><a href="/pages/Overview/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Overview</a></li>
 						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
@@ -95,12 +95,12 @@
 						<li><a href="/pages/Information/Alumni/Introduction">Alumni</a></li>
 						<li><a href="/pages/Information/General information/Contact us">Contact us</a></li>
 					</ul>
-				<a class="rbutton" href="/search/"><img src="/main_imgs/search.png" alt="Search" /></a>
+				<a class="rbutton" href="/search/"><img src="/styles/imgs/search.png" alt="Search" /></a>
 				</div>
 				
 				<div class="main_nav sml">
-					<a class="bannerlink" href="/"><img class="banner_img" src="/main_imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
-					<a href="/search/"><img class="rbutton" src="/main_imgs/sml_search.png" alt="Search" /></a>
+					<a class="bannerlink" href="/"><img class="banner_img" src="/styles/imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
+					<a href="/search/"><img class="rbutton" src="/styles/imgs/sml_search.png" alt="Search" /></a>
 					<p class="rbutton"><a href="javascript:openClose('main_nav')">Menu <span>&#9660;</span></a></p>
 				</div>
 				
@@ -146,18 +146,10 @@
     
 							foreach ($files as $page) {
 								$detail = explode("~",$page);
-								if (isset($detail[2])) { // If there's a third part to the array, then that means a particular instruction like an external LINK or a GALLERY or a SPECIAL content_rich page
-								if ($detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
+								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
 									echo "<li><a href=\"".file_get_contents("content_main/".$maindir."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
-									}
-								elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
-									echo "<li><a href=\"/gallery/".$maindir."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
-									}
-								elseif ($detail[2] == "SPECIAL.txt") { // Point to the content_rich folder. Note that most of the navigation details given will be unnecessary for finding the file: they're there to display the submenu.
-									echo "<li><a href=\"/rich/".$maindir."/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
-									}
 								}
-								elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
+								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
 									$pagename = $pagename[0];
 									echo "<li><a href=\"/pages/".$maindir."/".$dirname[1]."/".$pagename."\">".$pagename."</a></li>";

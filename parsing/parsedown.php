@@ -675,8 +675,10 @@ class Parsedown
                                 else
                                 {
                                         $element_text = $this->parse_span_elements($matches[3]);
-
-                                        $element = '<a href="'.$url.'">'.$element_text.'</a>';
+                                        
+                                        // My addition here, to detect external links and open them in a new window
+                                        if (substr($url,0,4) == "http") { $target = "target=\"_BLANK\" "; } else { $target = ""; }
+                                        $element = '<a '.$target.'href="'.$url.'">'.$element_text.'</a>';
                                 }
 
                                 # ~

@@ -104,7 +104,7 @@ body:after {
   float: left;
   background: url(prev.png) left 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
+  opacity: 0.3;
   -webkit-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
   -o-transition: opacity 0.4s;
@@ -122,7 +122,7 @@ body:after {
   float: right;
   background: url(next.png) right 48% no-repeat;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
+  opacity: 0.3;
   -webkit-transition: opacity 0.4s;
   -moz-transition: opacity 0.4s;
   -o-transition: opacity 0.4s;

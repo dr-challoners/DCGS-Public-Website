@@ -37,23 +37,6 @@ div.mcol, div.mcol-rgt, div.intranet {
     padding: 2.9em 2% 4.5em 2%;
     }
 	
-div.mcol img, div.mcol-rgt img {
-    float: right;
-    width: 40%; margin: 1.8em 0 0.8em 1.8em;
-    }
-div.mcol img.left, div.mcol-rgt img.left {
-    float: left;
-	width: 40%; margin: 1.8em 1.8em 0.8em 0;
-    }
-div.mcol img.right, div.mcol-rgt img.right {
-    float: right;
-    width: 40% margin: 1.8em 0 0.8em 1.8em;
-    }
-div.mcol img.wide, div.mcol-rgt img.wide {
-    width: 100%;
-    margin: -0.5em 0 1.2em 0;
-    }
-
 iframe {margin-top: 1em; width: 100%; }
 
 /* General typography */

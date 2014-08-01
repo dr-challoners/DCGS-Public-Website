@@ -1,5 +1,4 @@
-<pre>
-<?php
+<pre><?php
 
   //Handling authorisation with Box API
 	include('BoxAPI.class.php');
@@ -23,10 +22,10 @@ echo "<h1>Content synchronisation</h1>";
 echo "<p>Please select one of the directories below to synchronise.</p>";
 echo "<h2>DCGS public website</h2>";
 echo "<ul>"; //Change the initial values as appropriate for the Box folder being referred to
-  echo "<p><li><a href=\"./system_upload.php?initial=2176714940\">Main content</a></li></p>"; //content_main
-  echo "<p><li><a href=\"./system_upload.php?initial=2209250189\">News stories</a></li></p>"; //content_news
-  echo "<p><li><a href=\"./system_upload.php?initial=2176731094\">Intranet links</a><br /></li></p>"; //content_system/intranet
-  echo "<p><li><a href=\"./system_upload.php?initial=2176721210\">Override messages</a></li></p>"; //content_system/override
+  echo "<p><li>Main content:      <a href=\"./system_update.php?initial=2176714940\">update</a> or <a href=\"./system_update.php?initial=2176714940&reset=y\">reset</a></li></p>"; //content_main
+  echo "<p><li>News stories:      <a href=\"./system_update.php?initial=2209250189\">update</a> or <a href=\"./system_update.php?initial=2209250189&reset=y\">reset</a></li></p>"; //content_news
+  echo "<p><li>Intranet links:    <a href=\"./system_update.php?initial=2176731094\">update</a> or <a href=\"./system_update.php?initial=2176731094&reset=y\">reset</a><br /></li></p>"; //content_system/intranet
+  echo "<p><li>Override messages: <a href=\"./system_update.php?initial=2176721210\">update</a> or <a href=\"./system_update.php?initial=2176721210&reset=y\">reset</a></li></p>"; //content_system/override
 echo "</ul>";
 echo "<h2>'Learn' websites</h2>";
 echo "<ul>";
@@ -36,9 +35,8 @@ echo "<ul>";
     $sitename = $entry['name'];
     $sitename = str_replace("_"," ",$sitename);
     $sitename = ucwords($sitename);
-    echo "<p><li><a href=\"./system_upload.php?initial=".$entry['id']."\">".$sitename."</a></li></p>";
+    echo "<p><li>".$sitename.": <a href=\"./system_update.php?initial=".$entry['id']."\">update</a> or <a href=\"./system_update.php?initial=".$entry['id']."&reset=y\">reset</a></li></p>";
     }
 echo "</ul>";
 
-?>
-</pre>
+?></pre>

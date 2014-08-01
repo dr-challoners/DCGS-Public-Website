@@ -24,14 +24,14 @@
 		?>
 		Dr Challoner's Grammar School</title>
 		
-		<link rel="icon" href="/main_imgs/favicon.png" />
-		<link rel="shortcut icon" href="/main_imgs/favicon.png" />
+		<link rel="icon" href="/styles/imgs/favicon.png" />
+		<link rel="shortcut icon" href="/styles/imgs/favicon.png" />
 		
 		<!-- Homescreen icons for iPhone/iPad. Android should detect these as well. -->
-		<link rel="apple-touch-icon" sizes="57x57" href="/main_imgs/apple-icon-60.png" />
-		<link rel="apple-touch-icon" sizes="72x72" href="/main_imgs/apple-icon-76.png" />
-		<link rel="apple-touch-icon" sizes="114x114" href="/main_imgs/apple-icon-120.png" />
-		<link rel="apple-touch-icon" sizes="144x144" href="/main_imgs/apple-icon-152.png" />
+		<link rel="apple-touch-icon" sizes="57x57" href="/styles/imgs/apple-icon-60.png" />
+		<link rel="apple-touch-icon" sizes="72x72" href="/styles/imgs/apple-icon-76.png" />
+		<link rel="apple-touch-icon" sizes="114x114" href="/styles/imgs/apple-icon-120.png" />
+		<link rel="apple-touch-icon" sizes="144x144" href="/styles/imgs/apple-icon-152.png" />
 		
 		<link rel="stylesheet" type="text/css" media="screen" href="/styles/general.css"/>
 		<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/screen_lrg.css"/>

@@ -21,13 +21,13 @@ div.override {
 
 #closure {
     color: #ffffff; background-color: #303030;
-    background-image: url(/main_imgs/override_closure.png);
+    background-image: url(/styles/imgs/override_closure.png);
     padding-right: 250px;
     }
     #closure a { color: #F2A106; }
     #closure a:hover { color: #FFC405; }
 #snow_amber {
-    background-image: url(/main_imgs/override_snow_amber.png);
+    background-image: url(/styles/imgs/override_snow_amber.png);
     padding-right: 250px;
     }
 
@@ -81,7 +81,7 @@ div.twitter-header {
 
 div.twitter-header p {
     padding: 5px 31px 5px 7px; margin: 0px;
-    background-image: url('/main_imgs/twitter.png');
+    background-image: url('/styles/imgs/twitter.png');
     background-position: right 8px;
     background-repeat: no-repeat;
     transition: background-color 0.2s, color 0.2s;

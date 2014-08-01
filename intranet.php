@@ -1,7 +1,8 @@
-<?php
+<?php 
 	$intranet = "y";
 	include('header_declarations.php');
 	include('header_navigation.php');
+  include('parsing/parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
@@ -52,7 +53,7 @@ if (isset($_GET['user'])) {
 		$directory = "content_system/intranet/staff-students/";
 		echo "<div class=\"intranet\">";
 			$col_count = 1;
-			include ('php/links_list.php');
+			include ('links_list.php');
 		echo "</div>";
 	break;
 	case "Parent portal":
@@ -101,7 +102,7 @@ if (isset($_GET['user'])) {
 				
 			echo "</div>";
 			$col_count = 2;
-			include ('php/links_list.php');
+			include ('links_list.php');
 		echo "</div>";
 	break;
 	default:

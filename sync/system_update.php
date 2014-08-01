@@ -1,5 +1,4 @@
-<pre>
-<?php
+<pre><?php
 
   //Handling authorisation with Box API
 	include('BoxAPI.class.php');
@@ -23,6 +22,17 @@
   function checkExists($haystack) {
     global $needle;
     if(strpos($haystack, $needle) === false) { return false; } else { return true; }
+    }
+
+  function recursiveRemoveDirectory($directory) {
+    foreach(glob("{$directory}/*") as $file) {
+      if(is_dir($file)) { 
+        recursiveRemoveDirectory($file);
+        } else {
+        unlink($file);
+        }
+      }
+      rmdir($directory);
     }
 
 //Process: take all data from Box, check it against existing data and make changes as necessary
@@ -91,11 +101,26 @@ else { echo "<p>All folders and files found: now processing changes.</p>"; }
 //If there's more folders still to look through, repeat the process - otherwise go to the processing stage
 $folders = implode(",",$folders);
 if ($folders != "") {
-  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&folders=".$folders."\">";
+  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&folders=".$folders;
+  if ($_GET['reset'] != "") { echo "&reset=y"; } //Keep track of the reset command for later (we have the reset after the file structure has been logged, to reduce downtime after file deletion).
+  echo "\">";
+  }
+elseif ($_GET['reset'] != "") { //If a reset instruction has been given, delete the folders and the current log so that all the files can just be re-uploaded. A mildly drastic measure, but it's something to fall back on in case of a glitch.
+  $rootfolder = $box->get_folder_details($initial);
+  $initpath = "../";
+  foreach ($rootfolder[path_collection][entries] as $d) {
+    if ($d[sequence_id] > 0) {
+      $initpath .= $d[name]."/";
+      }
+    }
+  $initpath .= $rootfolder[name]."/";
+  recursiveRemoveDirectory($initpath);
+  unlink("../sync_logs/".$initial."_current.txt");
+  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&processing=1\">";
   }
 else {
   fclose($checkfile);
-  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&processing=1\">";
+  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&processing=1\">";
   }
   
 } else {
@@ -157,7 +182,7 @@ else {
       elseif(dirname($line[3]) != dirname($oldline[3]) && (($p == 4 && $line[2] == "file") || ($p == 7 && $line[2] == "folder"))) { //File or folder moved
         $oldpath = "../".rtrim($oldline[3]);
         $newpath = "../".rtrim($line[3]);
-        //echo $oldpath."\n".$newpath."\n";
+        $oldpath_modname = "../".rtrim(dirname($oldline[3]))."/".rtrim(basename($line[3]));
         if($line[2] == "file") {
           if(file_exists($oldpath)) {
             copy($oldpath,$newpath);
@@ -168,6 +193,9 @@ else {
             $file = fopen($newpath, "w");
             fwrite($file,$box->get_file_content($line[0]));
             fclose($file);
+            /*if(file_exists($oldpath_modname)) { //In case the file has been renamed as well as moved, in which case it won't appear to exist at the previous location but will still be there to be removed.
+              unlink($oldpath_modname);
+              }*/
             }
           }
         else {
@@ -214,7 +242,7 @@ else {
       if($key >= $f) { $f++; }
       if($f == $f_end && $f_end <= count($additions)) {
         echo "<p>Continuing to process files - please wait.</p>";
-        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&processing=".$p."&file=".$f."\">";
+        echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&processing=".$p."&file=".$f."\">";
         break;
         }
       }
@@ -251,7 +279,7 @@ else {
   if ($p < 10 && (!isset($f_end) || $f_end > count($additions))) {
     $p++;
     echo "<p>Continuing to process files.</p>";
-    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_upload.php?initial=".$initial."&processing=".$p."\">";
+    echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&processing=".$p."\">";
     }
   }
 }
@@ -261,5 +289,4 @@ else {
 		echo $box->error . "\n";
 	}
 
-?>
-</pre>
+?></pre>

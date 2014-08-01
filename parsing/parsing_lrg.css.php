@@ -30,7 +30,14 @@ p.linkout { margin-bottom: -5px; }
        }
     <?php echo "img.icon { background-color: ".$colour."; }\n"; ?>
 
-/* YOUTUBE VIDEOS */
+/* IFRAMES (YOUTUBE, GOOGLE FORMS) */
+
+iframe { width: 100%; margin: 16px 0px 16px 0px; }
+iframe.youtube, iframe.gslides { height: 30em; }
+iframe.gform {
+  height: 17.5em; margin-bottom: 21px;
+  box-shadow: 0px 5px 10px #cccccc;
+  }
 
 div.dropdown iframe { display: none; }
 div.open iframe { display: block; margin-top: 16px; }

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 $links = scandir($directory);
 $boxes = count($links);
