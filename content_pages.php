@@ -25,7 +25,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
       foreach ($files as $page) {
         $detail = explode("~",$page);
         if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link infor is written inside the text file
-            echo "<li><a href=\"".file_get_contents("content_main/".$get_folder."/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
+            echo '<li><a href="'.file_get_contents("content_main/".$get_folder."/".$subdir."/".$page).'" target="_BLANK" class="external">'.$detail[1].'</a></li>';
             }
         elseif (isset ($detail[1])) {
           $pagename = explode(".",$detail[1]);
@@ -41,7 +41,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
       
 echo "<!--googleon: all--></div>";
 
-echo "<div class=\"mcol-rgt\">";
+echo '<div class="parsebox">';
 
     if ($get_page != "") { //Parse the appropriate content for the page
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
@@ -58,13 +58,11 @@ echo "<div class=\"mcol-rgt\">";
     
       if (isset($this_page) && file_exists("content_main/".$get_folder."/".$this_subdir."/".$this_page)) {
         $dir = "content_main/".$get_folder."/".$this_subdir."/".$this_page;
-        if(strpos($this_page, ".txt") !== false) { //This page is just a plain text file, so parse it as pure markdown
-      	  $content = file_get_contents($dir, true); //Open the appropriate text file for parsing
-          include('parsing/parsedown.php'); //Converts markdown text to HTML - see parsedown.org
-      	  echo Parsedown::instance()->parse($content);
-          } else { //Otherwise we're talking about a folder, indicating a rich page to be parsed with ParseBox
-          include('parsing/parsebox.php');
+        if(strpos($this_page, ".txt") !== false) { //This page is a single plain text file
+          $dir = "content_main/".$get_folder."/".$this_subdir."/";
+          $parts = array($this_page);
           }
+          include('parsing/parsebox.php');
       	}
 
 			  else { //Displays an error if the page can't be found

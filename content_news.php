@@ -31,14 +31,15 @@ echo "</ul>";
 ?>
 
 </div>
-<!--googleon: all--><div class="mcol-rgt">
+<!--googleon: all--><div class="parsebox">
 
 <?php
 $component = explode("~",$get_story);
 
 echo "<h1>".$component[1]."</h1>";
-echo "<h3>".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
+echo "<h3 class=\"newsdate\">".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
 
+$parsediv = 1;
 $dir = 'content_news/'.$get_story;
 include('parsing/parsebox.php');
 

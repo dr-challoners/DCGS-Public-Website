@@ -49,7 +49,6 @@
     
 		<?php
       include('parsing/config_dcgs.php');
-			date_default_timezone_set("Europe/London");
 		?>
 		
 		<!-- The head tag concludes in header_navigation.php: this allows more code to be added to the head tag. -->

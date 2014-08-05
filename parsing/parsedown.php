@@ -1,5 +1,8 @@
 <?php
 
+// Modifications made below, to allow external links to display in new tabs/windows and to be denoted on the web page as doing so.
+// Additions at lines 628, 684, 727, 758
+
 #
 #
 # Parsedown
@@ -622,7 +625,8 @@ class Parsedown
         }
 
         private function parse_span_elements($text)
-        {
+        { $urlout = 'target="_BLANK" class="external" '; // My addition - not original Parsedown
+
                 $map = array();
 
                 $index = 0;
@@ -676,9 +680,9 @@ class Parsedown
                                 {
                                         $element_text = $this->parse_span_elements($matches[3]);
                                         
-                                        // My addition here, to detect external links and open them in a new window
-                                        if (substr($url,0,4) == "http") { $target = "target=\"_BLANK\" "; } else { $target = ""; }
-                                        $element = '<a '.$target.'href="'.$url.'">'.$element_text.'</a>';
+                                        $element = '<a ';
+                                        if (substr($url,0,4) == "http") { $element .= $urlout; }
+                                        $element .= 'href="'.$url.'">'.$element_text.'</a>';
                                 }
 
                                 # ~
@@ -718,8 +722,10 @@ class Parsedown
                                         else # anchor
                                         {
                                                 $element_text = $this->parse_span_elements($matches[2]);
-
-                                                $element = '<a href="'.$url.'">'.$element_text.'</a>';
+                                                
+                                                $element = '<a ';
+                                                if (substr($url,0,4) == "http") { $element .= $urlout; }
+                                                $element .= 'href="'.$url.'">'.$element_text.'</a>';
                                         }
 
                                         # ~
@@ -748,7 +754,9 @@ class Parsedown
 
                                                 strpos($url, '&') !== FALSE and $url = preg_replace('/&(?!#?\w+;)/', '&amp;', $url);
 
-                                                $element = '<a href=":href">:text</a>';
+                                                $element = '<a ';
+                                                if (substr($url,0,4) == "http") { $element .= $urlout; }
+                                                $element .= 'href=":href">:text</a>';
                                                 $element = str_replace(':text', $url, $element);
                                                 $element = str_replace(':href', $url, $element);
 

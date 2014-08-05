@@ -1,8 +1,0 @@
-RewriteEngine On    #Turn on the rewriting engine
-
-#See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
-
-RewriteRule    ^([^/.]+)/?$    ?subject=$1   [L]
-RewriteRule    ^([^/.]+)/([^/.]+)/?$    ?subject=$1&folder=$2   [L]
-RewriteRule    ^([^/.]+)/([^/.]+)/([^/.]+)/?$    ?subject=$1&folder=$2&page=$3   [L]
-RewriteRule    ^([^/.]+)/([^/.]+)/([^/.]+)/([^/.]+)/?$    ?subject=$1&folder=$2&subfolder=$3&page=$4   [L]

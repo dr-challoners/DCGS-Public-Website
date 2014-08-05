@@ -1,8 +1,10 @@
+<?php date_default_timezone_set("Europe/London"); ?>
+
 <script src="/<?php echo $codepath; ?>functions.js"></script>
 
 <?php
   echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\"";
-  echo " href=\"/".$codepath."parsing_lrg.css.php?pagewidth=".$pagewidth;
+  echo ' href="/'.$codepath.'parsebox.css.php?pagewidth='.$pagewidth;
     if($colour != "") { echo "&colour=".$colour; }
   echo "\"/>\n";
 ?>

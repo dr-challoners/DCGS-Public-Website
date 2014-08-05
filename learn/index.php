@@ -4,10 +4,10 @@
 
 <!--googleoff: all-->	
 <div class="lftcol">
-	<div class="header">
+  <a class="logolink" href="/<?php echo $rootpath.$_GET['subject']; ?>"><div class="header">
 		<h1>Learn</h1>
 		<?php if (isset($ConfigTitle)) { echo "<h2>".$ConfigTitle."</h2>"; } ?>
-	</div>
+    </div></a>
 
 <?php
 	
@@ -18,9 +18,10 @@ include('navigation.php'); // Drop-down menu navigation
 ?>
 </div>
 <!--googleon: all-->
-<div class="rgtcol">
+<div class="parsebox">
 <?php
-	
+
+$parsediv = 1;
 include('content_location.php'); // The actual content for the page, generated from the folders
 	
 ?>

@@ -73,6 +73,7 @@ elseif (isset($_GET['page'])) { // If this is false, then the INDEX page content
 		else {
 			$dir = $contentpath.$_GET['subject']."/".$folder."/".$page;
 			}
+    unset($parts);
 		include('../'.$codepath.'parsebox.php'); //Need to change the dir depending on the way the system is set up
 		
 		}
@@ -83,6 +84,7 @@ elseif (isset($_GET['subject'])) { // There needs to be a subject set. If there 
 	else { echo "<h1>Welcome</h1>"; }
 
 	$dir = $contentpath.$_GET['subject']."/INDEX";
+  unset($parts);
 	include('../'.$codepath.'parsebox.php');
 
 	}

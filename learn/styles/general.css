@@ -1,4 +1,4 @@
-* { margin: 0, padding: 0;
+* { margin: 0; padding: 0;
     font-family: 'PT Sans', sans-serif; }
 
 body {
@@ -20,7 +20,7 @@ div.lftcol {
     float: left; width: 270px;
     }
 
-div.rgtcol {
+div.parsebox {
     float: right; width: 670px;
     padding: 0px 15px 15px 15px;
     }
@@ -40,6 +40,8 @@ div.header {
     padding: 10px 10px 16px 15px;
     margin-bottom: 5px;
     }
+
+a.logolink { text-decoration: none; }
 
 div.header h1, div.header h2 { margin: 0px; color: #ffffff; }
 

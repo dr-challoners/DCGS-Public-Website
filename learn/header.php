@@ -37,9 +37,6 @@
 		
 		<!-- Stylesheets - 'screen_sml' displays on mobiles. If you want something to display on only _lrg or _sml, put 'lrg' or 'sml' as its class. -->
 		<link rel="stylesheet" type="text/css" media="screen" href="/<?php echo $rootpath; ?>styles/general.css"/>
-		<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/<?php echo $rootpath; ?>styles/screen_lrg.css"/>
-		<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/<?php echo $rootpath; ?>styles/screen_sml.css"/>
-		<!-- <link rel="stylesheet" type="text/css" href="/styles/screen_sml.css"/> For testing/re-styling -->
 		<?php
 			//Dirty rotten browser hacks
 			if(strpos($_SERVER['HTTP_USER_AGENT'],"Trident") != "") { //Hits IE by spotting the IE rendering engine
