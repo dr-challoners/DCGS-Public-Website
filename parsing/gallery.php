@@ -1,6 +1,6 @@
 <?php
 
-$photos = scandir($dir."/".$part, 1);
+$photos = scandir($filedir, 1);
 array_pop($photos);
 array_pop($photos);
 
@@ -49,7 +49,6 @@ if(count($photos) != 0) { //Check to make sure gallery contains photos
 	}
 	if($tiny != 1) { echo "</div>"; } //Closes up a half-finished set of tiny boxes
 	
-//if ($get_image != "") { echo "</div></div>"; }
 echo "<hr class=\"clear\" /></div>";
 
 	}

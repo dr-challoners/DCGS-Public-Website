@@ -1,7 +1,8 @@
 <?php
-  $rootpath = ""; //This is the directory to the main website (will be "" unless the website is some sub-portion of the actual site)
-  $codepath = "parsing/"; //This is the directory to the ParseBox files 
-  $contentpath = ""; //This is the path from the main site to the main folder for storing content
+  $rootpath = ""; // This is the directory to the main website (will be "" unless the website is some sub-portion of the actual site)
+  $codepath = "parsing/"; // This is the directory to the ParseBox files 
+  $contentpath = ""; // This is the path from the main site to the main folder for storing content
+  $sharedpath = 'content_main/content_SHARED/'; // Necessary if you're planning on taking advantage of the shared content module
 
   //When referring to ParseBox in the code to pull out files, the folder containing page files must be specified as $dir
 

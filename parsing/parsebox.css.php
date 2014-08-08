@@ -20,13 +20,13 @@
 
 /* General */
 
-div.parsebox h1 { margin: 28px 0 20px 0; }
+div.parsebox h1 { margin: 18px 0 14px 0; }
 div.parsebox h2 { margin: 0 0 12px 0; }
 div.parsebox h3, div.parsebox h4 { margin: 0 0 8px 0; }
 
 div.parsebox p {
-  font-size: 16px;
-  line-height: 24px; margin: 0 0 16px 0;
+  font-size: 14px;
+  line-height: 22px; margin: 0 0 16px 0;
   }
 
 div.parsebox ul, div.parsebox ol {
@@ -43,6 +43,31 @@ div.parsebox a.external:before {
   content: url('./icons/urlout.png');
   margin-right: 1.5px;
   }
+
+div.parsebox table {
+    width: 100%; margin-bottom: 16px;
+    border-collapse: collapse;
+    }
+div.parsebox table p {
+    margin: 0;
+    line-height: 20px;
+    text-align: left;
+    }
+div.parsebox table th {
+    background-color: #eeeeee;
+    border-bottom: 2px solid;
+    <?php echo "border-color: ".$colour.";\n"; ?>
+    padding: 7px 4px;
+    }
+div.parsebox table td {
+    padding: 4px;
+    vertical-align: top;
+    }
+div.parsebox tr.alt { background-color: #f7f7f7; }
+div.parsebox tr.breakrow {
+    border-top: 1px solid;
+    border-color: #cccccc;
+    }
 
 div.parsebox code {
     display: block; padding: 5px 10px; margin: 16px 0;

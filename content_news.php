@@ -54,9 +54,11 @@ if (isset($component[2])) { // Checks to see if an author has been given
 <?php
 	}
 else { //Displays an error if a story hasn't been set
-	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
-	echo "<h2>Oh dear!</h2>";
-	echo "<p>You appear to have navigated to nowhere. Try going back to the home page and having another go.</p>";
+	echo "<style> body { background-image: url('/styles/imgs/error.png'); background-position: right bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+  echo '<div class="parsebox">';
+  echo "<h1>Oh dear!</h1>";
+	echo '<p>You appear to have navigated to nowhere. Try going <a href="/">back to the home page</a> and having another go.</p>';
+  echo '</div>';
 	} 
 
 include ('footer.php'); ?>

@@ -1,3 +1,10 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>DCGS Sync</title>
+  </head>
+  <body>
+
 <pre><?php
 
   //Handling authorisation with Box API
@@ -19,7 +26,8 @@
 
 
 echo "<h1>Content synchronisation</h1>";
-echo "<p>Please select one of the directories below to synchronise.</p>";
+echo "<p>Please select one of the directories below and choose 'update' to synchronise.</p>";
+echo "<p>Choose 'reset' to clear the entire directory and synchronise it from scratch:<br />this is much slower, and should be used only if something has gone wrong.</p>";
 echo "<h2>DCGS public website</h2>";
 echo "<ul>"; //Change the initial values as appropriate for the Box folder being referred to
   echo "<p><li>Main content:      <a href=\"./system_update.php?initial=2176714940\">update</a> or <a href=\"./system_update.php?initial=2176714940&reset=y\">reset</a></li></p>"; //content_main
@@ -40,3 +48,6 @@ echo "<ul>";
 echo "</ul>";
 
 ?></pre>
+    
+  </body>
+</html>

@@ -15,8 +15,12 @@
     s.parentNode.insertBefore(gcse, s);
   })();
 </script>
-<div>
-<gcse:search></gcse:search>
+<div class="searchpage">
+  <h1>Search the site</h1>
+  <p>We are currently experimenting with this feature. If you still can't find what you are looking for, please feel free to <a href=\"/pages/Information/General information/Contact us\">contact us</a>.</p>
+  <div>
+    <gcse:search></gcse:search>
+  </div>
 </div>
 
 <?php include('footer.php'); ?>

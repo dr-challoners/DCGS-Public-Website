@@ -22,8 +22,8 @@ div.colourbar { position: fixed; z-index: 1; width: 100%;}
 	   }
 
 div.ncol { width: 255px; }
-div.lft { float: left; }
-div.rgt { float: right; }
+.lft { float: left; }
+.rgt { float: right; }
 
 div.mcol, div.mcol-rgt { width: 710px; }
 div.mcol-rgt { margin-left: 270px; }
@@ -51,6 +51,7 @@ div.linkbox {
        div.linkbox h3:hover {
           background-color: #2358A3; color: #ffffff;
           }
+img.linkbutton:hover { background-color: #9BC6F7; }
 
 /* Header */
 div.header { position: fixed; z-index: 2; top: 0px; }
@@ -169,7 +170,7 @@ div.mcol li, div.mcol-rgt li, {
 div.parsebox ul { margin: 0 0 16px 0; } /* Because this is being overwritten somewhere */
 div.parsebox li {
   font-family: Trebuchet, Verdana, sans-serif;
-  font-size: 16px; line-height: 24px;
+  font-size: 14px; line-height: 22px;
   }
     
 h1.second { margin-top: 24px;}
@@ -191,7 +192,6 @@ div.submenu {
     div.submenu ul.intranet { display: block; }
 
 div.ncol h2 { margin: -8px 0px 5px 0px; }
-/* div.submenu h2 { margin: -2px 0px 12px 10px; } */
 
 div.submenu li {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 18px;
@@ -208,7 +208,7 @@ div.submenu a {
     div.submenu a:hover { background-color: #2358A3; color: #ffffff; }
 	
 /* News story display */
-div.parsebox h3.newsdate { margin: -20px 0 20px 0; }
+div.parsebox h3.newsdate { margin: -12px 0 20px 0; }
 
 h2.news { padding: 6px 0 7px 10px; }
 
@@ -240,6 +240,7 @@ div.linksbox {
        list-style-type: none;
        padding: 4px 12px 8px 12px;
        }
+    div.linksbox a:before, div.subjectbox a:before { content: none; }
 
 div.subjectbar {
     margin-left: -10px;
@@ -255,3 +256,54 @@ div.subjectbox {
        background-color: #FFF7D7;
        border-bottom: 4px solid;
        }
+
+/* Houses pages */
+
+table.houselist { table-layout: fixed; }
+table.houselist td { padding: 0 4px 16px 0!important; }
+table.houselist h2 { margin: 0 0 0 0!important; padding: 3px 6px; }
+table.houselist h3 { margin: 10px 0 0 0!important; padding: 0 6px; }
+table.houselist p { padding: 0 6px; }
+  table.houselist a > h3:before { content: "+ "; font-size: 14px; }
+  div.dropdown p.rep { display: none; }
+  div.open p.rep { display: block; }
+
+div.totalscores p {
+   font-size: 18px!important;
+   line-height: 26px!important;
+   margin: 4px 0 0 0!important;
+   padding: 2px 10px;
+   }
+   div.totalscores span { float: right; }
+   p.leader {
+      padding: 7px 10px!important;
+      font-weight: bold;
+      }
+
+table.eventscores th, table.eventscores td {
+   width: 142px;
+   }
+table.eventscores td { padding: 5px 0!important; }
+table.eventscores tr.first { border-top: none; }
+table.eventscores tr.first td { padding-top: 7px!important; }
+table.eventscores p {
+   text-align: center!important; padding: 3px;
+   }
+table.eventscores th.eventname, table.eventscores td.eventname {
+   width: 284px;
+   }
+   table.eventscores th.eventname p, table.eventscores td.eventname p {
+     text-align: left!important;
+     }
+h2.termname:before { content: "+ "; }
+   div.dropdown table.eventscores { display: none; }
+   div.open table.eventscores { display: block; }
+
+h3.housearchive {
+   line-height: 20px;
+   margin: 15px 0!important; padding: 8px 4px;
+   border: solid #2358A3;
+   border-left: 0; border-right: 0;
+   height: 20px;
+   }
+   h3.housearchive a:hover { text-decoration: none!important; }

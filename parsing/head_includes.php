@@ -1,13 +1,19 @@
 <?php date_default_timezone_set("Europe/London"); ?>
 
-<script src="/<?php echo $codepath; ?>functions.js"></script>
-
 <?php
   echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\"";
   echo ' href="/'.$codepath.'parsebox.css.php?pagewidth='.$pagewidth;
     if($colour != "") { echo "&colour=".$colour; }
   echo "\"/>\n";
 ?>
+
+<!-- General Parsebox functions -->
+<script src="/<?php echo $codepath; ?>functions.js"></script>
+
+<!-- Sheetsee general functions -->
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+<script type='text/javascript' src='../js/tabletop1.3.4.js'></script>
+<script type='text/javascript' src='../js/sheetsee.js'></script>
 
 <!-- This parses mathematical code. See http://www.mathjax.org/ for documentation. -->
 <script type="text/javascript"

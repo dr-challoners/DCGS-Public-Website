@@ -1,21 +1,24 @@
 <?php include('header_declarations.php'); ?>
-
-<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/homepage_lrg.css"/>
-<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/homepage_sml.css"/>
+<?php if (!preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) { // IE 8 or earlier can't handle media queries
+  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/homepage_lrg.css"/>';
+  echo '<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/homepage_sml.css"/>';
+} else {
+  echo '<link rel="stylesheet" type="text/css" href="/styles/homepage_lrg.css"/>';
+} ?>
 
 <?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
-	
 	<div class="linkbox">
-		<a href="/pages/Information/Admissions/General information"><h3>Admissions</h3>
+    <a href="/pages/Information/Admissions/General information"><h3>Admissions</h3></a>
 	</div>
 	<div class="linkbox">
-		<a href="/pages/Information/Vacancies/Introduction"><h3>Vacancies</h3>
+    <a href="/pages/Information/General information/Staff vacancies"><h3>Vacancies</h3></a>
 	</div>
 	<div class="linkbox">
-		<a href="/pages/Information/Supporting us/Introduction"><h3>Supporting us</h3>
+    <a href="/pages/Information/Supporting us/Annual Giving Programme"><h3>Supporting us</h3></a>
 	</div>
+  <a href="http://www.astra-alliance.com/" target="_BLANK"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews"><p>DCGS News <span>Follow</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersNews" data-chrome="noborders noheader nofooter" data-widget-id="430598364401373184">Tweets by @ChallonersNews</a>

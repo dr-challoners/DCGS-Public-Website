@@ -10,9 +10,12 @@ if ($get_device != "mobile") {
 	}
 	
 ?>
-
-<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>
-<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>
+<?php if (!preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) { // IE 8 or earlier can't handle media queries
+  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/diary_lrg.css"/>';
+  echo '<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/diary_sml.css"/>';
+  } else {
+    echo '<link rel="stylesheet" type="text/css" href="/styles/diary_lrg.css"/>';
+  } ?>
 
 <?php if ($get_device != "mobile") { ?>
 <script type="text/javascript" language="javascript"> // Jumps the page to the actual day being navigated
@@ -35,7 +38,7 @@ if ($get_event != "") { //We want to be looking at an events page: deal with thi
 			echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."\"><h3>Main diary</h3></a>";
 		echo "</div>";
 		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
+			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "<!--googleon: all--></div>";
 	
@@ -58,7 +61,7 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		include ('diary_calendar.php');
 		echo "<div class=\"linkbox lrg\">";
-			echo "<a href=\"/rich/Information/General information/Term dates\"><h3>Term dates</h3></a>";
+			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
 		echo "</div>";
 	echo "<!--googleon: all--></div>";
 	

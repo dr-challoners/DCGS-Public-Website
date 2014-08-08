@@ -1,10 +1,19 @@
 /* Main structure fixes */
+div.main_nav ul { margin-top: 4px; }
+div.main_nav a:hover { background-color: transparent; }
+
 div.nav_about ul { padding-top: 6px;  }
 div.nav_links ul { padding-top: 3px; }
 div.nav_about a { height: 26px; }
 div.nav_links a { height: 19px; }
 
 div.linkbox h3 { padding-top: 17px; height: 50px; }
+
+div.lightboxOverlay { padding: 0 22px; }
+
+body { background-size: 45%; }
+
+div.searchpage > div { width: 95%; margin: 0; }
 
 /* Diary fixes */
 div.day h3 { padding-top: 4px; }
@@ -16,4 +25,4 @@ div.non h3 { padding-top: 4px; }
 div.override h1 { padding-top: 8px; }
 
 /* Fixed issue: when the content in the main column is very short, the site does not otherwise fill correctly according to the iPad screen's width */
-div.mcol, div.mcol-rgt { min-height: 768px; }
+div.mcol, div.mcol-rgt, div.parsebox { min-height: 768px; }

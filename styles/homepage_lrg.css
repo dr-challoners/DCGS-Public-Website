@@ -12,24 +12,11 @@ div.override {
     }
     div.override h1 {
        margin-bottom: 0px;
-       font-size: 42px;
+       font-size: 38px;
        }
     div.override p {
-       font-size: 16px; line-height: 26px;
        margin-top: 8px;
        }
-
-#closure {
-    color: #ffffff; background-color: #303030;
-    background-image: url(/styles/imgs/override_closure.png);
-    padding-right: 250px;
-    }
-    #closure a { color: #F2A106; }
-    #closure a:hover { color: #FFC405; }
-#snow_amber {
-    background-image: url(/styles/imgs/override_snow_amber.png);
-    padding-right: 250px;
-    }
 
 /* Magazine */
 div.magazine { margin-top: 5px; }

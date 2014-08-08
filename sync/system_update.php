@@ -1,3 +1,10 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title><?php if(isset($_GET['processing']) && $_GET['processing'] == 10) { echo "Done: "; } else { echo "Working: "; } ?>DCGS Sync</title>
+  </head>
+  <body>
+
 <pre><?php
 
   //Handling authorisation with Box API

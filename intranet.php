@@ -2,7 +2,7 @@
 	$intranet = "y";
 	include('header_declarations.php');
 	include('header_navigation.php');
-  include('parsing/parsedown.php'); //Converts markdown text to HTML - see parsedown.org
+  include('parsing/Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
@@ -79,19 +79,13 @@ if (isset($_GET['user'])) {
 							$detail = explode("~",$page);
 							if (isset($detail[2])) { // If there's a third part to the array, then that means a particular instruction like an external LINK or a GALLERY or a SPECIAL content_rich page
 								if ($detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link infor is written inside the text file
-									echo "<li><a href=\"".file_get_contents("content_main/Information/".$subdir."/".$page)."\" target=\"_BLANK\">".$detail[1]."</a></li>";
-									}
-								elseif ($detail[2] == "GALLERY") { // Point to the gallery function for the given folder
-									echo "<li><a href=\"/gallery/Information/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
-									}
-								elseif ($detail[2] == "SPECIAL.txt") { // Point to the content_rich folder. Note that most of the navigation details given will be unnecessary for finding the file: they're there to display the submenu.
-									echo "<li><a href=\"/rich/Information/".$dirname[1]."/".$detail[1]."\">".$detail[1]."</a></li>";
+									echo "<li><a href=\"".file_get_contents("content_main/Information/".$subdir."/".$page)."\" target=\"_BLANK\">".str_replace('[plus]','+',$detail[1])."</a></li>";
 									}
 								}
 							elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
 								$pagename = explode(".",$detail[1]);
 								$pagename = $pagename[0];
-								echo "<li><a href=\"/pages/Information/".$dirname[1]."/".$pagename."\">".$pagename."</a></li>";
+								echo "<li><a href=\"/pages/Information/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
 								}
 							}
     
@@ -107,12 +101,12 @@ if (isset($_GET['user'])) {
 	break;
 	default:
 		echo "<h1>DCGS intranet</h1>";
-		echo "<p>You will need your username and password to access the links in this section. Click on a category on the left to begin.</p>";
+		echo "<p>You will need your username and password to access the links in this section.<br />Click on a category on the left to begin.</p>";
 	}
 	}
 	else {
 		echo "<h1>DCGS intranet</h1>";
-		echo "<p>You will need your username and password to access the links in this section. Click on a category on the left to begin.</p>";
+		echo "<p>You will need your username and password to access the links in this section.<br />Click on a category on the left to begin.</p>";
 		}
 	
 	echo "</div>";

@@ -90,8 +90,8 @@
 						<li><a href="/pages/Overview/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Overview</a></li>
 						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
 						<li><a href="/intranet/">Intranet</a></li>
-						<li><a href="/pages/Student life/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Student life</a></li>
-						<li><a href="/pages/Showcase/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Showcase</a></li>
+						<li><a href="/pages/Student life/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Student life</a></li>
+						<li><a href="/pages/Showcase/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Showcase</a></li>
 						<li><a href="/pages/Information/Alumni/Introduction">Alumni</a></li>
 						<li><a href="/pages/Information/General information/Contact us">Contact us</a></li>
 					</ul>
@@ -105,22 +105,31 @@
 				</div>
 				
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
-					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
-						<div class="sub_nav sub_menu" name="submenu" id="n0"><ul>
-							<li id="first"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">This week's events</a></li>
-							<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar"; ?>">Browse the calendar</a></li>
-							<li><a href="/rich/Information/General information/Term dates">See term dates</a></li>
-						</ul></div>
-					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
-						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
-							<li id="first"><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
-							<li><a href="/intranet/Parent portal">Parent portal</a></li>
-							<li><a href="/intranet/Subject resources">Subject resources</a></li>
-						</ul></div>
-					
+					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
+					<?php
+						$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
+						$newsposts = array_slice($newsposts,0,15);
+						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
+						$n = 0; foreach ($newsposts as $row) {
+							$component = explode("~",$row);
+							echo "<li";
+							if ($n == 0) { echo " id=\"first\""; }
+							echo ">";
+              echo "<a href=\"/news/".$component[0]."~".$component[1];
+							if ($component[2] != "") {
+								echo "~".$component[2];
+								}
+							echo "\">";
+							echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
+							echo "</a>";
+							echo "</li>";
+							}
+						echo "</ul></div>";
+					?>
+          				
 				<?php //This next section creates the drop-down menus for the main navigation
 				
-				$dropdowns = array("Information", "Overview","Student life","Showcase");
+				$dropdowns = array("Information","Overview","Showcase","Student life");
 				$div_id = 1;
 				
 				foreach ($dropdowns as $maindir) {
@@ -147,12 +156,12 @@
 							foreach ($files as $page) {
 								$detail = explode("~",$page);
 								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo '<li><a href="'.file_get_contents("content_main/".$maindir."/".$subdir."/".$page).'" target="_BLANK" class="external" >'.$detail[1].'</a></li>';
+									echo '<li><a href="'.file_get_contents("content_main/".$maindir."/".$subdir."/".$page).'" target="_BLANK" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 								}
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
 									$pagename = $pagename[0];
-									echo "<li><a href=\"/pages/".$maindir."/".$dirname[1]."/".$pagename."\">".$pagename."</a></li>";
+									echo "<li><a href=\"/pages/".$maindir."/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
 									}
 								}
     
@@ -168,27 +177,40 @@
 				?>
 					
 					<!-- Remainder of the links for the mobile menu. -->
-					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
-					<?php
-						$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
-						$newsposts = array_slice($newsposts,0,15);
-						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
-						$n = 0; foreach ($newsposts as $row) {
-							$component = explode("~",$row);
-							echo "<li";
-							if ($n == 0) { echo " id=\"first\""; }
-							echo ">";
-              echo "<a href=\"/news/".$component[0]."~".$component[1];
-							if ($component[2] != "") {
-								echo "~".$component[2];
+					
+          <h1 class="sub_nav sml"><a href="javascript:openCloseAll('nA')">Alumni</a></h1>
+					<div class="sub_nav sub_menu" name="submenu" id="nA"><ul>
+				  <?php    
+							$files = scandir("content_main/Information/5~Alumni", 1); //Now get all the files in each subdirectory and turn them into appropriate links
+							$files = array_reverse($files);
+    
+							echo "<ul>";
+    
+							foreach ($files as $page) {
+								$detail = explode("~",$page);
+								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
+									echo '<li><a href="'.file_get_contents("content_main/Information/5~Alumni/".$page).'" target="_BLANK" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 								}
-							echo "\">";
-							echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
-							echo "</a>";
-							echo "</li>";
-							}
-						echo "</ul></div>";
-					?>
+								elseif (isset ($detail[1])) {
+									$pagename = explode(".",$detail[1]);
+									$pagename = $pagename[0];
+									echo "<li><a href=\"/pages/Information/Alumni/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
+									}
+								}
+				    ?>
+					  </ul></div>
+          <h1 class="sub_nav sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
+						<div class="sub_nav sub_menu" name="submenu" id="n0"><ul>
+							<li id="first"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">This week's events</a></li>
+							<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar"; ?>">Browse the calendar</a></li>
+							<li><a href="/pages/Information/General information/Term dates">See term dates</a></li>
+						</ul></div>
+					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
+						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
+							<li id="first"><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
+							<li><a href="/intranet/Parent portal">Parent portal</a></li>
+							<li><a href="/intranet/Subject resources">Subject resources</a></li>
+						</ul></div>
 					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General information/Contact us">Contact us</a></h1>
 					
 					</div>

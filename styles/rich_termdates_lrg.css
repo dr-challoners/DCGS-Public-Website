@@ -1,9 +1,0 @@
-/* Term dates */
-
-p.termdate#toprow {
-    padding-bottom: 8px;
-    border-bottom: 1px solid #173F7A;
-    }
-
-p.termdate span { display: inline-block; width: 270px; }
-    p.termdate span#firstcol { width: 170px;}
