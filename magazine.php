@@ -1,4 +1,4 @@
-<?php
+<?php include_once('parsing/Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
 $newsposts = array_slice($newsposts,0,15);
@@ -127,23 +127,24 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
     
 	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4)));
   
-  //Finds the first bit of text in the story and outputs it as the story stub
+  //Finds each text file in the story and outputs them as the story stub
+  $story = "";
   foreach ($parts as $part) {
     $checkpart = pathinfo($part);
     if (isset($checkpart['extension']) && $checkpart['extension'] == "txt") {
-      break;
+      // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
+      $lines = file('content_news/'.$file."/".$part, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
+      foreach ($lines as $line) {
+        $line = Parsedown::instance()->parse($line);
+		    if (substr($line,0,2) != "<h") { // If it's a header, it's ignored
+			    $line = strip_tags($line); // Remove other HTML and PHP
+			    $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
+			    $line = str_replace("*","",$line);
+			    $story .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
+          }
+        }
       }
     }
-	$lines = file('content_news/'.$file."/".$part, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
-	$story = ""; foreach ($lines as $line) {
-		$line = Parsedown::instance()->parse($line);
-		if (substr($line,0,2) != "<h") { // If it's a header, it's ignored
-			$line = strip_tags($line); // Remove other HTML and PHP
-			$line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
-			$line = str_replace("*","",$line);
-			$story .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
-			}
-		}
 	
 	//Format according to type
 	if ($component[0] == "BIG") {

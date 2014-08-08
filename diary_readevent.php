@@ -79,9 +79,11 @@ if (file_exists("content_plain/diary/".$type.".xml")) { $eventread = simplexml_l
 	else { echo "<hr>"; }
 	}
 else { //Displays an error if the event file can't be found
-	echo "<style> body { background-image: url('/main_imgs/error.png'); background-position: center bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
-	echo "<h2>Oh dear!</h2>";
+	echo "<style> body { background-image: url('/styles/imgs/error.png'); background-position: right bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
+	echo '<div class="parsebox">';
+  echo "<h1>Oh dear!</h1>";
 	echo "<p>It seems the file for this type of event has been misplaced... or perhaps <em>it never existed at all.</em><br />You could go back to the diary to try again, or you could <a href=\"/about/contact/\">contact us</a> to report the problem.</p>";
+  echo '</div>';
 	} 
 
 ?>

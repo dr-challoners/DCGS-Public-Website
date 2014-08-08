@@ -1,2 +1,100 @@
-* { margin: 0, padding: 0;
+* { margin: 0; padding: 0;
     font-family: 'PT Sans', sans-serif; }
+
+body {
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #f6f6f6;
+    }
+
+div.page {
+    background-color: #ffffff;
+    width: 980px;
+    margin: 10px auto 0px auto;
+    }
+hr.clear { height: 0px; clear: both; visibility: hidden; }
+
+div.lftcol {
+    float: left; width: 270px;
+    }
+
+div.parsebox {
+    float: right; width: 670px;
+    padding: 0px 15px 15px 15px;
+    }
+
+/* GENERAL TYPOGRAPHY */
+
+a { color: #444444; }
+a:hover { color: #888888; }
+
+/* LOGO AND MAIN NAVIGATION */
+
+div.header {
+    background-image: url(imgs/logo_bkgd.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+    background-color: #666666;
+    padding: 10px 10px 16px 15px;
+    margin-bottom: 5px;
+    }
+
+a.logolink { text-decoration: none; }
+
+div.header h1, div.header h2 { margin: 0px; color: #ffffff; }
+
+div.header h1 { font-size: 36px; }
+div.header h2 { 
+    font-size: 48px;
+    line-height: 49px;
+    margin-top: -2px;
+    }
+
+div.navigation { padding-bottom: 10px; }
+
+div.navigation h1, div.navigation h2, div.navigation ul { margin: 0px; }
+
+div.navigation h1 {
+    font-weight: normal; font-size: 24px;
+    margin-bottom: 5px; padding: 5px 10px;
+    background-color: #eaeaea;
+    }
+    div.navigation h1 span { font-size: 10px; vertical-align: 30%; }
+    div.navigation h1 a {
+       display: block;
+       margin: -5px -10px; padding: 5px 10px;
+       text-decoration: none; color: inherit;
+       transition: background-color 0.2s, color 0.2s;
+       -webkit-transition: background-color 0.2s, color 0.2s;
+       }
+    div.navigation h1 a:hover {
+       color: #ffffff; background-color: #666666;
+       }
+
+div.navigation h2 {
+    font-weight: normal; font-size: 20px;
+    padding: 0px 10px 5px 10px;
+    }
+    div.navigation h2 span {
+        font-family: "Courier New", monospace;
+        font-weight: bold; font-size: 18px; vertical-align: 2px;
+        color: #888888;
+        }
+    div.dropdown h2 span.open { display: none; }
+    div.open h2 span.clsd { display: none; }
+    div.open h2 span.open { display: inline; }
+    div.navigation h2 a {
+       text-decoration: none; display: block;
+       }
+
+div.navigation ul {
+    display: none;
+    padding: 0px 15px 10px 38px;
+    line-height: 16px;
+    list-style-type: none;
+    }
+    div.navigation li { margin-bottom: 8px; }
+    div.open ul { display: block; }
+    div.navigation ul a { display: block; }
