@@ -34,6 +34,16 @@
 <h1 class="dcgs sml">Welcome to Dr Challoner's Grammar School</h1>
 
 <?php
+if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['updatebrowser'])) { // Notification to upgrade for older versions of IE
+  echo '<div class="old_browser_notice lrg">'; // Put in the 'lrg' because the notice *shouldn't* appear on mobiles, but that'll catch it if it does
+  echo '<h1>IMPORTANT: Your browser is out of date</h1>';
+  echo '<p>While efforts have been made to ensure compatibility with some older internet browsers, it is costly and impractical to support them all. Your browser is unfortunately too old, and this website will not run correctly on it.</p>';
+  echo '<p>You can use the links below to update or replace your browser <i>for free.</i> As well as being able to use this site, you will enjoy a faster, fuller and more secure internet experience overall.</p>';
+  echo '<p><img src="./styles/imgs/upgradeto_chrome.png" /><a href="http://www.google.com/chrome/" target="_BLANK">Switch to Chrome - a cutting-edge, straightforward browser</a></p>';
+  echo '<p><img src="./styles/imgs/upgradeto_firefox.png" /><a href="http://www.getfirefox.com/" target="_BLANK">Switch to Firefox - a friendly browser that\'s easily customised</a></p>';
+  echo '<p><img src="./styles/imgs/upgradeto_ie.png" /><a href="http://www.getie.com/" target="_BLANK">Upgrade Internet Explorer</a></p>';
+  echo '</div>';
+}
 include ('override_display.php');
 include ('magazine.php');
 ?>

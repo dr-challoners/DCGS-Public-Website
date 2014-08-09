@@ -106,3 +106,21 @@ div.highlight {
        color: #ffffff; text-decoration: none;
        }
        div.highlight a:hover { text-decoration: underline; }
+
+/* Update old browsers notice */
+
+div.old_browser_notice {
+    margin: 5px 0 15px;
+    border: 1px solid;
+    padding: 10px 15px 15px;
+    background-color: #f1f1f1;
+    }
+div.old_browser_notice img {
+    height: 50px; width: 50px;
+    vertical-align: middle;
+    margin-right: 15px;
+    }
+div.old_browser_notice a {
+    color: #000000;
+    font-weight: bold;
+    }
