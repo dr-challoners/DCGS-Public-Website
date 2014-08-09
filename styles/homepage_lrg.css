@@ -63,13 +63,13 @@ div.bar {
 
 /* Twitter */
 div.twitter-header {
-    margin: 15px 0px 4px 0px;
+    margin: 10px 0px 4px 0px;
     }
 
 div.twitter-header p {
-    padding: 5px 31px 5px 7px; margin: 0px;
+    padding: 3px 31px 3px 7px; margin: 0px;
     background-image: url('/styles/imgs/twitter.png');
-    background-position: right 8px;
+    background-position: right 6px;
     background-repeat: no-repeat;
     transition: background-color 0.2s, color 0.2s;
     -webkit-transition: background-color 0.2s, color 0.2s;
@@ -91,7 +91,7 @@ div.twitter-header#news { background-color: #f3b939; }
 div.twitter-header#sprt { background-color: #b21614; }
     div.twitter-header#sprt a { color: #ffffff; }
 
-.twitter-timeline { height: 390px; margin-bottom: -5px; }
+.twitter-timeline { height: 150px; margin-bottom: -5px; }
 
 iframe { margin-top: 0px; }
 

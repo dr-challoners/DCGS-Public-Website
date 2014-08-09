@@ -214,6 +214,11 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                       for ($i = 0; $i < strlen($url); $i++) { $address .= '&#'.ord($url[$i]).';'; }
                       $url = "mailto:".$address;
                       }
+                    // Detect and give icons to various common external links
+                    elseif (strpos($url,"twitter.com") !== false) {
+						          $icon = "Twitter feed";	}
+                    elseif (strpos($url,"facebook.com") !== false) {
+						          $icon = "Facebook page";	}
                     elseif (strpos($url,"apple.com") !== false && strpos($url,"app") !== false) {
 						          $icon = "iTunes app";	}
 					          elseif (strpos($url,"play.google") !== false && strpos($url,"app") !== false) {
@@ -230,11 +235,11 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                       $icon = "YouTube video"; }
                     elseif (strpos($url,"soundcloud.com") !== false) {
                       $icon = "SoundCloud audio"; }
+                    // Now create the link
                     $line  = '<a target="_BLANK" href="'.$url.'">';
 					          $line .= '<p class="linkout">';
                     $line .= '<img src="/'.$codepath.'icons/'.str_replace("|","",$icon).'.png" alt="'.$icon.': " class="icon" />';
-                    // There *should* be a name for this type of link, but prevent errors if there isn't
-                    if (isset($name)) { $line .= $name; } else { $line .= 'Link'; }
+                    if (isset($name)) { $line .= $name; } else { $line .= 'Link'; } // There *should* be a name for this type of link, but prevent errors if there isn't
                     $line .= '</p></a>';
                     }
                   // If there's been the setup for an iframe, generate this now
