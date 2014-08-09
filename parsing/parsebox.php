@@ -40,7 +40,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             $filename = $newfile[0];
             $file = explode('.',strtolower($newfile[1]));
             $filetype = $file[1];
-            $filevalue = explode("_",$filevalue);
+            $filevalue = explode("#",$filevalue);
           }
           else {
             $file = explode('.',$newfile[0]);

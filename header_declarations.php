@@ -10,8 +10,8 @@
 		<title>
 		<?php // Creating more informative titles
 		
-		if (isset($_GET['subfolder'])) { echo $_GET['subfolder']." - "; } // General content pages
-		if (isset($_GET['page'])) { echo str_replace('[plus]','+',$_GET['page'])." - "; }
+		if (isset($_GET['subfolder'])) { echo str_replace('_',' ',$_GET['subfolder'])." - "; } // General content pages
+		if (isset($_GET['page'])) { echo str_replace('_',' ',str_replace('[plus]','+',$_GET['page']))." - "; }
 		
 		if (isset($_GET['story'])) { // News stories
 			$news_title = explode ("~",$_GET['story']);

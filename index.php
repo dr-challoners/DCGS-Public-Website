@@ -20,11 +20,11 @@
 	</div>
   <a href="http://www.astra-alliance.com/" target="_BLANK"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
 	
-	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews"><p>DCGS News <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="_BLANK"><p>DCGS News <span>Follow</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersNews" data-chrome="noborders noheader nofooter" data-widget-id="430598364401373184">Tweets by @ChallonersNews</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport"><p>DCGS Sport <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport" target="_BLANK"><p>DCGS Sport <span>Follow</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersSport" data-chrome="noborders noheader nofooter" data-widget-id="430597618125664256">Tweets by @ChallonersSport</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	

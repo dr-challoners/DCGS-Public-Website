@@ -2,7 +2,7 @@
 include ('header_declarations.php');
 include ('header_navigation.php');
 
-if (!isset($_GET['story'])) { $get_story = ""; } else { $get_story = $_GET['story']; }
+if (!isset($_GET['story'])) { $get_story = ""; } else { $get_story = str_replace('_',' ',$_GET['story']); }
 
 if ($get_story != "index.php") {
 
@@ -18,9 +18,9 @@ echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, 
 foreach ($newsposts as $row) {
 		$component = explode("~",$row);
 		echo "<li>";
-			echo "<a href=\"".$component[0]."~".$component[1];
+			echo "<a href=\"".$component[0]."~".str_replace(' ','_',$component[1]);
 			if ($component[2] != "") {
-				echo "~".$component[2];
+				echo "~".str_replace(' ','_',$component[2]);
 				}
 			echo "\">";
 			echo $component[1];

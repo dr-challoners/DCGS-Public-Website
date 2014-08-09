@@ -1,9 +1,9 @@
 <?php 
 include('header_declarations.php');
 
-if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = $_GET['folder']; }
-if (!isset($_GET['subfolder'])) { $get_subfolder = ""; } else { $get_subfolder = $_GET['subfolder']; }
-if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = $_GET['page']; }
+if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = str_replace('_',' ',$_GET['folder']); }
+if (!isset($_GET['subfolder'])) { $get_subfolder = ""; } else { $get_subfolder = str_replace('_',' ',$_GET['subfolder']); }
+if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = str_replace('_',' ',$_GET['page']); }
 	
 include('header_navigation.php');
 
@@ -20,7 +20,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
       $files = scandir("content_main/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
       $files = array_reverse($files);
     
-      echo "<ul id=\"".str_replace("'","",$dirname[1])."\">";
+      echo '<ul id="'.str_replace("'","",$dirname[1]).'">';
     
       foreach ($files as $page) {
         $detail = explode("~",$page);
@@ -30,7 +30,7 @@ foreach ($dir as $subdir) { //List all the subdirectories
         elseif (isset ($detail[1])) {
           $pagename = explode(".",$detail[1]);
           $pagename = $pagename[0];
-          echo "<li><a href=\"/pages/".$get_folder."/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>"; 
+          echo "<li><a href=\"/pages/".str_replace(' ','_',$get_folder)."/".str_replace(' ','_',$dirname[1])."/".str_replace(' ','_',$pagename)."\">".str_replace('[plus]','+',$pagename)."</a></li>"; 
           }
         }
     

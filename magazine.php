@@ -146,6 +146,8 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
       }
     }
 	
+  $file = str_replace(' ','_',$file);
+    
 	//Format according to type
 	if ($component[0] == "BIG") {
 		echo "<a href=\"news/".$file."\">";
