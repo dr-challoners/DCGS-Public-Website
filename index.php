@@ -10,13 +10,13 @@
 
 <div class="ncol rgt lrg">
 	<div class="linkbox">
-    <a href="/pages/Information/Admissions/General information"><h3>Admissions</h3></a>
+    <a href="/pages/Information/Admissions/"><h3>Admissions</h3></a>
 	</div>
 	<div class="linkbox">
-    <a href="/pages/Information/General information/Staff vacancies"><h3>Vacancies</h3></a>
+    <a href="/pages/Information/General_information/Staff_vacancies"><h3>Vacancies</h3></a>
 	</div>
 	<div class="linkbox">
-    <a href="/pages/Information/Supporting us/Annual Giving Programme"><h3>Supporting us</h3></a>
+    <a href="/pages/Information/Supporting_us/"><h3>Supporting us</h3></a>
 	</div>
   <a href="http://www.astra-alliance.com/" target="_BLANK"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
 	

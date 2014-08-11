@@ -99,10 +99,10 @@
 						<li><a href="/pages/Overview/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Overview</a></li>
 						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
 						<li><a href="/intranet/">Intranet</a></li>
-						<li><a href="/pages/Student life/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Student life</a></li>
+						<li><a href="/pages/Student_life/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Student life</a></li>
 						<li><a href="/pages/Showcase/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Showcase</a></li>
-						<li><a href="/pages/Information/Alumni/Introduction">Alumni</a></li>
-						<li><a href="/pages/Information/General information/Contact us">Contact us</a></li>
+						<li><a href="/pages/Information/Alumni/">Alumni</a></li>
+						<li><a href="/pages/Information/General_information/Contact_us">Contact us</a></li>
 					</ul>
 				<a class="rbutton" href="/search/"><img src="/styles/imgs/search.png" alt="Search" /></a>
 				</div>
@@ -216,11 +216,11 @@
 						</ul></div>
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
 						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
-							<li id="first"><a href="/intranet/Staff and student intranet">Staff and student intranet</a></li>
-							<li><a href="/intranet/Parent portal">Parent portal</a></li>
-							<li><a href="/intranet/Subject resources">Subject resources</a></li>
+							<li id="first"><a href="/intranet/Staff_and_student_intranet">Staff and student intranet</a></li>
+							<li><a href="/intranet/Parent_portal">Parent portal</a></li>
+							<li><a href="/intranet/Subject_resources">Subject resources</a></li>
 						</ul></div>
-					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General information/Contact us">Contact us</a></h1>
+					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>
 					
 					</div>
 

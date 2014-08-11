@@ -4,13 +4,13 @@
 				<span class="left sml">DCGS, &copy; 2005-<?php echo date("y"); ?></span>
 				<a href="/">Home</a> - 
 				<span class="sml"><a href="#">Page top</a> - </span>
-				<span class="lrg"><a href="/pages/Information/General information/Term dates">Term dates</a> - </span>
-				<span class="lrg"><a href="/pages/Information/Admissions/General information">Admissions</a> - </span>
-				<span class="lrg"><a href="/pages/Information/General information/Staff vacancies">Vacancies</a> - </span>
-				<span class="lrg"><a href="/pages/Information/Supporting us/Annual Giving Programme">Supporting us</a> - </span>
+				<span class="lrg"><a href="/pages/Information/General_information/Term_dates">Term dates</a> - </span>
+				<span class="lrg"><a href="/pages/Information/Admissions/">Admissions</a> - </span>
+				<span class="lrg"><a href="/pages/Information/General_information/Staff_vacancies">Vacancies</a> - </span>
+				<span class="lrg"><a href="/pages/Information/Supporting_us/">Supporting us</a> - </span>
 				<span class="lrg"><a href="/pages/Information/">General information</a> - </span>
-				<a href="/pages/Information/General information/Privacy and cookies">Privacy and cookies</a>
-				<span class="lrg"> - <a href="/pages/Information/General information/Contact us">Contact us</a></span>
+				<a href="/pages/Information/General_information/Privacy_and_cookies">Privacy and cookies</a>
+				<span class="lrg"> - <a href="/pages/Information/General_information/Contact_us">Contact us</a></span>
 				<span class="lrg"> - <a href="/search/">Search</a></span>
 			</p><!--googleon: all--></div>
 			

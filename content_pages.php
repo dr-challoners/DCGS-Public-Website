@@ -43,15 +43,20 @@ echo "<!--googleon: all--></div>";
 
 echo '<div class="parsebox">'; $parsediv = 1;
 
-    if ($get_page != "") { //Parse the appropriate content for the page
+    if ($get_subfolder != "") { //Parse the appropriate content for the page
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
             $files = scandir("content_main/".$get_folder."/".$subdir, 1);
-            foreach ($files as $page) {
-              if (strpos($page,$get_page) !== false) {
-                $this_page = $page;
+            if ($get_page != "") { // Get the page in question if one's been specified
+              foreach ($files as $page) {
+                if (strpos($page,$get_page) !== false) {
+                  $this_page = $page;
+                  }
                 }
+              } else { // Otherwise pull out the first page in the folder to display
+              $files = array_reverse($files);
+              $this_page = $files[2]; // The '2' means we skip . and .. in the directory array
               }
             }
           }

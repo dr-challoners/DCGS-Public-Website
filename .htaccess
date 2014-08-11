@@ -3,8 +3,9 @@ RewriteEngine On    #Turn on the rewriting engine
 #See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
 
 #General content pages
-RewriteRule    ^pages/(.+)/$    content_pages.php?folder=$1   [L]
-RewriteRule    ^pages/(.+)/(.*)/(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3    [L]
+RewriteRule    ^pages/([^/]+)/?$    content_pages.php?folder=$1   [L]
+RewriteRule    ^pages/([^/]+)/([^/]*)/?$    content_pages.php?folder=$1&subfolder=$2   [L]
+RewriteRule    ^pages/([^/]+)/([^/]*)/([^/]*)/?$    content_pages.php?folder=$1&subfolder=$2&page=$3    [L]
 
 #House Competition archives
 RewriteRule    ^archive/(.+)/(.*)/(.*)/year(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3&year=$4    [L]
