@@ -2,7 +2,7 @@
 	<?php // Generating the body tag with onload functions for different pages
 		echo "<body";
 			if (isset($_GET['date'])) { echo " onload=\"moveWindow()\""; } // Diary pages - jumps to current day
-			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace("'","",$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
+			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace(array("'","_"),array(""," "),$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
 		echo ">";
 	?>
 		
