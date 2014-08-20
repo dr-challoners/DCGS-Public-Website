@@ -91,7 +91,7 @@ div.twitter-header#news { background-color: #f3b939; }
 div.twitter-header#sprt { background-color: #b21614; }
     div.twitter-header#sprt a { color: #ffffff; }
 
-.twitter-timeline { height: 150px; margin-bottom: -5px; }
+.twitter-timeline { height: 300px; margin-bottom: -5px; }
 
 iframe { margin-top: 0px; }
 
