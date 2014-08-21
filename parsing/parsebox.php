@@ -24,7 +24,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
     $filevalue = strtolower($filevalue);
     // These three values are what you need - filename is optional
     $filedir   = $dir.'/'.$part;
-    $filevalue = explode("_",$filevalue);
+    $filevalue = explode("#",$filevalue);
     $filetype  = strtolower($filetype);
       
     // Before we start, check to see if it's a SHARED file, in which case re-route to there

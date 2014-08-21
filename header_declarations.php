@@ -15,7 +15,7 @@
 		
 		if (isset($_GET['story'])) { // News stories
 			$news_title = explode ("~",$_GET['story']);
-			echo "News - ".$news_title[1]." - ";
+			echo "News - ".str_replace('_',' ',$news_title[1])." - ";
 			}
 			
 		if (isset($intranet)) { echo "Intranet - "; }

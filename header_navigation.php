@@ -2,7 +2,7 @@
 	<?php // Generating the body tag with onload functions for different pages
 		echo "<body";
 			if (isset($_GET['date'])) { echo " onload=\"moveWindow()\""; } // Diary pages - jumps to current day
-			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace("'","",$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
+			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace(array("'","_"),array(""," "),$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
 		echo ">";
 	?>
 		
@@ -170,7 +170,7 @@
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
 									$pagename = $pagename[0];
-									echo "<li><a href=\"/pages/".$maindir."/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
+									echo "<li><a href=\"/pages/".$maindir."/".str_replace(" ","_",$dirname[1])."/".str_replace(" ","_",$pagename)."\">".str_replace('[plus]','+',$pagename)."</a></li>";
 									}
 								}
     
@@ -216,8 +216,9 @@
 						</ul></div>
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
 						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
-							<li id="first"><a href="/intranet/Staff_and_student_intranet">Staff and student intranet</a></li>
-							<li><a href="/intranet/Parent_portal">Parent portal</a></li>
+							<li id="first"><a href="/intranet/Staff_links">Staff links</a></li>
+              <li id="first"><a href="/intranet/Student_links">Student links</a></li>
+							<li><a href="/intranet/Parent_links">Parent links and information</a></li>
 							<li><a href="/intranet/Subject_resources">Subject resources</a></li>
 						</ul></div>
 					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>
