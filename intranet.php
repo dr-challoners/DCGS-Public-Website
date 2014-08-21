@@ -7,8 +7,8 @@
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
 	<ul class="intranet">
-		<li><a href="/intranet/Staff_and_student_intranet">Staff and student intranet</a></li>
-		<li><a href="/intranet/Parent_portal">Parent portal</a></li>
+		<li><a href="/intranet/Staff_and_student_links">Staff and student links</a></li>
+		<li><a href="/intranet/Parent_links">Parent links</a></li>
 		<li><a href="/intranet/Subject_resources">Subject resources</a></li>
 	</ul>
 <!--googleon: all--></div>
@@ -48,16 +48,16 @@ if (isset($_GET['user'])) {
 	
 			if ($open == 1) { echo "</div>"; }
 	break;
-	case "Staff_and_student_intranet":
-		echo "<h1 class=\"intranet\">Staff and student intranet</h1>";
+	case "Staff_and_student_links":
+		echo "<h1 class=\"intranet\">Staff and student links</h1>";
 		$directory = "content_system/intranet/staff-students/";
 		echo "<div class=\"intranet\">";
 			$col_count = 1;
 			include ('links_list.php');
 		echo "</div>";
 	break;
-	case "Parent_portal":
-		echo "<h1 class=\"intranet\">Parent portal</h1>";
+	case "Parent_links":
+		echo "<h1 class=\"intranet\">Parent links</h1>";
 		$directory = "content_system/intranet/parents/";
 		echo "<div class=\"intranet\">";
 			echo "<div class=\"column lrg\">"; // This repeats the information in the Information content folder, to give parents another opportunity to find it all

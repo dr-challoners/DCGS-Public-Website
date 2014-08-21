@@ -170,7 +170,7 @@
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
 									$pagename = $pagename[0];
-									echo "<li><a href=\"/pages/".$maindir."/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
+									echo "<li><a href=\"/pages/".$maindir."/".str_replace(" ","_",$dirname[1])."/".str_replace(" ","_",$pagename)."\">".str_replace('[plus]','+',$pagename)."</a></li>";
 									}
 								}
     
