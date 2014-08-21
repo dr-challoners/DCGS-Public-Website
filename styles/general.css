@@ -23,20 +23,20 @@ a:hover { color: #3E70EF; }
 .noclear {clear: none !important; }
 
 /* Colours */
-#englishanddrama h2 { border-color: #72CEE3; }
-#mathematics h2 { border-color: #25549B; }
-#physicaleducation h2 { border-color: #b21614; }
-#geography h2 { border-color: #FF6801; }
-#languages h2 { border-color: #FFEE00; }
-#religiousstudies h2 { border-color: #B259D6; }
-#businessstudies h2 { border-color: #896604; }
-#artsandgraphics h2 { border-color: #097987; }
-#history h2 { border-color: #7B828D; }
-#music h2 { border-color: #381952; }
-#ict h2 { border-color: #78BD37; }
-#science h2 { border-color: #01800B; }
-#economics h2 { border-color: #BF3C0E; }
-#politics h2 { border-color: #866A81; }
+#englishanddrama h3 { border-color: #72CEE3; }
+#mathematics h3 { border-color: #25549B; }
+#physicaleducation h3 { border-color: #b21614; }
+#geography h3 { border-color: #FF6801; }
+#languages h3 { border-color: #FFEE00; }
+#religiousstudies h3 { border-color: #B259D6; }
+#businessstudies h3 { border-color: #896604; }
+#artsandgraphics h3 { border-color: #097987; }
+#history h3 { border-color: #7B828D; }
+#music h3 { border-color: #381952; }
+#ict h3 { border-color: #78BD37; }
+#science h3 { border-color: #01800B; }
+#economics h3 { border-color: #BF3C0E; }
+#politics h3 { border-color: #866A81; }
 
 #foxell			{ background-color: #fac800; }
 #holman			{ background-color: #e87b19; }

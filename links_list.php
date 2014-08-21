@@ -1,29 +1,22 @@
-<?php 
+<?php
 
 $links = scandir($directory);
-$boxes = count($links);
-$boxes = $boxes-2;
-$boxes = $boxes/3;
-
-$current = 1;
-
-	echo "<div class=\"column\">";
-
+$c = 1;
 foreach ($links as $row) {
 	if (strpos($directory.$row,".txt") !== false) { //It's a text file (thereby containing links in markdown)
-		
-		if (($current >= $boxes && $col_count < 2) || ($current >= 2*$boxes && $col_count < 3)) { //Breaks the content into three columns for better organisation
-			echo "</div><div class=\"column\">";
-			$col_count++; }
-		
-		echo "<div class=\"linksbox\">";
-			$linksbox = file_get_contents($directory.$row, true);
-			echo Parsedown::instance()->parse($linksbox);
+		$linklist = file_get_contents($directory.$row, true);
+    $listname = substr(explode("~",$row)[1],0,-4);
+    echo '<div class="intranetbox';
+    //if (isset($subjects)) { echo ' subject'; }
+    echo '"';
+    //if (isset($subjects)) { echo ' id="'.strtolower(str_replace(" ","",$listname)).'"'; }
+    echo '>';
+      echo '<h3><a href="javascript:boxOpen(\'L'.$c.'\',\'boxlist\')">'.$listname.'</a></h3>';
+      echo '<div class="dropdown" name="boxlist" id="L'.$c.'">';
+			  echo Parsedown::instance()->parse($linklist);
+      echo '</div>';
 		echo "</div>";
-		
-		$current++; }
-	}
-	
-echo "</div>";
+  }
+$c++; }
 
 ?>

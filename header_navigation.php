@@ -216,8 +216,8 @@
 						</ul></div>
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
 						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
-							<li id="first"><a href="/intranet/Staff_and_student_intranet">Staff and student intranet</a></li>
-							<li><a href="/intranet/Parent_portal">Parent portal</a></li>
+							<li id="first"><a href="/intranet/Staff_and_student_links">Staff and student links</a></li>
+							<li><a href="/intranet/Parent_links">Parent links and information</a></li>
 							<li><a href="/intranet/Subject_resources">Subject resources</a></li>
 						</ul></div>
 					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>
