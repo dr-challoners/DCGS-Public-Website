@@ -217,6 +217,7 @@ p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
 /* Intranet links */
 div.intranet { margin-left: -12px; }
 div.intranet h1 { padding-left: 12px; }
+div.intranet h2 { padding: 16px 0 0 12px; }
 
 div.intranetbox {
    float: left; 

@@ -6,7 +6,8 @@
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
 	<ul class="intranet">
-		<li><a href="/intranet/Staff_and_student_links">Staff and student links</a></li>
+		<li><a href="/intranet/Staff_links">Staff links</a></li>
+    <li><a href="/intranet/Student_links">Student links</a></li>
 		<li><a href="/intranet/Parent_links">Parent links and information</a></li>
 		<li><a href="/intranet/Subject_resources">Subject resources</a></li>
 	</ul>
@@ -18,17 +19,33 @@ if (isset($_GET['user'])) {
 	switch ($_GET['user']) {
 	case "Subject_resources":
     echo '<div class="intranet">';
-		echo "<h1 class=\"intranet\">Subject resources</h1>";
+		echo "<h1>Subject resources</h1>";
 		$directory = "content_system/intranet/subjects/";
-    //$subjects = 1;
     include ('links_list.php');
     echo '</div>';
 	break;
-	case "Staff_and_student_links":
+	case "Staff_links":
     echo '<div class="intranet">';
-		echo "<h1>Staff and student links</h1>";
-		$directory = "content_system/intranet/staff-students/";
-	  include ('links_list.php');
+		  echo "<h1>Staff links</h1>";
+		  $directory = "content_system/intranet/staff/";
+	    include ('links_list.php');
+      echo '<div class="clear lrg">';
+        echo "<h2>Subject resources</h2>";
+		    $directory = "content_system/intranet/subjects/";
+        include ('links_list.php');
+      echo '</div>';
+    echo '</div>';
+	break;
+    case "Student_links":
+    echo '<div class="intranet">';
+		  echo "<h1>Student links</h1>";
+		  $directory = "content_system/intranet/students/";
+	    include ('links_list.php');
+      echo '<div class="clear lrg">';
+        echo "<h2>Subject resources</h2>";
+		    $directory = "content_system/intranet/subjects/";
+        include ('links_list.php');
+      echo '</div>';
     echo '</div>';
 	break;
 	case "Parent_links":
