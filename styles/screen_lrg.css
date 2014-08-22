@@ -224,6 +224,10 @@ div.intranetbox {
    width: 228px;
    margin: 0 0 0 12px;
    }
+div.intranetbox hr {
+   background-color: #cccccc;
+   height: 1px; margin: 6px 0;
+   }
 div.intranetbox h3 a {
    display: block; padding: 3px 8px 3px 8px;
    color: #000000; font-weight: normal;
