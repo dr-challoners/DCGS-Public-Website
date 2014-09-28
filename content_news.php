@@ -19,7 +19,7 @@ foreach ($newsposts as $row) {
 		$component = explode("~",$row);
 		echo "<li>";
 			echo "<a href=\"".$component[0]."~".str_replace(' ','_',$component[1]);
-			if ($component[2] != "") {
+			if (isset($component[2])) {
 				echo "~".str_replace(' ','_',$component[2]);
 				}
 			echo "\">";
