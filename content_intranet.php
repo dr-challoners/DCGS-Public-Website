@@ -21,7 +21,7 @@ if (isset($_GET['user'])) {
     echo '<div class="intranet">';
 		echo "<h1>Subject resources</h1>";
 		$directory = "content_system/intranet/subjects/";
-	$_REQUEST['prefix'] = 'L';
+	$prefix = 'L';
     include ('links_list.php');
     echo '</div>';
 	break;
@@ -29,12 +29,12 @@ if (isset($_GET['user'])) {
     echo '<div class="intranet">';
 		  echo "<h1>Staff links</h1>";
 		  $directory = "content_system/intranet/staff/";
-		$_REQUEST['prefix'] = 'M';
+		$prefix = 'M';
 	    include ('links_list.php');
       echo '<div class="clear lrg">';
         echo "<h2>Subject resources</h2>";
 		    $directory = "content_system/intranet/subjects/";
-		$_REQUEST['prefix'] = 'N';
+		$prefix = 'N';
         include ('links_list.php');
       echo '</div>';
     echo '</div>';
@@ -43,12 +43,12 @@ if (isset($_GET['user'])) {
     echo '<div class="intranet">';
 	  	echo "<h1>Student links</h1>";
 		  $directory = "content_system/intranet/students/";
-		$_REQUEST['prefix'] = 'O';
+		$prefix = 'O';
 	    include ('links_list.php');
       echo '<div class="clear lrg">';
         echo "<h2>Subject resources</h2>";
 		    $directory = "content_system/intranet/subjects/";
-		$_REQUEST['prefix'] = 'P';
+		$prefix = 'P';
         include ('links_list.php');
       echo '</div>';
     echo '</div>';
