@@ -11,11 +11,11 @@ RewriteRule    ^pages/([^/]+)/([^/]*)/([^/]*)/?$    content_pages.php?folder=$1&
 RewriteRule    ^archive/(.+)/(.*)/(.*)/year(.*)$    content_pages.php?folder=$1&subfolder=$2&page=$3&year=$4    [L]
 
 #Search page
-RewriteRule    ^search/    search.php    [L]
+RewriteRule    ^search/    content_search.php    [L]
 
 #Intranet pages
-RewriteRule    ^intranet/?$    intranet.php    [L]
-RewriteRule    ^intranet/(.+)$    intranet.php?user=$1    [L]
+RewriteRule    ^intranet/?$    content_intranet.php    [L]
+RewriteRule    ^intranet/(.+)$    content_intranet.php?user=$1    [L]
 
 #News stories
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]

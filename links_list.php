@@ -1,5 +1,10 @@
 <?php
 
+$prefix = "L";
+if (isset($_GET['prefix'])) {
+  $prefix = $_GET['prefix'];
+}
+
 $links = scandir($directory);
 $c = 1;
 foreach ($links as $row) {
@@ -11,8 +16,8 @@ foreach ($links as $row) {
     echo '"';
     //if (isset($subjects)) { echo ' id="'.strtolower(str_replace(" ","",$listname)).'"'; }
     echo '>';
-      echo '<h3><a href="javascript:boxOpen(\'L'.$c.'\',\'boxlist\')">'.$listname.'</a></h3>';
-      echo '<div class="dropdown" name="boxlist" id="L'.$c.'">';
+      echo '<h3><a href="javascript:boxOpen(\''.$prefix.$c.'\',\'boxlist\')">'.$listname.'</a></h3>';
+      echo '<div class="dropdown" name="boxlist" id="'.$prefix.$c.'">';
 			  echo Parsedown::instance()->parse($linklist);
       echo '</div>';
 		echo "</div>";
