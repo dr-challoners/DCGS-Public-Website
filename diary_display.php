@@ -83,7 +83,7 @@ if (($get_device == "mobile" && $get_display != "calendar") || $get_device == ""
 	echo "<div class=\"mcol-rgt\" id=\"diary\">";
 	for ($day = 0; $day <= 6;) {
 		echo "<a class=\"anchor\" name=\"".$datestamp."\"></a>";
-		echo "<div class=\"day\"";
+		echo "<div class=\"day\" id=\"".$datestamp."\"";
 		if($day == 6) { echo " id=\"sun\""; }
 		echo ">";
 			include ('diary_readdate.php');
@@ -97,5 +97,16 @@ if (($get_device == "mobile" && $get_display != "calendar") || $get_device == ""
 	}
 
 include('footer.php');
-
 ?>
+
+<script type="text/javascript">
+		//<![CDATA[
+		var _refresh = 300000; // 1 Hour = 3600000, 5 Minutes = 300000, 1 Minute = 60000
+    window.onload = function() { init() };
+    function init() {
+        //console.log("Hello World");
+        __LoadGoogle("1zss_IMzdyj7RV_kknkEP0qZWepC3EI7A0n_9U-PH5M4", _refresh); // Live Version
+        // __LoadGoogle("1lY3vb4KP1skCcY2LeR5KdMhIGt3P3s1uOZTb098UgjY", _refresh); // JD Dev Version
+    }
+		//]]>
+</script>

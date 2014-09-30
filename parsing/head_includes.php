@@ -12,8 +12,10 @@
 
 <!-- Sheetsee general functions -->
 <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
-<script type='text/javascript' src='../js/tabletop1.3.4.js'></script>
-<script type='text/javascript' src='../js/sheetsee.js'></script>
+<script type='text/javascript' src='/js/tabletop.js'></script>
+<script type='text/javascript' src='/js/sheetsee.js'></script>
+<script type='text/javascript' src='/js/moment.js'></script>
+<script type='text/javascript' src='/js/diary.js'></script>
 
 <!-- This parses mathematical code. See http://www.mathjax.org/ for documentation. -->
 <script type="text/javascript"
