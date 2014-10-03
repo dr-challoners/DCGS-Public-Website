@@ -100,7 +100,7 @@ if (isset($_GET['user'])) {
 	}
 	else {
 		echo "<h1>DCGS intranet</h1>";
-		echo "<p>You will need your username and password to access the links in this section.<br />Click on a category on the left to begin.</p>";
+		echo "<p>Staff and students require a username and password to access the links in this section. Parents can view documents without a login, but will need a username and password to access reports and catering statements.<br />Click on a category on the left to begin.</p>";
     if (file_exists('content_system/intranet/00~QuickLinks.txt')) {
       echo '<h2 style="margin: 16px 0 12px 0;">Quick links</h2>';
       $dir = 'content_system/intranet';
