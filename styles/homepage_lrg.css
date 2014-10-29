@@ -4,18 +4,20 @@ div.page { padding-bottom: 72px; } */
 
 /* Override */
 div.override {
-    min-height: 245px;
-    margin: 5px 0px 14px 0px;
-    padding: 6px 18px 14px 18px;
-    background-color: #E0ECFF;
-    background-position: top center; background-repeat: no-repeat; background-size: cover;
+    margin-bottom: 14px;
+    background-repeat: no-repeat; background-position: bottom;
+    padding-bottom: 4px;
+    border-bottom: 4px solid;
     }
     div.override h1 {
-       margin-bottom: 0px;
-       font-size: 38px;
+        color: #ffffff;
+       font-size: 26px; font-weight: normal;
+       padding: 1px 8px 4px 44px;
+        background-repeat: no-repeat;
+        background-position: 8px 7px;
        }
     div.override p {
-       margin-top: 8px;
+       margin: 8px;
        }
 
 /* Magazine */
