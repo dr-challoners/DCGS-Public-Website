@@ -165,7 +165,7 @@
 							foreach ($files as $page) {
 								$detail = explode("~",$page);
 								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo '<li><a href="'.file_get_contents("content_main/".$maindir."/".$subdir."/".$page).'" target="_BLANK" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
+									echo '<li><a href="'.file_get_contents("content_main/".$maindir."/".$subdir."/".$page).'" target="page'.mt_rand().'" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 								}
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
@@ -198,7 +198,7 @@
 							foreach ($files as $page) {
 								$detail = explode("~",$page);
 								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo '<li><a href="'.file_get_contents("content_main/Information/5~Alumni/".$page).'" target="_BLANK" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
+									echo '<li><a href="'.file_get_contents("content_main/Information/5~Alumni/".$page).'" target="page'.mt_rand().'" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 								}
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);

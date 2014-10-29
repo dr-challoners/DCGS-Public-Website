@@ -73,11 +73,11 @@ if (isset($_GET['user'])) {
     
             echo '<div class="dropdown" name="boxlist" id="I'.$c.'">';
 						echo "<ul>";
-    
+            
 						foreach ($files as $page) {
 							$detail = explode("~",$page);
 							if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-								echo "<li><a href=\"".file_get_contents("content_main/Information/".$subdir."/".$page)."\" target=\"_BLANK\">".str_replace('[plus]','+',$detail[1])."</a></li>";
+								echo '<li><a href="'.file_get_contents('content_main/Information/'.$subdir.'/'.$page).'" target="page'.mt_rand().'">'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 							}
 							elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
 								$pagename = explode(".",$detail[1]);
@@ -100,7 +100,7 @@ if (isset($_GET['user'])) {
 	}
 	else {
 		echo "<h1>DCGS intranet</h1>";
-		echo "<p>Staff and students require a username and password to access the links in this section. Parents can view documents without a login, but will need a username and password to access reports and catering statements.<br />Click on a category on the left to begin.</p>";
+		echo "<p>Staff and students require a username and password to access most links in this section.<br />Parents can view documents without a login, but will need a username and password to access reports and catering statements.</p><p>Click on a category on the left to begin.</p>";
     if (file_exists('content_system/intranet/00~QuickLinks.txt')) {
       echo '<h2 style="margin: 16px 0 12px 0;">Quick links</h2>';
       $dir = 'content_system/intranet';

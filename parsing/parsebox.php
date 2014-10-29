@@ -236,7 +236,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     elseif (strpos($url,"soundcloud.com") !== false) {
                       $icon = "SoundCloud audio"; }
                     // Now create the link
-                    $line  = '<a target="_BLANK" href="'.$url.'">';
+                    $line  = '<a target="page'.mt_rand().'" href="'.$url.'">';
 					          $line .= '<p class="linkout">';
                     $line .= '<img src="/'.$codepath.'icons/'.str_replace("|","",$icon).'.png" alt="'.$icon.': " class="icon" />';
                     if (isset($name)) { $line .= $name; } else { $line .= 'Link'; } // There *should* be a name for this type of link, but prevent errors if there isn't
