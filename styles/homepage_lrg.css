@@ -1,7 +1,3 @@
-/* Footer changes (to allow room for the highlights ticker) 
-div#btm { border-top: 27px solid #173f7a; }
-div.page { padding-bottom: 72px; } */
-
 /* Override */
 div.override {
     margin-bottom: 14px;
@@ -97,17 +93,17 @@ div.twitter-header#sprt { background-color: #b21614; }
 
 iframe { margin-top: 0px; }
 
-/* Highlight */
-div.highlight {
-    position: fixed; z-index: 1;
-    bottom: 43px; height: 27px;
+/* Astra LA */
+div.astratext {
+    visibility: hidden;
+    position: absolute; width: 235px;
+    color: #1B3C67; background-color: #9BC4E8;
+    margin-top: -5px; padding: 10px 10px 12px 10px;
     }
-    div.highlight a {
-       display: block; width: 980px;
-       padding: 0px 0px 4px 0px;
-       color: #ffffff; text-decoration: none;
-       }
-       div.highlight a:hover { text-decoration: underline; }
+div.astratext p {
+    margin: 0; padding: 0;
+}
+
 
 /* Update old browsers notice */
 
