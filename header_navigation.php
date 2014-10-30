@@ -174,7 +174,8 @@
 									}
 								}
     
-							echo "</ul></div>";
+							echo '</ul>';
+              echo '</div>';
     
 							}	
 						}
