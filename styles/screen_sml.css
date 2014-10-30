@@ -130,13 +130,13 @@ div.parsebox h3.newsdate { margin: 0 0 0.8em 0; }
 /* Intranet links */
 div.intranet h1 { margin: -0.3em 0 0 0; }
 
-div.intranetbox h3 { font-size: 3.6em; margin-bottom: -0.2em; }
-    div.intranetbox h3 a {
+div.intranet_head h3 { font-size: 3.6em; margin-bottom: -0.2em; }
+    div.intranet_head h3 a {
        display: block; padding: 0.5em 0.7em;
        color: #000000; font-weight: normal;
-       background-color: #FFF7D7;
+       background-color: #F7F7F7;
        }
-       div.intranetbox h3 a:hover {
+       div.intranet_head h3 a:hover {
          text-decoration: none;
          background-color: #2358A3; color: #ffffff;
          }
@@ -151,7 +151,7 @@ div.intranetbox hr {
         }
         div.intranetbox div.open { display: block; }
 
-div.parsebox div.intranetbox ul { margin: 0; }
+div.parsebox div.intranetbox ul, div.parsebox div.intranetbox p { margin: 0; }
 div.parsebox div.intranetbox li, div.subjectbox li {
        list-style-type: none; padding: 0.4em 0;
        }

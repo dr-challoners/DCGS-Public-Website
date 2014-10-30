@@ -60,24 +60,33 @@ if (isset($_GET['user'])) {
     // First repeat the information in the Information content folder, to give parents another opportunity to find it all
 				
 				$dir = scandir("content_main/Information", 1); //First, get all the subdirectories in the main directory being looked at
-				$dir = array_reverse($dir);
-
-        $c = 1;
-				foreach ($dir as $subdir) { //List all the subdirectories
+        foreach ($dir as $subdir) { //List all the subdirectories
 					$dirname = explode("~",$subdir);
 					if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
-						echo '<div class="intranetbox lrg"><h3><a href="javascript:boxOpen(\'I'.$c.'\',\'boxlist\')">'.$dirname[1].'</a></h3>';
-    
-						$files = scandir("content_main/Information/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
+            $links[] = $subdir;
+          }
+        }
+				$links = array_reverse($links);
+
+        $c_end = count($links)-1;
+				for ($c=0; $c<=$c_end; $c++) { //List all the subdirectories
+					$cn = $c+1;
+          $dirname = explode("~",$links[$c]);
+          if ($cn <= $c_end) { $ndirname = explode("~",$links[$cn]); }
+          if ($c%2 == 0 && $cn <= $c_end) {
+						echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$c.'\',\'boxlist\')">'.$dirname[1].'</a></h3></div>';
+            echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$cn.'\',\'boxlist\')">'.$ndirname[1].'</a></h3></div>';
+          }
+						$files = scandir("content_main/Information/".$links[$c], 1); //Now get all the files in each subdirectory and turn them into appropriate links
 						$files = array_reverse($files);
     
-            echo '<div class="dropdown" name="boxlist" id="I'.$c.'">';
+            echo '<div class="intranetbox lrg"><div class="dropdown" name="boxlist" id="I'.$c.'">';
 						echo "<ul>";
             
 						foreach ($files as $page) {
 							$detail = explode("~",$page);
 							if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-								echo '<li><a href="'.file_get_contents('content_main/Information/'.$subdir.'/'.$page).'" target="page'.mt_rand().'">'.str_replace('[plus]','+',$detail[1]).'</a></li>';
+								echo '<li><a href="'.file_get_contents('content_main/Information/'.$links[$c].'/'.$page).'" target="page'.mt_rand().'">'.str_replace('[plus]','+',$detail[1]).'</a></li>';
 							}
 							elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
 								$pagename = explode(".",$detail[1]);
@@ -86,10 +95,8 @@ if (isset($_GET['user'])) {
 								}
 							}
     
-						echo "</ul></div></div>";
-    
-						}
-					$c++; }
+						echo '</ul><hr id="end" /></div></div>';
+					}
 				
       $directory = "content_system/intranet/parents/";
       		$_REQUEST['prefix'] = 'Q';
