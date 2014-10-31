@@ -5,22 +5,21 @@ h1.dcgs {
 
 /* Override */
 div.override {
-    padding: 1em 2em 1.5em 2em;
-    background-color: #E0ECFF;
-    background-position: top center; background-repeat: no-repeat;
+    margin-bottom: 2.4em;
+    background-image: none!important; padding-bottom: 0!important;
+    border: 0.7em solid;
     }
-
-#closure {
-    color: #ffffff; background-color: #303030;
-    background-position: right top; background-image: url('/styles/imgs/override_closure.png');
-    padding-right: 15.3em;
-    }
-    #closure a { color: #F2A106; }
-    #closure a:hover { color: #FFC405; }
-#snow_amber {
-    background-position: right bottom; background-image: url('/styles/imgs/override_snow_amber.png');
-    padding-right: 15.3em;
-    }
+    div.override h1 {
+        color: #ffffff;
+        font-size: 4.2em; font-weight: normal;
+        padding: 0.2em 0.4em 0.2em 1.3em;
+        background-repeat: no-repeat;
+        background-position: 0 0.2em;
+        background-size: 8%;
+       }
+    div.override p {
+       margin: 0.6em;
+       }
 
 /* Magazine */
 div.magazine div { clear: left; margin-bottom: 1.4em; }
@@ -30,7 +29,7 @@ div.magazine p { margin-top: 0.1em; }
 
 div.magazine a { color: #000000; text-decoration: none; }
 
-div.non { background-color: #FFF7D7; padding: 0.1em 1.5em 1em 1.5em;}
+div.non { background-color: #F7F7F7; padding: 0.1em 1.5em 1em 1.5em;}
 
 div.big, div.std, div.bar { height: 13.5em; }
 

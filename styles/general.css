@@ -23,21 +23,6 @@ a:hover { color: #3E70EF; }
 .noclear {clear: none !important; }
 
 /* Colours */
-#englishanddrama h3 { border-color: #72CEE3; }
-#mathematics h3 { border-color: #25549B; }
-#physicaleducation h3 { border-color: #b21614; }
-#geography h3 { border-color: #FF6801; }
-#languages h3 { border-color: #FFEE00; }
-#religiousstudies h3 { border-color: #B259D6; }
-#businessstudies h3 { border-color: #896604; }
-#artsandgraphics h3 { border-color: #097987; }
-#history h3 { border-color: #7B828D; }
-#music h3 { border-color: #381952; }
-#ict h3 { border-color: #78BD37; }
-#science h3 { border-color: #01800B; }
-#economics h3 { border-color: #BF3C0E; }
-#politics h3 { border-color: #866A81; }
-
 #foxell			{ background-color: #fac800; }
 #holman			{ background-color: #e87b19; }
 #newman			{ background-color: #d32918; color: #ffffff; }

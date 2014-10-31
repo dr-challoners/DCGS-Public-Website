@@ -135,8 +135,8 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
       // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
       $lines = file('content_news/'.$file."/".$part, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
       foreach ($lines as $line) {
-        $line = Parsedown::instance()->parse($line);
-		    if (substr($line,0,2) != "<h") { // If it's a header, it's ignored
+        if (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link, it's ignored
+          $line = Parsedown::instance()->parse($line);
 			    $line = strip_tags($line); // Remove other HTML and PHP
 			    $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
 			    $line = str_replace("*","",$line);

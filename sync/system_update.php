@@ -279,7 +279,7 @@ else {
     echo "<p>Options:</p>";
     echo "<ul>";
       echo "<p><li>Go to <a href=\"./\">the main console</a> to make further updates.</li></p>";
-      echo "<p><li>View your changes on <a href=\"/\" target=\"_BLANK\">the public website</a> (opens a new window).</li></p>";
+      echo '<p><li>View your changes on <a href="/" target="page'.mt_rand().'">the public website</a> (opens a new window).</li></p>';
     echo "</ul>";
   }
   

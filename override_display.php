@@ -1,20 +1,81 @@
 <?php include_once('parsing/Parsedown.php');
 
-if (!isset($_GET['override'])) { $get_override = ""; } else { $get_override = $_GET['override']; }
+if (isset($_GET['override'])) { $status = array($_GET['override']); } else { $status = array(); }
 
 $override = 0;
 	
 if (file_exists("content_system/override/00~STATUS.txt")) { // First check to see if there's any file to declare overrides - if there isn't, then there shan't be an override
   
-  $status = file_get_contents("content_system/override/00~STATUS.txt", true);
-  $status = strtolower($status); // Compensates for auto-capitalisation when editing the override_status file from a mobile device
+  $status_file = file('content_system/override/00~STATUS.txt');
+  // Extract the variables from the status file and tidy them up for easier processing
+  $overrides = explode(':',$status_file[0]);  $bcolour = explode(':',$status_file[1]);  $tcolour = explode(':',$status_file[2]);
+  $overrides = trim($overrides[1]);           $bcolour = trim($bcolour[1]);             $tcolour = trim($tcolour[1]);
+  $overrides = strtolower($overrides); // Compensates for auto-capitalisation when editing the override_status file from a mobile device
+  $overrides = explode(',',$overrides);
+  
+  foreach ($overrides as $entry) {
+    $status[] = $entry;
+  }
 
-if ($get_override != "") { $status = $get_override; } // First check to see if an override is being tested
-elseif ($status == "none") { $status = ""; } // If there's no status being given, stop the override from happening
-
-if ($status != "") { //If any form of status has been set, display the override
-
-	if (file_exists("content_system/override/".$status.".css")) { //Option for a stylesheet, if you want to get technical!
+if (count($status) > 0) { //If any form of status has been set, display the override
+  foreach ($status as $entry) {
+    $entry = trim($entry);
+    if (file_exists('content_system/override/'.$entry.'.txt')) {
+      
+      // First sort out specific styles for the override. If there are none, default to the school crest and the blue
+      unset($icon,$bkgd,$height,$bcol,$tcol);
+      
+      if (file_exists('content_system/override/'.$entry.'_icon.png')) { // The icon goes next to the H1 header
+        $icon = 'url(../content_system/override/'.$entry.'_icon.png);';
+      } else { $icon = 'url(../content_system/override/message_icon.png);'; }
+      
+      if (file_exists("content_system/override/".$entry."_bkgd.jpg")) {
+        $bkgd = 'url(../content_system/override/'.$entry.'_bkgd.jpg);';
+        list($width,$height) = getimagesize('content_system/override/'.$entry.'_bkgd.jpg');
+        $height = $height+4;
+        $height = $height.'px;';
+      } elseif (file_exists('content_system/override/'.$entry.'_bkgd.jpg')) {
+        $bkgd = 'url(../content_system/override/'.$entry.'_bkgd.png);';
+        list($width,$height) = getimagesize('content_system/override/'.$entry.'_bkgd.png');
+        $height = $height+4;
+        $height = $height.'px;';
+      } else {
+        $bkgd = 'none;';
+        $height = '4px;';
+      }
+      
+      if ($entry == 'alert') {
+        $bcol = '#2b2b2b;';  $tcol = '#ffffff;';
+      } elseif ($entry == 'snow') {
+        $bcol = '#bce4f3;';  $tcol = '#0d536d;';
+      } elseif ($entry == 'message') {
+        $bcol = '#2F5397;';  $tcol = '#ffffff;';
+      } elseif ($entry == 'travel') {
+        $bcol = '#165d13;';  $tcol = '#ffffff;';
+      }
+        
+      if (!isset($bcol) && $bcolour != '') {
+        $bcol = $bcolour.';';
+      } elseif (!isset($bcol)) {
+        $bcol = '#2F5397;';
+      }
+      
+      if (!isset($tcol) && $tcolour != '') {
+        $tcol = $tcolour.';';
+      } elseif (!isset($tcol)) {
+        $tcol = '#ffffff;';
+      }
+      
+      echo '<style>';
+      echo 'div.override#'.$entry.' { padding-bottom: '.$height.' border-color: '.$bcol.' background-image: '.$bkgd.' }';
+      echo 'div.override#'.$entry.' h1 { background-image: '.$icon.' color: '.$tcol.' background-color: '.$bcol.' }';
+      echo '</style>';
+      
+      echo '<div class="override" id="'.$entry.'">';
+      $message = file_get_contents("content_system/override/".$entry.".txt", true);
+			echo Parsedown::instance()->parse($message);
+      echo '</div>';
+	/*if (file_exists("content_system/override/".$status.".css")) { //Option for a stylesheet, if you want to get technical!
 		echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 361px)\" href=\"content_system/override/".$status.".css\"/>";
 		}
 
@@ -34,12 +95,12 @@ if ($status != "") { //If any form of status has been set, display the override
 			echo Parsedown::instance()->parse($message);
 			}
 	
-	echo "</div>";
+	echo "</div>";*/
 	
-	$override = 1; //This lets the magazine know there's been an override, so it doesn't display a 'big' news story
-	
+	  $override = 1; //This lets the magazine know there's been an override, so it doesn't display a 'big' news story
+    }
 	}
-	
+}
 else { //Easter egg time! ?>
 
 <!--

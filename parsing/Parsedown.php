@@ -625,7 +625,7 @@ class Parsedown
         }
 
         private function parse_span_elements($text)
-        { $urlout = 'target="_BLANK" class="external" '; // My addition - not original Parsedown
+        { $urlout = 'target="page'.mt_rand().'" class="external" '; // My addition - not original Parsedown
 
                 $map = array();
 

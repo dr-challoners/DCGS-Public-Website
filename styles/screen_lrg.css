@@ -35,7 +35,7 @@ div.parsebox {
   div.parsebox h1:first-child { margin-top: 0; }
 
 div.linkbox {
-    background-color: #FFF7D7;
+    background-color: #F7F7F7;
     height: 50px; margin-bottom: 8px;
     text-align: center;
     }
@@ -95,7 +95,7 @@ div.main_nav {
        }
     div.main_nav li a {
        padding: 7px 14px 0px 14px;
-       height: 31px;
+       margin-top: 1px; height: 30px;
        color: #ffffff;
        }
        div.main_nav a:hover {
@@ -110,29 +110,27 @@ div.main_nav {
 div.sub_nav {
     visibility: hidden;
     position: absolute;
-    top: 145px; left: 5px;
-    width: 970px; text-align: center;
+   border-top: 8px solid #2358A2;
+   border-bottom: 4px solid #2358A2;
+   background-color: #F7F7F7;
+    top: 144px; left: -5px;
+    width: 970px; padding: 10px 10px 12px 10px;
     }
-    div.centred {
-       display: inline-block;
-       background-color: #d4e8ff;
-       padding: 10px; 
-       }
     div.category {
-       display: inline-block;
-       float: left; width: 179px;
+       float: left; width: 232px;
        padding: 0px 5px 0px 5px;
-       border-left: 1px solid #a7cdf4;
        }
     div.sub_nav h2 {
        text-align: left;
-       margin: 0px 5px 0px 5px;
-       font-size: 16px; font-weight: bold;
+       margin: 0px 5px 5px 10px;
+       font-size: 18px;
        }
     div.sub_nav a {
-       text-align: left;
+       font-family: Trebuchet, Verdana, sans-serif; font-size: 14px;
+       text-align: left; 
        color: #000000;
-       padding: 5px; width: 169px;
+       padding: 6px 10px 8px 10px;
+       width: 212px;
        }
        div.sub_nav a:hover {
           color: #ffffff;
@@ -216,40 +214,51 @@ p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
 
 /* Intranet links */
 div.intranet { margin-left: -12px; }
-div.intranet h1 { padding-left: 12px; }
+div.intranet h1 { padding: 0 0 0 12px; }
 div.intranet h2 { padding: 16px 0 0 12px; }
 
-div.intranetbox {
+div.intranet_head {
    float: left; 
-   width: 228px;
-   margin: 0 0 0 12px;
+   width: 348px;
+   margin: 8px 0 -8px 12px;
    }
 div.intranetbox hr {
+   clear: left;
    background-color: #cccccc;
    height: 1px; margin: 6px 0;
    }
-div.intranetbox h3 a {
+div.intranetbox hr#end {
+   margin: 0 0 -14px -8px; width: 708px;
+   visibility: hidden; height: 2px;
+}
+div.intranet_head h3 a {
    display: block; padding: 3px 8px 3px 8px;
    color: #000000; font-weight: normal;
-   background-color: #FFF7D7;
+   background-color: #F7F7F7;
    transition: background-color 0.2s, color 0.2s;
    -webkit-transition: background-color 0.2s, color 0.2s;
    }
-div.intranetbox h3 a:hover {
+div.intranet_head h3 a:hover {
    text-decoration: none;
    background-color: #2358A3; color: #ffffff;
    }
     div.intranetbox div {
-       display: none;
-       padding: 0 8px;
-       margin-bottom: 12px;
+       display: none; clear: left;
+       width: 692px;
+       padding: 8px 8px 0 8px; margin: 0 0 12px 12px;
+       border-top: 3px solid #2358A3;
         }
         div.intranetbox div.open { display: block; }
-    div.parsebox div.intranetbox ul { margin: 0; }
+    div.parsebox div.intranetbox ul {  margin: 0; }
     div.parsebox div.intranetbox li {
+       float: left; width: 210px;
        list-style-type: none;
-       padding: 4px 0 8px 0;
+       padding: 8px 18px 12px 0;
+       line-height: 18px;
        }
+   div.parsebox div.intranetbox p {
+      margin: 0;
+   }
    div.intranetbox div a {
       display: block;
    }

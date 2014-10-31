@@ -1,21 +1,19 @@
-/* Footer changes (to allow room for the highlights ticker) 
-div#btm { border-top: 27px solid #173f7a; }
-div.page { padding-bottom: 72px; } */
-
 /* Override */
 div.override {
-    min-height: 245px;
-    margin: 5px 0px 14px 0px;
-    padding: 6px 18px 14px 18px;
-    background-color: #E0ECFF;
-    background-position: top center; background-repeat: no-repeat; background-size: cover;
+    margin-bottom: 14px;
+    background-repeat: no-repeat; background-position: bottom;
+    padding-bottom: 4px;
+    border-bottom: 4px solid;
     }
     div.override h1 {
-       margin-bottom: 0px;
-       font-size: 38px;
+        color: #ffffff;
+       font-size: 26px; font-weight: normal;
+       padding: 1px 8px 4px 44px;
+        background-repeat: no-repeat;
+        background-position: 8px 7px;
        }
     div.override p {
-       margin-top: 8px;
+       margin: 8px;
        }
 
 /* Magazine */
@@ -46,7 +44,7 @@ div.std { clear: left; height: 140px; padding-right: 14px; margin-bottom: 12px; 
     div.std .newsimg { height: 140px; width: 250px; margin-right: 16px; }
 
 div.non {
-    background-color: #FFF7D7;
+    background-color: #F7F7F7;
     height: 62px; width: 331px;
     float: left;
     padding: 0px 12px 0px 12px; margin-bottom: 16px;
@@ -95,17 +93,17 @@ div.twitter-header#sprt { background-color: #b21614; }
 
 iframe { margin-top: 0px; }
 
-/* Highlight */
-div.highlight {
-    position: fixed; z-index: 1;
-    bottom: 43px; height: 27px;
+/* Astra LA */
+div.astratext {
+    visibility: hidden;
+    position: absolute; width: 235px;
+    color: #1B3C67; background-color: #9BC4E8;
+    margin-top: -5px; padding: 10px 10px 12px 10px;
     }
-    div.highlight a {
-       display: block; width: 980px;
-       padding: 0px 0px 4px 0px;
-       color: #ffffff; text-decoration: none;
-       }
-       div.highlight a:hover { text-decoration: underline; }
+div.astratext p {
+    margin: 0; padding: 0;
+}
+
 
 /* Update old browsers notice */
 
