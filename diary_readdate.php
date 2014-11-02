@@ -23,7 +23,7 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 		$depart = $event -> timed -> {'envelope-start'}; $pickup = $event -> timed -> {'envelope-end'}; //Away game details
 		if ($event -> location != "") { $where = $event -> location -> attributes(); } //Driving directions to an away game (checks if the location node exists first)
 		
-		if (isset($comparetitle) && isset($title) && strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
+		if (isset($comparetitle) && !empty($comparetitle) && strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
 			echo "<p class=\"details\">".$title."</p>";
 			} 
 		else { //Otherwise, display a full event
