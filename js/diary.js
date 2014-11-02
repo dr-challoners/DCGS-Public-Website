@@ -33,32 +33,5 @@ function __OutputFixtures(fixtures) {
     }
     
 	}
-  <h4>Upcoming Google Developer Events</h4>
-
-<div id="agenda"></div>
-
-<script>
-  function listEvents(root) {
-    var feed = root.feed;
-    var entries = feed.entry || [];
-    var html = ['<ul>'];
-
-    for (var i = 0; i < entries.length; ++i) {
-      var entry = entries[i];
-      var title = (entry.title.type == 'html') ? entry.title.$t : escape(entry.title.$t);
-      var start = (entry['gd$when']) ? entry['gd$when'][0].startTime : "";	
-
-      html.push('<li>', start, ' ', title, '</li>');
-    }
-
-    html.push('</ul>');
-    document.getElementById("agenda").innerHTML = html.join("");
-  }
-</script>
-
-<script src="https://www.google.com/calendar/embed?src=challoners.org_8h6ikktg6vv0haq6squ06r1je8%40group.calendar.google.com&ctz=Europe/London">
-</script>
-
- // <a herf="https://www.google.com/calendar/embed?src=challoners.org_8h6ikktg6vv0haq6squ06r1je8%40group.calendar.google.com&ctz=Europe/London" </a herf>
 	
 }
