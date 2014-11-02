@@ -21,16 +21,16 @@ function __OutputFixtures(fixtures) {
 
 		console.log(fixture);
     
-    var fixture_Date = moment(fixture.date);
-    var _fixture_Date = fixture_Date.format("YYYYMMDD");
-    var _div = $("#" + _fixture_Date);
-    if (_div) {
-      $("#" + _fixture_Date + " h2").removeClass("noevents");
-      $("#" + _fixture_Date + " hr").remove();
-      _div.append("<p class='time'>" + fixture.timestart + " - " + fixture.timeend + "</p>");
-      _div.append("<h3>" + fixture.title + "</h3>");
-      _div.append("<hr>");
-    }
+    		var fixture_Date = moment(fixture.date);
+    		var _fixture_Date = fixture_Date.format("YYYYMMDD");
+		var _div = $("#" + _fixture_Date);
+		    if (_div) {
+		      $("#" + _fixture_Date + " h2").removeClass("noevents");
+		      $("#" + _fixture_Date + " hr").remove();
+		      _div.append("<p class='time'>" + fixture.timestart + " - " + fixture.timeend + "</p>");
+		      _div.append("<h3>" + fixture.title + "</h3>");
+		      _div.append("<hr>");
+		    }
     
 	}
 	
