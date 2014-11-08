@@ -1,8 +1,16 @@
 <?php
 include ('header_declarations.php');
-include ('header_navigation.php');
 
 if (!isset($_GET['story'])) { $get_story = ""; } else { $get_story = str_replace('_',' ',$_GET['story']); }
+
+// Meta tags for Facebook sharing, provided there's a story to display
+if ($get_story != "index.php") {
+  echo '<meta property="og:type" content ="article" />';
+  echo '<meta property="og:title" content ="'.explode("~",$get_story)[1].'" />';
+  echo '<meta property="og:site_name" content ="Dr Challoner\'s Grammar School" />';
+}
+
+include ('header_navigation.php');
 
 if ($get_story != "index.php") {
 
@@ -42,8 +50,25 @@ echo "<h3 class=\"newsdate\">".date("jS F Y",mktime(0,0,0,substr($component[0],4
 $parsediv = 1;
 $dir = 'content_news/'.$get_story;
 include('parsing/parsebox.php');
+  
+echo '<div class="sharing lrg">';  
 
-if (isset($component[2])) { // Checks to see if an author has been given
+  // Share on Facebook
+  echo '<iframe src="//www.facebook.com/plugins/share_button.php?href=';
+  $shareurl = 'http://www.challoners.com/news/'.$get_story;
+  echo urlencode($shareurl);
+  echo '&amp;layout=button" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>';
+  
+  // Share on Twitter
+  echo '<a href="https://twitter.com/share" class="twitter-share-button" data-text="';
+  echo 'News from DCGS: '.$component[1];
+  echo '" data-via="ChallonersNews" data-count="none">Tweet</a>';
+  echo "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
+  
+echo '</div>';
+  
+// If an author has been given, display their name
+if (isset($component[2])) {
   echo "<p class=\"credit\">".$component[2]."</p>";
   }
 
