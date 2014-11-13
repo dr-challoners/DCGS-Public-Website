@@ -6,8 +6,9 @@ if (!isset($_GET['story'])) { $get_story = ""; } else { $get_story = str_replace
 // Meta tags for Facebook sharing, provided there's a story to display
 if ($get_story != "index.php") {
   echo '<meta property="og:type" content ="article" />';
-  echo '<meta property="og:title" content ="'.explode("~",$get_story)[1].'" />';
+  echo '<meta property="og:title" content ="'.explode("~",$get_story)[1].' - News from Challoner\'s" />';
   echo '<meta property="og:site_name" content ="Dr Challoner\'s Grammar School" />';
+  echo '<meta property="og:image" content ="http://'.$_SERVER['SERVER_NAME'].'/styles/imgs/fb-shared-post.png" />';
 }
 
 include ('header_navigation.php');
