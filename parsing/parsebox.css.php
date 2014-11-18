@@ -39,10 +39,10 @@ div.parsebox a {
   }
   div.parsebox a:hover { text-decoration: underline; }
 
-div.parsebox a.external:before {
+/* div.parsebox a.external:before {
   content: url('./icons/urlout.png');
   margin-right: 1.5px;
-  }
+  } */
 
 div.parsebox table {
     width: 100%; margin-bottom: 16px;
