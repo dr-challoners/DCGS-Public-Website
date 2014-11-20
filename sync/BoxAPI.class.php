@@ -67,6 +67,16 @@
 				return json_decode($this->get($url),true);
 			}
 		}
+    
+    /* Get the last modified date of the mentioned folder */
+    public function get_folder_modified($folder, $json = false) {
+			$url = $this->build_url("/folders/$folder?fields=modified_at");
+			if($json){	
+				return $this->get($url);
+			} else {
+				return json_decode($this->get($url),true);
+			}
+		}
 
 		/* Get the list of items in the mentioned folder */
 		public function get_folder_items($folder, $json = false) {
