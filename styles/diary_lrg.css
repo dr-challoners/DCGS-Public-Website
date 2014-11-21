@@ -83,9 +83,9 @@ div.day { margin-left: 10px; }
        
 div.day strong { color: red; }
 
-div.day h2 { margin-top: 2px; }
+div.day h2 { margin: 2px 0 0 0; }
     div.day h2 span { float: right; }
-    h2.noevents { padding-bottom: 15px; }
+    h2.noevents { margin-bottom: 15px; }
 
 div.ncol h2 { margin-top: 2px; text-align: center; }
 
@@ -97,9 +97,8 @@ p.time {
     }
 
 div.day h3 {
-    float: left;
-    width: 420px;
-    
+    float: right;
+    width: 580px;
     }
 
 p.allevents {

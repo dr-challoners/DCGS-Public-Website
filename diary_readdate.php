@@ -1,11 +1,47 @@
 <?php
 
 $makedate = mktime(0,0,0,substr($datestamp,4,2),substr($datestamp,6,2),substr($datestamp,0,4));
+$checkdate = date("D M j, Y",$makedate); // For reading the Google Calendar date format
 $calday = date("j",$makedate); //calday and calweekday check the entry's position in the month and week
 $calweekday = date("N",$makedate);
 $caldate = date("l jS",$makedate); //Puts the date in a friendly format for display, eg 'Saturday 15th'
 $calmonth = date("F Y",$makedate); //For displaying month and year
 
+$eventdata = array();
+
+foreach ($events -> entry as $entry) {
+  $date = substr($entry -> summary,6,16);
+  $date - trim($date); // Removes ending whitespace when day numeral is only one digit
+  if ($date == $checkdate) {
+    // Add time and description later, once the basic calendar is working
+    $time = "";
+    $title = (string)$entry -> title;
+    $description = "";
+    $event = array("time" => $time, "title" => $title, "description" => $description);
+    array_push($eventdata, $event);
+  }
+}
+
+if (!empty($eventdata)) {
+  echo "<h2>".$caldate; // Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
+	if ($calday == "1" || $calweekday == "1") { // If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
+		echo "<span>".$calmonth."</span>";
+		}
+	echo "</h2>";
+  foreach($eventdata as $event) { // Work through each event one at a time
+    if ($event["time"] != "") {
+			echo "<p class=\"time\">".$event["time"]."</p>";
+		}	else { echo "<p class=\"time\"></p>"; }
+    echo "<h3>".$event["title"]."</h3>";
+    if ($event["description"] != "") {
+			echo "<p class=\"details\">";
+			echo $event["description"];
+			echo "</p>";
+		}
+  }
+}
+
+/* Old code (pulling from old XML - can be removed after the transition is settled
 if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_load_file("content_plain/diary/".$datestamp.".xml"); //If there are events this date then it loads them
 	echo "<h2>".$caldate; //Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
 	if ($calday == "1" || $calweekday == "1") { //If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
@@ -62,13 +98,13 @@ if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_l
 			}
 			
 		}
-	}
-else {
+	} */
+else { //If there are no events at all, just give the date (for completeness of the diary)
 	echo "<h2 class=\"noevents\">".$caldate;
-	if ($calday == "1" || $calweekday == "1") { //If it's the stop of the month or the first entry displayed (ie, a Monday), then give the month
+	if ($calday == "1" || $calweekday == "1") { //If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
 		echo "<span>".$calmonth."</span>";
 		}
 	echo "</h2>";
-	} //If there are no events at all, just give the date (for completeness of the diary)
+	} 
 
 ?>

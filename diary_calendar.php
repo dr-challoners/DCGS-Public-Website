@@ -49,9 +49,9 @@ for ($day = 1; $day <= 42;) {
 	if ($day < $startday || $day >= date("t",mktime(0,0,0,$m,1,$y))+$startday ) { echo "xmonth"; } //If we're not displaying a day from the current month, grey it out.
 	if ($fulldate == date("Ymd")) { echo " today"; } //Mark today
 	echo "\"";
-	if (file_exists("content_plain/diary/".$fulldate.".xml") && strpos($_SERVER['HTTP_USER_AGENT'],"iPad") == "" && $get_device == "") { //There's something to preview, so create a preview (but don't do this on the iPad or mobiles, because then you have to click to preview and then again to go to a date...)
-		echo " onmouseover=\"mopen('c".$fulldate."')\" onmouseout=\"mclosetime()\""; //Create a JS cue with an appropriate id
-		array_push($previews,$fulldate); //Save the date to be acknowledged later
+	if (isset($$checkdate) && strpos($_SERVER['HTTP_USER_AGENT'],"iPad") == "" && $get_device == "") { //There's something to preview, so create a preview (but don't do this on the iPad or mobiles, because then you have to click to preview and then again to go to a date...)
+		echo " onmouseover=\"mopen('c".$checkdate."')\" onmouseout=\"mclosetime()\""; //Create a JS cue with an appropriate id
+		array_push($previews,$checkdate); //Save the date to be acknowledged later
 		}
 	echo ">";
 		echo "<a href=\"/diary/";
@@ -69,12 +69,14 @@ $charmax = 30; //Maximum number of letters in a preview title (see below)
 foreach($previews as $row) {
 	echo "<div id=\"c".$row."\" class=\"preview\">";
 		echo "<h3>".date("l jS",mktime(0,0,0,substr($row,4,2),substr($row,6,2),substr($row,0,4)))."</h3>";
-		$stubdate = simplexml_load_file("content_plain/diary/".$row.".xml");
+  
+	/*	
+  $stubdate = simplexml_load_file("content_plain/diary/".$row.".xml");
 		foreach($stubdate->events->event as $event) { //Work through each event in the previewed date one at a time
 			$stubtitle = $event -> title;
 			if(strlen($stubtitle) > $charmax) { $stubtitle = substr($stubtitle,0,$charmax)."..."; } //Gives a shortened version of the full title
 			echo "<p>".$stubtitle."</p>";
-			}
+			}*/
 		echo "<p class=\"more\">Click the date to see more detail.</p>";
 	echo "</div>";
 	}
