@@ -42,33 +42,6 @@ if ($lastupdate < $updatetime) {
 
 $events = simplexml_load_file('sync_logs/diary.xml');
 
-/* The option for an 'event' classification has been lost on the switchover to Google Calendar - we can lose this code once we're settled on the transition
-if ($get_event != "") { //We want to be looking at an events page: deal with this first
-
-	$type = $get_event;
-	
-	echo "<!--googleoff: all--><div class=\"ncol lft\">";
-		echo "<h2 class=\"event_title\">".$type;
-			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
-		echo "</h2>";
-		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."\"><h3>Main diary</h3></a>";
-		echo "</div>";
-		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
-		echo "</div>";
-  
-	echo "<!--googleon: all--></div>";
-	
-	echo "<div class=\"mcol-rgt\" id=\"diary\">";
-		echo "<div class=\"day\">";
-			include ('diary_readevent.php');
-		echo "</div>";
-	echo "</div>";
-
-	} else { //This is the actual calendar output
-*/
-
 	if ($get_date != "") { $focusdate = $get_date; }
 	else { $focusdate = date("Ymd"); }
 
@@ -79,8 +52,10 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	
 	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		include ('diary_calendar.php');
-		echo "<div class=\"linkbox lrg\">";
-			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
+		echo '<div class="diarylinks lrg">';
+			echo '<p id="terms"><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
+      echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
+      echo '<p><a href="https://www.google.com/calendar/ical/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic.ics">Download iCal format</a></p>';
 		echo "</div>";   
           
 	echo "<!--googleon: all--></div>";
@@ -114,7 +89,6 @@ if (($get_device == "mobile" && $get_display != "calendar") || $get_device == ""
 	echo "</div>";
 	
 	}
-	// } This is leftover from the now redundant 'events' code above - delete it when that's gone
 
 include('footer.php');
 ?>
