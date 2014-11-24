@@ -80,9 +80,8 @@ div.header a {
     -webkit-transition: background-color 0.3s;
     }
 
-a.external:before {
-  content: url('/styles/imgs/dcgs_urlout.png');
-  margin-right: 4px;
+a.external {
+  cursor: url(/parsing/external.cur), auto;
   }
 
 div.main_nav {
@@ -209,6 +208,13 @@ div.submenu a {
 div.parsebox h3.newsdate { margin: -12px 0 20px 0; }
 
 h2.news { padding: 6px 0 7px 10px; }
+
+div.sharing { float: left; padding-top: 2px; }
+
+div.parsebox div.sharing iframe {
+   margin: 0; padding: 0;
+   height: 20px; width: 62px;
+   }
 
 p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
 

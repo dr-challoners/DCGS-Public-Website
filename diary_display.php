@@ -26,34 +26,21 @@ if ($get_device != "mobile") {
 
 include('header_navigation.php');
 
-if ($get_event != "") { //We want to be looking at an events page: deal with this first
+// Every half an hour, cache the XML file from Google Calendar, so that requests can be made locally to speed up load times
+if (file_exists('sync_logs/diary_lastupdate.txt')) {
+  $lastupdate = file_get_contents('sync_logs/diary_lastupdate.txt');
+} else { $lastupdate = ""; }
 
-	$type = $get_event;
-	
-	echo "<!--googleoff: all--><div class=\"ncol lft\">";
-		echo "<h2 class=\"event_title\">".$type;
-			if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //This sorts out grammar
-		echo "</h2>";
-		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/diary/".date('d')."/".date('m')."/".date('Y')."\"><h3>Main diary</h3></a>";
-		echo "</div>";
-		echo "<div class=\"linkbox\">";
-			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
-		echo "</div>";
-  
-  //echo "<div class=\"linkbox\">";
-  	//	echo "<a href=\"https://www.google.com/calendar/embed?src=challoners.org_8h6ikktg6vv0haq6squ06r1je8%40group.calendar.google.com&ctz=Europe/London" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"\"<h3>Test</h3></a>";
-  //echo "</div>";
-  
-	echo "<!--googleon: all--></div>";
-	
-	echo "<div class=\"mcol-rgt\" id=\"diary\">";
-		echo "<div class=\"day\">";
-			include ('diary_readevent.php');
-		echo "</div>";
-	echo "</div>";
+$updatetime = time();
+$updatetime = $updatetime-1800;
+if ($lastupdate < $updatetime) {
+  $data = new DOMDocument();
+  $data->load("https://www.google.com/calendar/feeds/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic?start-index=1&max-results=10000");
+  $data->save('sync_logs/diary.xml');
+  file_put_contents('sync_logs/diary_lastupdate.txt',time());
+}
 
-	} else { //This is the actual calendar output
+$events = simplexml_load_file('sync_logs/diary.xml');
 
 	if ($get_date != "") { $focusdate = $get_date; }
 	else { $focusdate = date("Ymd"); }
@@ -65,19 +52,11 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	
 	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		include ('diary_calendar.php');
-		echo "<div class=\"linkbox lrg\">";
-			echo "<a href=\"/pages/Information/General information/Term dates\"><h3>Term dates</h3></a>";
-		echo "</div>";
-  
-  //VBR Testing this adds a link to the test diary
-         // echo "<div class=\"linkbox lrg\">";
-          //echo "<a href=\"https://www.google.com/calendar/embed?src=challoners.org_8h6ikktg6vv0haq6squ06r1je8%40group.calendar.google.com&ctz=Europe/London%22%20style=%22border:%200%22%20width=%11100%22%10height=%11200%22%10frameborder=%110%22%20scrolling=%22no%22>\"><h3>Test</h3></a>";
-          //echo "</div>";
-  
-  //VBR Testing diary options - this embeds the test dairy to the page
-//echo "<div class=\"linkbox lrg\">";
-  // echo "<iframe src=\"https://www.google.com/calendar/embed?src=challoners.org_8h6ikktg6vv0haq6squ06r1je8%40group.calendar.google.com&ctz=Europe/London>\"</iframe>><h3>Test2</h3></a>";
-   //echo "</div>";       
+		echo '<div class="diarylinks lrg">';
+			echo '<p id="terms"><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
+      echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
+      echo '<p><a href="https://www.google.com/calendar/ical/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic.ics">Download iCal format</a></p>';
+		echo "</div>";   
           
 	echo "<!--googleon: all--></div>";
 	
@@ -109,7 +88,6 @@ if (($get_device == "mobile" && $get_display != "calendar") || $get_device == ""
 		}
 	echo "</div>";
 	
-	}
 	}
 
 include('footer.php');

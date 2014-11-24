@@ -1,74 +1,114 @@
 <?php
 
 $makedate = mktime(0,0,0,substr($datestamp,4,2),substr($datestamp,6,2),substr($datestamp,0,4));
+$checkdate = date("D M j, Y",$makedate); // For reading the Google Calendar date format
 $calday = date("j",$makedate); //calday and calweekday check the entry's position in the month and week
 $calweekday = date("N",$makedate);
 $caldate = date("l jS",$makedate); //Puts the date in a friendly format for display, eg 'Saturday 15th'
 $calmonth = date("F Y",$makedate); //For displaying month and year
 
-if (file_exists("content_plain/diary/".$datestamp.".xml")) { $date = simplexml_load_file("content_plain/diary/".$datestamp.".xml"); //If there are events this date then it loads them
-	echo "<h2>".$caldate; //Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
+$eventdata = array(); // This will be the array containing every detail for the selected day
+
+foreach ($events -> entry as $entry) { // Go through the XML file and process all the events
+  $date = $entry -> summary; // Get just the date information
+  $date = explode ("\n",$date);
+  $date = substr($date[0],6); // Date is now isolated as a single line
+  if (strlen($date) <= 20) { // Just a start date, no time
+    $startdate = rtrim(substr($date,0,16),"<"); // Chops out a rogue line break
+    $finaldate = "";
+    $time = "";
+  } else { // If there's more, take out the first date anyway and then process the rest
+    $startdate = rtrim(substr($date,0,16));
+    $date = trim(substr($date,16)," &nbsp;");
+    if (substr_count($date,",") == 0) { // There's no final date, so time is the only remaining information
+      $date = explode(" to ",$date);
+      $time = array();
+      foreach ($date as $point) {
+        if (substr($point,-2) == "pm") { // To convert to 24 hour
+          $add = 12;
+        } else {
+          $add = 0;
+        }
+        // Various processes to transform each timepoint to a standard HH:MM format
+        $point = substr($point,0,-2);
+        $point = explode(":",$point);
+        $point[0] = $point[0]+$add;
+        $point = implode(":",$point);
+        if (strlen($point) < 3) {
+          $point .= ":00";
+        }
+        if (strlen($point) < 5) {
+          $point = str_pad($point,5,"0",STR_PAD_LEFT);
+        }
+        array_push($time,$point);
+      }
+      $time = implode(" - ",$time); // And finally bring it all together!
+      $finaldate = "";
+    } elseif (substr($date,0,2) == "to") {
+      $finaldate = substr($date,3);
+      $time = "";
+    } else {
+      $date = explode("to ",$date);
+      $finaldate = rtrim(substr($date[1],0,16));
+    }
+  }
+  
+  // Now convert the dates to YYYYMMDD format to compare with $datestamp
+  $wmonths = array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+  $nmonths = array("01","02","03","04","05","06","07","08","09","10","11","12");
+  
+  $startdate = str_replace($wmonths,$nmonths,$startdate);
+  $startdate = explode(" ",$startdate);
+  $startdate = $startdate[3].$startdate[1].str_pad(substr($startdate[2],0,-1),2,"0",STR_PAD_LEFT);
+  if ($finaldate != "") {
+    $finaldate = str_replace($wmonths,$nmonths,$finaldate);
+    $finaldate = explode(" ",$finaldate);
+    $finaldate = $finaldate[3].$finaldate[1].str_pad(substr($finaldate[2],0,-1),2,"0",STR_PAD_LEFT);
+  }
+  
+  // If the event date matches the current date, or the current date falls within the range of dates for the event, pull relevant details for display
+  if ($startdate == $datestamp || ($finaldate != "" && ($startdate <= $datestamp && $finaldate >= $datestamp))) {
+    $title = (string)$entry -> title;
+    // Pull the description from the content
+    $description = (string)$entry -> content;
+    $description = explode ("\n",$description);
+    $line = count($description);
+    $line = $line-1;
+    $description = explode("Event Description:",$description[$line]);
+    $description = $description[1];
+    // Put all the details in an array, to be read for display
+    $event = array("time" => $time, "title" => $title, "description" => $description);
+    array_push($eventdata, $event);
+  }
+}
+
+if (!empty($eventdata)) {
+  echo "<h2>".$caldate; // Put the date first (note that this is from the datestamp itself, not the xml - but it needs to be here as there's a change of style if there's no events)
+	if ($calday == "1" || $calweekday == "1") { // If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
+		echo "<span>".$calmonth."</span>";
+		}
+	echo "</h2>";
+  foreach($eventdata as $event) { // Work through each event one at a time
+    if ($event["time"] != "") {
+			echo "<p class=\"time\">".$event["time"]."</p>";
+		}	else { echo "<p class=\"time\"></p>"; }
+    echo "<h3>".$event["title"]."</h3>";
+    if ($event["description"] != "") {
+			echo "<p class=\"details\">";
+			echo $event["description"];
+			echo "</p>";
+		}
+  }
+}
+
+else { //If there are no events at all, just give the date (for completeness of the diary)
+  echo "<h2 class=\"noevents\">".$caldate;
 	if ($calday == "1" || $calweekday == "1") { //If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
 		echo "<span>".$calmonth."</span>";
 		}
 	echo "</h2>";
-	foreach($date->events->event as $event) { //Work through each event one at a time
-		//Search for the previous title in this title to see if it's a sub-event first
-		
-		//Process general event details:
-		$start = $event -> timed -> start; $end = $event -> timed -> end; //Start and end times
-		$title = str_replace(array(" #","#"),array(" <strong>","</strong>"),$event -> title); //Event title - placeholder formatting characters are converted to HTML formatting so that it can be styled appropriately
-		$type = $event -> categories -> category[0]; //Event type
-		if ($type == "Match") { $type = $event -> categories -> category[1]; } //If it's sport, find the type of sport
-		$depart = $event -> timed -> {'envelope-start'}; $pickup = $event -> timed -> {'envelope-end'}; //Away game details
-		if ($event -> location != "") { $where = $event -> location -> attributes(); } //Driving directions to an away game (checks if the location node exists first)
-		
-		if (isset($comparetitle) && !empty($comparetitle) && strpos($title,$comparetitle) !== false && "$type" == "$comparetype" && "$where" == "$comparewhere") { //If it's a sporting fixture with the same opponent and in the same place as the previous event, just detail the title alongside the previous information
-			echo "<p class=\"details\">".$title."</p>";
-			} 
-		else { //Otherwise, display a full event
-		
-			//Basic event time, title and type
-			if ($start != "") {
-				echo "<p class=\"time\">".$start." - ".$end."</p>";
-				}
-				else { echo "<p class=\"time\"></p>"; }
-			echo "<h3>".$title."</h3>";
-      if ($type != "") {
-			  echo "<p class=\"allevents\"><a id=\"".$type."\" href=\"/diary/event/".$type."\"> See all ".strtolower($type)."";
-			  if ($type == "Event" || $type == "Visit" || $type == "Meeting" || $type == "Highlight") { echo "s"; } //Just sorts out grammar
-			  echo "</a></p>";
-      }
-		
-			//Further details
-			if ($depart != "") { //This indicates that it's an away sporting fixture, which then prompts further details
-				echo "<p class=\"details\">";
-				echo "Depart at ".$depart.". Pick-up at ".$pickup.".</p>";
-				echo "<p class=\"details\"><a class=\"detaillink\" href=\"".$where[1]."\">Driving directions</a>.</p>";
-				}
-		
-			if ($type != "") { //Provides a fix for when a type has not been provided (there should always be a type, but this avoids errors if it's been left out by mistake)
-				$comparetitle = explode($type,$title);
-        if (isset($comparetitle[1])) { $comparetitle = $comparetitle[1]; } else { $comparetitle = "0"; }
-				$comparetype = $type;
-				}
-			else {
-				$comparetitle = $title;
-				$comparetype = "None";
-				}
-      if (isset($where)) { $comparewhere = $where; } else { $comparewhere = ""; }
-			//This sets up a check for sporting events fixtures
-		
-			}
-			
-		}
-	}
-else {
-	echo "<h2 class=\"noevents\">".$caldate;
-	if ($calday == "1" || $calweekday == "1") { //If it's the stop of the month or the first entry displayed (ie, a Monday), then give the month
-		echo "<span>".$calmonth."</span>";
-		}
-	echo "</h2>";
-	} //If there are no events at all, just give the date (for completeness of the diary)
+} 
+
+
 
 ?>

@@ -66,6 +66,9 @@ else { //Otherwise we're looking through folders - carry on doing so
 $folder = array_shift($folders);
 $folder = $box->get_folder_details($folder);
   
+ // print_r($folder);
+ // break;
+  
 echo "<p>Current folder: <b>".$folder['name']."</b></p>";
 echo "<p>Entries found in this folder:</p><ul>";
 

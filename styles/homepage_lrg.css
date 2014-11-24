@@ -65,7 +65,7 @@ div.twitter-header {
     }
 
 div.twitter-header p {
-    padding: 3px 31px 3px 7px; margin: 0px;
+    padding: 2px 31px 3px 7px; margin: 0px;
     background-image: url('/styles/imgs/twitter.png');
     background-position: right 6px;
     background-repeat: no-repeat;
@@ -77,6 +77,7 @@ div.twitter-header p {
 div.twitter-header span {
     float: right;
     font-size: 11px;
+    padding-top: 2px;
     }
 
 div.twitter-header a {
@@ -88,6 +89,8 @@ div.twitter-header#news { background-color: #f3b939; }
     div.twitter-header#news a { color: #000000; }
 div.twitter-header#sprt { background-color: #b21614; }
     div.twitter-header#sprt a { color: #ffffff; }
+div.twitter-header#astra { background-color: #123B67; }
+    div.twitter-header#astra a { color: #ffffff; }
 
 .twitter-timeline { height: 300px; margin-bottom: -5px; }
 
@@ -98,10 +101,11 @@ div.astratext {
     visibility: hidden;
     position: absolute; width: 235px;
     color: #1B3C67; background-color: #9BC4E8;
-    margin-top: -5px; padding: 10px 10px 12px 10px;
+    margin-top: -5px; padding: 8px 10px 10px 10px;
     }
 div.astratext p {
     margin: 0; padding: 0;
+  line-height: 20px;
 }
 
 
