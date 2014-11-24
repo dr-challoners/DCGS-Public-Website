@@ -35,7 +35,7 @@ $updatetime = time();
 $updatetime = $updatetime-1800;
 if ($lastupdate < $updatetime) {
   $data = new DOMDocument();
-  $data->load("https://www.google.com/calendar/feeds/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic?start-index=1&max-results=10000");
+  $data->load("https://www.google.com/calendar/feeds/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic?start-index=1&max-results=10000&hl=en_US");
   $data->save('sync_logs/diary.xml');
   file_put_contents('sync_logs/diary_lastupdate.txt',time());
 }
