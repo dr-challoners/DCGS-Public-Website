@@ -1,6 +1,6 @@
 <?php include('header_declarations.php'); ?>
 <?php if (!preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) { // IE 8 or earlier can't handle media queries
-  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/homepage_lrg.css"/>';
+  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 481px)" href="/styles/homepage_lrg.css"/>';
   echo '<link rel="stylesheet" type="text/css" media="screen and (max-device-width : 480px)" href="/styles/homepage_sml.css"/>';
 } else {
   echo '<link rel="stylesheet" type="text/css" href="/styles/homepage_lrg.css"/>';
