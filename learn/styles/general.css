@@ -1,7 +1,9 @@
 * { margin: 0; padding: 0;
-    font-family: 'PT Sans', sans-serif; }
+    font-family: 'PT Sans', "Trebuchet MS", Helvetica, sans-serif; }
 
 body {
+    padding-top: 95px;
+  
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
@@ -9,25 +11,51 @@ body {
     background-color: #f6f6f6;
     }
 
+#banner {
+    width: 100%; top: 0;
+    z-index: 1;
+    background-color: #666666;
+    box-shadow: 0 6px 8px -6px #333333;
+    position: fixed;
+}
+
+#titles {
+    width: 880px; margin: 0 auto;
+    height: 80px;
+    background-image: url(imgs/learnlogo_bkgd.png);
+    background-repeat: no-repeat;
+    background-position: top right;
+}
+    #titles img {
+        margin-top: 5px;
+    }
+    #titles h1 {
+        font-size: 38px;
+        float: right;
+        margin: 15px 5px 0px 0px;
+    }
+    #titles h1 a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+
 div.page {
-    width: 980px;
-    margin: 10px auto 0px auto;
+    width: 880px;
+    margin: 0px auto 20px auto;
     }
 hr.clear { height: 0px; clear: both; visibility: hidden; }
 
 div.lftcol {
-    float: left; width: 260px;
-    background-color: #ffffff;
-    border-radius: 4px 0 0 4px;
-    box-shadow: 0 6px 8px -6px #333333;
+    float: left;
+    width: 260px;
     }
 
 div.parsebox {
-    float: right; width: 682px;
+    float: right; width: 560px;
+    padding: 20px;
     background-color: #ffffff;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 0 6px 8px -6px #333333;
-    padding: 0px 15px 15px 15px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px -6px #333333;
     }
 
 /* GENERAL TYPOGRAPHY */
@@ -35,29 +63,25 @@ div.parsebox {
 a { color: #444444; }
 a:hover { color: #888888; }
 
+div.parsebox h1:first-child {
+    margin-top: -3px;
+}
+div.parsebox h2:first-child {
+    margin-top: 0;
+}
+div.parsebox :last-child {
+    margin-bottom: 0;
+}
+
 /* LOGO AND MAIN NAVIGATION */
 
-div.header {
-    background-image: url(imgs/logo_bkgd.png);
-    background-repeat: no-repeat;
-    background-position: top right;
-    background-color: #666666;
-    border-radius: 4px 0 0 0;
-    padding: 10px 10px 16px 15px;
-    }
-
-a.logolink { text-decoration: none; }
-
-div.header h1, div.header h2 { margin: 0px; color: #ffffff; }
-
-div.header h1 { font-size: 36px; }
-div.header h2 { 
-    font-size: 48px;
-    line-height: 44px;
-    margin-top: -4px;
-    }
-
-div.navigation { padding-bottom: 5px; }
+div.navigation {
+  padding-bottom: 3px;
+  margin-bottom: 12px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px -6px #333333;
+  }
 
 div.navigation h1, div.navigation h2, div.navigation ul { margin: 0px; }
 
@@ -67,7 +91,10 @@ div.navigation h1 {
     border-bottom: 1px solid #d3d3d3;
     background-color: #eaeaea;
     }
-    div.navigation h1:first-child { margin-bottom: 0; }
+    div.navigation h1:first-child {
+        border-radius: 4px 4px 0px 0px;
+        margin-bottom: 0;
+       }
     div.navigation h1 span { font-size: 10px; vertical-align: 30%; }
     div.navigation h1 a {
        display: block;
@@ -81,8 +108,10 @@ div.navigation h1 {
 
 div.navigation h2 {
     font-weight: normal; font-size: 16px;
-    margin: 3px 10px 4px 10px;
+    margin: 0px 10px 4px 10px;
     }
+    div.navigation > h2:first-child { padding-top: 6px; }
+    div.dropdown > h2:first-child { padding-top: 4px;}
     div.navigation h2 span {
         font-family: "Courier New", monospace;
         font-weight: bold; font-size: 16px; vertical-align: 1px;

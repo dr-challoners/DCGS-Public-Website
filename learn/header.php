@@ -13,10 +13,7 @@
 				$varname = "Config".$datum[0];
 				$$varname = $datum[1];
 				}
-			}
-	  
-    include('../parsing/config_learn.php');
-    
+    }  
 		?>
 		
 		<title>
@@ -28,6 +25,8 @@
 		
 		<link rel="icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
 		<link rel="shortcut icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
+    
+    <?php include('../parsing/config_learn.php'); ?>
 		
 		<!-- Homescreen icons for iPhone/iPad. Android should detect these as well. -->
 		<link rel="apple-touch-icon" sizes="57x57" href="/<?php echo $rootpath; ?>styles/imgs/apple-icon-60.png" />
@@ -90,7 +89,7 @@
 			// The default colours are a variety of shades of grey - this changes all the appropriate ones to the theme colour for the micro-site
 			if (isset($ConfigColour)) {
 				echo "a { color: ".$ConfigColour."; }";
-				echo "div.header { background-color: ".$ConfigColour."; }";
+				echo "#banner { background-color: ".$ConfigColour."; }";
 				echo "div.navigation h1 a:hover { background-color: ".$ConfigColour."; }";
 				}
 			?>
