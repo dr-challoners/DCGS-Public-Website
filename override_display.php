@@ -20,23 +20,24 @@ if (file_exists("content_system/override/00~STATUS.txt")) { // First check to se
 if (count($status) > 0) { //If any form of status has been set, display the override
   foreach ($status as $entry) {
     $entry = trim($entry);
+    if (substr($entry,0,5) == 'snow_') { $type = 'snow'; } else { $type = $entry; } // This is to allow multiple different snow messages saved in the override folder (although all snow messages will be styled in the same way)
     if (file_exists('content_system/override/'.$entry.'.txt')) {
       
       // First sort out specific styles for the override. If there are none, default to the school crest and the blue
       unset($icon,$bkgd,$height,$bcol,$tcol);
       
-      if (file_exists('content_system/override/'.$entry.'_icon.png')) { // The icon goes next to the H1 header
-        $icon = 'url(../content_system/override/'.$entry.'_icon.png);';
+      if (file_exists('content_system/override/'.$type.'_icon.png')) { // The icon goes next to the H1 header
+        $icon = 'url(../content_system/override/'.$type.'_icon.png);';
       } else { $icon = 'url(../content_system/override/message_icon.png);'; }
       
-      if (file_exists("content_system/override/".$entry."_bkgd.jpg")) {
-        $bkgd = 'url(../content_system/override/'.$entry.'_bkgd.jpg);';
-        list($width,$height) = getimagesize('content_system/override/'.$entry.'_bkgd.jpg');
+      if (file_exists("content_system/override/".$type."_bkgd.jpg")) {
+        $bkgd = 'url(../content_system/override/'.$type.'_bkgd.jpg);';
+        list($width,$height) = getimagesize('content_system/override/'.$type.'_bkgd.jpg');
         $height = $height+4;
         $height = $height.'px;';
-      } elseif (file_exists('content_system/override/'.$entry.'_bkgd.jpg')) {
-        $bkgd = 'url(../content_system/override/'.$entry.'_bkgd.png);';
-        list($width,$height) = getimagesize('content_system/override/'.$entry.'_bkgd.png');
+      } elseif (file_exists('content_system/override/'.$type.'_bkgd.jpg')) {
+        $bkgd = 'url(../content_system/override/'.$type.'_bkgd.png);';
+        list($width,$height) = getimagesize('content_system/override/'.$type.'_bkgd.png');
         $height = $height+4;
         $height = $height.'px;';
       } else {
@@ -44,13 +45,13 @@ if (count($status) > 0) { //If any form of status has been set, display the over
         $height = '4px;';
       }
       
-      if ($entry == 'alert') {
+      if ($type == 'alert') {
         $bcol = '#2b2b2b;';  $tcol = '#ffffff;';
-      } elseif ($entry == 'snow') {
+      } elseif ($type == 'snow') {
         $bcol = '#bce4f3;';  $tcol = '#0d536d;';
-      } elseif ($entry == 'message') {
+      } elseif ($type == 'message') {
         $bcol = '#2F5397;';  $tcol = '#ffffff;';
-      } elseif ($entry == 'travel') {
+      } elseif ($type == 'travel') {
         $bcol = '#165d13;';  $tcol = '#ffffff;';
       }
         
@@ -67,35 +68,14 @@ if (count($status) > 0) { //If any form of status has been set, display the over
       }
       
       echo '<style>';
-      echo 'div.override#'.$entry.' { padding-bottom: '.$height.' border-color: '.$bcol.' background-image: '.$bkgd.' }';
-      echo 'div.override#'.$entry.' h1 { background-image: '.$icon.' color: '.$tcol.' background-color: '.$bcol.' }';
+      echo 'div.override#'.$type.' { padding-bottom: '.$height.' border-color: '.$bcol.' background-image: '.$bkgd.' }';
+      echo 'div.override#'.$type.' h1 { background-image: '.$icon.' color: '.$tcol.' background-color: '.$bcol.' }';
       echo '</style>';
       
-      echo '<div class="override" id="'.$entry.'">';
+      echo '<div class="override" id="'.$type.'">';
       $message = file_get_contents("content_system/override/".$entry.".txt", true);
 			echo Parsedown::instance()->parse($message);
       echo '</div>';
-	/*if (file_exists("content_system/override/".$status.".css")) { //Option for a stylesheet, if you want to get technical!
-		echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen and (min-device-width : 361px)\" href=\"content_system/override/".$status.".css\"/>";
-		}
-
-	echo "<div class=\"override\" id=\"".$status."\"";
-	
-		if (file_exists("content_system/override/".$status.".jpg")) { // Checks for pngs or jpgs matching the status: if one exists, it sets it as a background picture
-			echo " style=\"background-image: url(content_system/override/".$status.".jpg);\"";
-			}
-		elseif (file_exists("content_system/override/".$status.".png")) { 
-			echo " style=\"background-image: url(content_system/override/".$status.".png);\"";
-			}
-	
-		echo ">";
-		
-		if (file_exists("content_system/override/".$status.".txt")) { //If you want a message (which generally you will unless a picture contains the message), make sure the filename matches the status
-			$message = file_get_contents("content_system/override/".$status.".txt", true);
-			echo Parsedown::instance()->parse($message);
-			}
-	
-	echo "</div>";*/
 	
 	  $override = 1; //This lets the magazine know there's been an override, so it doesn't display a 'big' news story
     }
