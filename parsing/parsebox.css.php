@@ -67,6 +67,14 @@ div.parsebox tr.breakrow {
     border-color: #cccccc;
     }
 
+.parsebox table.imgRow td {
+  padding: 0px 5px;
+  vertical-align: middle;
+  }
+.parsebox table.imgRow td:first-child { padding: 0 5px 0 0; }
+.parsebox table.imgRow td:last-child  { padding: 0 0 0 5px; }
+.parsebox table.imgRow img { width: 100%; }
+
 div.parsebox code {
     display: block; padding: 5px 10px; margin: 16px 0;
     font-family: "Courier New", monospace;
@@ -101,35 +109,48 @@ div.parsebox div.open p.linkout { display: none; }
 
 /* General images */
 
-div.parsebox img.mid {
-    display: block;
-    margin: 16px auto;
-    max-width: 66.7%;
-    }
-div.parsebox img.wide {
-  width: 100%;
-  margin: 0 0 16px 0;
-  }
-div.parsebox img.left, img.right {
-    width: 40%;
-    margin: 8px 0;
-    }
-div.parsebox img.left {
-    margin-right: 2%;
-    float: left; clear: left;
-    }
-div.parsebox img.right {
-    margin-left: 2%;
-    float: right; clear: right;
-    }
-
-div.parsebox a.imagelink img {
+.parsebox div.imgDiv img {
+    width: 100%;
     outline: 6px solid transparent;
     outline-offset: -6px;
     transition: outline-color 0.2s;
     -webkit-transition: outline-color 0.2s;
     }
-    <?php echo "div.parsebox a.imagelink img:hover { outline-color: ".$colour."; }\n"; ?>
+    <?php echo ".parsebox div.imgDiv img:hover { outline-color: ".$colour."; }\n"; ?>
+
+.parsebox div.imgDiv p {
+    position: absolute;
+    float: right; margin: -24px 0 0 3px;
+    font-size: 11px; font-weight: bold;
+    color: white;
+    text-shadow:
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+     -1px  1px 0 #000,
+      1px  1px 0 #000;
+    }
+
+.parsebox div.mid {
+    display: block;
+    margin: 16px auto;
+    max-width: 66.7%;
+    }
+.parsebox div.wide {
+  width: 100%;
+  margin: 0 0 16px 0;
+  }
+.parsebox div.left, div.right {
+    width: 40%;
+    margin: 8px 0;
+    }
+.parsebox div.left {
+    margin-right: 2%;
+    float: left; clear: left;
+    }
+.parsebox div.right {
+    margin-left: 2%;
+    float: right; clear: right;
+    }
 
 /* Galleries */
 

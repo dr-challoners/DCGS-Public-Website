@@ -115,6 +115,25 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
 					include ('gallery.php');
 				break;
       
+        case "row":
+          // Not interested in using the filename as a title for this feature
+          echo '<table class="imgRow"><tr>';
+            $rowdir = $filedir;
+            $imgs = scandir($rowdir);
+            unset($filevalue); // Not going to need it now, and it will just mess up the image parsing
+            foreach ($imgs as $img) {
+              if (strpos($img,"~") !== false) {
+                $filedir = $rowdir.'/'.$img;
+                $filename = explode("~",$img)[1];
+                $filename = explode(".",$filename)[0];
+                echo '<td>';
+                  include('parsebox_image.php');
+                echo '</td>';
+              }
+            }
+          echo '</tr></table>';
+        break;
+      
         case "blog":
           if (isset($filename)) { echo "<h2>$filename</h2>"; }
           $blog = scandir($filedir);
