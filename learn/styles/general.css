@@ -69,7 +69,7 @@ div.parsebox h1:first-child {
 div.parsebox h2:first-child {
     margin-top: 0;
 }
-div.parsebox :last-child {
+div.parsebox > :last-child {
     margin-bottom: 0;
 }
 
@@ -87,13 +87,12 @@ div.navigation h1, div.navigation h2, div.navigation ul { margin: 0px; }
 
 div.navigation h1 {
     font-weight: normal; font-size: 18px;
-    padding: 3px 10px; margin-bottom: 4px;
+    padding: 4px 10px; margin: 0px 0px 4px 0px;
     border-bottom: 1px solid #d3d3d3;
     background-color: #eaeaea;
     }
     div.navigation h1:first-child {
         border-radius: 4px 4px 0px 0px;
-        margin-bottom: 0;
        }
     div.navigation h1 span { font-size: 10px; vertical-align: 30%; }
     div.navigation h1 a {
@@ -108,10 +107,12 @@ div.navigation h1 {
 
 div.navigation h2 {
     font-weight: normal; font-size: 16px;
-    margin: 0px 10px 4px 10px;
+    margin: 4px 10px 4px 10px;
     }
-    div.navigation > h2:first-child { padding-top: 6px; }
-    div.dropdown > h2:first-child { padding-top: 4px;}
+    div.navigation > h2:first-child {
+        margin-top: 0px;
+        padding-top: 6px;
+       }
     div.navigation h2 span {
         font-family: "Courier New", monospace;
         font-weight: bold; font-size: 16px; vertical-align: 1px;
@@ -125,12 +126,16 @@ div.navigation h2 {
        }
 
 div.navigation ul {
+    
     display: none;
     border-top: 1px solid #eaeaea;
     border-bottom: 1px solid #eaeaea;
     padding: 5px 15px 0px 28px;
     font-size: 16px; line-height: 18px;
     list-style-type: none;
+    }
+    div.dropdown:last-child > ul {
+        border-bottom: none;
     }
     div.navigation li { margin-bottom: 8px; }
     div.open ul { display: block; }

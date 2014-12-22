@@ -24,7 +24,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
     $filevalue = strtolower($filevalue);
     // These three values are what you need - filename is optional
     $filedir   = $dir.'/'.$part;
-    $filevalue = explode("#",$filevalue);
+    $filevalue = explode("=",$filevalue);
     $filetype  = strtolower($filetype);
       
     // Before we start, check to see if it's a SHARED file, in which case re-route to there
@@ -40,7 +40,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             $filename = $newfile[0];
             $file = explode('.',strtolower($newfile[1]));
             $filetype = $file[1];
-            $filevalue = explode("#",$filevalue);
+            $filevalue = explode("=",$filevalue);
           }
           else {
             $file = explode('.',$newfile[0]);
@@ -236,11 +236,11 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     elseif (strpos($url,"soundcloud.com") !== false) {
                       $icon = "SoundCloud audio"; }
                     // Now create the link
-                    $line  = '<a target="page'.mt_rand().'" href="'.$url.'">';
-					          $line .= '<p class="linkout">';
+					          $line  = '<p class="linkout">';
+                    $line .= '<a target="page'.mt_rand().'" href="'.$url.'">';
                     $line .= '<img src="/'.$codepath.'icons/'.str_replace("|","",$icon).'.png" alt="'.$icon.': " class="icon" />';
                     if (isset($name)) { $line .= $name; } else { $line .= 'Link'; } // There *should* be a name for this type of link, but prevent errors if there isn't
-                    $line .= '</p></a>';
+                    $line .= '</a></p>';
                     }
                   // If there's been the setup for an iframe, generate this now
                   if (isset($iframe_type)) {
@@ -249,9 +249,9 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     if (isset($name)) { // If the file to go in an iframe has been given a name, then make it a dropdown
                       $iframe_id = strtolower(preg_replace("/[^A-Za-z0-9]/", '', $name));
 					            $line .= '<div class="dropdown" name="'.$iframe_class.'" id="'.$iframe_id.'">';
-						          $line .= '<a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')"><p class="linkout">';
+						          $line .= '<p class="linkout"><a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')">';
                       $line .= '<img src="/'.$codepath.'icons/'.$iframe_type.'.png" alt="'.$iframe_type.': " class="icon" />';
-						          $line .= $name.'</p></a>';
+						          $line .= $name.'</a></p>';
                       }
                     $line .= '<iframe class="'.$iframe_class.'" src="'.$iframe_url.'" ';
                     $line .= 'frameborder="no" allowfullscreen></iframe>';
@@ -298,30 +298,44 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             
             case "xls":	case "xlsx":
 					  case "ods": // Excel or OpenOffice spreadsheets
-              echo '<a href="/'.$rootpath.$filedir.'">';
-						  echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Spreadsheet.png\" alt=\"Spreadsheet: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+						  echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Spreadsheet.png" alt="Spreadsheet: " class="icon" />';
+						  echo $type[0]."</a></p>";
 					  break;
             
             case "doc":	case "docx":
 					  case "odt": // Word or OpenOffice document
-              echo '<a href="/'.$rootpath.$filedir.'">';
-					  	echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Document.png\" alt=\"Document: \" class=\"icon\" />";
-					  	echo $type[0]."</p></a>";
+					  	echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Document.png" alt="Document: " class="icon" />';
+					  	echo $type[0]."</a></p>";
             break;
             
             case "ppt":	case "pptx":
 					  case "odp": // PowerPoint or OpenOffice presentation
-              echo '<a href="/'.$rootpath.$filedir.'">';
-              echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Presentation.png\" alt=\"Presentation: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Presentation.png" alt="Presentation: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "psd": // Adobe Photoshop
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Adobe Photoshop.png" alt="Adobe Photoshop: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "ai": // Adobe Illustrator
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Adobe Illustrator.png" alt="Adobe Illustrator: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "ma": case "mb": // Autodesk Maya file
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Autodesk Maya.png" alt="Autodesk Maya: " class="icon" />';
+						  echo $type[0]."</a></p>";
 					  break;
             
             case "pdf":
-              echo '<a href="/'.$rootpath.$filedir.'" target="_BLANK">'; // This will open in a new tab
-						  echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/PDF.png\" alt=\"PDF document: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+              // This will open in a new tab
+						  echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'" target="_BLANK"><img src="/'.$codepath.'icons/PDF.png" alt="PDF document: " class="icon" />';
+						  echo $type[0].'</a></p>';
 					  break;
+            
+            
             
             case "php":
 					  case "html": case "htm":

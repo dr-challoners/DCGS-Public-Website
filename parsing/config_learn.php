@@ -5,7 +5,7 @@
 
   //When referring to ParseBox in the code to pull out files, the folder containing page files must be specified as $dir
 
-  $pagewidth = 670; //Must be specified for various styles
+  $pagewidth = 560; //Must be specified for various styles
   if (isset($ConfigColour)) {
     $colour = str_replace("#","hex",$ConfigColour); //The colour for active elements such as links, or set to "" for a default grey. To use hexcodes, write as 'hexNNNNNN'.
     } else { $colour = ""; }

@@ -24,14 +24,13 @@ div.parsebox h1 { margin: 18px 0 14px 0; }
 div.parsebox h2 { margin: 0 0 12px 0; }
 div.parsebox h3, div.parsebox h4 { margin: 0 0 8px 0; }
 
-div.parsebox p {
+div.parsebox p, div.parsebox ul, div.parsebox ol {
   font-size: 14px;
   line-height: 22px; margin: 0 0 16px 0;
   }
 
-div.parsebox ul, div.parsebox ol {
-  margin: 0 0 16px 32px;
-  }
+div.parsebox ul, div.parsebox ol { margin-left: 30px; }
+.parsebox li { padding-left: 6px; }
 
 div.parsebox a {
   font-weight: bold;
@@ -74,8 +73,17 @@ div.parsebox code {
     border: 1px dotted #bbbbbb; background-color: #f7f7f7;
     }
 
+.parsebox .linkout a { display: block; }
+.parsebox .linkout a:hover {
+    margin: -1px;
+    border: 1px solid #dddddd;
+    background-color: #fdfdfd;
+    <?php echo "color: ".$colour.";\n"; ?>
+    text-decoration: none;
+    }
 div.parsebox p.linkout img.icon {
     <?php echo "background-color: ".$colour.";\n"; ?>
+    height: 26px;
     vertical-align: middle; margin-right: 8px;
     }
 
@@ -85,7 +93,6 @@ div.parsebox iframe { width: 100%; margin: 16px 0px 16px 0px; }
 div.parsebox iframe.youtubevideo { height: 30em; }
 div.parsebox iframe.googleform {
   height: 19em; margin-bottom: 20px;
-  border-radius: 2px; box-shadow: 0px 4px 10px #cccccc;
   }
 
 div.parsebox div.dropdown iframe { display: none; }
@@ -97,23 +104,23 @@ div.parsebox div.open p.linkout { display: none; }
 div.parsebox img.mid {
     display: block;
     margin: 16px auto;
-    max-width: 100%;
+    max-width: 66.7%;
     }
 div.parsebox img.wide {
   width: 100%;
   margin: 0 0 16px 0;
   }
 div.parsebox img.left, img.right {
-    width: 48%;
-    margin: 8px 0 16px 0;
+    width: 40%;
+    margin: 8px 0;
     }
 div.parsebox img.left {
     margin-right: 2%;
-    float: left;
+    float: left; clear: left;
     }
 div.parsebox img.right {
     margin-left: 2%;
-    float: right;
+    float: right; clear: right;
     }
 
 div.parsebox a.imagelink img {

@@ -1,6 +1,6 @@
 <?php if (isset($_GET['subject'])) { // If there's no subject set they shouldn't be here, so don't display any directory - an error message will display in the content
 
-$site = scandir("../content_learn/".$_GET['subject'], 1); //First, get all the main directories in the micro-site being looked at
+$site = scandir("../content_learn/".$getSubject, 1); //First, get all the main directories in the micro-site being looked at
 $site = array_reverse($site);
 
 foreach ($site as $dir) { // Now make a list of all the main directories
@@ -9,7 +9,7 @@ foreach ($site as $dir) { // Now make a list of all the main directories
 		echo "<h1>".$dirname[1]."</h1>";
 		
 		// Now deal with the sub-directories in the main directory
-		$directory = scandir("../content_learn/".$_GET['subject']."/".$dir, 1);
+		$directory = scandir("../content_learn/".$getSubject."/".$dir, 1);
 		$directory = array_reverse($directory);
 
 		foreach ($directory as $subdir) {
@@ -17,7 +17,7 @@ foreach ($site as $dir) { // Now make a list of all the main directories
 			if (isset($subdirname[1])) { // Again, items won't be displayed if they're not in the form NUMBER~NAME
 				
 				// We need to immediately get the contents of each subdirectory folder, to see if it's actually a subdirectory or if it's a page
-				$subdirectory = scandir("../content_learn/".$_GET['subject']."/".$dir."/".$subdir, 1);
+				$subdirectory = scandir("../content_learn/".$getSubject."/".$dir."/".$subdir, 1);
 				array_pop($subdirectory); // Drop the '.' and '..' items from the subdirectory, as we're going to be looking for '.' to see if there's files in the folder
 				array_pop($subdirectory);
 				$subdirectory = array_reverse($subdirectory);
@@ -31,7 +31,7 @@ foreach ($site as $dir) { // Now make a list of all the main directories
 					}
 
 				if ($checkdir === true) { // It's a page, so just link straight to it
-					echo "<h2><a href=\"/".$rootpath.$_GET['subject']."/".$dirname[1]."/".$subdirname[1]."\">";
+					echo "<h2><a href=\"/".$rootpath.str_replace(" ","_",$_GET['subject'])."/".str_replace(" ","_",$dirname[1])."/".str_replace(" ","_",$subdirname[1])."\">";
 						//echo "<span>&nbsp;&nbsp;</span>";
 						echo $subdirname[1];
 					echo "</a></h2>";
@@ -41,7 +41,7 @@ foreach ($site as $dir) { // Now make a list of all the main directories
 					echo "<div class=\"dropdown";
 						if (isset($_GET['page'])) { // If we're on a page in this menu, keep the menu open
 							foreach ($subdirectory as $item) {
-								if (strpos($item,$_GET['page']) !== false) {
+								if (strpos($item,$getPage) !== false) {
 									echo " open";
 									}
 								}
@@ -58,7 +58,7 @@ foreach ($site as $dir) { // Now make a list of all the main directories
 					foreach ($subdirectory as $page) {
 						$pagename = explode("~",$page);
 						if (isset($pagename[1]) && $pagename[1] != "GALLERY") { // The second condition is just in case a user has made a mistake and created some combined subdirectory/page folder
-							echo "<li><a href=\"/".$rootpath.$_GET['subject']."/".$dirname[1]."/".$subdirname[1]."/".$pagename[1]."\">".$pagename[1]."</a></li>";
+							echo "<li><a href=\"/".$rootpath.str_replace(" ","_",$_GET['subject'])."/".str_replace(" ","_",$dirname[1])."/".str_replace(" ","_",$subdirname[1])."/".str_replace(" ","_",$pagename[1])."\">".$pagename[1]."</a></li>";
 							}
 						}
 					echo "</ul>";

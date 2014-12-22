@@ -15,6 +15,14 @@
 				}
     }  
 		?>
+    
+    <?php
+      // Folder and filenames are given underscores in place of spaces when posted to make nicer-looking URLs. This converts them back.
+      if (isset($_GET['subject']))   { $getSubject   = $_GET['subject']; }
+      if (isset($_GET['folder']))    { $getFolder    = str_replace("_"," ",$_GET['folder']); }
+      if (isset($_GET['subfolder'])) { $getSubfolder = str_replace("_"," ",$_GET['subfolder']); }
+      if (isset($_GET['page']))      { $getPage      = str_replace("_"," ",$_GET['page']); }
+    ?>
 		
 		<title>
 			<?php // Include more informative titles here
@@ -23,10 +31,10 @@
       echo " - Dr Challoner's Grammar School"; ?>
 		</title>
 		
+    <?php include('../parsing/config_learn.php'); ?>
+    
 		<link rel="icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
 		<link rel="shortcut icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
-    
-    <?php include('../parsing/config_learn.php'); ?>
 		
 		<!-- Homescreen icons for iPhone/iPad. Android should detect these as well. -->
 		<link rel="apple-touch-icon" sizes="57x57" href="/<?php echo $rootpath; ?>styles/imgs/apple-icon-60.png" />
