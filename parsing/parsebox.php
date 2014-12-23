@@ -111,8 +111,15 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
         break;
       
         case "gallery":
-          if (isset($filename)) { echo "<h2>$filename</h2>"; }
+          if (isset($filename)) { // If the gallery has been given a name, then make it a dropdown
+            $gallery_id = strtolower(preg_replace("/[^A-Za-z0-9]/", '', $filename));
+					  echo '<div class="dropdown" name="gallery" id="'.$gallery_id.'">';
+						echo '<p class="linkout"><a href="javascript:boxOpen(\''.$gallery_id.'\',\'gallery\')">';
+            echo '<img src="/'.$codepath.'icons/Gallery.png" alt="Gallery: " class="icon" />';
+						echo $filename.'</a></p>';
+          }
 					include ('gallery.php');
+          if (isset($filename)) { echo '</div>'; }
 				break;
       
         case "row":
@@ -293,8 +300,6 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                 $m++;
                 }
               // Maths is now gone - parse all the remaining text, then put the maths back in
-              //$Instance = new ParsedownExtra(); // Will experiment with this some other time
-              //$text = $Instance->text($text);
               $text = Parsedown::instance()->parse($text);
               $m = 0; foreach ($m_span as $span) {
                 $text = str_replace('~S'.$m.'~',$span,$text);

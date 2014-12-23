@@ -103,8 +103,8 @@ div.parsebox iframe.googleform {
   height: 19em; margin-bottom: 20px;
   }
 
-div.parsebox div.dropdown iframe { display: none; }
-div.parsebox div.open iframe { display: block; margin-top: 16px; }
+div.parsebox div.dropdown iframe, .parsebox div.dropdown div.gallery { display: none; }
+div.parsebox div.open iframe, .parsebox div.open div.gallery { display: block; margin-top: 16px; }
 div.parsebox div.open p.linkout { display: none; }
 
 /* General images */
@@ -118,13 +118,13 @@ div.parsebox div.open p.linkout { display: none; }
     }
     <?php echo ".parsebox div.imgDiv img:hover { outline-color: ".$colour."; }\n"; ?>
 
-.parsebox div.imgDiv p {
+.parsebox div.imgDiv p, .parsebox div.gallery p {
     position: absolute;
     float: right; margin: -24px 0 0 3px;
     font-size: 11px; font-weight: bold;
     color: white;
     text-shadow:
-     -1px -1px 0 #000,  
+     -1px -1px 0 #000,
       1px -1px 0 #000,
      -1px  1px 0 #000,
       1px  1px 0 #000;
@@ -152,9 +152,9 @@ div.parsebox div.open p.linkout { display: none; }
     float: right; clear: right;
     }
 
-/* Galleries */
+/* Galleries - note the styling for the image credit is above */
 
-div.parsebox div.gallery { margin: 16px 0px 4px -12px; }
+div.parsebox div.gallery { margin: 16px 0 4px -12px; }
 
 div.parsebox div.photostub {
     float: left;
