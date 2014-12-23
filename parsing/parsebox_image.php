@@ -1,4 +1,5 @@
 <?php
+unset($filecredit);
 if (isset($filename)) { // Get photographer credit, if there is any
   if (strpos($filename,"=") !== false) { $filecredit = explode("=",$filename)[1]; }
   $filename = str_replace("="," - ",$filename); // Keep the credit in the caption when viewing the image closely

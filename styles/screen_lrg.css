@@ -173,6 +173,7 @@ div.parsebox li {
 h1.second { margin-top: 24px;}
 h2 { margin: 20px 0px -8px 0px; }
 h3 {margin-top: 5px; }
+.parsebox h3:nth-child(2) { margin: -12px 0 20px 0; } /* Principally for the news, but useful elsewhere */
 
 a.anchor { height: 185px; margin: -185px 0px 0px 0px; display: block; background-color: transparent; }
 
@@ -205,8 +206,6 @@ div.submenu a {
     div.submenu a:hover { background-color: #2358A3; color: #ffffff; }
 	
 /* News story display */
-div.parsebox h3.newsdate { margin: -12px 0 20px 0; }
-
 h2.news { padding: 6px 0 7px 10px; }
 
 div.sharing { float: left; padding-top: 2px; }
@@ -216,7 +215,12 @@ div.parsebox div.sharing iframe {
    height: 20px; width: 62px;
    }
 
-p.credit { text-align: right; font-style: italic; margin: 20px 0px 20px 0px; }
+.parsebox p.credit {
+   font-style: italic;
+   text-align: right;
+   line-height: 18px;
+   }
+   p.credit span { font-size: 12px; }
 
 /* Intranet links */
 div.intranet { margin-left: -12px; }

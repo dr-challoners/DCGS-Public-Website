@@ -46,7 +46,7 @@ echo "</ul>";
 $component = explode("~",$get_story);
 
 echo "<h1>".$component[1]."</h1>";
-echo "<h3 class=\"newsdate\">".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
+echo '<h3>'.date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).'</h3>';
 
 $parsediv = 1;
 $dir = 'content_news/'.$get_story;
@@ -68,10 +68,12 @@ echo '<div class="sharing lrg">';
   
 echo '</div>';
   
-// If an author has been given, display their name
+// If an author (and an editor) has been given, display their name(s)
 if (isset($component[2])) {
-  echo "<p class=\"credit\">".$component[2]."</p>";
-  }
+  echo '<p class="credit">'.$component[2];
+  if (isset($component[3])) { echo '<br /><span>Edited by '.$component[3].'</span>'; }
+  echo '</p>'; }
+
 
 ?>
 
