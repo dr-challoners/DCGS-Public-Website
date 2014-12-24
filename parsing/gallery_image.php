@@ -3,13 +3,13 @@
 $photo = array_pop($photos);
 
 $pTitle = explode(".",$photo);
-$pTitle = explode("=",$pTitle);
+$pTitle = explode("=",$pTitle[0]);
 if (isset($pTitle[1])) { $pCredit = $pTitle[1]; }
 $pTitle = implode(" - ",$pTitle);
 
 shuffle($hplace); shuffle($vplace);
 
-echo '<div class="photostub '.$box.'\' style="';
+echo '<div class="photostub '.$box.'" style="';
 	echo 'background-position: '.$hplace[0].' '.$vplace[0].'; ';
 	echo "background-image: url('/".$rootpath.$filedir."/".$photo."');";
 echo "\">";

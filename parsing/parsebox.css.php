@@ -201,3 +201,7 @@ div.parsebox div.blogimg a {
     -webkit-transition: border-color 0.2s;
     }
     <?php echo "div.parsebox div.blogimg a:hover { border-color: ".$colour."; }\n"; ?>
+
+/* Maths with KaTeX */
+
+.parsebox p.maths { text-align: center; }

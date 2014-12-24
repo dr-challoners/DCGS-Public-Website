@@ -68,7 +68,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
           echo "<table>";
             $t = 0;
             foreach ($table as $row) {
-              //Turn blank lines in the CSV file into a border between rows: turn double blank lines into a second table
+              // Turn blank lines in the CSV file into a border between rows: turn double blank lines into a second table
               if (trim(trim($row),',') == '') {
                 if (!isset($linebreak)) { $linebreak = 1; }
                 else { $t = 0; unset($linebreak); echo "</table>\n<table>"; }
@@ -188,7 +188,6 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             case "txt": // This is the big one. First look through the text, see if there's any special ParseBox style urls that indicate specific ParseBox plugins - these are converted to html and then the whole lot is parsed as markdown.
               $content = file($filedir);
               $text = "";
-              //print_r($content);
               foreach ($content as $line) {
                 unset($name,$url,$iframe_type);
                 if (substr($line,0,2) == "~[") {
@@ -291,24 +290,48 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
               preg_match_all('/\\\\\[.*?\\\\\]/',$text,$m_blok);
               preg_match_all('/\\\\\(.*?\\\\\)/',$text,$m_span);
               $m_blok = $m_blok[0]; $m_span = $m_span[0];
-              $m = 0; foreach ($m_span as $span) {
-                $text = str_replace($span,'~S'.$m.'~',$text);
-                $m++;
+              $ms = 0; foreach ($m_span as $span) {
+                $text = str_replace($span,'~S'.$ms.'~',$text);
+                $ms++;
                 }
-              $m = 0; foreach ($m_blok as $blok) {
-                $text = str_replace($blok,'~B'.$m.'~',$text);
-                $m++;
+              $mb = 0; foreach ($m_blok as $blok) {
+                $text = str_replace($blok,'~B'.$mb.'~',$text);
+                $mb++;
                 }
               // Maths is now gone - parse all the remaining text, then put the maths back in
               $text = Parsedown::instance()->parse($text);
+              $katex = 0; // Count the number of instances of maths for KaTeX rendering
               $m = 0; foreach ($m_span as $span) {
+                //$katekID = mt_rand();
+                //$katekStart = "<span id=\"kx_s".$katekID."\">...</span><script>katex.render('";
+                //$katekEnd   = "', kx_s".$katekID.");</script>";
+                //$span = str_replace('\(',$katekStart,$span);
+                //$span = str_replace('\)',$katekEnd,$span);
+                //$span = str_replace("\\","\\\\",$span);
                 $text = str_replace('~S'.$m.'~',$span,$text);
                 $m++;
+                $katex++;
                 }
               $m = 0; foreach ($m_blok as $blok) {
                 $text = str_replace('~B'.$m.'~',$blok,$text);
                 $m++;
+                $katex++;
                 }
+              if ($katex > 0) { // Preps LaTeX for rendering with KaTeX
+                for ($k = 0; $k <= $katex; $k++) {
+                  $kID = mt_rand();
+                  $blokStart = "<p class=\"maths\" id=\"kx".$kID."\">...</p><script>katex.render('\\displaystyle ' + '";
+                  $blokEnd   = "', kx".$kID.");</script>";
+                  $text = str_replace_first("<p>\[",$blokStart,$text);
+                  $text = str_replace_first("\]</p>",$blokEnd,$text);
+                  $kID = mt_rand();
+                  $spanStart = "<span id=\"kx".$kID."\">...</span><script>katex.render('";
+                  $spanEnd   = "', kx".$kID.");</script>";
+                  $text = str_replace_first("\(",$spanStart,$text);
+                  $text = str_replace_first("\)",$spanEnd,$text);
+                }
+                $text = str_replace("\\","\\\\",$text);
+              }
               echo $text;
 					  break;
             
