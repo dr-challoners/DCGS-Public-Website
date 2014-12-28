@@ -88,13 +88,12 @@ div.parsebox p.linkout img.icon {
     vertical-align: middle; margin-right: 10px;
     }
 .parsebox .linkout a:hover {
-    margin: -1px -1px -1px 2px;
+    margin: -1px;
     border: 1px solid #dddddd;
     background-color: #fdfdfd;
     <?php echo "color: ".$colour.";\n"; ?>
     text-decoration: none;
     }
-    .parsebox .linkout a:hover img.icon { margin-right: 7px; }
 
 /* iFrames and Dropdowns */
 
