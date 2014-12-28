@@ -68,9 +68,9 @@
 			}
 		}
     
-    /* Get the last modified date of the mentioned folder */
+    /* Get the last modified date of the mentioned folder - EXPERIMENTAL, NOT WORKING YET */
     public function get_folder_modified($folder, $json = false) {
-			$url = $this->build_url("/folders/$folder?fields=modified_at");
+			$url = $this->build_url('/folders/'.$folder.'?fields=modified_at');
 			if($json){	
 				return $this->get($url);
 			} else {
@@ -124,7 +124,7 @@
 			return array_filter($return);
 		}
 
-		/* Lists the files in the mentioned folder */
+		/* Lists the links in the mentioned folder */
 		public function get_links($folder) {
 			$data = $this->get_folder_items($folder);
 			foreach($data['entries'] as $item){
@@ -280,7 +280,7 @@
 			return $base;
 		}
 
-		/* Sets the required before biulding the query */
+		/* Sets the required before building the query */
 		private function set_opts(array $opts) {
 			if(!array_key_exists('access_token', $opts)) {
 				$opts['access_token'] = $this->access_token;
