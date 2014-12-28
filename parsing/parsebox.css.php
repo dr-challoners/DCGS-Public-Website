@@ -81,19 +81,20 @@ div.parsebox code {
     border: 1px dotted #bbbbbb; background-color: #f7f7f7;
     }
 
-.parsebox .linkout a { display: block; }
+.parsebox .linkout a { display: block;}
+div.parsebox p.linkout img.icon {
+    <?php echo "background-color: ".$colour.";\n"; ?>
+    height: 26px;
+    vertical-align: middle; margin-right: 10px;
+    }
 .parsebox .linkout a:hover {
-    margin: -1px;
+    margin: -1px -1px -1px 2px;
     border: 1px solid #dddddd;
     background-color: #fdfdfd;
     <?php echo "color: ".$colour.";\n"; ?>
     text-decoration: none;
     }
-div.parsebox p.linkout img.icon {
-    <?php echo "background-color: ".$colour.";\n"; ?>
-    height: 26px;
-    vertical-align: middle; margin-right: 8px;
-    }
+    .parsebox .linkout a:hover img.icon { margin-right: 7px; }
 
 /* iFrames and Dropdowns */
 
@@ -106,6 +107,19 @@ div.parsebox iframe.googleform {
 div.parsebox div.dropdown iframe, .parsebox div.dropdown div.gallery { display: none; }
 div.parsebox div.open iframe, .parsebox div.open div.gallery { display: block; margin-top: 16px; }
 div.parsebox div.open p.linkout { display: none; }
+.parsebox p.closeBox {
+    display: none;
+    font-size: 11px;
+    text-align: right; margin-top: -14px;
+    font-weight: bolder; text-transform: uppercase;
+    color: #888888;
+    }
+    .parsebox div.open p.closeBox { display: block; }
+    p.closeBox a { color: inherit; }
+    p.closeBox a:hover {
+        text-decoration: none;
+        <?php echo "color: ".$colour.";\n"; ?>
+    }
 
 /* General images */
 

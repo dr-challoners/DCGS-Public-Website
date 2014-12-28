@@ -119,7 +119,10 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
 						echo $filename.'</a></p>';
           }
 					include ('gallery.php');
-          if (isset($filename)) { echo '</div>'; }
+          if (isset($filename)) {
+            echo '<p class="closeBox"><a href="javascript:boxOpen(\''.$gallery_id.'\',\'gallery\')">&#x2715; Close</a></p>';
+            echo '</div>';
+          }
 				break;
       
         case "row":
@@ -250,6 +253,10 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
 						          $icon = "Android app"; }
 					          elseif (strpos($url,"wolframalpha.com") !== false) {
 						          $icon = "Wolfram|Alpha"; }
+                    elseif (strpos($url,"codecademy.com") !== false) {
+						          $icon = "Codecademy"; }
+                    elseif (strpos($url,"khanacademy.org") !== false) {
+						          $icon = "Khan Academy"; }
                     elseif (strpos($url,"docs.google") !== false && strpos($url,"presentation") !== false) {
 						          $icon = "Google slides"; }
                     elseif (strpos($url,"docs.google") !== false && strpos($url,"spreadsheets") !== false) {
@@ -280,7 +287,10 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                       }
                     $line .= '<iframe class="'.$iframe_class.'" src="'.$iframe_url.'" ';
                     $line .= 'frameborder="no" allowfullscreen></iframe>';
-                    if (isset($name)) { $line .= '</div>'; }
+                    if (isset($name)) {
+                      $line .= '<p class="closeBox"><a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')">&#x2715; Close</a></p>';
+                      $line .= '</div>';
+                      }
                     }
                   
                   }
