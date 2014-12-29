@@ -2,7 +2,7 @@
 	<?php // Generating the body tag with onload functions for different pages
 		echo "<body";
 			if (isset($_GET['date'])) { echo " onload=\"moveWindow()\""; } // Diary pages - jumps to current day
-			if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace(array("'","_"),array(""," "),$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
+			//if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace(array("'","_"),array(""," "),$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
 		echo ">";
 	?>
 		
@@ -110,7 +110,7 @@
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
 					<?php
-						$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
+						$newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
 						$newsposts = array_slice($newsposts,0,15);
 						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
 						foreach ($newsposts as $row) {
@@ -138,17 +138,17 @@
 					echo "<h1 class=\"sub_nav sml\"><a href=\"javascript:openCloseAll('n".$div_id."')\">".$maindir."</a></h1>";
 					echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n".$div_id."\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
 				
-					$dir = scandir("content_main/".$maindir, 1); //First, get all the subdirectories in the main directory being looked at
+					$dir = scandir("content_main/".$maindir, 1); // First, get all the subdirectories in the main directory being looked at
 					$dir = array_reverse($dir);
 
-					foreach ($dir as $subdir) { //List all the subdirectories
+					foreach ($dir as $subdir) { // List all the subdirectories
 						$dirname = explode("~",$subdir);
 						if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
 						
 							echo "<div class=\"category\">";
 							echo "<h2>".$dirname[1]."</h2>";
     
-							$files = scandir("content_main/".$maindir."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
+							$files = scandir("content_main/".$maindir."/".$subdir, 1); // Now get all the files in each subdirectory and turn them into appropriate links
 							$files = array_reverse($files);
     
 							echo "<ul>";
@@ -161,7 +161,8 @@
 								elseif (isset ($detail[1])) {
 									$pagename = explode(".",$detail[1]);
 									$pagename = $pagename[0];
-									echo "<li><a href=\"/pages/".str_replace(" ","_",$maindir)."/".str_replace(" ","_",$dirname[1])."/".str_replace(" ","_",$pagename)."\">".str_replace('[plus]','+',$pagename)."</a></li>";
+									echo '<li><a href="/pages/'.str_replace($linkChars,$linkRplce,$maindir).'/'.str_replace($linkChars,$linkRplce,$dirname[1]).'/'.str_replace($linkChars,$linkRplce,$pagename).'">';
+                  echo str_replace('[plus]','+',$pagename).'</a></li>';
 									}
 								}
     
@@ -197,7 +198,7 @@
           <h1 class="sub_nav sml"><a href="javascript:openCloseAll('nA')">Alumni</a></h1>
 					<div class="sub_nav sub_menu" name="submenu" id="nA"><ul>
 				  <?php    
-							$files = scandir("content_main/Information/5~Alumni", 1); //Now get all the files in each subdirectory and turn them into appropriate links
+							$files = scandir("content_main/Information/5~Alumni", 1); // Now get all the files in each subdirectory and turn them into appropriate links
 							$files = array_reverse($files);
     
 							echo "<ul>";

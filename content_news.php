@@ -18,13 +18,24 @@ if ($get_story != "index.php") {
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
-  <h2 class="news">News</h2>
+ <!-- <h2 class="news">News</h2> -->
 
-<?php
+<?php // This is the navigation menu
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
-$newsposts = array_slice($newsposts,0,15);
-echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
+array_pop($newsposts);
+array_pop($newsposts); // Removes . and .. from the array
+$archiveMonths = array();
 foreach ($newsposts as $row) {
+  $month = substr($row,0,6);
+  if (!in_array($month,$archiveMonths)) { // If this is the first entry in a given month, then make the title and dropdown for that month
+    if (!empty($archiveMonths)) { echo '</ul>'; } // Close the previous dropdown if there was one
+    array_push($archiveMonths,$month);
+    $monthTitle = date("F Y",mktime(0,0,0,substr($month,4,2),1,substr($month,0,4)));
+    echo '<h2><a href="javascript:openCloseAll(\''.$month.'\')">'.$monthTitle.'</a></h2>';
+    echo '<ul name="submenu" id="'.$month.'"';
+      if ($month == substr($get_story,0,6)) { echo 'style="display:block;"'; }  // Keep the menu open if it's for the same month as the story being displayed
+    echo '>';
+  }
 		$component = explode("~",$row);
 		echo "<li>";
 			echo "<a href=\"".$component[0]."~".str_replace(' ','_',$component[1]);
@@ -36,7 +47,6 @@ foreach ($newsposts as $row) {
 			echo "</a>";
 		echo "</li>";
 	}
-echo "</ul>";
 ?>
 
 </div>

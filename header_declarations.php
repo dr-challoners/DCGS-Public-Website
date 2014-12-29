@@ -9,13 +9,17 @@
 		
 		<title>
 		<?php // Creating more informative titles
+
+    // These variables allow problematic characters to be stripped from titles when they are being passed as URLs
+    $linkChars = array(' ','&');
+    $linkRplce = array('_','~N~');
 		
-		if (isset($_GET['subfolder'])) { echo str_replace('_',' ',$_GET['subfolder'])." - "; } // General content pages
-		if (isset($_GET['page'])) { echo str_replace('_',' ',str_replace('[plus]','+',$_GET['page']))." - "; }
+		if (isset($_GET['subfolder'])) { echo str_replace($linkRplce,$linkChars,$_GET['subfolder'])." - "; } // General content pages
+		if (isset($_GET['page'])) { echo str_replace($linkRplce,$linkChars,str_replace('[plus]','+',$_GET['page']))." - "; }
 		
 		if (isset($_GET['story'])) { // News stories
 			$news_title = explode ("~",$_GET['story']);
-			echo "News - ".str_replace('_',' ',$news_title[1])." - ";
+			echo "News - ".str_replace($linkRplce,$linkChars,$news_title[1])." - ";
 			}
 			
 		if (isset($intranet)) { echo "Intranet - "; }
