@@ -1,5 +1,4 @@
 <?php
-include_once('Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 
 // $dir is the folder that contains all the parts of the page - this must be passed on by the page that ParseBox is being used in
 if (isset($dir) && !isset($parts)) { 
@@ -25,7 +24,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
     // These three values are what you need - filename is optional
     $filedir   = $dir.'/'.$part;
     $filevalue = explode("=",$filevalue);
-    $filetype  = strtolower($filetype);
+    if (isset($filetype)) { $filetype  = strtolower($filetype); }
       
     // Before we start, check to see if it's a SHARED file, in which case re-route to there
     if ($filevalue[0] == "shared" && isset($filename)) { // Shared files need to have the same title in their filename, so they can be matched - as such the ~SHARED pointer file *must* have a title

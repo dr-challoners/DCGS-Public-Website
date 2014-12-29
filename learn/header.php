@@ -31,7 +31,10 @@
       echo " - Dr Challoner's Grammar School"; ?>
 		</title>
 		
-    <?php include('../parsing/config_learn.php'); ?>
+    <?php 
+      include_once('../parsing/Parsedown.php'); // Converts markdown text to HTML - see parsedown.org
+      include('../parsing/config_learn.php');
+    ?>
     
 		<link rel="icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
 		<link rel="shortcut icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />

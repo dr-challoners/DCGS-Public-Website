@@ -1,4 +1,4 @@
-<?php include_once('parsing/Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
+<?php
 
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
 $newsposts = array_slice($newsposts,0,15);

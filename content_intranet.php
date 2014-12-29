@@ -1,7 +1,6 @@
 <?php 
 	include('header_declarations.php');
 	include('header_navigation.php');
-  include('parsing/Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
@@ -108,12 +107,13 @@ if (isset($_GET['user'])) {
 	else {
 		echo "<h1>DCGS intranet</h1>";
 		echo "<p>Staff and students require a username and password to access most links in this section.<br />Parents can view documents without a login, but will need a username and password to access reports and catering statements.</p><p>Click on a category on the left to begin.</p>";
+    /*
     if (file_exists('content_system/intranet/00~QuickLinks.txt')) {
       echo '<h2 style="margin: 16px 0 12px 0;">Quick links</h2>';
       $dir = 'content_system/intranet';
       $parts = array('00~QuickLinks.txt');
       include('parsing/parsebox.php');
-    }
+    } */
 		}
 	
 	echo "</div>";

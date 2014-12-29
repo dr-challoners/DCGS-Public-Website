@@ -52,6 +52,7 @@
 		?>
     
 		<?php
+      include_once('parsing/Parsedown.php'); // Converts markdown text to HTML - see parsedown.org
       include('parsing/config_dcgs.php');
 		?>
     

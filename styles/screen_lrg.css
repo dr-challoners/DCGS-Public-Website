@@ -119,6 +119,19 @@ div.sub_nav {
        float: left; width: 232px;
        padding: 0px 5px 0px 5px;
        }
+       .category h1 {
+          margin-left: 9px;
+       }
+       #intranetLink {
+          margin: 0;
+       }
+       #intranetLink a {
+          font-weight: bold; font-size: 15px;
+          color: #2358A2;
+       }
+       #intranetLink a:hover {
+          color: #ffffff;
+       }
     div.sub_nav h2 {
        text-align: left;
        margin: 0px 5px 5px 10px;
