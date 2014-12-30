@@ -61,7 +61,7 @@ div.parsebox table td {
     padding: 4px;
     vertical-align: top;
     }
-div.parsebox tr.alt { background-color: #f7f7f7; }
+div.parsebox tr:nth-child(2n+1) { background-color: #f7f7f7; }
 div.parsebox tr.breakrow {
     border-top: 1px solid;
     border-color: #cccccc;

@@ -196,8 +196,8 @@ table.eventscores th, table.eventscores td {
    width: 20%;
    }
 table.eventscores td { padding: 5px 0!important; }
-table.eventscores tr.first { border-top: none; }
-table.eventscores tr.first td { padding-top: 7px!important; }
+table.eventscores tr:nth-child(2) { border-top: none; }
+table.eventscores tr:nth-child(2) td { padding-top: 7px!important; }
 table.eventscores p {
    text-align: center!important; padding: 3px;
    }
