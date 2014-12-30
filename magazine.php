@@ -1,4 +1,4 @@
-<?php include_once('parsing/Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
+<?php
 
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
 $newsposts = array_slice($newsposts,0,15);
@@ -8,12 +8,12 @@ $non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
   $imagecheck = 0;
   foreach ($parts as $part) {
     $part = pathinfo($part);
-    if(isset($part['extension'])) { //This check is needed in case there is a gallery folder in the news post
+    if(isset($part['extension'])) { //This check is needed in case there is a gallery or row folder in the news post
       $part = strtolower($part['extension']);
       }
-    else { //If it does, indeed, transpire to be a gallery, then that means there's an available picture
+    else { //If it does, indeed, transpire to be a gallery or row, then that means there's an available picture
       $part = explode("~",$part['filename']);
-      if ($part[1] == "GALLERY") { $imagecheck++; }
+      if ($part[1] == "GALLERY" || $part[1] == "ROW" || $part[2] == "GALLERY" || $part[2] == "ROW") { $imagecheck++; }
       }
     if ($part == "jpg" || $part == "jpeg" || $part == "gif" || $part == "png") { $imagecheck++; }
     }
@@ -106,23 +106,25 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	if ($component[0] != "NON") { //If there's meant to be an image with the story, then the first image is found and displayed
     foreach ($parts as $part) {
       $checkpart = pathinfo($part);
-      if(isset($checkpart['extension'])) { //This check is needed in case there is a gallery folder in the news post
+      if(isset($checkpart['extension'])) { //This check is needed in case there is a gallery or row folder in the news post
         $checkpart = strtolower($checkpart['extension']);
         if ($checkpart == "jpg" || $checkpart == "jpeg" || $checkpart == "gif" || $checkpart == "png") {
           $image = addcslashes($file."/".$part,"'");
           break;
           }
         }
-      else { //If it does, indeed, transpire to be a gallery, then that means there's an available picture - dig deeper to find it
+      else { //If it does, indeed, transpire to be a gallery or row, then that means there's an available picture - dig deeper to find it
         $checkpart = explode("~",$checkpart['filename']);
-        if ($checkpart[1] == "GALLERY") {
+        if ($checkpart[1] == "GALLERY" || $checkpart[1] == "ROW" || $checkpart[2] == "GALLERY" || $checkpart[2] == "ROW") {
           $galleryparts = scandir("content_news/".$file."/".$part, 1);
+          array_pop($galleryparts);
+          array_pop($galleryparts); // Removes . and .. from the array
+          $galleryparts = array_reverse($galleryparts);
           $image = addcslashes($file."/".$part."/".$galleryparts[0],"'");
           break;
           }
         }
       }
-    //$image = addcslashes($newsfiles[array_search($component[2],$newsimages)],"'"); 
     }
     
 	$date = date("jS F Y",mktime(0,0,0,substr($component[1],4,2),substr($component[1],6,2),substr($component[1],0,4)));

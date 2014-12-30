@@ -1,18 +1,18 @@
 <?php 
 include('header_declarations.php');
 
-if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = str_replace('_',' ',$_GET['folder']); }
-if (!isset($_GET['subfolder'])) { $get_subfolder = ""; } else { $get_subfolder = str_replace('_',' ',$_GET['subfolder']); }
-if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = str_replace('_',' ',$_GET['page']); }
+if (!isset($_GET['folder'])) { $get_folder = ""; } else { $get_folder = str_replace($linkRplce,$linkChars,$_GET['folder']); }
+if (!isset($_GET['subfolder'])) { $get_subfolder = ""; } else { $get_subfolder = str_replace($linkRplce,$linkChars,$_GET['subfolder']); }
+if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = str_replace($linkRplce,$linkChars,$_GET['page']); }
 	
 include('header_navigation.php');
 
-echo "<!--googleoff: all--><div class=\"ncol lft submenu lrg\">"; //Building the submenu
+echo '<!--googleoff: all--><div class="ncol lft submenu lrg">'; // Building the submenu
 
-$dir = scandir("content_main/".$get_folder, 1); //First, get all the subdirectories in the main directory being looked at
+$dir = scandir("content_main/".$get_folder, 1); // First, get all the subdirectories in the main directory being looked at
 $dir = array_reverse($dir);
 
-foreach ($dir as $subdir) { //List all the subdirectories
+foreach ($dir as $subdir) { // List all the subdirectories
   $dirname = explode("~",$subdir);
   if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
     echo "<h2><a href=\"javascript:openClose('".str_replace("'","",$dirname[1])."')\">".$dirname[1]."</a></h2>";
@@ -20,7 +20,9 @@ foreach ($dir as $subdir) { //List all the subdirectories
       $files = scandir("content_main/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
       $files = array_reverse($files);
     
-      echo '<ul id="'.str_replace("'","",$dirname[1]).'">';
+      echo '<ul id="'.str_replace("'","",$dirname[1]).'"';
+        if ($dirname[1] == $get_subfolder) { echo 'style="display:block;"'; }  // Keep the menu open if it's for the subfolder that contains the current page
+      echo '>';
     
       foreach ($files as $page) {
         $detail = explode("~",$page);
@@ -30,7 +32,8 @@ foreach ($dir as $subdir) { //List all the subdirectories
         elseif (isset ($detail[1])) {
           $pagename = explode(".",$detail[1]);
           $pagename = $pagename[0];
-          echo "<li><a href=\"/pages/".str_replace(' ','_',$get_folder)."/".str_replace(' ','_',$dirname[1])."/".str_replace(' ','_',$pagename)."\">".str_replace('[plus]','+',$pagename)."</a></li>"; 
+          echo '<li><a href="/pages/'.str_replace($linkChars,$linkRplce,$get_folder).'/'.str_replace($linkChars,$linkRplce,$dirname[1]).'/'.str_replace($linkChars,$linkRplce,$pagename).'">';
+          echo str_replace('[plus]','+',$pagename).'</a></li>'; 
           }
         }
     
@@ -43,7 +46,7 @@ echo "<!--googleon: all--></div>";
 
 echo '<div class="parsebox">'; $parsediv = 1;
 
-    if ($get_subfolder != "") { //Parse the appropriate content for the page
+    if ($get_subfolder != "") { // Parse the appropriate content for the page
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
@@ -63,14 +66,14 @@ echo '<div class="parsebox">'; $parsediv = 1;
     
       if (isset($this_page) && file_exists("content_main/".$get_folder."/".$this_subdir."/".$this_page)) {
         $dir = "content_main/".$get_folder."/".$this_subdir."/".$this_page;
-        if(strpos($this_page, ".txt") !== false) { //This page is a single plain text file
+        if(strpos($this_page, ".txt") !== false) { // This page is a single plain text file
           $dir = "content_main/".$get_folder."/".$this_subdir;
           $parts = array($this_page);
           }
           include('parsing/parsebox.php');
       	}
 
-			  else { //Displays an error if the page can't be found
+			  else { // Displays an error if the page can't be found
 				  echo "<style> body { background-image: url('/styles/imgs/error.png'); background-position: right bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>";
 				  echo '<div class="parsebox">';
           echo "<h1>Oh dear!</h1>";

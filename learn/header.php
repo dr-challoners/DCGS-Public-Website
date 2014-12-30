@@ -13,11 +13,16 @@
 				$varname = "Config".$datum[0];
 				$$varname = $datum[1];
 				}
-			}
-	  
-    include('../parsing/config_learn.php');
-    
+    }  
 		?>
+    
+    <?php
+      // Folder and filenames are given underscores in place of spaces when posted to make nicer-looking URLs. This converts them back.
+      if (isset($_GET['subject']))   { $getSubject   = $_GET['subject']; }
+      if (isset($_GET['folder']))    { $getFolder    = str_replace("_"," ",$_GET['folder']); }
+      if (isset($_GET['subfolder'])) { $getSubfolder = str_replace("_"," ",$_GET['subfolder']); }
+      if (isset($_GET['page']))      { $getPage      = str_replace("_"," ",$_GET['page']); }
+    ?>
 		
 		<title>
 			<?php // Include more informative titles here
@@ -26,6 +31,11 @@
       echo " - Dr Challoner's Grammar School"; ?>
 		</title>
 		
+    <?php 
+      include_once('../parsing/Parsedown.php'); // Converts markdown text to HTML - see parsedown.org
+      include('../parsing/config_learn.php');
+    ?>
+    
 		<link rel="icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
 		<link rel="shortcut icon" href="/<?php echo $rootpath; ?>styles/imgs/favicon.png" />
 		
@@ -90,7 +100,7 @@
 			// The default colours are a variety of shades of grey - this changes all the appropriate ones to the theme colour for the micro-site
 			if (isset($ConfigColour)) {
 				echo "a { color: ".$ConfigColour."; }";
-				echo "div.header { background-color: ".$ConfigColour."; }";
+				echo "#banner { background-color: ".$ConfigColour."; }";
 				echo "div.navigation h1 a:hover { background-color: ".$ConfigColour."; }";
 				}
 			?>

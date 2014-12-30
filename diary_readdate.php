@@ -75,7 +75,9 @@ foreach ($events -> entry as $entry) { // Go through the XML file and process al
     $line = count($description);
     $line = $line-1;
     $description = explode("Event Description:",$description[$line]);
-    $description = $description[1];
+    if (isset($description[1])) {
+      $description = $description[1];
+    } else { $description = ""; }
     // Put all the details in an array, to be read for display
     $event = array("time" => $time, "title" => $title, "description" => $description);
     array_push($eventdata, $event);

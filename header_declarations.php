@@ -9,13 +9,17 @@
 		
 		<title>
 		<?php // Creating more informative titles
+
+    // These variables allow problematic characters to be stripped from titles when they are being passed as URLs
+    $linkChars = array(' ','&');
+    $linkRplce = array('_','~N~');
 		
-		if (isset($_GET['subfolder'])) { echo str_replace('_',' ',$_GET['subfolder'])." - "; } // General content pages
-		if (isset($_GET['page'])) { echo str_replace('_',' ',str_replace('[plus]','+',$_GET['page']))." - "; }
+		if (isset($_GET['subfolder'])) { echo str_replace($linkRplce,$linkChars,$_GET['subfolder'])." - "; } // General content pages
+		if (isset($_GET['page'])) { echo str_replace($linkRplce,$linkChars,str_replace('[plus]','+',$_GET['page']))." - "; }
 		
 		if (isset($_GET['story'])) { // News stories
 			$news_title = explode ("~",$_GET['story']);
-			echo "News - ".str_replace('_',' ',$news_title[1])." - ";
+			echo "News - ".str_replace($linkRplce,$linkChars,$news_title[1])." - ";
 			}
 			
 		if (isset($intranet)) { echo "Intranet - "; }
@@ -36,7 +40,7 @@
 		
 		<link rel="stylesheet" type="text/css" media="screen" href="/styles/general.css"/>
     <?php if (!preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) { // IE 8 or earlier can't handle media queries - and as such is AN UTTER PAIN
-		  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 480px)" href="/styles/screen_lrg.css"/>';
+		  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 481px)" href="/styles/screen_lrg.css"/>';
     } else {
       echo '<link rel="stylesheet" type="text/css" href="/styles/screen_lrg.css"/>';
     } ?>
@@ -52,6 +56,7 @@
 		?>
     
 		<?php
+      include_once('parsing/Parsedown.php'); // Converts markdown text to HTML - see parsedown.org
       include('parsing/config_dcgs.php');
 		?>
     

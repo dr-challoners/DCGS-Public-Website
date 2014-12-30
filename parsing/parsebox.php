@@ -1,5 +1,4 @@
 <?php
-include_once('Parsedown.php'); //Converts markdown text to HTML - see parsedown.org
 
 // $dir is the folder that contains all the parts of the page - this must be passed on by the page that ParseBox is being used in
 if (isset($dir) && !isset($parts)) { 
@@ -24,8 +23,8 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
     $filevalue = strtolower($filevalue);
     // These three values are what you need - filename is optional
     $filedir   = $dir.'/'.$part;
-    $filevalue = explode("#",$filevalue);
-    $filetype  = strtolower($filetype);
+    $filevalue = explode("=",$filevalue);
+    if (isset($filetype)) { $filetype  = strtolower($filetype); }
       
     // Before we start, check to see if it's a SHARED file, in which case re-route to there
     if ($filevalue[0] == "shared" && isset($filename)) { // Shared files need to have the same title in their filename, so they can be matched - as such the ~SHARED pointer file *must* have a title
@@ -40,7 +39,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             $filename = $newfile[0];
             $file = explode('.',strtolower($newfile[1]));
             $filetype = $file[1];
-            $filevalue = explode("#",$filevalue);
+            $filevalue = explode("=",$filevalue);
           }
           else {
             $file = explode('.',$newfile[0]);
@@ -68,7 +67,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
           echo "<table>";
             $t = 0;
             foreach ($table as $row) {
-              //Turn blank lines in the CSV file into a border between rows: turn double blank lines into a second table
+              // Turn blank lines in the CSV file into a border between rows: turn double blank lines into a second table
               if (trim(trim($row),',') == '') {
                 if (!isset($linebreak)) { $linebreak = 1; }
                 else { $t = 0; unset($linebreak); echo "</table>\n<table>"; }
@@ -111,9 +110,38 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
         break;
       
         case "gallery":
-          if (isset($filename)) { echo "<h2>$filename</h2>"; }
+          if (isset($filename)) { // If the gallery has been given a name, then make it a dropdown
+            $gallery_id = strtolower(preg_replace("/[^A-Za-z0-9]/", '', $filename));
+					  echo '<div class="dropdown" name="gallery" id="'.$gallery_id.'">';
+						echo '<p class="linkout"><a href="javascript:boxOpen(\''.$gallery_id.'\',\'gallery\')">';
+            echo '<img src="/'.$codepath.'icons/Gallery.png" alt="Gallery: " class="icon" />';
+						echo $filename.'</a></p>';
+          }
 					include ('gallery.php');
+          if (isset($filename)) {
+            echo '<p class="closeBox"><a href="javascript:boxOpen(\''.$gallery_id.'\',\'gallery\')">&#x2715; Close</a></p>';
+            echo '</div>';
+          }
 				break;
+      
+        case "row":
+          // Not interested in using the filename as a title for this feature
+          echo '<table class="imgRow"><tr>';
+            $rowdir = $filedir;
+            $imgs = scandir($rowdir);
+            unset($filevalue); // Not going to need it now, and it will just mess up the image parsing
+            foreach ($imgs as $img) {
+              if (strpos($img,"~") !== false) {
+                $filedir = $rowdir.'/'.$img;
+                $filename = explode("~",$img)[1];
+                $filename = explode(".",$filename)[0];
+                echo '<td>';
+                  include('parsebox_image.php');
+                echo '</td>';
+              }
+            }
+          echo '</tr></table>';
+        break;
       
         case "blog":
           if (isset($filename)) { echo "<h2>$filename</h2>"; }
@@ -162,7 +190,6 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             case "txt": // This is the big one. First look through the text, see if there's any special ParseBox style urls that indicate specific ParseBox plugins - these are converted to html and then the whole lot is parsed as markdown.
               $content = file($filedir);
               $text = "";
-              //print_r($content);
               foreach ($content as $line) {
                 unset($name,$url,$iframe_type);
                 if (substr($line,0,2) == "~[") {
@@ -225,6 +252,10 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
 						          $icon = "Android app"; }
 					          elseif (strpos($url,"wolframalpha.com") !== false) {
 						          $icon = "Wolfram|Alpha"; }
+                    elseif (strpos($url,"codecademy.com") !== false) {
+						          $icon = "Codecademy"; }
+                    elseif (strpos($url,"khanacademy.org") !== false) {
+						          $icon = "Khan Academy"; }
                     elseif (strpos($url,"docs.google") !== false && strpos($url,"presentation") !== false) {
 						          $icon = "Google slides"; }
                     elseif (strpos($url,"docs.google") !== false && strpos($url,"spreadsheets") !== false) {
@@ -236,11 +267,11 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     elseif (strpos($url,"soundcloud.com") !== false) {
                       $icon = "SoundCloud audio"; }
                     // Now create the link
-                    $line  = '<a target="page'.mt_rand().'" href="'.$url.'">';
-					          $line .= '<p class="linkout">';
+					          $line  = '<p class="linkout">';
+                    $line .= '<a target="page'.mt_rand().'" href="'.$url.'">';
                     $line .= '<img src="/'.$codepath.'icons/'.str_replace("|","",$icon).'.png" alt="'.$icon.': " class="icon" />';
                     if (isset($name)) { $line .= $name; } else { $line .= 'Link'; } // There *should* be a name for this type of link, but prevent errors if there isn't
-                    $line .= '</p></a>';
+                    $line .= '</a></p>';
                     }
                   // If there's been the setup for an iframe, generate this now
                   if (isset($iframe_type)) {
@@ -249,13 +280,16 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     if (isset($name)) { // If the file to go in an iframe has been given a name, then make it a dropdown
                       $iframe_id = strtolower(preg_replace("/[^A-Za-z0-9]/", '', $name));
 					            $line .= '<div class="dropdown" name="'.$iframe_class.'" id="'.$iframe_id.'">';
-						          $line .= '<a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')"><p class="linkout">';
+						          $line .= '<p class="linkout"><a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')">';
                       $line .= '<img src="/'.$codepath.'icons/'.$iframe_type.'.png" alt="'.$iframe_type.': " class="icon" />';
-						          $line .= $name.'</p></a>';
+						          $line .= $name.'</a></p>';
                       }
                     $line .= '<iframe class="'.$iframe_class.'" src="'.$iframe_url.'" ';
                     $line .= 'frameborder="no" allowfullscreen></iframe>';
-                    if (isset($name)) { $line .= '</div>'; }
+                    if (isset($name)) {
+                      $line .= '<p class="closeBox"><a href="javascript:boxOpen(\''.$iframe_id.'\',\''.$iframe_class.'\')">&#x2715; Close</a></p>';
+                      $line .= '</div>';
+                      }
                     }
                   
                   }
@@ -265,26 +299,48 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
               preg_match_all('/\\\\\[.*?\\\\\]/',$text,$m_blok);
               preg_match_all('/\\\\\(.*?\\\\\)/',$text,$m_span);
               $m_blok = $m_blok[0]; $m_span = $m_span[0];
-              $m = 0; foreach ($m_span as $span) {
-                $text = str_replace($span,'~S'.$m.'~',$text);
-                $m++;
+              $ms = 0; foreach ($m_span as $span) {
+                $text = str_replace($span,'~S'.$ms.'~',$text);
+                $ms++;
                 }
-              $m = 0; foreach ($m_blok as $blok) {
-                $text = str_replace($blok,'~B'.$m.'~',$text);
-                $m++;
+              $mb = 0; foreach ($m_blok as $blok) {
+                $text = str_replace($blok,'~B'.$mb.'~',$text);
+                $mb++;
                 }
               // Maths is now gone - parse all the remaining text, then put the maths back in
-              //$Instance = new ParsedownExtra(); // Will experiment with this some other time
-              //$text = $Instance->text($text);
               $text = Parsedown::instance()->parse($text);
+              $katex = 0; // Count the number of instances of maths for KaTeX rendering
               $m = 0; foreach ($m_span as $span) {
+                //$katekID = mt_rand();
+                //$katekStart = "<span id=\"kx_s".$katekID."\">...</span><script>katex.render('";
+                //$katekEnd   = "', kx_s".$katekID.");</script>";
+                //$span = str_replace('\(',$katekStart,$span);
+                //$span = str_replace('\)',$katekEnd,$span);
+                //$span = str_replace("\\","\\\\",$span);
                 $text = str_replace('~S'.$m.'~',$span,$text);
                 $m++;
+                $katex++;
                 }
               $m = 0; foreach ($m_blok as $blok) {
                 $text = str_replace('~B'.$m.'~',$blok,$text);
                 $m++;
+                $katex++;
                 }
+              if ($katex > 0) { // Preps LaTeX for rendering with KaTeX
+                for ($k = 0; $k <= $katex; $k++) {
+                  $kID = mt_rand();
+                  $blokStart = "<p class=\"maths\" id=\"kx".$kID."\">...</p><script>katex.render('\\displaystyle ' + '";
+                  $blokEnd   = "', kx".$kID.");</script>";
+                  $text = str_replace_first("<p>\[",$blokStart,$text);
+                  $text = str_replace_first("\]</p>",$blokEnd,$text);
+                  $kID = mt_rand();
+                  $spanStart = "<span id=\"kx".$kID."\">...</span><script>katex.render('";
+                  $spanEnd   = "', kx".$kID.");</script>";
+                  $text = str_replace_first("\(",$spanStart,$text);
+                  $text = str_replace_first("\)",$spanEnd,$text);
+                }
+                $text = str_replace("\\","\\\\",$text);
+              }
               echo $text;
 					  break;
             
@@ -298,30 +354,44 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
             
             case "xls":	case "xlsx":
 					  case "ods": // Excel or OpenOffice spreadsheets
-              echo '<a href="/'.$rootpath.$filedir.'">';
-						  echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Spreadsheet.png\" alt=\"Spreadsheet: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+						  echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Spreadsheet.png" alt="Spreadsheet: " class="icon" />';
+						  echo $type[0]."</a></p>";
 					  break;
             
             case "doc":	case "docx":
 					  case "odt": // Word or OpenOffice document
-              echo '<a href="/'.$rootpath.$filedir.'">';
-					  	echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Document.png\" alt=\"Document: \" class=\"icon\" />";
-					  	echo $type[0]."</p></a>";
+					  	echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Document.png" alt="Document: " class="icon" />';
+					  	echo $type[0]."</a></p>";
             break;
             
             case "ppt":	case "pptx":
 					  case "odp": // PowerPoint or OpenOffice presentation
-              echo '<a href="/'.$rootpath.$filedir.'">';
-              echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/Presentation.png\" alt=\"Presentation: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Presentation.png" alt="Presentation: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "psd": // Adobe Photoshop
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Adobe Photoshop.png" alt="Adobe Photoshop: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "ai": // Adobe Illustrator
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Adobe Illustrator.png" alt="Adobe Illustrator: " class="icon" />';
+						  echo $type[0]."</a></p>";
+					  break;
+            
+            case "ma": case "mb": // Autodesk Maya file
+              echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'"><img src="/'.$codepath.'icons/Autodesk Maya.png" alt="Autodesk Maya: " class="icon" />';
+						  echo $type[0]."</a></p>";
 					  break;
             
             case "pdf":
-              echo '<a href="/'.$rootpath.$filedir.'" target="_BLANK">'; // This will open in a new tab
-						  echo "<p class=\"linkout\"><img src=\"/".$codepath."icons/PDF.png\" alt=\"PDF document: \" class=\"icon\" />";
-						  echo $type[0]."</p></a>";
+              // This will open in a new tab
+						  echo '<p class="linkout"><a href="/'.$rootpath.$filedir.'" target="_BLANK"><img src="/'.$codepath.'icons/PDF.png" alt="PDF document: " class="icon" />';
+						  echo $type[0].'</a></p>';
 					  break;
+            
+            
             
             case "php":
 					  case "html": case "htm":

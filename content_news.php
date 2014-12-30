@@ -18,13 +18,24 @@ if ($get_story != "index.php") {
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
-  <h2 class="news">News</h2>
+ <!-- <h2 class="news">News</h2> -->
 
-<?php
+<?php // This is the navigation menu
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
-$newsposts = array_slice($newsposts,0,15);
-echo "<ul class=\"intranet\" id=\"n3\">"; // Although this is not the intranet, there's already a style that does exactly the same thing that's needed here.
+array_pop($newsposts);
+array_pop($newsposts); // Removes . and .. from the array
+$archiveMonths = array();
 foreach ($newsposts as $row) {
+  $month = substr($row,0,6);
+  if (!in_array($month,$archiveMonths)) { // If this is the first entry in a given month, then make the title and dropdown for that month
+    if (!empty($archiveMonths)) { echo '</ul>'; } // Close the previous dropdown if there was one
+    array_push($archiveMonths,$month);
+    $monthTitle = date("F Y",mktime(0,0,0,substr($month,4,2),1,substr($month,0,4)));
+    echo '<h2><a href="javascript:openCloseAll(\''.$month.'\')">'.$monthTitle.'</a></h2>';
+    echo '<ul name="submenu" id="'.$month.'"';
+      if ($month == substr($get_story,0,6)) { echo 'style="display:block;"'; }  // Keep the menu open if it's for the same month as the story being displayed
+    echo '>';
+  }
 		$component = explode("~",$row);
 		echo "<li>";
 			echo "<a href=\"".$component[0]."~".str_replace(' ','_',$component[1]);
@@ -36,7 +47,6 @@ foreach ($newsposts as $row) {
 			echo "</a>";
 		echo "</li>";
 	}
-echo "</ul>";
 ?>
 
 </div>
@@ -46,7 +56,7 @@ echo "</ul>";
 $component = explode("~",$get_story);
 
 echo "<h1>".$component[1]."</h1>";
-echo "<h3 class=\"newsdate\">".date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4)))."</h3>";
+echo '<h3>'.date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).'</h3>';
 
 $parsediv = 1;
 $dir = 'content_news/'.$get_story;
@@ -68,10 +78,12 @@ echo '<div class="sharing lrg">';
   
 echo '</div>';
   
-// If an author has been given, display their name
+// If an author (and an editor) has been given, display their name(s)
 if (isset($component[2])) {
-  echo "<p class=\"credit\">".$component[2]."</p>";
-  }
+  echo '<p class="credit">'.$component[2];
+  if (isset($component[3])) { echo '<br /><span>Edited by '.$component[3].'</span>'; }
+  echo '</p>'; }
+
 
 ?>
 

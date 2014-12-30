@@ -65,42 +65,83 @@ else { //Otherwise we're looking through folders - carry on doing so
 //Take one folder at a time and look at the files in it
 $folder = array_shift($folders);
 $folder = $box->get_folder_details($folder);
+$folder = $folder['item_collection']['entries'];
+$folder = array_reverse($folder);
   
- // print_r($folder);
- // break;
+ //print_r($folder);
+ //break;
   
 echo "<p>Current folder: <b>".$folder['name']."</b></p>";
 echo "<p>Entries found in this folder:</p><ul>";
 
-//Looks at each entry in a folder and turns it into a line of data giving ID, last modification date and relative path
-foreach($folder['item_collection']['entries'] as $entry) {
-  echo "<li>".$entry['name']."</li>";
-  if($entry['type'] == "folder") {
-    $subfolder = $box->get_folder_details($entry['id']);
-    $path_dirs = $subfolder['path_collection']['entries'];
-    $path = array();
-    foreach ($path_dirs as $dir) {
-      $path[] = $dir['name'];
+unset ($oldEntries);
+if (file_exists('../sync_logs/'.$initial.'_current.txt')) { // This is to check to see if the folders we're about to inspect have actually been modified
+  $oldEntries = file('../sync_logs/'.$initial.'_current.txt');
+}
+  
+$p = 1;
+// This counts the number of entries that have been looked at, and puts a limit of 30 on if a limit has been asked for
+// This is for the news section, to allow archived stories to be retained but without constantly looking to update them
+  
+// Looks at each entry in a folder and turns it into a line of data giving ID, last modification date and relative path
+foreach($folder as $entry) {
+  echo '<li>'.$entry['name'];
+  if ($entry['type'] == "folder") {
+    // First compile some details to use
+    if ((isset($_GET['partial']) && $p <= 20) || !isset($_GET['partial'])) {
+      $subfolder = $box->get_folder_details($entry['id']);
+      $path_dirs = $subfolder['path_collection']['entries'];
+      $path = array();
+      foreach ($path_dirs as $dir) {
+        $path[] = $dir['name'];
+        }
+      $path[] = $subfolder['name'];
+      $path = implode("/",$path);
+      $path = substr($path,33); // Cuts out the 'All files/Public Website Content/' from Box at the beginning
+      $entryLine = $subfolder['id']."|".$subfolder['modified_at']."|".$subfolder['type']."|".$path;
+
+      // Now check to see if the folder has actually been modified - this includes its contents
+      // If it hasn't been modified, then we don't need to waste time searching through it
+      if (isset($oldEntries) && strpos(implode('||',$oldEntries),$entryLine) !== false) {
+        // Even though it hasn't been modified, if its entry (and sub-entries) aren't in the file they'll be deleted, so copy them in
+        foreach ($oldEntries as $row) {
+          if (strpos($row,$path) !== false) { fwrite($checkfile,$row); }
+        }
+        echo " - NOT MODIFIED";
+      } else {
+        fwrite($checkfile,$entryLine.PHP_EOL);
+        $folders[] = $entry['id']; // It's a folder, so add it to the list to look through in a bit
       }
-    $path[] = $subfolder['name'];
-    $path = implode("/",$path);
-    $path = substr($path,33); //Cuts out the 'All files/Public Website Content/' from Box at the beginning
-    fwrite($checkfile,$subfolder['id']."|".$subfolder['modified_at']."|".$subfolder['type']."|".$path.PHP_EOL);
-    $folders[] = $entry['id']; //It's a folder, so add it to the list to look through in a bit
+    } else {
+      // This means a partial search has been asked for and the first 30 entries have been found - now put the rest of the unchecked content into the 'latest' file
+      // This partial search process has been designed exclusively with the news section in mind - it won't fit any other section, so don't try it!
+      foreach ($oldEntries as $row) {
+        if (strpos($row,$entry['id']) !== false) {
+          $path = explode('|',$row)[3];
+          $path = trim($path);
+          break;
+        }
+      }
+      foreach ($oldEntries as $row) {
+        if (strpos($row,$path) !== false) { fwrite($checkfile,$row); }
+      }
+      echo ' - UNCHECKED';
     }
-  else {
+  } else {
     $file = $box->get_file_details($entry['id']);
     $path_dirs = $file['path_collection']['entries'];
     $path = array();
     foreach ($path_dirs as $dir) {
       $path[] = $dir['name'];
-      }
+    }
     $path[] = $file['name'];
     $path = implode("/",$path);
     $path = substr($path,33); //Cuts out the 'All files' from Box at the beginning
     fwrite($checkfile,$file['id']."|".$file['modified_at']."|".$file['type']."|".$path.PHP_EOL);
-    }
   }
+  echo '</li>';
+  $p++;
+}
 
 echo "</ul>";
 
@@ -108,14 +149,18 @@ if (count($folders) > 1) { echo "<p><b>".count($folders)."</b> folders currently
 elseif (count($folders) == 1) { echo "<p><b>1</b> folder currently in the queue.</p>"; }
 else { echo "<p>All folders and files found: now processing changes.</p>"; }
 
-//If there's more folders still to look through, repeat the process - otherwise go to the processing stage
+// If there's more folders still to look through, repeat the process - otherwise go to the processing stage
 $folders = implode(",",$folders);
 if ($folders != "") {
-  echo "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0;URL=./system_update.php?initial=".$initial."&folders=".$folders;
-  if ($_GET['reset'] != "") { echo "&reset=y"; } //Keep track of the reset command for later (we have the reset after the file structure has been logged, to reduce downtime after file deletion).
-  echo "\">";
+  // Add in the DEBUG lines when debugging, remove the LIVE lines
+  //echo '<p><a href="'; /* DEBUG */
+  echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL='; /* LIVE */
+  echo './system_update.php?initial='.$initial.'&folders='.$folders;
+  if ($_GET['reset'] != "") { echo "&reset=y"; } // Keep track of the reset command for later (we have the reset after the file structure has been logged, to reduce downtime after file deletion).
+  echo '">'; /* LIVE */
+  //echo '">Click here</a> to proceed.</p>'; /* DEBUG */
   }
-elseif ($_GET['reset'] != "") { //If a reset instruction has been given, delete the folders and the current log so that all the files can just be re-uploaded. A mildly drastic measure, but it's something to fall back on in case of a glitch.
+elseif ($_GET['reset'] != "") { // If a reset instruction has been given, delete the folders and the current log so that all the files can just be re-uploaded. A mildly drastic measure, but it's something to fall back on in case of a glitch.
   $rootfolder = $box->get_folder_details($initial);
   $initpath = "../";
   foreach ($rootfolder[path_collection][entries] as $d) {

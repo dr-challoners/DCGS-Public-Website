@@ -24,14 +24,13 @@ div.parsebox h1 { margin: 18px 0 14px 0; }
 div.parsebox h2 { margin: 0 0 12px 0; }
 div.parsebox h3, div.parsebox h4 { margin: 0 0 8px 0; }
 
-div.parsebox p {
+div.parsebox p, div.parsebox ul, div.parsebox ol {
   font-size: 14px;
   line-height: 22px; margin: 0 0 16px 0;
   }
 
-div.parsebox ul, div.parsebox ol {
-  margin: 0 0 16px 32px;
-  }
+div.parsebox ul, div.parsebox ol { margin-left: 30px; }
+.parsebox li { padding-left: 6px; }
 
 div.parsebox a {
   font-weight: bold;
@@ -62,11 +61,19 @@ div.parsebox table td {
     padding: 4px;
     vertical-align: top;
     }
-div.parsebox tr.alt { background-color: #f7f7f7; }
+div.parsebox tr:nth-child(2n+1) { background-color: #f7f7f7; }
 div.parsebox tr.breakrow {
     border-top: 1px solid;
     border-color: #cccccc;
     }
+
+.parsebox table.imgRow td {
+  padding: 0px 5px;
+  vertical-align: middle;
+  }
+.parsebox table.imgRow td:first-child { padding: 0 5px 0 0; }
+.parsebox table.imgRow td:last-child  { padding: 0 0 0 5px; }
+.parsebox table.imgRow img { width: 100%; }
 
 div.parsebox code {
     display: block; padding: 5px 10px; margin: 16px 0;
@@ -74,9 +81,18 @@ div.parsebox code {
     border: 1px dotted #bbbbbb; background-color: #f7f7f7;
     }
 
+.parsebox .linkout a { display: block;}
 div.parsebox p.linkout img.icon {
     <?php echo "background-color: ".$colour.";\n"; ?>
-    vertical-align: middle; margin-right: 8px;
+    height: 26px;
+    vertical-align: middle; margin-right: 10px;
+    }
+.parsebox .linkout a:hover {
+    margin: -1px;
+    border: 1px solid #dddddd;
+    background-color: #fdfdfd;
+    <?php echo "color: ".$colour.";\n"; ?>
+    text-decoration: none;
     }
 
 /* iFrames and Dropdowns */
@@ -85,48 +101,73 @@ div.parsebox iframe { width: 100%; margin: 16px 0px 16px 0px; }
 div.parsebox iframe.youtubevideo { height: 30em; }
 div.parsebox iframe.googleform {
   height: 19em; margin-bottom: 20px;
-  border-radius: 2px; box-shadow: 0px 4px 10px #cccccc;
   }
 
-div.parsebox div.dropdown iframe { display: none; }
-div.parsebox div.open iframe { display: block; margin-top: 16px; }
+div.parsebox div.dropdown iframe, .parsebox div.dropdown div.gallery { display: none; }
+div.parsebox div.open iframe, .parsebox div.open div.gallery { display: block; margin-top: 16px; }
 div.parsebox div.open p.linkout { display: none; }
+.parsebox p.closeBox {
+    display: none;
+    font-size: 11px;
+    text-align: right; margin-top: -14px;
+    font-weight: bolder; text-transform: uppercase;
+    color: #888888;
+    }
+    .parsebox div.open p.closeBox { display: block; }
+    p.closeBox a { color: inherit; }
+    p.closeBox a:hover {
+        text-decoration: none;
+        <?php echo "color: ".$colour.";\n"; ?>
+    }
 
 /* General images */
 
-div.parsebox img.mid {
-    display: block;
-    margin: 16px auto;
-    max-width: 100%;
-    }
-div.parsebox img.wide {
-  width: 100%;
-  margin: 0 0 16px 0;
-  }
-div.parsebox img.left, img.right {
-    width: 48%;
-    margin: 8px 0 16px 0;
-    }
-div.parsebox img.left {
-    margin-right: 2%;
-    float: left;
-    }
-div.parsebox img.right {
-    margin-left: 2%;
-    float: right;
-    }
-
-div.parsebox a.imagelink img {
+.parsebox div.imgDiv img {
+    width: 100%;
     outline: 6px solid transparent;
     outline-offset: -6px;
     transition: outline-color 0.2s;
     -webkit-transition: outline-color 0.2s;
     }
-    <?php echo "div.parsebox a.imagelink img:hover { outline-color: ".$colour."; }\n"; ?>
+    <?php echo ".parsebox div.imgDiv img:hover { outline-color: ".$colour."; }\n"; ?>
 
-/* Galleries */
+.parsebox div.imgDiv p, .parsebox div.gallery p {
+    position: absolute;
+    float: right; margin: -24px 0 0 3px;
+    font-size: 11px; font-weight: bold;
+    color: white;
+    text-shadow:
+     -1px -1px 0 #000,
+      1px -1px 0 #000,
+     -1px  1px 0 #000,
+      1px  1px 0 #000;
+    }
 
-div.parsebox div.gallery { margin: 16px 0px 4px -12px; }
+.parsebox div.mid {
+    display: block;
+    margin: 16px auto;
+    max-width: 66.7%;
+    }
+.parsebox div.wide {
+  width: 100%;
+  margin: 0 0 16px 0;
+  }
+.parsebox div.left, div.right {
+    width: 40%;
+    margin: 8px 0;
+    }
+.parsebox div.left {
+    margin-right: 2%;
+    float: left; clear: left;
+    }
+.parsebox div.right {
+    margin-left: 2%;
+    float: right; clear: right;
+    }
+
+/* Galleries - note the styling for the image credit is above */
+
+div.parsebox div.gallery { margin: 16px 0 4px -12px; }
 
 div.parsebox div.photostub {
     float: left;
@@ -173,3 +214,7 @@ div.parsebox div.blogimg a {
     -webkit-transition: border-color 0.2s;
     }
     <?php echo "div.parsebox div.blogimg a:hover { border-color: ".$colour."; }\n"; ?>
+
+/* Maths with KaTeX */
+
+.parsebox p.maths { text-align: center; }
