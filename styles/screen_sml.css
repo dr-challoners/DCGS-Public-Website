@@ -212,10 +212,68 @@ h2.termname:before { content: "+ "; }
    div.open table.eventscores { display: block; }
 
 .rgt { float: right; }
-h3.housearchive {
-   margin: 15px 0!important; 
-   border: solid #2358A3;
-   border-left: 0; border-right: 0;
-   height: 1.5em;
+
+div.podium { margin: 0 5%; }
+
+.podium div.block {
+   width: 32%; float: left;
+   text-align: center;
+}
+   .podium div.block:nth-child(2) { margin: 0 2%; }
+
+.podium div.block p {
+   font-size: 3em;
+   margin-bottom: 0;
+}
+   .podium div.block#first p { font-weight: bold; }
+.podium div.block h1 { font-size: 5em; }
+
+.podium div.block#secnd { padding-top: 3em; }
+.podium div.block#third { padding-top: 6em; }
+.podium div.block#first > div { height: 12em; }
+.podium div.block#secnd > div { height: 9em; }
+.podium div.block#third > div { height: 6em; }
+
+.podium > h1 {
+   text-align: center;
+   font-size: 6em;
+}
+
+.podium > p {
+   text-indent: -4em;
+   padding-left: 4em;
+}
+   .podium > p span {
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
    }
-   h3.housearchive a:hover { text-decoration: none!important; }
+
+div.honourRoll {
+   clear: left;
+   padding-top: 1em;
+   margin-top: -1em;
+   }
+
+div.honourRoll h3 {
+   padding: 0.2em;
+   margin: 0!important;
+}
+
+div.honourRoll p {
+   margin: 0!important;
+   color: #000000;
+   background-color: #ffffff;
+}
+   div.honourRoll p span {
+      font-weight: bold;
+   }
+
+.honourRoll div.champion {
+   width: 65%;
+   float: left;
+}
+   .honourRoll div.champion h3 { font-weight: bold; }
+
+.honourRoll div.runnerUp {
+   width: 34%; margin-bottom: 1em;
+   float: right;
+}

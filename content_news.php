@@ -42,6 +42,9 @@ foreach ($newsposts as $row) {
 			if (isset($component[2])) {
 				echo "~".str_replace(' ','_',$component[2]);
 				}
+      if (isset($component[3])) {
+				echo "~".str_replace(' ','_',$component[3]);
+				}
 			echo "\">";
 			echo $component[1];
 			echo "</a>";
