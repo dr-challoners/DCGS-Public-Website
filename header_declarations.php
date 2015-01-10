@@ -1,5 +1,5 @@
 <?php 
-  echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+  echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  xmlns:xml="http://www.w3.org/XML/1998/namespace">
@@ -45,7 +45,7 @@
       echo '<link rel="stylesheet" type="text/css" href="/styles/screen_lrg.css"/>';
     } ?>
 		
-		<?php //Dirty rotten browser hacks
+		<?php // Dirty rotten browser hacks
 			if(strpos($_SERVER['HTTP_USER_AGENT'],"Trident") != "") { //Hits IE by spotting the IE rendering engine
 				echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"/styles/screen_lrg_ie.css\"/>";
 				}

@@ -21,7 +21,7 @@ if ($get_story != "index.php") {
  <!-- <h2 class="news">News</h2> -->
 
 <?php // This is the navigation menu
-$newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
+$newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
 array_pop($newsposts);
 array_pop($newsposts); // Removes . and .. from the array
 $archiveMonths = array();
