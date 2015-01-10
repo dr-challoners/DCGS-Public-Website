@@ -1,0 +1,20 @@
+.screen {
+  margin: 30px 40px;
+  font-size: 150%;
+}
+
+.parsebox {
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+  -moz-column-count: 2; /* Firefox */
+  column-count: 2;
+
+  -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+  -moz-column-gap: 40px; /* Firefox */
+  column-gap: 40px;
+}
+  .parsebox p.linkout, .parsebox div.imgDiv p, .parsebox iframe { display: none; }
+  .parsebox div.dropdown div.gallery { display: block!important; }
+
+.parsebox p {
+  font-size: 40px;
+}

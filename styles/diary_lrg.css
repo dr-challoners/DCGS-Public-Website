@@ -116,12 +116,11 @@ div.day h3 {
     }
 p.details {
     clear: both;
-    margin: 0px; padding: 0px 160px 0px 119px;
+    margin: 0px; padding: 0px 60px 0px 119px;
     }
     p.details span {
-        font-weight: bold; color: #ffffff;
-        padding: 1px 6px 2px 6px;
+        font-weight: bold;
     }
-    span#WON { background-color: #247703; }
-    span#DRAW { background-color: #E87B19; }
-    span#LOST { background-color: #D32918; }
+    span#won { color: #247703; }
+    span#drew { color: #E87B19; }
+    span#lost { color: #D32918; }
