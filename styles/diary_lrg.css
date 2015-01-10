@@ -121,6 +121,6 @@ p.details {
     p.details span {
         font-weight: bold;
     }
-    span#won { color: #247703; }
-    span#drew { color: #E87B19; }
-    span#lost { color: #D32918; }
+    span#win { color: #247703; }
+    span#draw { color: #E87B19; }
+    span#loss { color: #D32918; }

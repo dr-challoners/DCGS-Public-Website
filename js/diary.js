@@ -61,15 +61,19 @@ function __OutputFixtures(fixtures) {
               if (m < eventResults.length && eventResults[m].trim()) {
                 var scores = eventResults[m].trim().split("-");
                 var outcome = "";
-                if (scores[0] > scores[1]) { outcome = "won"; }
-                if (scores[0] < scores[1]) { outcome = "lost"; }
-                if (scores[0] === scores[1]) { outcome = "drew"; }
+                if (scores[0] > scores[1]) { outcome = "win"; }
+                if (scores[0] < scores[1]) { outcome = "loss"; }
+                if (scores[0] === scores[1]) { outcome = "draw"; }
                 if (outcome) {
-                  matchLine += " <span id='" + outcome + "'>(" + outcome + " ";
+                  matchLine += " <span id='" + outcome + "'>(";
                 } else {
                 matchLine += " <span>(";
                 }
-                matchLine += eventResults[m].trim() + ")</span>";
+                matchLine += eventResults[m].trim();
+                if (outcome) {
+                  matchLine += " " + outcome;
+                }
+                matchLine += ")</span>";
               }
               m++;
               if (m < eventTeams.length-1) {
