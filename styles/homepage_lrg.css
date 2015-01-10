@@ -23,12 +23,12 @@ div.magazine { margin-top: 5px; }
     div.magazine h2 { line-height: 26px; padding: 10px 0px 8px 0px; }
     div.magazine hr { clear: left; }
 
-div.big, div.std, div.non, div.bar {
+div.big, div.std, div.non, div.barBlock {
     overflow: hidden; 
     transition: background-color 0.2s, color 0.2s;
     -webkit-transition: background-color 0.2s, color 0.2s;
     }
-    div.big:hover, div.std:hover, div.non:hover, div.non a:hover, div.bar:hover { background-color: #2358A3; color: #ffffff; }
+    div.big:hover, div.std:hover, div.non:hover, div.non a:hover, div.barBlock:hover { background-color: #2358A3; color: #ffffff; }
 
 div.magazine .newsimg {
     display: block; float: left;
@@ -51,13 +51,13 @@ div.non {
     }
     div.non p { margin-top: 0px; }
 
-div.bar {
-    width: 170px; margin: 4px 10px 14px 0px;
+div.barBlock {
+    width: 170px; margin: 0 0 12px 10px;
     float: left;
     }
-    div.bar#end { margin-right: 0px; }
-    div.bar h3 { clear: left; line-height: 24px; padding: 8px 12px 8px 12px; }
-    div.bar .newsimg { height: 120px; width: 170px; }
+    div.bar > a:first-child > div.barBlock { margin-left: 0; }
+    div.barBlock h3 { clear: left; line-height: 24px; padding: 8px 12px 8px 12px; }
+    div.barBlock .newsimg { height: 120px; width: 170px; }
 
 /* Twitter */
 div.twitter-header {

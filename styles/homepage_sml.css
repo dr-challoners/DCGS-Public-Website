@@ -31,7 +31,7 @@ div.magazine a { color: #000000; text-decoration: none; }
 
 div.non { background-color: #F7F7F7; padding: 0.1em 1.5em 1em 1.5em;}
 
-div.big, div.std, div.bar { height: 13.5em; }
+div.big, div.std, div.barBlock { height: 13.5em; }
 
 div.newsimg {
     float: left; height: 13.5em;

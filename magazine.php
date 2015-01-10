@@ -22,23 +22,23 @@ $non = ""; for ($non = 0; $non <= 12;) { //Mark posts that don't have images
 		}
 	$non++;
 	}
-$odd = ""; for ($non = 0; $non <= 12;) { //Then mark appropriate neighbours to each post
-	if (substr($newsposts[$non],0,4) == "NON~") { //Only perform a check if the current post has no image
-		if ($non == 0 && (substr($newsposts[$non+1],0,4) != "NON~")) { //If the first story doesn't have an image and the second one does, match up the second one
+$odd = ""; for ($non = 0; $non <= 12;) { // Then mark appropriate neighbours to each post
+	if (substr($newsposts[$non],0,4) == "NON~") { // Only perform a check if the current post has no image
+		if ($non == 0 && (substr($newsposts[$non+1],0,4) != "NON~")) { // If the first story doesn't have an image and the second one does, match up the second one
 			$newsposts[$non+1] = "NON~".$newsposts[$non+1];
 			}
-		elseif ($non == 1 && (substr($newsposts[$non-1],0,4) != "NON~") && (substr($newsposts[$non+1],0,4) != "NON~")) { //If the second story doesn't have an image and the first and third do, match up the third
+		elseif ($non == 1 && (substr($newsposts[$non-1],0,4) != "NON~") && (substr($newsposts[$non+1],0,4) != "NON~")) { // If the second story doesn't have an image and the first and third do, match up the third
 			$newsposts[$non+1] = "NON~".$newsposts[$non+1];	
 			}
-		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) == "NON~") && (substr($newsposts[$non+1],0,4) == "NON~")) { //We're in the middle of a run, so keep switching odd/even tracker
+		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) == "NON~") && (substr($newsposts[$non+1],0,4) == "NON~")) { // We're in the middle of a run, so keep switching odd/even tracker
 			if ($odd == 0) { $odd = 1; } else { $odd = 0; }
 			}
-		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) == "NON~") && (substr($newsposts[$non+1],0,4) != "NON~") && $odd == 1) { //We've reached the end of a run, and there's been an odd number of stories with no images so far, so add one more
+		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) == "NON~") && (substr($newsposts[$non+1],0,4) != "NON~") && $odd == 1) { // We've reached the end of a run, and there's been an odd number of stories with no images so far, so add one more
 			$newsposts[$non+1] = "NON~".$newsposts[$non+1];
 			$odd = 0;
 			}
-		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) != "NON~") && (substr($newsposts[$non+1],0,4) != "NON~")) { //It's a news post with no image all on its own
-			$plusminus = rand(0,1); //This randomly picks a story either side to match
+		elseif ($non > 0 && (substr($newsposts[$non-1],0,4) != "NON~") && (substr($newsposts[$non+1],0,4) != "NON~")) { // It's a news post with no image all on its own
+			$plusminus = rand(0,1); // This randomly picks a story either side to match
 			if ($plusminus == 0) { $plusminus = -1; }
 			$newsposts[$non+$plusminus] = "NON~".$newsposts[$non+$plusminus];
 			}
@@ -46,8 +46,8 @@ $odd = ""; for ($non = 0; $non <= 12;) { //Then mark appropriate neighbours to e
 	$non++;
 	}
 	
-if ($override != 1) { //As long as there's not an override happening
-$a = 0; $big = ""; while ($big == "") { //Find the first post with an image and mark it as the leading 'big' story
+if ($override != 1) { // As long as there's not an override happening
+$a = 0; $big = ""; while ($big == "") { // Find the first post with an image and mark it as the leading 'big' story
 	if (substr($newsposts[$a],0,4) != "NON~") {
 		$newsposts[$a] = "BIG~".$newsposts[$a];
 		$big++;
@@ -57,32 +57,29 @@ $a = 0; $big = ""; while ($big == "") { //Find the first post with an image and 
 	}
 	
 $runs = array();
-$bar = ""; for ($bar = 0; $bar <= 8;) { //Find every run of four stories all with images by first finding the key of the first image in each run
-	if (substr($newsposts[$bar],3,1) != "~" && substr($newsposts[$bar+1],3,1) != "~" && substr($newsposts[$bar+2],3,1) != "~" && substr($newsposts[$bar+3],3,1) != "~") { //They have neither a NON~ nor BIG~ marker
+for ($bar = 0; $bar < 8; $bar++) { // Find every run of four stories all with images by first finding the key of the first image in each run
+	if (substr($newsposts[$bar],3,1) != "~" && substr($newsposts[$bar+1],3,1) != "~" && substr($newsposts[$bar+2],3,1) != "~" && substr($newsposts[$bar+3],3,1) != "~") { // They have neither a NON~ nor BIG~ marker
 		array_push($runs,$bar);
 		}
-	$bar++;
 	}
-	
-$barstart = array_rand($runs); //Pick one possible starting point at random
-if ($barstart != "") { $barstart = $runs[$barstart]; }
 
-if ($barstart != "") { //Provided there's room for a run (and there should be, otherwise you should be taking more photos!), this marks out the run
-	$plus = ""; for ($plus = 0; $plus <= 3;) {
+shuffle($runs); // Pick one possible starting point at random
+$barstart = array_shift($runs); 
+
+if ($barstart != "") { // Provided there's room for a run (and there should be, otherwise you should be taking more photos!), this marks out the run
+	for ($plus = 0; $plus <= 3; $plus++) {
 		$barpoint = $barstart+$plus;
 		$newsposts[$barpoint] = "BAR~".$newsposts[$barpoint];
-		$plus++;
 		}
 	}
 
-$std = ""; for ($std = 0; $std <= 12;) { //Finally, mark the remaining posts as being normal (this will make reading them for output easier)
+for ($std = 0; $std <= 12; $std++) { // Finally, mark the remaining posts as being normal (this will make reading them for output easier)
 	if (substr($newsposts[$std],3,1) != "~") {
 		$newsposts[$std] = "STD~".$newsposts[$std];
 		}
-	$std++;
 	}
 	
-//AFTER ALL THAT, LET'S DISPLAY SOME CONTENT!
+// AFTER ALL THAT, LET'S DISPLAY SOME CONTENT!
 
 function word_cutoff($text, $length) {
     if(strlen($text) > $length) {
@@ -185,15 +182,15 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 		$npic++; $count++;
 		}
 	if ($component[0] == "BAR") {
-		echo "<a href=\"news/".$file."\">";
-		echo "<div class=\"bar\"";
-			if ($bcount == 3) { echo " id=\"end\""; }
-		echo ">";
+    if ($bcount == "") { echo '<div class="bar">'; }
+		echo '<a href="news/'.$file.'">';
+		echo '<div class="barBlock">';
 			echo "<div class=\"newsimg\" style=\"background-image: url('/content_news/".$image."');\"></div>";
-			echo "<h3>".$component[2]."</h3>";
-			echo "<p class=\"sml\"><em>".$date."</em></p>"; //Going for just the date on these story stubs
-		echo "</div>";
-		echo "</a>";
+			echo '<h3>'.$component[2].'</h3>';
+			echo '<p class="sml"><em>'.$date.'</em></p>';
+		echo '</div>';
+		echo '</a>';
+    if ($bcount == 3) { echo '<hr /></div>'; }
 		$bcount++; $npic = 0; $count++;
 		}
 	}
