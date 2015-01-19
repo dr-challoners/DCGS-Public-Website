@@ -116,11 +116,7 @@
 						foreach ($newsposts as $row) {
 							$component = explode("~",$row);
 							echo "<li>";
-              echo "<a href=\"/news/".$component[0]."~".$component[1];
-							if ($component[2] != "") {
-								echo "~".$component[2];
-								}
-							echo "\">";
+              echo '<a href="/news/'.str_replace(" ","_",$row).'">';
 							echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
 							echo "</a>";
 							echo "</li>";

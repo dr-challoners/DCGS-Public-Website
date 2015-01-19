@@ -80,7 +80,7 @@ if (file_exists('../sync_logs/'.$initial.'_current.txt')) { // This is to check 
 }
   
 $p = 1;
-// This counts the number of entries that have been looked at, and puts a limit of 30 on if a limit has been asked for
+// This counts the number of entries that have been looked at, and puts a limit on if a limit has been asked for
 // This is for the news section, to allow archived stories to be retained but without constantly looking to update them
   
 // Looks at each entry in a folder and turns it into a line of data giving ID, last modification date and relative path
@@ -182,19 +182,19 @@ else {
   $p = $_GET['processing']; //Each of the processing stages needs to be cycled through in the correct order to avoid directory discrepancies
   if($p < 10) { echo "<h2>Processing files</h2>"; } else { echo "<h2>Sync complete</h2>"; }
   if($p == 5 || $p == 6) {
-    if(isset($_GET['file'])) { $f = $_GET['file']; } else { $f = 0; } $f_end = $f+5; //Setting up a file count for steps 5 and 6
+    if(isset($_GET['file'])) { $f = $_GET['file']; } else { $f = 0; } $f_end = $f+5; // Setting up a file count for steps 5 and 6
     }
   
-  if(!file_exists("../sync_logs/".$initial."_current.txt")) { //Make the 'current' file if this is the first time working with this directory
+  if(!file_exists("../sync_logs/".$initial."_current.txt")) { // Make the 'current' file if this is the first time working with this directory
     fopen("../sync_logs/".$initial."_current.txt", "x+");
     }
   $current = file("../sync_logs/".$initial."_current.txt");
   $latest = file("../sync_logs/".$initial."_latest.txt");
   
-  $additions = array_diff($latest,$current); //Also returns all modified files 
-  $deletions = array_diff($current,$latest); //Also returns all modified files, which will need to be ignored as they're dealt with in additions
-  $deletions = array_values($deletions); //Resets the keys to allow counting through the array, to break up the number of files being processed at once
-  $additions = array_reverse($additions); //Allows subdirectories to be modified before directories
+  $additions = array_diff($latest,$current); // Also returns all modified files 
+  $deletions = array_diff($current,$latest); // Also returns all modified files, which will need to be ignored as they're dealt with in additions
+  $deletions = array_values($deletions); // Resets the keys to allow counting through the array, to break up the number of files being processed at once
+  $additions = array_reverse($additions); // Allows subdirectories to be modified before directories
   
   //print_r($additions);
   //print_r($deletions);
@@ -237,7 +237,7 @@ else {
       elseif(dirname($line[3]) != dirname($oldline[3]) && (($p == 4 && $line[2] == "file") || ($p == 7 && $line[2] == "folder"))) { //File or folder moved
         $oldpath = "../".rtrim($oldline[3]);
         $newpath = "../".rtrim($line[3]);
-        $oldpath_modname = "../".rtrim(dirname($oldline[3]))."/".rtrim(basename($line[3]));
+        //$oldpath_modname = "../".rtrim(dirname($oldline[3]))."/".rtrim(basename($line[3]));
         if($line[2] == "file") {
           if(file_exists($oldpath)) {
             copy($oldpath,$newpath);
