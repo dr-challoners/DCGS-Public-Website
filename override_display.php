@@ -1,3 +1,16 @@
+<style>
+  div.override#travel { 
+    padding-bottom: 4px; 
+    border-color: #165d13; 
+    background-image: none;
+  }
+  div.override#travel h1 { 
+    background-image: url(../content_system/override/travel_icon.png); 
+    color: #ffffff; 
+    background-color: #165d13; 
+  }
+</style>
+
 <?php include_once('parsing/Parsedown.php');
 
 if (isset($_GET['override'])) { $status = array($_GET['override']); } else { $status = array(); }

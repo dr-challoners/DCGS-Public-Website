@@ -50,6 +50,7 @@ if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['u
   echo '</div>';
 }
 include ('override_display.php');
+include ('override_travel.php');
 include ('magazine.php');
 ?>
 
