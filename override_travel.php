@@ -61,7 +61,8 @@ if ($alerts != "No entries!") {
     $checktime = time() - $hours * 60 * 60;
 
     // If the alert is still in date, the submitting user is authorised, and they haven't already displayed their alert, then put the alert up
-    if ($timestamp >= $checktime && in_array($alert[1],$auth) && !in_array($alert[1],$active)) {
+    // The authorisation list should be only the part of the email before the @ symbol - you can only access the form with a Challoner's account anyway, and this means there doesn't have to be any fussing over .org or .com
+    if ($timestamp >= $checktime && in_array(explode("@",$alert[1])[0],$auth) && !in_array($alert[1],$active)) {
       echo '<div class="override" id="travel">';
         echo '<h1>'.$alert[2].'</h1>';
         echo Parsedown::instance()->parse($alert[3]);
