@@ -22,18 +22,45 @@ div.override {
        }
 
 /* Magazine */
-div.magazine div { clear: left; margin-bottom: 1.4em; }
+#magazine a {
+  text-decoration: none;
+  color: #000000;
+}
 
-div.magazine h2, div.magazine h3 { font-size: 3em; line-height: 1.2em; }
-div.magazine p { margin-top: 0.1em; }
+#magazine a > div { 
+  clear: left;
+}
 
-div.magazine a { color: #000000; text-decoration: none; }
+#magazine .newsImg {
+  float: left;
+  width: 40%; height: 12.5em;
+  margin: 0 1.8em 1.4em 0;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  /* This ensures that only the first image for any story is displayed. */
+  #magazine #slideshow { display: none; }
 
-div.non { background-color: #F7F7F7; padding: 0.1em 1.5em 1em 1.5em;}
+#magazine h1 {
+  margin: 0;
+  padding: 0.2em 0 0 0;
+  font-size: 3em;
+  line-height: 1.2em;
+}
+#magazine p { margin: 0; }
 
-div.big, div.std, div.barBlock { height: 13.5em; }
+#magazine .non {
+  border-width: 0.2em 0;
+  border-style: solid;
+  border-color: #cccccc;
+  padding: 0.5em 1.5em 0.8em 1.5em;
+  margin-bottom: 1.4em
+}
 
-div.newsimg {
-    float: left; height: 13.5em;
-    width: 40%; margin: 0 1.8em 0 0;
-    }
+#magazine > .error {
+  margin-bottom: 1.4em;
+}
+#magazine > .error .newsImg {
+  display: none;
+}
