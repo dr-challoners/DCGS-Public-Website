@@ -6,6 +6,14 @@
   echo '<link rel="stylesheet" type="text/css" href="/styles/homepage_lrg.css"/>';
 } ?>
 
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/fadeSlideShow.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('#slideshow').fadeSlideShow();
+});
+</script>
+
 <?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
