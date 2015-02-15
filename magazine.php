@@ -1,5 +1,109 @@
+<pre>
 <?php
 
+function word_cutoff($text, $length) { // Creates the preview text for articles
+    if(strlen($text) > $length) {
+        $text = substr($text, 0, strpos($text, ' ', $length));
+		}
+    return $text;
+	}
+
+// Create a multi-dimensional array of the first X news articles, by looking recursively through each of the month folders
+$months = scandir("content_news/", 1);
+$imgTypes = array("jpg","jpeg","gif","png"); 
+$x = 0; $max = 16; // Determines the number of stories to display
+$storyList = array();
+foreach ($months as $month) {
+  if (strlen($month) == 6) { // A basic check that the date is formatted correctly - should avoid publishing rogue folders that end up here
+    $articles = scandir("content_news/".$month."/", 1);
+    foreach ($articles as $post) {
+      if (substr($post,2,1) == "~" && $x < $max) { // Checks the date is formatted correctly on the article - this also allows you to hide newsposts
+        $details = array();
+        $details["link"] = $month.str_replace(" ","_",$post);
+        $date = $month.explode("~",$post)[0];
+        $date = date("jS F Y",mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4)));
+        $details["date"] = $date;
+        $details["name"] = explode("~",$post)[1];
+        // Need to fetch and format the date as well
+        
+        // Now fetch text and images from the story to display
+        $files = scandir("content_news/".$month."/".$post."/", 1);
+        $files = array_reverse($files);
+        $text = "";
+        $imgs = array();
+        foreach ($files as $file) {
+          $check = pathinfo($file);
+          // Create the preview text for the story
+          if (isset($check['extension']) && $check['extension'] == "txt") {
+            // This sequence removes formatting elements that would cause problems in the preview
+            $lines = file("content_news/".$month."/".$post."/".$file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
+            foreach ($lines as $line) {
+              if (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link, it's ignored
+                $line = Parsedown::instance()->parse($line);
+                $line = strip_tags($line); // Remove other HTML and PHP
+                $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
+                $line = str_replace("*","",$line);
+                $text .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
+              }
+            }
+          } elseif (isset($check['extension']) && in_array($check['extension'],$imgTypes) == TRUE) {
+            $imgs[] = $file;
+          } elseif (!isset($check['extension'])) { // This is a folder - look for images inside it
+            $files_r = scandir("content_news/".$month."/".$post."/".$file."/", 1);
+            $files_r = array_reverse($files_r);
+            foreach ($files_r as $file_r) {
+              $check_r = pathinfo($file_r);
+              if (isset($check_r['extension']) && in_array($check_r['extension'],$imgTypes) == TRUE) {
+                $imgs[] = $file."/".$file_r;
+              }
+            }
+          }
+        }
+        $details["text"] = $text;
+        if (!empty($imgs)) {
+          $details["imgs"] = $imgs;
+        }
+        
+        array_push($storyList,$details);
+        $x++;
+      }
+    }
+  }
+}
+
+// In summary, the code above has produced the storyList array, with the following items for each article:
+
+// link - url to the article, already processed with underscores in place of spcaes
+// name - title of the article
+// date - already formatted as text to output
+// text - already processed as plaintext
+// imgs - an array of urls to all images in the article, including those in subfolders
+
+/*
+//Finds each text file in the story and outputs them as the story stub
+  $story = "";
+  foreach ($parts as $part) {
+    $checkpart = pathinfo($part);
+    if (isset($checkpart['extension']) && $checkpart['extension'] == "txt") {
+      // This next sequence creates the story stub, removing formatting elements that would clash in such a short space
+      $lines = file('content_news/'.$file."/".$part, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
+      foreach ($lines as $line) {
+        if (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link, it's ignored
+          $line = Parsedown::instance()->parse($line);
+			    $line = strip_tags($line); // Remove other HTML and PHP
+			    $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
+			    $line = str_replace("*","",$line);
+			    $story .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
+          }
+        }
+      }
+    }*/
+
+?>
+</pre>
+<?php
+
+/* START AGAIN
 $newsposts = scandir("content_news/", 1); //Calls up all the files in the news folder
 $newsposts = array_slice($newsposts,0,15);
 	
@@ -197,5 +301,5 @@ $npic = ""; $bcount = ""; $count = 1; foreach ($newsposts as $post) {
 	}
 
 echo "</div>";
-	
+	*/
 ?>

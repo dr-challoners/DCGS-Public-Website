@@ -21,28 +21,28 @@ if ($get_story != "index.php") {
  <!-- <h2 class="news">News</h2> -->
 
 <?php // This is the navigation menu
-$newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
-array_pop($newsposts);
-array_pop($newsposts); // Removes . and .. from the array
-$archiveMonths = array();
-foreach ($newsposts as $row) {
-  $month = substr($row,0,6);
-  if (!in_array($month,$archiveMonths)) { // If this is the first entry in a given month, then make the title and dropdown for that month
-    if (!empty($archiveMonths)) { echo '</ul>'; } // Close the previous dropdown if there was one
-    array_push($archiveMonths,$month);
-    $monthTitle = date("F Y",mktime(0,0,0,substr($month,4,2),1,substr($month,0,4)));
-    echo '<h2><a href="javascript:openCloseAll(\''.$month.'\')">'.$monthTitle.'</a></h2>';
-    echo '<ul name="submenu" id="'.$month.'"';
-      if ($month == substr($get_story,0,6)) { echo 'style="display:block;"'; }  // Keep the menu open if it's for the same month as the story being displayed
-    echo '>';
+  $months = scandir("content_news/", 1); // Calls up all the files in the news folder
+  foreach ($months as $month) {
+    if (strlen($month) == 6) { // A basic check that the date is formatted correctly - should avoid publishing rogue folders that end up here
+      $monthTitle = date("F Y",mktime(0,0,0,substr($month,4,2),1,substr($month,0,4)));
+      echo '<h2><a href="javascript:openCloseAll(\''.$month.'\')">'.$monthTitle.'</a></h2>';
+      echo '<ul name="submenu" id="'.$month.'"';
+        if ($month == substr($get_story,0,6)) { echo 'style="display:block;"'; }  // Keep the menu open if it's for the same month as the story being displayed
+      echo '>';
+      $articles = scandir("content_news/".$month."/", 1);
+      foreach ($articles as $post) {
+        if (substr($post,2,1) == "~") { // Checks the date is formatted correctly on the article - this also allows you to hide newsposts
+          $component = explode("~",$post);
+          echo "<li>";
+            echo '<a href="'.$month.str_replace(" ","_",$post).'">';
+              echo $component[1];
+            echo "</a>";
+          echo "</li>";
+        }
+      }
+      echo '</ul>';
+    }
   }
-		$component = explode("~",$row);
-		echo "<li>";
-			echo '<a href="'.str_replace(" ","_",$row).'">';
-			echo $component[1];
-			echo "</a>";
-		echo "</li>";
-	}
 ?>
 
 </div>
@@ -55,7 +55,8 @@ echo "<h1>".$component[1]."</h1>";
 echo '<h3>'.date("jS F Y",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).'</h3>';
 
 $parsediv = 1;
-$dir = 'content_news/'.$get_story;
+$story_dir = substr_replace($get_story, "/", 6, 0); // This maintains URLs from the old system, prior to month sub-directories
+$dir = 'content_news/'.$story_dir;
 include('parsing/parsebox.php');
   
 echo '<div class="sharing lrg">';  
