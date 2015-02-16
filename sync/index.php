@@ -49,9 +49,8 @@ echo "<ul>"; //Change the initial values as appropriate for the Box folder being
 echo "</ul>";
 
 echo '<h2>DCGS public website: news stories</h2>';
-echo '<p>The partial update option only checks the most recent 20 stories.<br />A full update is a <i>very</i> slow process, so a partial update should be used unless<br />it is necessary to update the archives.</p>';
 echo '<ul>';
-  echo '<p><li><a href="./system_update.php?initial=2209250189&partial=y">Partial update</a>, <a href="./system_update.php?initial=2209250189">full update</a> or <a href="./system_update.php?initial=2209250189&reset=y">full reset</a></li></p>'; //content_news
+  echo '<p><li><a href="./system_update.php?initial=2209250189">Update</a> or <a href="./system_update.php?initial=2209250189&reset=y">reset</a></li></p>'; //content_news
 echo '</ul>';
 
 echo "<h2>'Learn' websites</h2>";

@@ -17,47 +17,88 @@ div.override {
        }
 
 /* Magazine */
-div.magazine { margin-top: 5px; }
-    div.magazine a { text-decoration: none; color: #000000; }
-    div.magazine p { margin-top: 5px; }
-    div.magazine h2 { line-height: 26px; padding: 10px 0px 8px 0px; }
-    div.magazine hr { clear: left; }
 
-div.big, div.std, div.non, div.barBlock {
-    overflow: hidden; 
-    transition: background-color 0.2s, color 0.2s;
-    -webkit-transition: background-color 0.2s, color 0.2s;
-    }
-    div.big:hover, div.std:hover, div.non:hover, div.non a:hover, div.barBlock:hover { background-color: #2358A3; color: #ffffff; }
+#magazine a {
+  text-decoration: none;
+  color: #000000;
+}
 
-div.magazine .newsimg {
-    display: block; float: left;
-    background-position: top center; background-repeat: no-repeat; background-size: cover;
-    }
+#magazine a > div, #magazine > .audio {
+  overflow: hidden; 
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  clear: left;
+  padding-right: 14px;
+  margin-bottom: 12px;
+}
+#magazine iframe { display: none; }
+#magazine > .audio { cursor: pointer; }
+#magazine > .error {
+  overflow: hidden;
+  clear: left;
+  padding-right: 14px;
+  margin-bottom: 12px;
+  }
+  #magazine a > div:hover, #magazine > .audio:hover {
+    background-color: #2358A3; color: #ffffff;
+  }
+  #magazine p { margin: 0; }
 
-div.big { clear: left; height: 210px; padding-right: 14px; margin-bottom: 16px; }
-    div.big h2 { margin-top: 5px; }
-    div.big .newsimg { height: 210px; width: 430px; margin-right: 18px; }
+#magazine .newsImg {
+  float: left;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+  #magazine #slideshow { float: left; }
 
-div.std { clear: left; height: 140px; padding-right: 14px; margin-bottom: 12px; }
-    div.std h3 { margin-top: 8px; }
-    div.std .newsimg { height: 140px; width: 250px; margin-right: 16px; }
+#magazine .non {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: #cccccc;
+  padding: 8px 14px;
+}
+  #magazine .non:hover {
+    border-color: #2358A3;
+  }
 
-div.non {
-    background-color: #F7F7F7;
-    height: 62px; width: 331px;
-    float: left;
-    padding: 0px 12px 0px 12px; margin-bottom: 16px;
-    }
-    div.non p { margin-top: 0px; }
+#magazine .row {
+  padding: 8px;
+  margin: -6px 0 6px 0;
+}
+  #magazine .row p, #magazine .row h1 { margin: 0 4px; }
 
-div.barBlock {
-    width: 170px; margin: 0 0 12px 10px;
-    float: left;
-    }
-    div.bar > a:first-child > div.barBlock { margin-left: 0; }
-    div.barBlock h3 { clear: left; line-height: 24px; padding: 8px 12px 8px 12px; }
-    div.barBlock .newsimg { height: 120px; width: 170px; }
+#magazine .std h1, #magazine .error h1, #magazine > .audio h1 { font-size: 20px; margin: 8px 0 5px 0; }
+#magazine .top h1 { font-size: 24px; line-height: 30px; margin: 8px 0 5px 0; }
+#magazine .non h1 { font-size: 20px; margin: 0 0 5px 0; }
+#magazine .row h1 { font-size: 22px; margin-bottom: 3px; }
+
+/* All magazine images must have the same proportions, so that editors can purposefully style cover images if they wish. */
+#magazine .std .newsImg, #magazine .error .newsImg { width: 250px; height: 140px; margin-right: 16px; }
+#magazine .top .newsImg, #magazine #slideshow { width: 430px; height: 240px; margin-right: 20px; }
+#magazine .row .newsImg { width: 166px; height: 93px;  margin: 0 10px 6px 0; }
+  #magazine .row .newsImg:last-of-type { margin-right: 0px; }
+#magazine > .audio .newsImg { 
+  width: 130px; height: 120px;
+  padding-right: 120px;
+  margin-right: 16px;
+  background-position: center right, center left;
+  background-repeat: no-repeat, repeat-x;
+  background-size: contain;
+  text-align: center;
+}
+  #magazine > .audio .newsImg p {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 37px 0 5px 0;
+  }
+  #magazine > .audio .newsImg img {
+    margin-left: -4px;
+  }
+
+#magazine .std { height: 140px; }
+#magazine .top { height: 240px; }
+#magazine > .audio { height: 120px; }
 
 /* Twitter */
 div.twitter-header {

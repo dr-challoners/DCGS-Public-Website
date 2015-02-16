@@ -108,21 +108,25 @@
 				</div>
 				
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
+        <!-- Temporarily scrapping news navigation on the mobile site, as there's no point spending a long time on this when it's all going to be rebuilt anyway
 					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
-					<?php
-						$newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
-						$newsposts = array_slice($newsposts,0,15);
-						echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
-						foreach ($newsposts as $row) {
-							$component = explode("~",$row);
-							echo "<li>";
-              echo '<a href="/news/'.str_replace(" ","_",$row).'">';
-							echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
-							echo "</a>";
-							echo "</li>";
-							}
-						echo "</ul></div>";
-					?>
+        -->
+					<?php /*
+            if (file_exists('content_news/')) {
+              $newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
+              $newsposts = array_slice($newsposts,0,15);
+              echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
+              foreach ($newsposts as $row) {
+                $component = explode("~",$row);
+                echo "<li>";
+                echo '<a href="/news/'.str_replace(" ","_",$row).'">';
+                echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
+                echo "</a>";
+                echo "</li>";
+                }
+              echo "</ul></div>";
+            }
+					*/ ?>
           				
 				<?php // This next section creates the drop-down menus for the main navigation
 				
