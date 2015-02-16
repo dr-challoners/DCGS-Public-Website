@@ -39,8 +39,8 @@ div.override {
   background-repeat: no-repeat;
   background-size: cover;
 }
-  /* This ensures that only the first image for any story is displayed. */
-  #magazine #slideshow { display: none; }
+  /* Removes technical elements that don't display reliably on mobile. */
+  #magazine #slideshow, #magazine .audio { display: none; }
 
 #magazine h1 {
   margin: 0;
@@ -56,6 +56,10 @@ div.override {
   border-color: #cccccc;
   padding: 0.5em 1.5em 0.8em 1.5em;
   margin-bottom: 1.4em
+}
+
+#magazine iframe {
+  display: none;
 }
 
 #magazine > .error {

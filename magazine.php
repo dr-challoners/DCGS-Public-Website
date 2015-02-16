@@ -106,6 +106,7 @@ echo '<div id="magazine">';
 if (!isset($error)) {
   $s = 0;
   $r = 0;
+  $a = 0;
   if (count($storyList) < $max) { $error = 1; }
   foreach ($storyList as $story) {
     if ($story['text'] == "") { $error = 1; }
@@ -116,6 +117,26 @@ if (!isset($error)) {
         echo '<p>The news stories are being refreshed. Thank you for your patience - normal service should resume soon.</p>';
       echo '</div>';
       $errorCheck = 1;
+    }
+    if ($a >= 2 && $r == 0 && !isset($error) && !isset($audio)) {
+      $sc = file_get_contents('http://api.soundcloud.com/users/88582271/tracks.json?client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
+      $sc = json_decode($sc);
+      $audioName = $sc[0]->title;
+      $audioIcon = $sc[0]->artwork_url;
+      $audioText = $sc[0]->description;
+      $audioDate = $sc[0]->last_modified;
+      $audioDate = date("jS F Y",mktime(0,0,0,substr($audioDate,5,2),substr($audioDate,8,2),substr($audioDate,0,4)));
+      $id = $sc[0]->id;
+      echo '<iframe id="latestAudio" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'.$id.'&ampauto_play=false&amp;"></iframe>';
+      echo '<div class="audio lrg" id="audioToggle">';
+        echo '<div class="newsImg" style="background-image:url(\''.$audioIcon.'\'),url(\'styles/imgs/latestAudio_icon.jpg\');">';
+          echo '<p>Latest audio</p>';
+          echo '<a href="https://soundcloud.com/dcgs-music"><img src="styles/imgs/scLogo.png" alt="SoundCloud" /></a>';
+        echo '</div>';
+        echo '<h1>'.$audioName.'</h1>';
+        echo '<p><em>'.$audioDate.':</em> '.$audioText.'</p>';
+      echo '</div>';
+      $audio = 1;
     }
     if (!isset($story['imgs'])) {
       $boxType = 'non';
@@ -131,6 +152,7 @@ if (!isset($error)) {
     } else {
       $boxType = 'std';
       $chars = 140;
+      $a++; // This is to determine when to place the 'latest audio' box
       if ($r > 0) { $r = $r-1; }
     }
     echo '<a ';

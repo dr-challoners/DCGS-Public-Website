@@ -23,7 +23,7 @@ div.override {
   color: #000000;
 }
 
-#magazine a > div {
+#magazine a > div, #magazine > .audio {
   overflow: hidden; 
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -31,13 +31,15 @@ div.override {
   padding-right: 14px;
   margin-bottom: 12px;
 }
+#magazine iframe { display: none; }
+#magazine > .audio { cursor: pointer; }
 #magazine > .error {
   overflow: hidden;
   clear: left;
   padding-right: 14px;
   margin-bottom: 12px;
   }
-  #magazine a > div:hover {
+  #magazine a > div:hover, #magazine > .audio:hover {
     background-color: #2358A3; color: #ffffff;
   }
   #magazine p { margin: 0; }
@@ -66,7 +68,7 @@ div.override {
 }
   #magazine .row p, #magazine .row h1 { margin: 0 4px; }
 
-#magazine .std h1, #magazine .error h1 { font-size: 20px; margin: 8px 0 5px 0; }
+#magazine .std h1, #magazine .error h1, #magazine > .audio h1 { font-size: 20px; margin: 8px 0 5px 0; }
 #magazine .top h1 { font-size: 24px; line-height: 30px; margin: 8px 0 5px 0; }
 #magazine .non h1 { font-size: 20px; margin: 0 0 5px 0; }
 #magazine .row h1 { font-size: 22px; margin-bottom: 3px; }
@@ -76,9 +78,27 @@ div.override {
 #magazine .top .newsImg, #magazine #slideshow { width: 430px; height: 240px; margin-right: 20px; }
 #magazine .row .newsImg { width: 166px; height: 93px;  margin: 0 10px 6px 0; }
   #magazine .row .newsImg:last-of-type { margin-right: 0px; }
+#magazine > .audio .newsImg { 
+  width: 130px; height: 120px;
+  padding-right: 120px;
+  margin-right: 16px;
+  background-position: center right, center left;
+  background-repeat: no-repeat, repeat-x;
+  background-size: contain;
+  text-align: center;
+}
+  #magazine > .audio .newsImg p {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 37px 0 5px 0;
+  }
+  #magazine > .audio .newsImg img {
+    margin-left: -4px;
+  }
 
 #magazine .std { height: 140px; }
 #magazine .top { height: 240px; }
+#magazine > .audio { height: 120px; }
 
 /* Twitter */
 div.twitter-header {
