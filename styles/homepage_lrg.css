@@ -16,6 +16,12 @@ div.override {
        margin: 8px;
        }
 
+img.override {
+  width: 710px;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
 /* Magazine */
 
 #magazine a {
