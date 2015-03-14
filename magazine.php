@@ -22,13 +22,13 @@ if (file_exists('content_news/')) {
           $details = array();
           $details['data-month'] = $month;
           $details['data-url'] = $post;
-          $details["link"] = $month.str_replace(" ","_",$post);
+          $details['link'] = $month.str_replace(" ","_",$post);
 
           $date = $month.explode("~",$post)[0];
           $date = date("jS F Y",mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4)));
-          $details["date"] = $date;
+          $details['date'] = $date;
 
-          $details["name"] = explode("~",$post)[1];
+          $details['name'] = explode("~",$post)[1];
 
           // Now fetch text and images from the story to display
           $files = scandir("content_news/".$month."/".$post."/", 1);
@@ -41,16 +41,38 @@ if (file_exists('content_news/')) {
             // Create the preview text for the story
             if (isset($check['extension']) && $extn == "txt") {
               // This sequence removes formatting elements that would cause problems in the preview
-              $lines = file("content_news/".$month."/".$post."/".$file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES); 
+              $lines = file("content_news/".$month."/".$post."/".$file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+              $l = 0;
               foreach ($lines as $line) {
-                if (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link, it's ignored
+                // If the first line is a link to a video, that video should play in place of an image
+                if ($l == 0 && substr($line,0,1) == '~' && (strpos($line,"youtu.be") !== false || strpos($line,"youtube") !== false)) {
+                  $url = explode('](',$line)[1];
+                  $url = explode(')',$url)[0];
+                  if (strpos($url,"youtu.be") !== false) {
+                    $details['videoType'] = 'youtube';
+                    $id = strpos($url,"e/");
+                    $id = substr($url,$id+2);
+                  }
+                  elseif (strpos($url,"youtube") !== false && strpos($url,"watch")) {
+                    $details['videoType'] = 'youtube';
+                    $id = strpos($url,"v=");
+                    $id = substr($url,$id+2);
+                  }
+                  elseif (strpos($url,"youtube") !== false && strpos($url,"edit")) {
+                    $details['videoType'] = 'youtube';
+                    $id = strpos($url,"d=");
+                    $id = substr($url,$id);
+                  }
+                  $details['videoID'] = $id;
+                }
+                elseif (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link (anywhere but as a video on the first line), it's ignored
                   $line = Parsedown::instance()->parse($line);
                   $line = strip_tags($line); // Remove other HTML and PHP
                   $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
                   $line = str_replace("*","",$line);
                   $text .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
                 }
-              }
+              $l++; }
             } elseif (isset($check['extension']) && in_array($extn,$imgTypes) == TRUE) {
               $imgs[] = $file;
             } elseif (!isset($check['extension'])) { // This is a folder - look for images inside it
@@ -101,6 +123,9 @@ if (file_exists('content_news/')) {
 // text - already processed as plaintext
 // imgs - an array of urls to all images in the article, including those in subfolders
 
+// videoID
+// videoType - these items will appear if the first line in the article is a link to a video, to play it on the front page
+
 echo '<div id="magazine">';
 
 if (!isset($error)) {
@@ -118,7 +143,7 @@ if (!isset($error)) {
       echo '</div>';
       $errorCheck = 1;
     }
-    if ($a >= 2 && $r == 0 && !isset($error) && !isset($audio)) {
+    if ($a >= 2 && !isset($error) && !isset($audio)) {
       $sc = file_get_contents('http://api.soundcloud.com/users/88582271/tracks.json?client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
       $sc = json_decode($sc);
       $audioName = $sc[0]->title;
@@ -138,14 +163,14 @@ if (!isset($error)) {
       echo '</div>';
       $audio = 1;
     }
-    if (!isset($story['imgs'])) {
+    if ((!isset($story['imgs']) && !isset($story['videoID']))) {
       $boxType = 'non';
       $chars = 160;
     } elseif (!isset($topCheck) && $override != 1 && !isset($error)) {
       $boxType = 'top';
       $chars = 120;
       $topCheck = 1;
-    } elseif (count($story['imgs']) >= 4 && $r == 0) {
+    } elseif (isset($story['imgs']) && count($story['imgs']) >= 4 && $r == 0) {
       $boxType = 'row';
       $chars = 140;
       $r = 3; // A small counter to prevent these rows happening too often - they'll look messy
@@ -160,7 +185,13 @@ if (!isset($error)) {
     echo 'href="news/'.$story['link'].'" />';
     echo '<div class="'.$boxType.'">';
       if ($boxType != 'non') { // If there's an image, display it
-        if ($boxType == 'top' && count($story['imgs']) > 1) { // If there's more than one image and it's the headline story, make a slideshow
+        if ($boxType == 'top' && isset($story['videoID'])) { // If it's the headline story and there's a video specified, embed the video
+          if ($story['videoType'] == 'youtube') {
+            echo '<iframe class="videoPreview lrg" src="https://www.youtube-nocookie.com/embed/'.$story['videoID'].'?rel=0&amp;showinfo=0" allowfullscreen></iframe>';
+            echo '<div class="newsImg sml" style="background-image:url(\'http://img.youtube.com/vi/'.$story['videoID'].'/0.jpg\');"></div>';
+          }
+        }
+        elseif ($boxType == 'top' && count($story['imgs']) > 1) { // If there's more than one image and it's the headline story, make a slideshow
           $slideImgs = array_reverse($story['imgs']); // The slideshow code needs the images going in reverse order
           echo '<div id="slideshow">';
             foreach ($slideImgs as $slide) {
@@ -180,6 +211,10 @@ if (!isset($error)) {
             echo '<div class="newsImg';
             if ($i > 0) { echo ' lrg'; } // So only one image is displayed on mobiles
             echo '" style="background-image:url(\''.$imgLink.'\');"></div>';
+          }
+        } elseif (!isset($story['imgs']) && isset($story['videoID'])) { // If there's no images, but there's been a headline video, we can use its thumbnail
+          if ($story['videoType'] == 'youtube') {
+            echo '<div class="newsImg" style="background-image:url(\'http://img.youtube.com/vi/'.$story['videoID'].'/0.jpg\');"></div>';
           }
         } else {
           $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][0];
