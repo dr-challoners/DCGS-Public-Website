@@ -197,8 +197,8 @@ if (!isset($error)) {
           }
           elseif ($story['videoType'] == 'vimeo') {
             echo '<iframe class="videoPreview lrg" src="https://player.vimeo.com/video/'.$story['videoID'].'?color=2358A3&byline=0&badge=0&title=0&portrait=0" allowfullscreen></iframe>';
-            $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
-            echo '<div class="newsImg sml" style="background-image:url(\''.$hash[0]['thumbnail_large'].'\');"></div>';
+            $thumbnail = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
+            echo '<div class="newsImg sml" style="background-image:url(\''.$thumbnail[0]['thumbnail_large'].'\');"></div>';
           }
         }
         elseif ($boxType == 'top' && count($story['imgs']) > 1) { // If there's more than one image and it's the headline story, make a slideshow
@@ -227,8 +227,8 @@ if (!isset($error)) {
             echo '<div class="newsImg" style="background-image:url(\'http://img.youtube.com/vi/'.$story['videoID'].'/0.jpg\');"></div>';
           }
           elseif ($story['videoType'] == 'vimeo') {
-            $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
-            echo '<div class="newsImg" style="background-image:url(\''.$hash[0]['thumbnail_large'].'\');"></div>';
+            $thumbnail = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
+            echo '<div class="newsImg" style="background-image:url(\''.$thumbnail[0]['thumbnail_large'].'\');"></div>';
           }
         } else {
           $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][0];

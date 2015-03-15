@@ -64,7 +64,7 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
         case "table":
           if (isset($filename)) { echo "<h2>$filename</h2>"; }
           $table = file($filedir);
-          echo "<table>";
+          echo '<table class="simple">';
             $t = 0;
             foreach ($table as $row) {
               // Turn blank lines in the CSV file into a border between rows: turn double blank lines into a second table

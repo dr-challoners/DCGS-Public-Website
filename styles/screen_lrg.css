@@ -235,6 +235,9 @@ div.parsebox div.sharing iframe {
    }
    p.credit span { font-size: 12px; }
 
+/* Temporary alignment fix until I (some day) tidy up all the styles round here. */
+.parsebox iframe.youtubevideo:nth-child(3), .parsebox iframe.vimeovideo:nth-child(3) { margin-top: 0; }
+
 /* Intranet links */
 div.intranet { margin-left: -12px; }
 div.intranet h1 { padding: 0 0 0 12px; }
@@ -299,6 +302,7 @@ table.houselist p { padding: 0 6px; }
   table.houselist a > h3:before { content: "+ "; font-size: 14px; }
   div.dropdown p.rep { display: none; }
   div.open p.rep { display: block; }
+table.houselist tr:nth-child(2n+1) { background-color: #ffffff!important; }
 
 div.totalscores p {
    font-size: 18px!important;
