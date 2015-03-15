@@ -98,7 +98,7 @@ div.parsebox p.linkout img.icon {
 /* iFrames and Dropdowns */
 
 div.parsebox iframe { width: 100%; margin: 16px 0px 16px 0px; }
-div.parsebox iframe.youtubevideo { height: 30em; }
+div.parsebox iframe.youtubevideo, div.parsebox iframe.vimeovideo { height: 30em; }
 div.parsebox iframe.googleform {
   height: 19em; margin-bottom: 20px;
   }

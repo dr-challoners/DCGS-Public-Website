@@ -216,7 +216,18 @@ if (!isset($parsediv)) { echo '<div class="parsebox">'; } // The 'if' here means
                     $iframe_url  = "//www.youtube-nocookie.com/embed/$id?rel=0";
                     $iframe_type = "YouTube video";
                     }
-                  //SoundCloud audio player
+                  // Vimeo videos
+                  elseif (strpos($url,"vimeo") !== false) {
+                    $id = strrpos($url,'/');
+                    $id = substr($url,$id+1);
+                    $iframe_url  = 'https://player.vimeo.com/video/'.$id.'?';
+                    if (isset($colour)) {
+                      $iframe_url .= 'color='.strtolower(str_replace("hex","",$colour)).'&';
+                    }
+                    $iframe_url .= 'byline=0&portrait=0';
+                    $iframe_type = "Vimeo video";
+                  }
+                  // SoundCloud audio player
                   elseif (strpos($url,"soundcloud") !== false && substr_count($url,"/") == 4) {
                     $sc = file_get_contents('http://api.soundcloud.com/resolve.json?url='.$url.'&client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
                     $sc = json_decode($sc);

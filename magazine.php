@@ -45,7 +45,7 @@ if (file_exists('content_news/')) {
               $l = 0;
               foreach ($lines as $line) {
                 // If the first line is a link to a video, that video should play in place of an image
-                if ($l == 0 && substr($line,0,1) == '~' && (strpos($line,"youtu.be") !== false || strpos($line,"youtube") !== false)) {
+                if ($l == 0 && substr($line,0,1) == '~' && (strpos($line,"youtu.be") !== false || strpos($line,"youtube") !== false || strpos($line,"vimeo") !== false)) {
                   $url = explode('](',$line)[1];
                   $url = explode(')',$url)[0];
                   if (strpos($url,"youtu.be") !== false) {
@@ -62,6 +62,11 @@ if (file_exists('content_news/')) {
                     $details['videoType'] = 'youtube';
                     $id = strpos($url,"d=");
                     $id = substr($url,$id);
+                  }
+                  elseif (strpos($url,"vimeo") !== false) {
+                    $details['videoType'] = 'vimeo';
+                    $id = strrpos($url,'/');
+                    $id = substr($url,$id+1);
                   }
                   $details['videoID'] = $id;
                 }
@@ -190,6 +195,11 @@ if (!isset($error)) {
             echo '<iframe class="videoPreview lrg" src="https://www.youtube-nocookie.com/embed/'.$story['videoID'].'?rel=0&amp;showinfo=0" allowfullscreen></iframe>';
             echo '<div class="newsImg sml" style="background-image:url(\'http://img.youtube.com/vi/'.$story['videoID'].'/0.jpg\');"></div>';
           }
+          elseif ($story['videoType'] == 'vimeo') {
+            echo '<iframe class="videoPreview lrg" src="https://player.vimeo.com/video/'.$story['videoID'].'?color=2358A3&byline=0&badge=0&title=0&portrait=0" allowfullscreen></iframe>';
+            $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
+            echo '<div class="newsImg sml" style="background-image:url(\''.$hash[0]['thumbnail_large'].'\');"></div>';
+          }
         }
         elseif ($boxType == 'top' && count($story['imgs']) > 1) { // If there's more than one image and it's the headline story, make a slideshow
           $slideImgs = array_reverse($story['imgs']); // The slideshow code needs the images going in reverse order
@@ -215,6 +225,10 @@ if (!isset($error)) {
         } elseif (!isset($story['imgs']) && isset($story['videoID'])) { // If there's no images, but there's been a headline video, we can use its thumbnail
           if ($story['videoType'] == 'youtube') {
             echo '<div class="newsImg" style="background-image:url(\'http://img.youtube.com/vi/'.$story['videoID'].'/0.jpg\');"></div>';
+          }
+          elseif ($story['videoType'] == 'vimeo') {
+            $hash = unserialize(file_get_contents('http://vimeo.com/api/v2/video/'.$story['videoID'].'.php'));
+            echo '<div class="newsImg" style="background-image:url(\''.$hash[0]['thumbnail_large'].'\');"></div>';
           }
         } else {
           $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][0];
