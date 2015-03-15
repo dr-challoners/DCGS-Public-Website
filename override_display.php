@@ -48,7 +48,7 @@ if (count($status) > 0) { //If any form of status has been set, display the over
         list($width,$height) = getimagesize('content_system/override/'.$type.'_bkgd.jpg');
         $height = $height+4;
         $height = $height.'px;';
-      } elseif (file_exists('content_system/override/'.$type.'_bkgd.jpg')) {
+      } elseif (file_exists('content_system/override/'.$type.'_bkgd.png')) {
         $bkgd = 'url(../content_system/override/'.$type.'_bkgd.png);';
         list($width,$height) = getimagesize('content_system/override/'.$type.'_bkgd.png');
         $height = $height+4;
@@ -85,16 +85,24 @@ if (count($status) > 0) { //If any form of status has been set, display the over
       echo 'div.override#'.$type.' h1 { background-image: '.$icon.' color: '.$tcol.' background-color: '.$bcol.' }';
       echo '</style>';
       
-      echo '<div class="override" id="'.$type.'">';
       $message = file_get_contents("content_system/override/".$entry.".txt", true);
+      
+      if (file_exists("content_system/override/".$type."_cover.png")) {
+        echo '<img class="override lrg" alt="'.$message.'" src="content_system/override/'.$type.'_cover.png" />';
+        $only = ' sml';
+      } elseif (file_exists("content_system/override/".$type."_cover.jpg")) { // Need to write some better image extension recognition when we redo this properly
+        echo '<img class="override lrg" alt="'.$message.'" src="content_system/override/'.$type.'_cover.jpg" />';
+        $only = ' sml';
+      } else { $only = ''; }
+      echo '<div class="override'.$only.'" id="'.$type.'">';
 			echo Parsedown::instance()->parse($message);
       echo '</div>';
 	
-	  $override = 1; //This lets the magazine know there's been an override, so it doesn't display a 'big' news story
+	  $override = 1; // This lets the magazine know there's been an override, so it doesn't display a 'big' news story
     }
 	}
 }
-else { //Easter egg time! ?>
+else { // Easter egg time! ?>
 
 <!--
 

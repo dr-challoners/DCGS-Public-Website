@@ -16,6 +16,12 @@ div.override {
        margin: 8px;
        }
 
+img.override {
+  width: 710px;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
 /* Magazine */
 
 #magazine a {
@@ -32,6 +38,10 @@ div.override {
   margin-bottom: 12px;
 }
 #magazine iframe { display: none; }
+#magazine iframe.videoPreview {
+  display: block;
+  float: left;
+}
 #magazine > .audio { cursor: pointer; }
 #magazine > .error {
   overflow: hidden;
@@ -46,7 +56,7 @@ div.override {
 
 #magazine .newsImg {
   float: left;
-  background-position: top center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -75,7 +85,7 @@ div.override {
 
 /* All magazine images must have the same proportions, so that editors can purposefully style cover images if they wish. */
 #magazine .std .newsImg, #magazine .error .newsImg { width: 250px; height: 140px; margin-right: 16px; }
-#magazine .top .newsImg, #magazine #slideshow { width: 430px; height: 240px; margin-right: 20px; }
+#magazine .top .newsImg, #magazine #slideshow, #magazine iframe.videoPreview { width: 430px; height: 240px; margin-right: 20px; }
 #magazine .row .newsImg { width: 166px; height: 93px;  margin: 0 10px 6px 0; }
   #magazine .row .newsImg:last-of-type { margin-right: 0px; }
 #magazine > .audio .newsImg { 

@@ -42,27 +42,27 @@ div.parsebox a.external {
   cursor: url(external.cur), auto;
   }
 
-div.parsebox table {
+div.parsebox table.simple, .parsebox table.imgRow {
     width: 100%; margin-bottom: 16px;
     border-collapse: collapse;
     }
-div.parsebox table p {
+div.parsebox table.simple p {
     margin: 0;
     line-height: 20px;
     text-align: left;
     }
-div.parsebox table th {
+div.parsebox table.simple th {
     background-color: #eeeeee;
     border-bottom: 2px solid;
     <?php echo "border-color: ".$colour.";\n"; ?>
     padding: 7px 4px;
     }
-div.parsebox table td {
+div.parsebox table.simple td {
     padding: 4px;
     vertical-align: top;
     }
-div.parsebox tr:nth-child(2n+1) { background-color: #f7f7f7; }
-div.parsebox tr.breakrow {
+div.parsebox table.simple tr:nth-child(2n+1) { background-color: #f7f7f7; }
+div.parsebox table.simple tr.breakrow {
     border-top: 1px solid;
     border-color: #cccccc;
     }
@@ -98,7 +98,7 @@ div.parsebox p.linkout img.icon {
 /* iFrames and Dropdowns */
 
 div.parsebox iframe { width: 100%; margin: 16px 0px 16px 0px; }
-div.parsebox iframe.youtubevideo { height: 30em; }
+div.parsebox iframe.youtubevideo, div.parsebox iframe.vimeovideo { height: 30em; }
 div.parsebox iframe.googleform {
   height: 19em; margin-bottom: 20px;
   }
