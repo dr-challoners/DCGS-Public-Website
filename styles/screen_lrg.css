@@ -97,7 +97,7 @@ div.main_nav {
        margin-top: 1px; height: 30px;
        color: #ffffff;
        }
-       div.main_nav a:hover {
+       div.main_nav a:hover, div.main_nav a#selected {
           background-color: #2358A3;
           }
     div.main_nav a.lbutton { float: left; margin-left: -7px;}
@@ -264,7 +264,7 @@ div.intranet_head h3 a {
    transition: background-color 0.2s, color 0.2s;
    -webkit-transition: background-color 0.2s, color 0.2s;
    }
-div.intranet_head h3 a:hover {
+div.intranet_head h3 a:hover, div.intranet_head h3.open a {
    text-decoration: none;
    background-color: #2358A3; color: #ffffff;
    }

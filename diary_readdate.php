@@ -59,11 +59,15 @@ foreach ($events -> entry as $entry) { // Go through the XML file and process al
   
   $startdate = str_replace($wmonths,$nmonths,$startdate);
   $startdate = explode(" ",$startdate);
-  $startdate = $startdate[3].$startdate[1].str_pad(substr($startdate[2],0,-1),2,"0",STR_PAD_LEFT);
-  if ($finaldate != "") {
-    $finaldate = str_replace($wmonths,$nmonths,$finaldate);
-    $finaldate = explode(" ",$finaldate);
-    $finaldate = $finaldate[3].$finaldate[1].str_pad(substr($finaldate[2],0,-1),2,"0",STR_PAD_LEFT);
+  if (isset($startdate[2])) {
+    $startdate = $startdate[3].$startdate[1].str_pad(substr($startdate[2],0,-1),2,"0",STR_PAD_LEFT);
+    if ($finaldate != "") {
+      $finaldate = str_replace($wmonths,$nmonths,$finaldate);
+      $finaldate = explode(" ",$finaldate);
+      if (isset($finaldate[2])) {
+        $finaldate = $finaldate[3].$finaldate[1].str_pad(substr($finaldate[2],0,-1),2,"0",STR_PAD_LEFT);
+      }
+    }
   }
   
   // If the event date matches the current date, or the current date falls within the range of dates for the event, pull relevant details for display

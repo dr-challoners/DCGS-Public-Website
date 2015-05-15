@@ -1,6 +1,7 @@
 <?php 
 	include('header_declarations.php');
-	include('header_navigation.php');
+	$intranet = 1; // Just to be able to highlight the button on the navigation menu
+  include('header_navigation.php');
 ?>
 
 <!--googleoff: all--><div class="ncol lft submenu lrg">
@@ -59,7 +60,7 @@ if (isset($_GET['user'])) {
     // First repeat the information in the Information content folder, to give parents another opportunity to find it all
 				
 				$dir = scandir("content_main/Information", 1); //First, get all the subdirectories in the main directory being looked at
-        foreach ($dir as $subdir) { //List all the subdirectories
+        foreach ($dir as $subdir) { // List all the subdirectories
 					$dirname = explode("~",$subdir);
 					if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
             $links[] = $subdir;
@@ -68,15 +69,15 @@ if (isset($_GET['user'])) {
 				$links = array_reverse($links);
 
         $c_end = count($links)-1;
-				for ($c=0; $c<=$c_end; $c++) { //List all the subdirectories
+				for ($c=0; $c<=$c_end; $c++) { // List all the subdirectories
 					$cn = $c+1;
           $dirname = explode("~",$links[$c]);
           if ($cn <= $c_end) { $ndirname = explode("~",$links[$cn]); }
-          if ($c%2 == 0 && $cn <= $c_end) {
+          if ($c%2 == 0 && $cn <= $c_end) { // The boxOpen function is in Parsebox
 						echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$c.'\',\'boxlist\')">'.$dirname[1].'</a></h3></div>';
             echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$cn.'\',\'boxlist\')">'.$ndirname[1].'</a></h3></div>';
           }
-						$files = scandir("content_main/Information/".$links[$c], 1); //Now get all the files in each subdirectory and turn them into appropriate links
+						$files = scandir("content_main/Information/".$links[$c], 1); // Now get all the files in each subdirectory and turn them into appropriate links
 						$files = array_reverse($files);
     
             echo '<div class="intranetbox lrg"><div class="dropdown" name="boxlist" id="I'.$c.'">';
@@ -107,13 +108,6 @@ if (isset($_GET['user'])) {
 	else {
 		echo "<h1>DCGS intranet</h1>";
 		echo "<p>Staff and students require a username and password to access most links in this section.<br />Parents can view documents without a login, but will need a username and password to access reports and catering statements.</p><p>Click on a category on the left to begin.</p>";
-    /*
-    if (file_exists('content_system/intranet/00~QuickLinks.txt')) {
-      echo '<h2 style="margin: 16px 0 12px 0;">Quick links</h2>';
-      $dir = 'content_system/intranet';
-      $parts = array('00~QuickLinks.txt');
-      include('parsing/parsebox.php');
-    } */
 		}
 	
 	echo "</div>";
