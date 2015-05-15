@@ -1,8 +1,7 @@
 	</head>
 	<?php // Generating the body tag with onload functions for different pages
 		echo "<body";
-			if (isset($_GET['date'])) { echo " onload=\"moveWindow()\""; } // Diary pages - jumps to current day
-			//if (isset($_GET['subfolder'])) { echo " onload=\"openClose('".str_replace(array("'","_"),array(""," "),$_GET['subfolder'])."')\""; } // Content pages - opens the section currently being browsed
+			if (isset($_GET['date'])) { echo ' onload="moveWindow()"'; } // Diary pages - jumps to current day
 		echo ">";
 	?>
 		
@@ -81,7 +80,8 @@
     </script>
 
 		<div class="page"><!--On large screens, this constrains the elements to 980px wide and centres them in the browser. On small screens it does nothing. -->
-			<!--googleoff: all--><div class="header"><!--Fixes all these items to the top of the browser-->
+			<!--googleoff: all-->
+      <div class="header"><!--Fixes all these items to the top of the browser on large screens-->
 				
 				<a class="bannerlink lrg" href="/"></a>
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
@@ -90,13 +90,41 @@
 				<div class="main_nav lrg">
 				<a class="lbutton" href="/"><img src="/styles/imgs/home.png" alt="Home" /></a>
 					<ul>
-						<li><a href="/pages/Overview/" onmouseover="mopen('n2')" onmouseout="mclosetime()">Overview</a></li>
-						<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y'); ?>">Diary</a></li>
-						<li><a href="/intranet/" onmouseover="mopen('nQL')" onmouseout="mclosetime()">Intranet</a></li>
-						<li><a href="/pages/Student_life/" onmouseover="mopen('n4')" onmouseout="mclosetime()">Student life</a></li>
-						<li><a href="/pages/Showcase/" onmouseover="mopen('n3')" onmouseout="mclosetime()">Showcase</a></li>
-						<li><a href="/pages/Information/Alumni/">Alumni</a></li>
-						<li><a href="/pages/Information/General_information/Contact_us">Contact us</a></li>
+            <?php
+            echo '<li><a href="/pages/Overview/" ';
+              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "overview") {
+                echo 'id="selected"';
+              } else {
+                echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
+              }
+            echo '>Overview</a></li>';
+            echo '<li><a href="/diary/'.date('d').'/'.date('m').'/'.date('Y').'"';
+              if (isset($_GET['date'])) { echo ' id="selected"'; }
+            echo '>Diary</a></li>';
+            echo '<li><a href="/intranet/"';
+              if (isset($intranet)) { echo ' id="selected"'; }
+            echo '>Intranet</a></li>';
+            echo '<li><a href="/pages/Student_life/" ';
+              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "student_life") {
+                echo 'id="selected"';
+              } else {
+                echo 'onmouseover="mopen(\'n3\')" onmouseout="mclosetime()"';
+              }
+            echo '>Student life</a></li>';
+            echo '<li><a href="/pages/Showcase/" ';
+              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "showcase") {
+                echo 'id="selected"';
+              } else {
+                echo 'onmouseover="mopen(\'n4\')" onmouseout="mclosetime()"';
+              }
+            echo '>Showcase</a></li>';
+            echo '<li><a href="/pages/Information/Alumni/"';
+               if (isset($_GET['subfolder']) && strtolower($_GET['subfolder']) == "alumni") { echo ' id="selected"'; }
+            echo '>Alumni</a></li>';
+            echo '<li><a href="/pages/Information/General_information/Contact_us"';
+               if (isset($_GET['page']) && strtolower($_GET['page']) == "contact_us") { echo ' id="selected"'; }
+            echo '>Contact us</a></li>';
+            ?>
 					</ul>
 				<a class="rbutton" href="/search/"><img src="/styles/imgs/search.png" alt="Search" /></a>
 				</div>
@@ -108,29 +136,10 @@
 				</div>
 				
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
-        <!-- Temporarily scrapping news navigation on the mobile site, as there's no point spending a long time on this when it's all going to be rebuilt anyway
-					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n8')">News</a></h1>
-        -->
-					<?php /*
-            if (file_exists('content_news/')) {
-              $newsposts = scandir("content_news/", 1); // Calls up all the files in the news folder
-              $newsposts = array_slice($newsposts,0,15);
-              echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n8\"><ul>";
-              foreach ($newsposts as $row) {
-                $component = explode("~",$row);
-                echo "<li>";
-                echo '<a href="/news/'.str_replace(" ","_",$row).'">';
-                echo "<em>".date("jS F",mktime(0,0,0,substr($component[0],4,2),substr($component[0],6,2),substr($component[0],0,4))).":</em> ".$component[1];
-                echo "</a>";
-                echo "</li>";
-                }
-              echo "</ul></div>";
-            }
-					*/ ?>
           				
 				<?php // This next section creates the drop-down menus for the main navigation
 				
-				$dropdowns = array("Information","Overview","Showcase","Student life");
+				$dropdowns = array("Information","Overview","Student life","Showcase");
 				$div_id = 1;
 				
 				foreach ($dropdowns as $maindir) {
