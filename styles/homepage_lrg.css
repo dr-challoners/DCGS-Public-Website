@@ -110,6 +110,53 @@ img.override {
 #magazine .top { height: 240px; }
 #magazine > .audio { height: 120px; }
 
+/* Side links */
+
+div.intranetbox h3, div.intranetbox h4, div.linkbox h3 {
+  text-transform: uppercase; font-weight: normal;
+  transition: background-color 0.2s, color 0.2s;
+  -webkit-transition: background-color 0.2s, color 0.2s;
+}
+div.intranetbox a, div.linkbox a {
+  text-decoration: none; color: #000000;
+  }
+div.intranetbox h3:hover, div.linkbox h3:hover {
+  background-color: #2358A3; color: #ffffff;
+  }
+
+div.intranetbox {
+  padding: 5px 0;
+}
+  div.intranetbox img {
+    float: right;
+    padding: 3px;
+  }
+   div.intranetbox a:first-child img { margin-right: 2px; }
+  div.intranetbox h4 {
+    margin: 0 0 0 6px;
+    font-size: 11px; letter-spacing: 0.5px;
+    color: #696969;
+  }
+  div.intranetbox h3 {
+    float: left;
+    padding: 2px 8px 3px 8px; margin: -1px 0 2px 0;
+    font-size: 16px;
+  }
+
+div.linkbox {
+   clear: left;
+   height: 80px; padding: 5px 0 8px 0;
+   }
+   div.linkbox h3 {
+     background-color: #eeeeee;
+     height: 24px; width: 125px; padding: 2px 0 0 0;
+     float: left; margin: 0 5px 5px 0;
+     font-size: 15px;  text-align: center;
+     }
+     div.linkbox a:nth-child(even) h3 {
+      margin-right: 0;
+      }
+
 /* Twitter */
 div.twitter-header {
     margin: 10px 0px 4px 0px;
@@ -151,13 +198,15 @@ iframe { margin-top: 0px; }
 div.astratext {
     visibility: hidden;
     position: absolute; width: 235px;
-    color: #1B3C67; background-color: #9BC4E8;
-    margin-top: -5px; padding: 8px 10px 10px 10px;
+    color: #1B3C67;
+    margin-top: -5px; padding: 10px;
+  border-bottom: 3px solid #7496B6;
     }
 div.astratext p {
-    margin: 0; padding: 0;
-  line-height: 20px;
+  margin: 0; padding: 0;
+  line-height: 22px;
 }
+img.linkbutton:hover, div.astratext { background-color: #C9DBEA; }
 
 
 /* Update old browsers notice */

@@ -32,14 +32,25 @@ jQuery(document).ready(function(){
 <div class="ncol rgt lrg">
   <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
   <div class="astratext" id="astra"><p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p></div>
+  
+  <div class="intranetbox">
+    <a href="https://classroom.google.com"><img src="./styles/imgs/tinyicon_classroom.png" alt="Google Classroom" /></a>
+    <a href="https://mail.google.com"><img src="./styles/imgs/tinyicon_gmail.png" alt="Google Mail" /></a>
+    <a href="https://drive.google.com"><img src="./styles/imgs/tinyicon_drive.png" alt="Google Drive" /></a>
+    <a href="https://dcgs.okta.com/"><img src="./styles/imgs/tinyicon_okta.png" alt="Okta" /></a>
+    <h4>Intranet</h4>
+    <a href="/intranet/Student_links"><h3>Students</h3></a>
+    <a href="/intranet/Staff_links"><h3>Staff</h3></a>
+    <a href="/intranet/Parent_links"><h3>Parents</h3></a>
+  </div>
+  
 	<div class="linkbox">
     <a href="/pages/Information/Admissions/"><h3>Admissions</h3></a>
-	</div>
-	<div class="linkbox">
+    <a href="/pages/Overview/Introduction/Prospectus"><h3>Prospectus</h3></a>
     <a href="/pages/Information/General_information/Staff_vacancies"><h3>Vacancies</h3></a>
-	</div>
-	<div class="linkbox">
-    <a href="/pages/Information/Supporting_us/"><h3>Supporting us</h3></a>
+    <a href="/pages/Information/General_information/Policy_documents"><h3>Policies</h3></a>
+    <a href="/pages/Overview/Governors_and_Friends/The_Friends_of_DCGS"><h3>Friends</h3></a>
+    <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
 	</div>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>Follow</span></p></a></div>

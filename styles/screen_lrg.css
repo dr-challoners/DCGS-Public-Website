@@ -34,25 +34,6 @@ div.parsebox {
   }
   div.parsebox h1:first-child { margin-top: 0; }
 
-div.linkbox {
-    background-color: #FFF7D7;
-    height: 50px; margin-bottom: 8px;
-    text-align: center;
-    }
-    div.linkbox h3 {
-       font-size: 17px; text-transform: uppercase;
-       padding: 13px 0px 0px 0px; height: 38px;
-       transition: background-color 0.2s, color 0.2s;
-       -webkit-transition: background-color 0.2s, color 0.2s;
-       }
-    div.linkbox a {
-       text-decoration: none; color: #000000;
-       }
-       div.linkbox h3:hover {
-          background-color: #2358A3; color: #ffffff;
-          }
-img.linkbutton:hover { background-color: #9BC6F7; }
-
 /* Header */
 div.header { position: fixed; z-index: 2; top: 0px; }
 
