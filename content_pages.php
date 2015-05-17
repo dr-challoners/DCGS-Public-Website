@@ -35,6 +35,7 @@ if ($get_subfolder != "") { // Building the submenu. If it's a front page for a 
   echo '<div class="ncol lft submenu lrg">'; 
 } else {
   echo '<div class="mcol frontmenu lrg">';
+  echo '<h1>'.$get_folder.'</h1>';
 }              
 
 $dir = scandir("content_main/".$get_folder, 1); // First, get all the subdirectories in the main directory being looked at

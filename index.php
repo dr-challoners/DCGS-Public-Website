@@ -48,7 +48,7 @@ jQuery(document).ready(function(){
     <a href="/pages/Information/Admissions/"><h3>Admissions</h3></a>
     <a href="/pages/Overview/Introduction/Prospectus"><h3>Prospectus</h3></a>
     <a href="/pages/Information/General_information/Staff_vacancies"><h3>Vacancies</h3></a>
-    <a href="/pages/Information/General_information/Policy_documents"><h3>Policies</h3></a>
+    <a href="/pages/Information/"><h3>Information</h3></a>
     <a href="/pages/Overview/Governors_and_Friends/The_Friends_of_DCGS"><h3>Friends</h3></a>
     <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
 	</div>
