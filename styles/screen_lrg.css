@@ -185,19 +185,52 @@ div.submenu {
 
 div.ncol h2 { margin: -8px 0px 5px 0px; }
 
-div.submenu li {
+div.submenu li, div.frontmenu li {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; font-size: 18px;
     list-style-type: none;
     margin: -4px 0px -5px 0px;
     }
 
-div.submenu a {
+div.submenu a, div.frontmenu a {
     text-decoration: none; color: #000000;
     display: block; padding: 6px 0px 7px 10px;
     transition: background-color 0.2s, color 0.2s;
     -webkit-transition: background-color 0.2s, color 0.2s;
     }
-    div.submenu a:hover { background-color: #2358A3; color: #ffffff; }
+    div.submenu a:hover, div.frontmenu a:hover { background-color: #2358A3; color: #ffffff; }
+
+div.frontmenu { margin-left: -8px }
+
+div.frontmenu h2 {
+   font-size: 26px;
+  clear: left;
+   padding: 15px 0 0 10px;
+}
+
+div.frontmenu h2:first-child {
+   padding-top: 0; margin-top: 4px;
+}
+
+div.frontmenu li {
+   font-size: 20px;
+   width: 50%; float: left;
+   margin-bottom: -2px;
+}
+
+div.frontmenuImgs {
+  float: right;
+  margin-top: 6px;
+}
+
+div.frontmenuImgs div.photostub {
+   float: left;
+   margin-bottom: 10px;
+    background-color: #f0f0f0;
+    background-size: cover;
+    }
+div.frontmenuImgs div.med { width: 254px; height: 254px; }
+div.frontmenuImgs div.tny { width: 122px; height: 122px; }
+div.frontmenuImgs div.tny:nth-child(odd) { margin-right: 10px; }
 	
 /* News story display */
 h2.news { padding: 6px 0 7px 10px; }
