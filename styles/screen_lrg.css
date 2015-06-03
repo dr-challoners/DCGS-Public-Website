@@ -258,6 +258,32 @@ div.parsebox div.sharing iframe {
 .parsebox iframe.youtubevideo:nth-child(3), .parsebox iframe.vimeovideo:nth-child(3) { margin-top: 0; }
 
 /* Intranet links */
+a.intranetMainLink {
+   float: left; margin-left: 16px;
+   color: #000000; text-decoration: none;
+   background-color: #2358A3; background-image: url(/styles/imgs/intranetButton.png);
+   background-repeat: no-repeat;
+   transition: color 0.2s;
+   -webkit-transition: color 0.2s;
+}
+   a.intranetMainLink:hover {
+      color: #ffffff;
+   }
+a.intranetMainLink h1 {
+   width: 316px; height: 113px;
+   font-size: 54px; padding-top: 27px;
+   text-align: center;
+   background-color: #f7f7f7;
+   transition: background-color 0.2s;
+   -webkit-transition: background-color 0.2s;
+}
+   a.intranetMainLink:first-of-type {
+      margin-left: 0;
+   }
+   a.intranetMainLink h1:hover {
+      background-color: transparent;
+   }
+
 div.intranet { margin-left: -12px; }
 div.intranet h1 { padding: 0 0 0 12px; }
 div.intranet h2 { padding: 16px 0 0 12px; }

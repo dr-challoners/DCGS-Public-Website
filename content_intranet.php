@@ -4,57 +4,35 @@
   include('header_navigation.php');
 ?>
 
-<!--googleoff: all--><div class="ncol lft submenu lrg">
-	<ul class="intranet">
-		<li><a href="/intranet/Staff_links">Staff links</a></li>
-    <li><a href="/intranet/Student_links">Student links</a></li>
-		<li><a href="/intranet/Parent_links">Parent links and information</a></li>
-		<li><a href="/intranet/Subject_resources">Subject resources</a></li>
-	</ul>
-<!--googleon: all--></div>
-<div class="parsebox">
+<!--googleoff: all-->
 
 <?php
 if (isset($_GET['user'])) {
+  
+  echo '<div class="ncol lft submenu lrg">';
+	  echo '<ul class="intranet">';
+      echo '<li><a href="/intranet/students">Student links</a></li>';
+		  echo '<li><a href="/intranet/staff">Staff links</a></li>';
+		  echo '<li><a href="/intranet/parents">Parent links and information</a></li>';
+	  echo '</ul>';
+  echo '<!--googleon: all--></div>';
+  echo '<div class="parsebox">';
+    echo '<div class="intranet">';
+  
 	switch ($_GET['user']) {
-	case "Subject_resources":
-    echo '<div class="intranet">';
-		echo "<h1>Subject resources</h1>";
-		$directory = "content_system/intranet/subjects/";
-	$prefix = 'L';
-    include ('links_list.php');
-    echo '</div>';
-	break;
-	case "Staff_links":
-    echo '<div class="intranet">';
+	case "staff":
 		  echo "<h1>Staff links</h1>";
 		  $directory = "content_system/intranet/staff/";
 		$prefix = 'M';
 	    include ('links_list.php');
-      echo '<div class="clear lrg">';
-        echo "<h2>Subject resources</h2>";
-		    $directory = "content_system/intranet/subjects/";
-		$prefix = 'N';
-        include ('links_list.php');
-      echo '</div>';
-    echo '</div>';
 	break;
-    case "Student_links":
-    echo '<div class="intranet">';
+    case "students":
 	  	echo "<h1>Student links</h1>";
 		  $directory = "content_system/intranet/students/";
 		$prefix = 'O';
 	    include ('links_list.php');
-      echo '<div class="clear lrg">';
-        echo "<h2>Subject resources</h2>";
-		    $directory = "content_system/intranet/subjects/";
-		$prefix = 'P';
-        include ('links_list.php');
-      echo '</div>';
-    echo '</div>';
 	break;
-	case "Parent_links":
-    echo '<div class="intranet">';
+	case "parents":
 		echo "<h1>Parent links and information</h1>";
 		
     // First repeat the information in the Information content folder, to give parents another opportunity to find it all
@@ -101,13 +79,32 @@ if (isset($_GET['user'])) {
       $directory = "content_system/intranet/parents/";
       		$_REQUEST['prefix'] = 'Q';
 			include ('links_list.php');
-		echo "</div>";
 	break;
 	}
+  
+      echo '<div class="clear lrg">';
+        echo "<h2>Subject resources</h2>";
+		    $directory = "content_system/intranet/subjects/";
+		$prefix = 'N';
+        include ('links_list.php');
+      echo '</div>';
+    echo "</div>";
+  
 	}
 	else {
-		echo "<h1>DCGS intranet</h1>";
-		echo "<p>Staff and students require a username and password to access most links in this section.<br />Parents can view documents without a login, but will need a username and password to access reports and catering statements.</p><p>Click on a category on the left to begin.</p>";
+    
+    $buttons = array(1,2,3,4,5,6);
+    shuffle($buttons);
+    
+		echo '<a class="intranetMainLink" href="/intranet/students"';
+      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
+      echo '><h1>Students</h1></a>';
+    echo '<a class="intranetMainLink" href="/intranet/staff"';
+      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
+      echo '><h1>Staff</h1></a>';
+    echo '<a class="intranetMainLink" href="/intranet/parents"';
+      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
+      echo '><h1>Parents</h1></a>';
 		}
 	
 	echo "</div>";
