@@ -257,11 +257,14 @@ div.parsebox div.sharing iframe {
 a.intranetMainLink {
    float: left; margin-left: 16px;
    color: #000000; text-decoration: none;
-   background-color: #2358A3; background-image: url(/styles/imgs/intranetButton.png);
-   background-repeat: no-repeat;
+   background-color: #2358A3; background-repeat: no-repeat;
+   background-image: url(/styles/imgs/intranetButtonFrnt.png), url(/styles/imgs/intranetButtonBkgd.png);
    transition: color 0.2s;
    -webkit-transition: color 0.2s;
 }
+   #duck {
+     background-image: url(/styles/imgs/ducknetButton.png);
+   }
    a.intranetMainLink:hover {
       color: #ffffff;
    }

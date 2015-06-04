@@ -11,51 +11,64 @@ if (isset($_GET['user'])) {
   
 function makeIntranetLinks($sheetKey,$prefix) {
   
-  // Create an array of all the worksheets within the specified sheet
-  
-  $worksheetList = file_get_contents('https://spreadsheets.google.com/feeds/worksheets/'.$sheetKey.'/public/basic?alt=json');
-  $worksheetList = json_decode($worksheetList);
-  $worksheetList = $worksheetList->feed->entry;
-  
-  $sections = array();
-  
-  foreach ($worksheetList as $row) {
-    $row = $row->title;
-    $row = get_object_vars($row);
-    $sections[] = $row['$t'];
+  if (file_exists('sync_logs/intranet_lastupdate.json')) {
+    $syncCheck = json_decode(file_get_contents('sync_logs/intranet_lastupdate.json'), true);
   }
   
-  // Now work through the spreadsheet one worksheet at a time, creating a multi-dimensional array of the link list data for the whole spreadsheet
+  if (!isset($syncCheck[$sheetKey]) || $syncCheck[$sheetKey] < (time()-1800)) { // Either this sheet has never been fetched before, or the record is stale
   
-  $lists = array();
-  
-  $sectionKey = 1;
-  foreach ($sections as $section) {
-    $list = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$sectionKey.'/public/values?alt=json');
-    $list = json_decode($list);
-    if (isset($list->feed->entry)) { // Various debugging throughout in case there are half-setup worksheets in the spreadsheet when it updates
-      $list = $list->feed->entry;
-      
-      $links = array();
-      
-      foreach ($list as $row) {
-        $row = get_object_vars($row);
-        if (array_key_exists('gsx$title',$row) && array_key_exists('gsx$url',$row) && array_key_exists('gsx$notes',$row) && array_key_exists('gsx$special',$row)) {
-          $title   = get_object_vars($row['gsx$title']);
-          $url     = get_object_vars($row['gsx$url']);
-          $notes   = get_object_vars($row['gsx$notes']);
-          $special = get_object_vars($row['gsx$special']);
-          $row = array('title'=>$title['$t'], 'url'=>$url['$t'], 'notes'=>$notes['$t'], 'special'=>$special['$t']);
-          $links[] = $row;
-        }
-      }
-      $lists[$section] = $links;
+    // Create an array of all the worksheets within the specified sheet
+
+    $worksheetList = file_get_contents('https://spreadsheets.google.com/feeds/worksheets/'.$sheetKey.'/public/basic?alt=json');
+    $worksheetList = json_decode($worksheetList);
+    $worksheetList = $worksheetList->feed->entry;
+
+    $sections = array();
+
+    foreach ($worksheetList as $row) {
+      $row = $row->title;
+      $row = get_object_vars($row);
+      $sections[] = $row['$t'];
     }
-    $sectionKey++;
-  }
+
+    // Now work through the spreadsheet one worksheet at a time, creating a multi-dimensional array of the link list data for the whole spreadsheet
+
+    $lists = array();
+
+    $sectionKey = 1;
+    foreach ($sections as $section) {
+      $list = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$sectionKey.'/public/values?alt=json');
+      $list = json_decode($list);
+      if (isset($list->feed->entry)) { // Various debugging throughout in case there are half-setup worksheets in the spreadsheet when it updates
+        $list = $list->feed->entry;
+
+        $links = array();
+
+        foreach ($list as $row) {
+          $row = get_object_vars($row);
+          if (array_key_exists('gsx$title',$row) && array_key_exists('gsx$url',$row) && array_key_exists('gsx$notes',$row) && array_key_exists('gsx$special',$row)) {
+            $title   = get_object_vars($row['gsx$title']);
+            $url     = get_object_vars($row['gsx$url']);
+            $notes   = get_object_vars($row['gsx$notes']);
+            $special = get_object_vars($row['gsx$special']);
+            $row = array('title'=>$title['$t'], 'url'=>$url['$t'], 'notes'=>$notes['$t'], 'special'=>$special['$t']);
+            $links[] = $row;
+          }
+        }
+        $lists[$section] = $links;
+      }
+      $sectionKey++;
+    }
+
+    // Save the array as JSON and record the time of sycing
+    file_put_contents('sync_logs/intranet_'.$sheetKey.'.json', json_encode($lists));
+    $syncCheck[$sheetKey] = time();
+    file_put_contents('sync_logs/intranet_lastupdate.json', json_encode($syncCheck));
     
-  // Use the spreadsheet array to generate the links list
+  }
   
+  // Use the stored spreadsheet array to generate the links list
+  $lists = json_decode(file_get_contents('sync_logs/intranet_'.$sheetKey.'.json'), true);
   $headings = array_keys($lists);
   
   $c = 0;
@@ -194,20 +207,18 @@ function makeIntranetLinks($sheetKey,$prefix) {
   
 	}
 	else {
-    
-    $buttons = array(1,2,3,4,5,6);
-    shuffle($buttons);
-    
-		echo '<a class="intranetMainLink" href="/intranet/students"';
-      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
-      echo '><h1>Students</h1></a>';
-    echo '<a class="intranetMainLink" href="/intranet/staff"';
-      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
-      echo '><h1>Staff</h1></a>';
-    echo '<a class="intranetMainLink" href="/intranet/parents"';
-      echo ' style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px;"';
-      echo '><h1>Parents</h1></a>';
-		}
+    $pages = array('Students','Staff','Parents');
+    $d = 0; if (rand(1,999) == 1) { $d = rand(1,3); } // Duck time!
+    $n = 1;
+    foreach ($pages as $page) {
+      if ($d != $n) {
+        echo '<a class="intranetMainLink" href="/intranet/'.strtolower($page).'" style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px, '.rand(-60,0).'px '.rand(-60,0).'px;"><h1>'.$page.'</h1></a>';
+      } else {
+        echo '<a class="intranetMainLink" id="duck" href="/intranet/'.strtolower($page).'" style="background-position: '.rand(-200,0).'px 0;"><h1>'.$page.'</h1></a>';
+      }
+    $n++;
+    }
+	}
 	
 
 	
