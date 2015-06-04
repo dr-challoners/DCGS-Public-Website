@@ -96,39 +96,35 @@ div.sub_nav {
     top: 144px; left: -5px;
     width: 970px; padding: 10px 10px 12px 10px;
     }
-    div.category {
-       float: left; width: 232px;
-       padding: 0px 5px 0px 5px;
-       }
-       .category h1 {
-          margin-left: 9px;
-       }
-       #intranetLink {
-          margin: 0;
-       }
-       #intranetLink a {
-          font-weight: bold; font-size: 15px;
-          color: #2358A2;
-       }
-       #intranetLink a:hover {
-          color: #ffffff;
-       }
     div.sub_nav h2 {
        text-align: left;
-       margin: 0px 5px 5px 10px;
+       margin: 12px 5px 3px 15px;
        font-size: 18px;
+       }
+    div.category:first-child h2 {
+       margin-top: 5px;
+    }
+    div.sub_nav li {
+       float: left;
+       width: 232px; padding: 0 4px 0 5px;
+       margin-bottom: -3px;
+       border-right: 1px solid #cccccc;
+    }
+       div.sub_nav li:nth-child(4n),
+       div.category li:last-of-type {
+          border-right: 0; padding-right: 5px;
        }
     div.sub_nav a {
        font-family: Trebuchet, Verdana, sans-serif; font-size: 14px;
        text-align: left; 
        color: #000000;
        padding: 6px 10px 8px 10px;
-       width: 212px;
        }
        div.sub_nav a:hover {
           color: #ffffff;
           background-color: #2358A3;
           }
+
 /* Footer */
 div.footer { position: fixed; z-index: 2; bottom: 0px; }
 

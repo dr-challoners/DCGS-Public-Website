@@ -89,6 +89,7 @@ if (isset($_GET['user'])) {
         include ('links_list.php');
       echo '</div>';
     echo "</div>";
+  echo "</div>";
   
 	}
 	else {
@@ -107,7 +108,7 @@ if (isset($_GET['user'])) {
       echo '><h1>Parents</h1></a>';
 		}
 	
-	echo "</div>";
+
 	
 	include ('footer.php');
 ?>
