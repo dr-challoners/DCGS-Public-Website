@@ -18,8 +18,6 @@ function getSheetAsArray($file_id,$n) {
     foreach ($file as $row) {
       $currentLine = array();
       unset($row->id,$row->updated,$row->category,$row->title,$row->content,$row->link);
-      echo "<pre>";
-    echo "</pre>";
       foreach ($row as $cell) {
         $cell = get_object_vars($cell);
         $currentLine[] = $cell['$t'];

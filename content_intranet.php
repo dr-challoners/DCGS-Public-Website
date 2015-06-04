@@ -9,6 +9,114 @@
 <?php
 if (isset($_GET['user'])) {
   
+function makeIntranetLinks($sheetKey,$prefix) {
+  
+  // Create an array of all the worksheets within the specified sheet
+  
+  $worksheetList = file_get_contents('https://spreadsheets.google.com/feeds/worksheets/'.$sheetKey.'/public/basic?alt=json');
+  $worksheetList = json_decode($worksheetList);
+  $worksheetList = $worksheetList->feed->entry;
+  
+  $sections = array();
+  
+  foreach ($worksheetList as $row) {
+    $row = $row->title;
+    $row = get_object_vars($row);
+    $sections[] = $row['$t'];
+  }
+  
+  // Now work through the spreadsheet one worksheet at a time, creating a multi-dimensional array of the link list data for the whole spreadsheet
+  
+  $lists = array();
+  
+  $sectionKey = 1;
+  foreach ($sections as $section) {
+    $list = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$sectionKey.'/public/values?alt=json');
+    $list = json_decode($list);
+    if (isset($list->feed->entry)) { // Various debugging throughout in case there are half-setup worksheets in the spreadsheet when it updates
+      $list = $list->feed->entry;
+      
+      $links = array();
+      
+      foreach ($list as $row) {
+        $row = get_object_vars($row);
+        if (array_key_exists('gsx$title',$row) && array_key_exists('gsx$url',$row) && array_key_exists('gsx$notes',$row) && array_key_exists('gsx$special',$row)) {
+          $title   = get_object_vars($row['gsx$title']);
+          $url     = get_object_vars($row['gsx$url']);
+          $notes   = get_object_vars($row['gsx$notes']);
+          $special = get_object_vars($row['gsx$special']);
+          $row = array('title'=>$title['$t'], 'url'=>$url['$t'], 'notes'=>$notes['$t'], 'special'=>$special['$t']);
+          $links[] = $row;
+        }
+      }
+      $lists[$section] = $links;
+    }
+    $sectionKey++;
+  }
+    
+  // Use the spreadsheet array to generate the links list
+  
+  $headings = array_keys($lists);
+  
+  $c = 0;
+  foreach ($headings as $list) {
+    // On large screens, generate the right-hand section button along with the left-hand one: this means the links for both sections appear under both headings, rather than the right-hand heading jumping down the page when the left-hand list is opened.
+    echo '<div class="intranet_head';
+    if ($c%2 == 1) { echo ' sml'; }
+    echo '">';
+      echo '<h3><a href="javascript:boxOpen(\''.$prefix.$c.'\',\'boxlist\')">'.$list.'</a></h3>';
+    echo "</div>";
+    $cn = $c+1;
+    if ($c%2 == 0 && isset($headings[$cn])) {
+      echo '<div class="intranet_head lrg">';
+        echo '<h3><a href="javascript:boxOpen(\''.$prefix.$cn.'\',\'boxlist\')">'.$headings[$cn].'</a></h3>';
+      echo "</div>";
+    }
+    // Now for the links lists themselves
+    echo '<div class="intranetbox"><div class="dropdown" name="boxlist" id="'.$prefix.$c.'">';
+      $l = 0;
+      foreach ($lists[$list] as $link) {
+        if (strtolower($link['special']) != 'subheading') {
+          if (strpos(str_replace(" ","",strtolower($link['special'])),'linebreak') !== false) {
+            if ($l > 0) { echo '</ul>'; }
+            echo '<hr />';
+            $l = 0;
+          }
+          if ($l == 0) {
+            echo '<ul>';
+            $l++;
+          }
+          echo '<li>';
+            echo '<a ';
+              // Detect if the site is external (including Learn websites) and open in a new tab/add a class if they are
+              if ((strpos($link['url'],'challoners.com') === false && strpos($link['url'],'://') !== false) || strpos($link['url'],'challoners.com/learn') !== false) { 
+                echo 'target="page'.mt_rand().'" class="external" ';
+              }
+              echo 'href="'.$link['url'].'">';
+              echo $link['title'];
+            echo '</a>';
+            if (!empty($link['notes'])) {
+              echo '<p>';
+                echo $link['notes'];
+              echo '</p>';
+            }
+          echo '</li>';
+        } else {
+          if ($l > 0) {
+            echo '</ul>';
+            echo '<hr />';
+          }
+          echo '<h3>'.$link['title'].'</h3>';
+          $l = 0;
+        }
+      }
+      if ($l > 0) { echo '</ul>'; }
+    echo '<hr id="end" /></div></div>';
+  $c++;
+  }
+  
+}
+  
   echo '<div class="ncol lft submenu lrg">';
 	  echo '<ul class="intranet">';
       echo '<li><a href="/intranet/students">Student links</a></li>';
@@ -16,21 +124,18 @@ if (isset($_GET['user'])) {
 		  echo '<li><a href="/intranet/parents">Parent links and information</a></li>';
 	  echo '</ul>';
   echo '<!--googleon: all--></div>';
+  
   echo '<div class="parsebox">';
     echo '<div class="intranet">';
   
 	switch ($_GET['user']) {
 	case "staff":
 		  echo "<h1>Staff links</h1>";
-		  $directory = "content_system/intranet/staff/";
-		$prefix = 'M';
-	    include ('links_list.php');
+		  makeIntranetLinks('1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk','M');
 	break;
     case "students":
 	  	echo "<h1>Student links</h1>";
-		  $directory = "content_system/intranet/students/";
-		$prefix = 'O';
-	    include ('links_list.php');
+		  makeIntranetLinks('1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw','O');
 	break;
 	case "parents":
 		echo "<h1>Parent links and information</h1>";
@@ -76,17 +181,13 @@ if (isset($_GET['user'])) {
 						echo '</ul><hr id="end" /></div></div>';
 					}
 				
-      $directory = "content_system/intranet/parents/";
-      		$_REQUEST['prefix'] = 'Q';
-			include ('links_list.php');
+      makeIntranetLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg','Q');
 	break;
 	}
   
       echo '<div class="clear lrg">';
         echo "<h2>Subject resources</h2>";
-		    $directory = "content_system/intranet/subjects/";
-		$prefix = 'N';
-        include ('links_list.php');
+        makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','N');
       echo '</div>';
     echo "</div>";
   echo "</div>";
