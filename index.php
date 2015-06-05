@@ -39,9 +39,9 @@ jQuery(document).ready(function(){
     <a href="https://drive.google.com"><img src="./styles/imgs/tinyicon_drive.png" alt="Google Drive" /></a>
     <a href="https://dcgs.okta.com/"><img src="./styles/imgs/tinyicon_okta.png" alt="Okta" /></a>
     <h4>Intranet</h4>
-    <a href="/intranet/Student_links"><h3>Students</h3></a>
-    <a href="/intranet/Staff_links"><h3>Staff</h3></a>
-    <a href="/intranet/Parent_links"><h3>Parents</h3></a>
+    <a href="/intranet/students"><h3>Students</h3></a>
+    <a href="/intranet/staff"><h3>Staff</h3></a>
+    <a href="/intranet/parents"><h3>Parents</h3></a>
   </div>
   
 	<div class="linkbox">
@@ -82,7 +82,7 @@ if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['u
   echo '</div>';
 }
 include ('override_display.php');
-include ('override_travel.php');
+// include ('override_travel.php');
 include ('magazine.php');
 ?>
 

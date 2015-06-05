@@ -157,43 +157,6 @@ div.linkbox {
       margin-right: 0;
       }
 
-/* Twitter */
-div.twitter-header {
-    margin: 10px 0px 4px 0px;
-    }
-
-div.twitter-header p {
-    padding: 2px 31px 3px 7px; margin: 0px;
-    background-image: url('/styles/imgs/twitter.png');
-    background-position: right 6px;
-    background-repeat: no-repeat;
-    transition: background-color 0.2s, color 0.2s;
-    -webkit-transition: background-color 0.2s, color 0.2s;
-    }
-    div.twitter-header p:hover { background-color: #2358A3; color: #ffffff; }
-
-div.twitter-header span {
-    float: right;
-    font-size: 11px;
-    padding-top: 2px;
-    }
-
-div.twitter-header a {
-    display: block;
-    text-decoration: none;
-    }
-
-div.twitter-header#news { background-color: #f3b939; }
-    div.twitter-header#news a { color: #000000; }
-div.twitter-header#sprt { background-color: #b21614; }
-    div.twitter-header#sprt a { color: #ffffff; }
-div.twitter-header#astra { background-color: #123B67; }
-    div.twitter-header#astra a { color: #ffffff; }
-
-.twitter-timeline { height: 300px; margin-bottom: -5px; }
-
-iframe { margin-top: 0px; }
-
 /* Astra LA */
 div.astratext {
     visibility: hidden;

@@ -130,12 +130,29 @@ function makeIntranetLinks($sheetKey,$prefix) {
   
 }
   
-  echo '<div class="ncol lft submenu lrg">';
-	  echo '<ul class="intranet">';
-      echo '<li><a href="/intranet/students">Student links</a></li>';
-		  echo '<li><a href="/intranet/staff">Staff links</a></li>';
-		  echo '<li><a href="/intranet/parents">Parent links and information</a></li>';
-	  echo '</ul>';
+  echo '<div class="ncol lft intranetSidebar lrg">';
+  
+  switch ($_GET['user']) {
+    case "parents":
+    case "Parent_links":
+      $feedURL  = 'DCGSParenting';
+      $feedName = 'DCGS Parenting';
+      $feedID   = '606699684757913600';
+    break;
+    case "students":
+    case "Student_links":
+      $feedURL  = 'Student_SLT';
+      $feedName = 'DCGS Student SLT';
+      $feedID   = '606700413740564480';
+    break;
+  }
+  
+  if (isset($feedID)) {
+    echo '<div class="twitter-header" id="intranet"><a href="https://twitter.com/'.$feedURL.'" target="page'.mt_rand().'"><p>'.$feedName.' <span>Follow</span></p></a></div>';
+    echo '<a class="twitter-timeline"  href="https://twitter.com/'.$feedURL.'" data-chrome="noborders noheader nofooter" data-widget-id="'.$feedID.'">Tweets by @'.$feedURL.'</a>';
+    echo '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+  }
+  
   echo '<!--googleon: all--></div>';
   
   echo '<div class="parsebox">';
@@ -143,14 +160,17 @@ function makeIntranetLinks($sheetKey,$prefix) {
   
 	switch ($_GET['user']) {
 	case "staff":
+  case "Staff_links":
 		  echo "<h1>Staff links</h1>";
 		  makeIntranetLinks('1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk','M');
 	break;
     case "students":
+    case "Student_links":
 	  	echo "<h1>Student links</h1>";
 		  makeIntranetLinks('1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw','O');
 	break;
 	case "parents":
+  case "Parent_links":
 		echo "<h1>Parent links and information</h1>";
 		
     // First repeat the information in the Information content folder, to give parents another opportunity to find it all
@@ -217,6 +237,45 @@ function makeIntranetLinks($sheetKey,$prefix) {
         echo '<a class="intranetMainLink" id="duck" href="/intranet/'.strtolower($page).'" style="background-position: '.rand(-200,0).'px 0;"><h1>'.$page.'</h1></a>';
       }
     $n++;
+    }
+    if (file_exists('sync_logs/intranet_lastupdate.json')) { // Debugging in case this is the first time through or the data has been wiped for some reason
+      echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
+      function makeQuickLinks($sheetKey) {
+        if (file_exists('sync_logs/intranet_'.$sheetKey.'.json')) {
+          $links = json_decode(file_get_contents('sync_logs/intranet_'.$sheetKey.'.json'), true);
+          foreach ($links as $row) {
+            foreach ($row as $link) {
+              if (strpos(str_replace(" ","",strtolower($link['special'])),'quicklink') !== false) {
+                echo '<li>';
+                  echo '<a ';
+                    // Detect if the site is external (including Learn websites) and open in a new tab/add a class if they are
+                    if ((strpos($link['url'],'challoners.com') === false && strpos($link['url'],'://') !== false) || strpos($link['url'],'challoners.com/learn') !== false) { 
+                      echo 'target="page'.mt_rand().'" class="external" ';
+                    }
+                    echo 'href="'.$link['url'].'">';
+                    echo '<p>'.$link['title'].'</p>';
+                  echo '</a>';
+                  if (!empty($link['notes'])) {
+                    echo '<p>';
+                      echo $link['notes'];
+                    echo '</p>';
+                  }
+                echo '</li>';
+              }
+            }
+          }
+        }
+      }
+      echo '<ul class="quickLinks">'; // Students - subject quick links go here as well
+        makeQuickLinks('1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw');
+        makeQuickLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs');
+      echo '</ul>';
+      echo '<ul class="quickLinks">'; // Staff
+        makeQuickLinks('1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk');
+      echo '</ul>';
+      echo '<ul class="quickLinks">'; // Parents
+        makeQuickLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg');
+      echo '</ul>';
     }
 	}
 	

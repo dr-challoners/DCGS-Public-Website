@@ -283,9 +283,35 @@ a.intranetMainLink h1 {
       background-color: transparent;
    }
 
+p.quickLinkNote {
+   clear: left;
+   padding: 16px 0 10px 8px; margin-bottom: 6px;
+   font-size: 16px; color: #696969; font-style: italic;
+   border-bottom: 1px solid #cccccc;
+}
+
+ul.quickLinks {
+   width: 316px;
+   float: left; margin-right: 16px;
+}
+   ul.quickLinks:last-of-type {
+      margin-right: 0;
+   }
+ul.quickLinks li {
+   list-style-type: none;
+   padding: 0 8px;
+}
+ul.quickLinks p {
+   margin: 0;
+}
+ul.quickLinks a p {
+   font-size: 16px;
+   padding-top: 6px; margin-top: 6px;
+}
+
 div.intranet { margin-left: -12px; }
-div.intranet h1 { padding: 0 0 0 12px; }
-div.intranet h2 { padding: 16px 0 0 12px; }
+div.intranet h1 { padding: 0 0 0 20px; margin: 0!important; }
+div.intranet h2 { padding: 18px 0 4px 20px; margin: 0!important; }
 
 div.intranet_head {
    float: left; 
@@ -302,7 +328,7 @@ div.intranetbox hr#end {
    visibility: hidden; height: 2px;
 }
 div.intranet_head h3 a {
-   display: block; padding: 3px 8px 3px 8px;
+   display: block; padding: 4px 8px;
    color: #000000; font-weight: normal;
    background-color: #F7F7F7;
    transition: background-color 0.2s, color 0.2s;
@@ -335,6 +361,53 @@ div.intranet_head h3 a:hover, div.intranet_head h3.open a {
     div.parsebox div.intranetbox a:before {
       content: none;
       }
+   div.intranetbox h3 {
+      margin: 10px 0 0 0 !important;
+   }
+     div.intranetbox h3:first-child {
+        margin-top: 6px !important;
+     }
+
+/* Twitter */
+div.twitter-header {
+    margin: 10px 0px 4px 0px;
+    }
+
+div.twitter-header p {
+    padding: 2px 31px 3px 7px; margin: 0px;
+    background-image: url('/styles/imgs/twitter.png');
+    background-position: right 6px;
+    background-repeat: no-repeat;
+    transition: background-color 0.2s, color 0.2s;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+    }
+    div.twitter-header p:hover { background-color: #2358A3; color: #ffffff; }
+
+div.twitter-header span {
+    float: right;
+    font-size: 11px;
+    padding-top: 1px;
+    }
+
+div.twitter-header a {
+    display: block;
+    text-decoration: none;
+    }
+
+div.twitter-header#news { background-color: #f3b939; }
+    div.twitter-header#news a { color: #000000; }
+div.twitter-header#sprt { background-color: #b21614; }
+    div.twitter-header#sprt a { color: #ffffff; }
+div.twitter-header#astra { background-color: #123B67; }
+    div.twitter-header#astra a { color: #ffffff; }
+
+.twitter-timeline { height: 300px; margin-bottom: -5px; }
+
+div.twitter-header#intranet { background-color: #173F7A; }
+div.twitter-header#intranet a { color: #ffffff; }
+.intranetSidebar .twitter-timeline { height: 450px; }
+
+iframe { margin-top: 0px; }
 
 /* Houses pages */
 
