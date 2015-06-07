@@ -27,10 +27,10 @@ jQuery(document).ready(function(){
    });
 </script>
 
-<?php include('header_navigation.php'); ?>
+<?php $blood=1; include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
-  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
+  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton_BLOOD.png" alt="Astra Learning Alliance" /></a>
   <div class="astratext" id="astra"><p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p></div>
   
   <div class="intranetbox">
@@ -53,15 +53,15 @@ jQuery(document).ready(function(){
     <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
 	</div>
 	
-	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>F<span class="hide">o</span>ll<span class="hide">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersNews" data-chrome="noborders noheader nofooter" data-widget-id="430598364401373184">Tweets by @ChallonersNews</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS Sport <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS Sp<span class="hideW">o</span>rt <span>F<span class="hideW">o</span>ll<span class="hideW">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersSport" data-chrome="noborders noheader nofooter" data-widget-id="430597618125664256">Tweets by @ChallonersSport</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   
-  <div class="twitter-header" id="astra"><a href="https://twitter.com/AstraAlliance" target="<?php echo 'page'.mt_rand(); ?>"><p>Astra Learning Alliance <span>Follow</span></p></a></div>
+  <div class="twitter-header" id="astra"><a href="https://twitter.com/AstraAlliance" target="<?php echo 'page'.mt_rand(); ?>"><p><span class="hideW">A</span>str<span class="hideW">a</span> Le<span class="hideW">a</span>rning <span class="hideW">A</span>lli<span class="hideW">a</span>nce <span>F<span class="hideW">o</span>ll<span class="hideW">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/AstraAlliance" data-chrome="noborders noheader nofooter" data-widget-id="533279910580604930">Tweets by @AstraAlliance</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	
