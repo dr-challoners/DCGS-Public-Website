@@ -7,7 +7,36 @@ if (!isset($_GET['page'])) { $get_page = ""; } else { $get_page = str_replace($l
 	
 include('header_navigation.php');
 
-echo '<!--googleoff: all--><div class="ncol lft submenu lrg">'; // Building the submenu
+echo '<!--googleoff: all-->';
+
+if ($get_subfolder == "") { // We're on the front page for a section, so we're going to display some pretty pictures
+  echo '<div class="ncol frontmenuImgs lrg">';
+  
+  $photos = scandir("content_system/sidebarImgs/", 1);
+  array_pop($photos);
+  array_pop($photos); // Removes . and .. from the array in order to get a proper count
+  shuffle($photos);
+  
+  $r = rand(1,2);
+    
+  if ($r == 1) { echo '<div class="photostub med" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>'; } 
+    echo '<div class="tny-box">';
+      echo '<div class="photostub tny" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>';
+      echo '<div class="photostub tny" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>';
+      echo '<div class="photostub tny" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>';
+      echo '<div class="photostub tny" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>';
+    echo '</div>';
+  if ($r == 2) { echo '<div class="photostub med" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>'; } 
+  
+  echo '</div>';
+}
+
+if ($get_subfolder != "") { // Building the submenu. If it's a front page for a section, then the submenu is displayed in a wide box.
+  echo '<div class="ncol lft submenu lrg">'; 
+} else {
+  echo '<div class="mcol frontmenu lrg">';
+  echo '<h1>'.$get_folder.'</h1>';
+}              
 
 $dir = scandir("content_main/".$get_folder, 1); // First, get all the subdirectories in the main directory being looked at
 $dir = array_reverse($dir);
@@ -15,7 +44,11 @@ $dir = array_reverse($dir);
 foreach ($dir as $subdir) { // List all the subdirectories
   $dirname = explode("~",$subdir);
   if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
-    echo "<h2><a href=\"javascript:openClose('".str_replace("'","",$dirname[1])."')\">".$dirname[1]."</a></h2>";
+    echo '<h2>';
+      if ($get_subfolder != "") { echo "<a href=\"javascript:openClose('".str_replace("'","",$dirname[1])."')\">"; }
+        echo $dirname[1];
+      if ($get_subfolder != "") { echo '</a>'; }
+    echo '</h2>';
     
       $files = scandir("content_main/".$get_folder."/".$subdir, 1); //Now get all the files in each subdirectory and turn them into appropriate links
       $files = array_reverse($files);
@@ -41,12 +74,15 @@ foreach ($dir as $subdir) { // List all the subdirectories
     
     }
   }
-      
-echo "<!--googleon: all--></div>";
 
-echo '<div class="parsebox">'; $parsediv = 1;
+echo '</div>';
+
+
+
+echo '<!--googleon: all-->';
 
     if ($get_subfolder != "") { // Parse the appropriate content for the page
+      echo '<div class="parsebox">'; $parsediv = 1;
       foreach ($dir as $subdir) { // Above, the links are made into human-readable titles. This finds the actual names of the folders and files, in order to access the content.
         if (strpos($subdir,$get_subfolder) !== false) {
             $this_subdir = $subdir;
@@ -79,42 +115,9 @@ echo '<div class="parsebox">'; $parsediv = 1;
           echo "<h1>Oh dear!</h1>";
           echo "<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there's an error, you could <a href=\"/pages/Information/General information/Contact us\">contact us</a> to report the problem.</p>";
           echo "</div>";
-			  	} 
-			  }
-      else { // We're not looking at a specific page, so display the welcome message
-        echo '<h1>'.$get_folder.'</h1>';
-        echo '<p>';
-        switch ($get_folder) {
-          case 'Information':
-            echo 'In this section you will find answers to your various administrative queries.<br />If you can\'t see what you are looking for, please <a href="/pages/Information/General information/Contact us">contact us</a>.';
-          break;
-          case 'Student life':
-            echo 'Find out more in this section about the wide range of experiences and development opportunities available to all our students.';
-          break;
-          case 'Showcase':
-            echo 'We are immensely proud of our students. This section highlights some of the many activities our students have been involved in, as well as some of their accomplishments.';
-          break;
-          case 'Overview':
-            echo 'Welcome to Challoner\'s!<br />In this section, we hope to give you a broad idea of our aims and ethos.';
-          break;
-          }
-        echo '</p>';
-        $bkgds = scandir('./styles/bkgds/',1);
-        $n = count($bkgds);
-        $bkgd = 'bkgd'.rand(1,$n-2).'.jpg';
-        echo '<style>';
-          echo 'body { ';
-            echo 'background-image: url(/styles/bkgds/'.$bkgd.');';
-            echo 'background-repeat: no-repeat;';
-            echo 'background-attachment: fixed;';
-            echo 'background-position: right bottom;';
-            echo 'background-position: right calc(100% - 33px);';
-          echo ' }';
-          echo 'div.parsebox { background-color: rgba(256,256,256,0.7); }';
-        echo '</style>';
-        }
-	
-echo "</div>";
+			  	}
+      echo "</div>";
+			}
 
 include('footer.php');
 

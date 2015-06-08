@@ -4,57 +4,173 @@
   include('header_navigation.php');
 ?>
 
-<!--googleoff: all--><div class="ncol lft submenu lrg">
-	<ul class="intranet">
-		<li><a href="/intranet/Staff_links">Staff links</a></li>
-    <li><a href="/intranet/Student_links">Student links</a></li>
-		<li><a href="/intranet/Parent_links">Parent links and information</a></li>
-		<li><a href="/intranet/Subject_resources">Subject resources</a></li>
-	</ul>
-<!--googleon: all--></div>
-<div class="parsebox">
+<!--googleoff: all-->
 
 <?php
 if (isset($_GET['user'])) {
-	switch ($_GET['user']) {
-	case "Subject_resources":
-    echo '<div class="intranet">';
-		echo "<h1>Subject resources</h1>";
-		$directory = "content_system/intranet/subjects/";
-	$prefix = 'L';
-    include ('links_list.php');
-    echo '</div>';
-	break;
-	case "Staff_links":
-    echo '<div class="intranet">';
-		  echo "<h1>Staff links</h1>";
-		  $directory = "content_system/intranet/staff/";
-		$prefix = 'M';
-	    include ('links_list.php');
-      echo '<div class="clear lrg">';
-        echo "<h2>Subject resources</h2>";
-		    $directory = "content_system/intranet/subjects/";
-		$prefix = 'N';
-        include ('links_list.php');
-      echo '</div>';
-    echo '</div>';
-	break;
+  
+function makeIntranetLinks($sheetKey,$prefix) {
+  
+  if (file_exists('sync_logs/intranet_lastupdate.json')) {
+    $syncCheck = json_decode(file_get_contents('sync_logs/intranet_lastupdate.json'), true);
+  }
+  
+  if (!isset($syncCheck[$sheetKey]) || $syncCheck[$sheetKey] < (time()-1800)) { // Either this sheet has never been fetched before, or the record is stale
+  
+    // Create an array of all the worksheets within the specified sheet
+
+    $worksheetList = file_get_contents('https://spreadsheets.google.com/feeds/worksheets/'.$sheetKey.'/public/basic?alt=json');
+    $worksheetList = json_decode($worksheetList);
+    $worksheetList = $worksheetList->feed->entry;
+
+    $sections = array();
+
+    foreach ($worksheetList as $row) {
+      $row = $row->title;
+      $row = get_object_vars($row);
+      $sections[] = $row['$t'];
+    }
+
+    // Now work through the spreadsheet one worksheet at a time, creating a multi-dimensional array of the link list data for the whole spreadsheet
+
+    $lists = array();
+
+    $sectionKey = 1;
+    foreach ($sections as $section) {
+      $list = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$sectionKey.'/public/values?alt=json');
+      $list = json_decode($list);
+      if (isset($list->feed->entry)) { // Various debugging throughout in case there are half-setup worksheets in the spreadsheet when it updates
+        $list = $list->feed->entry;
+
+        $links = array();
+
+        foreach ($list as $row) {
+          $row = get_object_vars($row);
+          if (array_key_exists('gsx$title',$row) && array_key_exists('gsx$url',$row) && array_key_exists('gsx$notes',$row) && array_key_exists('gsx$special',$row)) {
+            $title   = get_object_vars($row['gsx$title']);
+            $url     = get_object_vars($row['gsx$url']);
+            $notes   = get_object_vars($row['gsx$notes']);
+            $special = get_object_vars($row['gsx$special']);
+            $row = array('title'=>$title['$t'], 'url'=>$url['$t'], 'notes'=>$notes['$t'], 'special'=>$special['$t']);
+            $links[] = $row;
+          }
+        }
+        $lists[$section] = $links;
+      }
+      $sectionKey++;
+    }
+
+    // Save the array as JSON and record the time of sycing
+    file_put_contents('sync_logs/intranet_'.$sheetKey.'.json', json_encode($lists));
+    $syncCheck[$sheetKey] = time();
+    file_put_contents('sync_logs/intranet_lastupdate.json', json_encode($syncCheck));
+    
+  }
+  
+  // Use the stored spreadsheet array to generate the links list
+  $lists = json_decode(file_get_contents('sync_logs/intranet_'.$sheetKey.'.json'), true);
+  $headings = array_keys($lists);
+  
+  $c = 0;
+  foreach ($headings as $list) {
+    // On large screens, generate the right-hand section button along with the left-hand one: this means the links for both sections appear under both headings, rather than the right-hand heading jumping down the page when the left-hand list is opened.
+    echo '<div class="intranet_head';
+    if ($c%2 == 1) { echo ' sml'; }
+    echo '">';
+      echo '<h3><a href="javascript:boxOpen(\''.$prefix.$c.'\',\'boxlist\')">'.$list.'</a></h3>';
+    echo "</div>";
+    $cn = $c+1;
+    if ($c%2 == 0 && isset($headings[$cn])) {
+      echo '<div class="intranet_head lrg">';
+        echo '<h3><a href="javascript:boxOpen(\''.$prefix.$cn.'\',\'boxlist\')">'.$headings[$cn].'</a></h3>';
+      echo "</div>";
+    }
+    // Now for the links lists themselves
+    echo '<div class="intranetbox"><div class="dropdown" name="boxlist" id="'.$prefix.$c.'">';
+      $l = 0;
+      foreach ($lists[$list] as $link) {
+        if (strtolower($link['special']) != 'subheading') {
+          if (strpos(str_replace(" ","",strtolower($link['special'])),'linebreak') !== false) {
+            if ($l > 0) { echo '</ul>'; }
+            echo '<hr />';
+            $l = 0;
+          }
+          if ($l == 0) {
+            echo '<ul>';
+            $l++;
+          }
+          echo '<li>';
+            echo '<a ';
+              // Detect if the site is external (including Learn websites) and open in a new tab/add a class if they are
+              if ((strpos($link['url'],'challoners.com') === false && strpos($link['url'],'://') !== false) || strpos($link['url'],'challoners.com/learn') !== false) { 
+                echo 'target="page'.mt_rand().'" class="external" ';
+              }
+              echo 'href="'.$link['url'].'">';
+              echo $link['title'];
+            echo '</a>';
+            if (!empty($link['notes'])) {
+              echo '<p>';
+                echo $link['notes'];
+              echo '</p>';
+            }
+          echo '</li>';
+        } else {
+          if ($l > 0) {
+            echo '</ul>';
+            echo '<hr />';
+          }
+          echo '<h3>'.$link['title'].'</h3>';
+          $l = 0;
+        }
+      }
+      if ($l > 0) { echo '</ul>'; }
+    echo '<hr id="end" /></div></div>';
+  $c++;
+  }
+  
+}
+  
+  echo '<div class="ncol lft intranetSidebar lrg">';
+  
+  switch ($_GET['user']) {
+    case "parents":
+    case "Parent_links":
+      $feedURL  = 'DCGSParenting';
+      $feedName = 'DCGS Parenting';
+      $feedID   = '606699684757913600';
+    break;
+    case "students":
     case "Student_links":
+      $feedURL  = 'Student_SLT';
+      $feedName = 'DCGS Student SLT';
+      $feedID   = '606700413740564480';
+    break;
+  }
+  
+  if (isset($feedID)) {
+    echo '<div class="twitter-header" id="intranet"><a href="https://twitter.com/'.$feedURL.'" target="page'.mt_rand().'"><p>'.$feedName.' <span>Follow</span></p></a></div>';
+    echo '<a class="twitter-timeline"  href="https://twitter.com/'.$feedURL.'" data-chrome="noborders noheader nofooter" data-widget-id="'.$feedID.'">Tweets by @'.$feedURL.'</a>';
+    echo '<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+  }
+  
+  echo '<!--googleon: all--></div>';
+  
+  echo '<div class="parsebox">';
     echo '<div class="intranet">';
-	  	echo "<h1>Student links</h1>";
-		  $directory = "content_system/intranet/students/";
-		$prefix = 'O';
-	    include ('links_list.php');
-      echo '<div class="clear lrg">';
-        echo "<h2>Subject resources</h2>";
-		    $directory = "content_system/intranet/subjects/";
-		$prefix = 'P';
-        include ('links_list.php');
-      echo '</div>';
-    echo '</div>';
+  
+	switch ($_GET['user']) {
+	case "staff":
+  case "Staff_links":
+		  echo "<h1>Staff links</h1>";
+		  makeIntranetLinks('1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk','M');
 	break;
-	case "Parent_links":
-    echo '<div class="intranet">';
+    case "students":
+    case "Student_links":
+	  	echo "<h1>Student links</h1>";
+		  makeIntranetLinks('1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw','O');
+	break;
+	case "parents":
+  case "Parent_links":
 		echo "<h1>Parent links and information</h1>";
 		
     // First repeat the information in the Information content folder, to give parents another opportunity to find it all
@@ -98,19 +214,72 @@ if (isset($_GET['user'])) {
 						echo '</ul><hr id="end" /></div></div>';
 					}
 				
-      $directory = "content_system/intranet/parents/";
-      		$_REQUEST['prefix'] = 'Q';
-			include ('links_list.php');
-		echo "</div>";
+      makeIntranetLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg','Q');
 	break;
 	}
+  
+      echo '<div class="clear lrg">';
+        echo "<h2>Subject resources</h2>";
+        makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','N');
+      echo '</div>';
+    echo "</div>";
+  echo "</div>";
+  
 	}
 	else {
-		echo "<h1>DCGS intranet</h1>";
-		echo "<p>Staff and students require a username and password to access most links in this section.<br />Parents can view documents without a login, but will need a username and password to access reports and catering statements.</p><p>Click on a category on the left to begin.</p>";
-		}
+    $pages = array('Students','Staff','Parents');
+    $d = 0; if (rand(1,999) == 1) { $d = rand(1,3); } // Duck time!
+    $n = 1;
+    foreach ($pages as $page) {
+      if ($d != $n) {
+        echo '<a class="intranetMainLink" href="/intranet/'.strtolower($page).'" style="background-position: '.rand(-50,226).'px '.rand(-40,50).'px, '.rand(-60,0).'px '.rand(-60,0).'px;"><h1>'.$page.'</h1></a>';
+      } else {
+        echo '<a class="intranetMainLink" id="duck" href="/intranet/'.strtolower($page).'" style="background-position: '.rand(-200,0).'px 0;"><h1>'.$page.'</h1></a>';
+      }
+    $n++;
+    }
+    if (file_exists('sync_logs/intranet_lastupdate.json')) { // Debugging in case this is the first time through or the data has been wiped for some reason
+      echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
+      function makeQuickLinks($sheetKey) {
+        if (file_exists('sync_logs/intranet_'.$sheetKey.'.json')) {
+          $links = json_decode(file_get_contents('sync_logs/intranet_'.$sheetKey.'.json'), true);
+          foreach ($links as $row) {
+            foreach ($row as $link) {
+              if (strpos(str_replace(" ","",strtolower($link['special'])),'quicklink') !== false) {
+                echo '<li>';
+                  echo '<a ';
+                    // Detect if the site is external (including Learn websites) and open in a new tab/add a class if they are
+                    if ((strpos($link['url'],'challoners.com') === false && strpos($link['url'],'://') !== false) || strpos($link['url'],'challoners.com/learn') !== false) { 
+                      echo 'target="page'.mt_rand().'" class="external" ';
+                    }
+                    echo 'href="'.$link['url'].'">';
+                    echo '<p>'.$link['title'].'</p>';
+                  echo '</a>';
+                  if (!empty($link['notes'])) {
+                    echo '<p>';
+                      echo $link['notes'];
+                    echo '</p>';
+                  }
+                echo '</li>';
+              }
+            }
+          }
+        }
+      }
+      echo '<ul class="quickLinks">'; // Students - subject quick links go here as well
+        makeQuickLinks('1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw');
+        makeQuickLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs');
+      echo '</ul>';
+      echo '<ul class="quickLinks">'; // Staff
+        makeQuickLinks('1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk');
+      echo '</ul>';
+      echo '<ul class="quickLinks">'; // Parents
+        makeQuickLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg');
+      echo '</ul>';
+    }
+	}
 	
-	echo "</div>";
+
 	
 	include ('footer.php');
 ?>

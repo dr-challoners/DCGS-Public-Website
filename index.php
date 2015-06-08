@@ -27,10 +27,10 @@ jQuery(document).ready(function(){
    });
 </script>
 
-<?php include('header_navigation.php'); ?>
+<?php $blood=1; include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
-  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
+  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton_BLOOD.png" alt="Astra Learning Alliance" /></a>
   <div class="astratext" id="astra"><p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p></div>
   
   <div class="intranetbox">
@@ -39,29 +39,29 @@ jQuery(document).ready(function(){
     <a href="https://drive.google.com"><img src="./styles/imgs/tinyicon_drive.png" alt="Google Drive" /></a>
     <a href="https://dcgs.okta.com/"><img src="./styles/imgs/tinyicon_okta.png" alt="Okta" /></a>
     <h4>Intranet</h4>
-    <a href="/intranet/Student_links"><h3>Students</h3></a>
-    <a href="/intranet/Staff_links"><h3>Staff</h3></a>
-    <a href="/intranet/Parent_links"><h3>Parents</h3></a>
+    <a href="/intranet/students"><h3>Students</h3></a>
+    <a href="/intranet/staff"><h3>Staff</h3></a>
+    <a href="/intranet/parents"><h3>Parents</h3></a>
   </div>
   
 	<div class="linkbox">
     <a href="/pages/Information/Admissions/"><h3>Admissions</h3></a>
     <a href="/pages/Overview/Introduction/Prospectus"><h3>Prospectus</h3></a>
     <a href="/pages/Information/General_information/Staff_vacancies"><h3>Vacancies</h3></a>
-    <a href="/pages/Information/General_information/Policy_documents"><h3>Policies</h3></a>
+    <a href="/pages/Information/"><h3>Information</h3></a>
     <a href="/pages/Overview/Governors_and_Friends/The_Friends_of_DCGS"><h3>Friends</h3></a>
     <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
 	</div>
 	
-	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>F<span class="hide">o</span>ll<span class="hide">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersNews" data-chrome="noborders noheader nofooter" data-widget-id="430598364401373184">Tweets by @ChallonersNews</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS Sport <span>Follow</span></p></a></div>
+	<div class="twitter-header" id="sprt"><a href="https://twitter.com/ChallonersSport" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS Sp<span class="hideW">o</span>rt <span>F<span class="hideW">o</span>ll<span class="hideW">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersSport" data-chrome="noborders noheader nofooter" data-widget-id="430597618125664256">Tweets by @ChallonersSport</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
   
-  <div class="twitter-header" id="astra"><a href="https://twitter.com/AstraAlliance" target="<?php echo 'page'.mt_rand(); ?>"><p>Astra Learning Alliance <span>Follow</span></p></a></div>
+  <div class="twitter-header" id="astra"><a href="https://twitter.com/AstraAlliance" target="<?php echo 'page'.mt_rand(); ?>"><p><span class="hideW">A</span>str<span class="hideW">a</span> Le<span class="hideW">a</span>rning <span class="hideW">A</span>lli<span class="hideW">a</span>nce <span>F<span class="hideW">o</span>ll<span class="hideW">o</span>w</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/AstraAlliance" data-chrome="noborders noheader nofooter" data-widget-id="533279910580604930">Tweets by @AstraAlliance</a>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 	
@@ -82,7 +82,7 @@ if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['u
   echo '</div>';
 }
 include ('override_display.php');
-include ('override_travel.php');
+// include ('override_travel.php');
 include ('magazine.php');
 ?>
 

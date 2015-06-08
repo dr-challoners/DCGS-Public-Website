@@ -85,7 +85,12 @@
 				
 				<a class="bannerlink lrg" href="/"></a>
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
-				<img class="banner_img lrg" src="/styles/imgs/logo_lrg.png" alt="Dr Challoner's Grammar School" />
+        <?php
+if (isset($blood)) {
+  echo '<img class="banner_img lrg" src="/styles/imgs/logo_lrg_BLOOD.png" alt="Dr Challoner\'s Grammar School" />';
+} else {
+  echo '<img class="banner_img lrg" src="/styles/imgs/logo_lrg.png" alt="Dr Challoner\'s Grammar School" />';
+  } ?>
 				
 				<div class="main_nav lrg">
 				<a class="lbutton" href="/"><img src="/styles/imgs/home.png" alt="Home" /></a>
@@ -97,13 +102,13 @@
               } else {
                 echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
               }
-            echo '>Overview</a></li>';
+            echo '><span class="hideW">O</span>verview</a></li>';
             echo '<li><a href="/diary/'.date('d').'/'.date('m').'/'.date('Y').'"';
               if (isset($_GET['date'])) { echo ' id="selected"'; }
-            echo '>Diary</a></li>';
+            echo '>Di<span class="hideW">a</span>ry</a></li>';
             echo '<li><a href="/intranet/"';
               if (isset($intranet)) { echo ' id="selected"'; }
-            echo '>Intranet</a></li>';
+            echo '>Intr<span class="hideW">a</span>net</a></li>';
             echo '<li><a href="/pages/Student_life/" ';
               if (isset($_GET['folder']) && strtolower($_GET['folder']) == "student_life") {
                 echo 'id="selected"';
@@ -117,13 +122,13 @@
               } else {
                 echo 'onmouseover="mopen(\'n4\')" onmouseout="mclosetime()"';
               }
-            echo '>Showcase</a></li>';
+            echo '>Sh<span class="hideW">o</span>wc<span class="hideW">a</span>se</a></li>';
             echo '<li><a href="/pages/Information/Alumni/"';
                if (isset($_GET['subfolder']) && strtolower($_GET['subfolder']) == "alumni") { echo ' id="selected"'; }
-            echo '>Alumni</a></li>';
+            echo '><span class="hideW">A</span>lumni</a></li>';
             echo '<li><a href="/pages/Information/General_information/Contact_us"';
                if (isset($_GET['page']) && strtolower($_GET['page']) == "contact_us") { echo ' id="selected"'; }
-            echo '>Contact us</a></li>';
+            echo '>C<span class="hideW">o</span>nt<span class="hideW">a</span>ct us</a></li>';
             ?>
 					</ul>
 				<a class="rbutton" href="/search/"><img src="/styles/imgs/search.png" alt="Search" /></a>
