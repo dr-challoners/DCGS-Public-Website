@@ -29,11 +29,6 @@ if (file_exists('content_news/')) {
           $details['date'] = $date;
 
           $details['name'] = explode("~",$post)[1];
-          
-          // NHS NATIONAL BLOOD WEEK CAMPAIGN
-          $letters = array('a','O','o','B','b','A');
-          $hidden  = array('<span class="hide">a</span>','<span class="hide">O</span>','<span class="hide">o</span>','<span class="hide">B</span>','<span class="hide">b</span>','<span class="hide">A</span>');
-          $details['name'] = str_replace($letters,$hidden,$details['name']);
 
           // Now fetch text and images from the story to display
           $files = scandir("content_news/".$month."/".$post."/", 1);
@@ -168,10 +163,6 @@ if (!isset($error)) {
           echo '<p>Latest audio</p>';
           echo '<a href="https://soundcloud.com/dcgs-music"><img src="styles/imgs/scLogo.png" alt="SoundCloud" /></a>';
         echo '</div>';
-      
-      //NHS NATIONAL BLOOD WEEK
-      $audioName = str_replace($letters,$hidden,$audioName);
-      
         echo '<h1>'.$audioName.'</h1>';
         echo '<p><em>'.$audioDate.':</em> '.$audioText.'</p>';
       echo '</div>';
