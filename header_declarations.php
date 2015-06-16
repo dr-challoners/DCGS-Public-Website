@@ -25,6 +25,8 @@
 		if (isset($intranet)) { echo "Intranet - "; }
 		
 		if (isset($_GET['date']) || isset($_GET['event'])) { echo "Diary - "; } // Diary and events pages
+
+    include ('commonFunctions.php');
 		
 		?>
 		Dr Challoner's Grammar School</title>
