@@ -182,11 +182,18 @@ function makeIntranetLinks($sheetKey,$prefix) {
       }
     $n++;
     }
-    if (file_exists('sync_logs/intranet_lastupdate.json')) { // Debugging in case this is the first time through or the data has been wiped for some reason
       echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
       function makeQuickLinks($sheetKey) {
-        if (file_exists('sync_logs/intranet_'.$sheetKey.'.json')) {
-          $links = json_decode(file_get_contents('sync_logs/intranet_'.$sheetKey.'.json'), true);
+        
+        $caches = scandir('sync_logs/', 1);
+
+        foreach ($caches as $file) {
+          if (strpos($file,'sheet'.$sheetKey) !== false) {
+            $links = json_decode(file_get_contents('sync_logs/'.$file), true);
+          }
+        }
+        
+        if (isset($links)) {
           foreach ($links as $row) {
             foreach ($row as $link) {
               if (strpos(str_replace(" ","",strtolower($link['special'])),'quicklink') !== false) {
@@ -208,6 +215,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
               }
             }
           }
+          unset($links);
         }
       }
       echo '<ul class="quickLinks">'; // Students - subject quick links go here as well
@@ -220,7 +228,6 @@ function makeIntranetLinks($sheetKey,$prefix) {
       echo '<ul class="quickLinks">'; // Parents
         makeQuickLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg');
       echo '</ul>';
-    }
 	}
 	
 
