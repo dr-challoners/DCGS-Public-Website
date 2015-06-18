@@ -15,11 +15,12 @@ function sheetToArray($sheetKey,$cacheFolder) {
     $caches = scandir($cacheFolder.'/', 1);
 
     foreach ($caches as $file) {
-      if (strpos($file,'sheet'.$sheetKey) !== false) {
+      if (strpos($file,$sheetKey) !== false) {
         $oldFile   = $file;
         $syncCheck = explode('[',$file);
         if (isset($syncCheck[1])) {
-          $syncCheck = substr($syncCheck[1],0,-6);
+          $syncCheck = explode(']',$syncCheck[1]);
+          $syncCheck = $syncCheck[0];
         }
       }
     }
@@ -76,7 +77,7 @@ function sheetToArray($sheetKey,$cacheFolder) {
       }
 
       // Cache the array as JSON into the specified caching folder and record the time of syncing; remove the old cache
-      $newFile = 'sheet'.$sheetKey.'['.time().'].json';
+      $newFile = $sheetKey.'['.time().'].json';
       file_put_contents($cacheFolder.'/'.$newFile, json_encode($sheetContents));
       if (isset($oldFile)) { unlink($cacheFolder.'/'.$oldFile); }
       
