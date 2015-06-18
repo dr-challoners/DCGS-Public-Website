@@ -188,7 +188,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
         $caches = scandir('sync_logs/', 1);
 
         foreach ($caches as $file) {
-          if (strpos($file,'sheet'.$sheetKey) !== false) {
+          if (strpos($file,$sheetKey) !== false) {
             $links = json_decode(file_get_contents('sync_logs/'.$file), true);
           }
         }
