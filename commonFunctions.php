@@ -12,7 +12,7 @@ function sheetToArray($sheetKey,$cacheFolder) {
   
   if (file_exists($cacheFolder.'/')) {
   
-    $caches = scandir($cacheFolder.'/', 1);
+    $caches = scandir($cacheFolder.'/', SCANDIR_SORT_DESCENDING);
 
     foreach ($caches as $file) {
       if (strpos($file,$sheetKey) !== false) {
@@ -21,6 +21,7 @@ function sheetToArray($sheetKey,$cacheFolder) {
         if (isset($syncCheck[1])) {
           $syncCheck = explode(']',$syncCheck[1]);
           $syncCheck = $syncCheck[0];
+          break;
         }
       }
     }
