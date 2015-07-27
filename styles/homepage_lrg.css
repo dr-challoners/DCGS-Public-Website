@@ -7,18 +7,29 @@ div.override {
     margin-bottom: 14px;
     background-repeat: no-repeat; background-position: bottom;
     padding-bottom: 4px;
-    border-bottom: 4px solid;
+    border-top:    4px solid #2F5397;
+    border-bottom: 4px solid #2F5397;
     }
     div.override h1 {
         color: #ffffff;
-       font-size: 26px; font-weight: normal;
-       padding: 1px 8px 4px 44px;
+        font-size: 26px; font-weight: normal;
+        padding: 0 8px 2px 44px; margin-top: -3px;
+        background-image: url(imgs/override_default.png);
         background-repeat: no-repeat;
-        background-position: 8px 7px;
+        background-position: 8px 5px;
+        background-color: #2F5397;
        }
     div.override p {
        margin: 8px;
        }
+
+    div.override#alert     { border-color: #2b2b2b; }
+    div.override#alert h1  { background-color: #2b2b2b; background-image: url(imgs/override_alert.png); }
+    div.override#snow      { border-color: #bce4f3; }
+    div.override#snow h1   { background-color: #bce4f3; background-image: url(imgs/override_snow.png); color: #0d536d; }
+    div.override#travel    { border-color: #165d13; }
+    div.override#travel h1 { background-color: #165d13; background-image: url(imgs/override_travel.png); }
+    div.override#drama h1  { background-image: url(imgs/override_drama.png); }
 
 img.override {
   width: 710px;

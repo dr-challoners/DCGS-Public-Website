@@ -27,7 +27,7 @@ jQuery(document).ready(function(){
    });
 </script>
 
-<?php $blood=1; include('header_navigation.php'); ?>
+<?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
   <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
@@ -81,8 +81,7 @@ if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['u
   echo '<p><img src="./styles/imgs/upgradeto_ie.png" /><a href="http://www.getie.com/" target="_BLANK">Upgrade Internet Explorer</a></p>';
   echo '</div>';
 }
-include ('override_display.php');
-// include ('override_travel.php');
+include ('override.php');
 include ('magazine.php');
 ?>
 

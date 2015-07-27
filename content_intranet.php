@@ -12,7 +12,7 @@ if (isset($_GET['user'])) {
 function makeIntranetLinks($sheetKey,$prefix) {
   
   // Use the stored spreadsheet array to generate the links list
-  $lists = sheetToArray($sheetKey,'sync_logs');
+  $lists = sheetToArray($sheetKey,'data_intranet',6);
   $headings = array_keys($lists);
   
   $c = 0;
