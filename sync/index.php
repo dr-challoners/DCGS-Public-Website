@@ -42,9 +42,8 @@ echo '<ul>'; // Change the initial values as appropriate for the Box folder bein
   echo '<p><li>content_SHARED:    <a href="./system_update.php?initial=2296277587">update</a> or <a href="./system_update.php?initial=2296277587&reset=y">reset</a></li></p>';
 echo '</ul>';
 
-echo "<h2>DCGS public website: systems</h2>";
+echo "<h2>DCGS public website: additional content</h2>";
 echo "<ul>"; //Change the initial values as appropriate for the Box folder being referred to
-  echo "<p><li>Override messages: <a href=\"./system_update.php?initial=2176721210\">update</a> or <a href=\"./system_update.php?initial=2176721210&reset=y\">reset</a></li></p>"; //content_system/override
   echo "<p><li>Sidebar images:    <a href=\"./system_update.php?initial=3624822083\">update</a> or <a href=\"./system_update.php?initial=3624822083&reset=y\">reset</a></li></p>"; //content_system/sidebarImgs
 echo "</ul>";
 
