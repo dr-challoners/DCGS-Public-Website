@@ -60,12 +60,12 @@ for ($day = 1; $day <= 42;) {
 		echo "\">";
 		echo date("j",mktime(0,0,0,substr($fulldate,4,2),substr($fulldate,6,2),substr($fulldate,0,4)));
 	echo "</a></p>";
-	if ($day %7 == 0) { echo "</div>"; } //Shut down a week box at the end of the week
+	if ($day %7 == 0) { echo "</div>"; } // Shut down a week box at the end of the week
 $day++; }
 
-if ($get_device == "") { //Don't produce for mobiles
+if ($get_device == "") { // Don't produce for mobiles
 
-$charmax = 30; //Maximum number of letters in a preview title (see below)
+$charmax = 30; // Maximum number of letters in a preview title (see below)
 foreach($previews as $row) {
 	echo "<div id=\"c".$row."\" class=\"preview\">";
 		echo "<h3>".date("l jS",mktime(0,0,0,substr($row,4,2),substr($row,6,2),substr($row,0,4)))."</h3>";

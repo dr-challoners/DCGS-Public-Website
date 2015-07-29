@@ -21,11 +21,11 @@ RewriteRule    ^intranet/(.+)$    content_intranet.php?user=$1    [L]
 RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
 
 #Diary entries, where $1 is the day, $2 the month and $3 the year
-RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary_display.php?date=$3$2$1    [L]
-RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/(.+)$    diary_display.php?date=$3$2$1$4    [L]    #For adding calendar navigation info
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary.php?date=$3$2$1    [L]
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/(.+)$    diary.php?date=$3$2$1$4    [L]    #For adding calendar navigation info
 
 #Diary event entries
-RewriteRule    ^diary/event/(.+)$    diary_display.php?event=$1    [L]
+RewriteRule    ^diary/event/(.+)$    diary.php?event=$1    [L]
 
 #Learn websites
 RewriteRule    ^learn/([^/.]+)/?$    learn/?subject=$1   [L]

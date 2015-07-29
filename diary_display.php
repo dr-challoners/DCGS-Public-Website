@@ -6,7 +6,7 @@ if (!isset($_GET['device'])) { $get_device = ""; } else { $get_device = $_GET['d
 if (!isset($_GET['display'])) { $get_display = ""; } else { $get_display = $_GET['display']; }
 
 if ($get_device != "mobile") {
-	echo "<meta name=\"robots\" content=\"noindex\">"; // Prevents mobile versions of the page from appearing in Google searches, so it isn't broken when you click on it (breaks in mobiles then, of course, but oh well)
+	echo '<meta name="robots" content="noindex">'; // Prevents mobile versions of the page from appearing in Google searches, so it isn't broken when you click on it (breaks in mobiles then, of course, but oh well)
 	}
 	
 ?>
@@ -27,8 +27,8 @@ if ($get_device != "mobile") {
 include('header_navigation.php');
 
 // Every half an hour, cache the XML file from Google Calendar, so that requests can be made locally to speed up load times
-if (file_exists('sync_logs/diary_lastupdate.txt')) {
-  $lastupdate = file_get_contents('sync_logs/diary_lastupdate.txt');
+if (file_exists('data_diary/diary_lastupdate.txt')) {
+  $lastupdate = file_get_contents('data_diary/diary_lastupdate.txt');
 } else { $lastupdate = ""; }
 
 $updatetime = time();
@@ -36,19 +36,19 @@ $updatetime = $updatetime-1800;
 if ($lastupdate < $updatetime) {
   $data = new DOMDocument();
   $data->load("https://www.google.com/calendar/feeds/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic?start-index=1&max-results=10000&hl=en_US");
-  $data->save('sync_logs/diary.xml');
-  file_put_contents('sync_logs/diary_lastupdate.txt',time());
+  $data->save('data_diary/diary.xml');
+  file_put_contents('data_diary/diary_lastupdate.txt',time());
 }
 
-$events = simplexml_load_file('sync_logs/diary.xml');
+$events = simplexml_load_file('data_diary/diary.xml');
 
 	if ($get_date != "") { $focusdate = $get_date; }
 	else { $focusdate = date("Ymd"); }
 
 	$weekday = date("N",mktime(0,0,0,substr($focusdate,4,2),substr($focusdate,6,2),substr($focusdate,0,4)))-1;
-	$datestamp = date("Ymd",mktime(0,0,0,substr($focusdate,4,2),substr($focusdate,6,2)-$weekday,substr($focusdate,0,4))); //This is the date on the Monday of the selected week.
+	$datestamp = date("Ymd",mktime(0,0,0,substr($focusdate,4,2),substr($focusdate,6,2)-$weekday,substr($focusdate,0,4))); // This is the date on the Monday of the selected week.
 
-if (($get_device == "mobile" && $get_display == "calendar") || $get_device == "") { //Don't display the calendar on mobiles, unless the request has been made specifically
+if (($get_device == "mobile" && $get_display == "calendar") || $get_device == "") { // Don't display the calendar on mobiles, unless the request has been made specifically
 	
 	echo "<!--googleoff: all--><div class=\"ncol lft\">";
 		include ('diary_calendar.php');
@@ -61,7 +61,7 @@ if (($get_device == "mobile" && $get_display == "calendar") || $get_device == ""
 	echo "<!--googleon: all--></div>";
 	
 	}
-else { //Mobile only navigation
+else { // Mobile only navigation
 
 	$lastmonday = date("Ymd",mktime(0,0,0,substr($datestamp,4,2),substr($datestamp,6,2)-7,substr($datestamp,0,4)));
 	$nextmonday = date("Ymd",mktime(0,0,0,substr($datestamp,4,2),substr($datestamp,6,2)+7,substr($datestamp,0,4)));
