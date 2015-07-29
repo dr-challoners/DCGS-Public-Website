@@ -166,11 +166,24 @@
             if (isset($event['timestart'])) {
               echo $event['timestart'];
               if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
+            } elseif (isset($event['meettime'])) {
+              echo $event['meettime'];
+              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
+            } elseif (isset($event['matchtime'])) {
+              echo $event['matchtime'];
+              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
             }
           echo '</p>';
-          echo '<h3>'.$event['event'].'</h3>';
+          echo '<h3>';
           if (isset($event['sport'])) {
-            
+            echo $event['sport'];
+            if (isset($event['event'])) { echo ': '; }
+          }
+          if (isset($event['event'])) { echo $event['event']; }
+          echo '</h3>';
+          
+          if (isset($event['venuepostcode'])) {
+            echo '<p class="details"><a href="https://www.google.co.uk/maps?q='.$event['venuepostcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>';
           }
           if (isset($event['otherdetails'])) { echo '<p class="details">'.$event['otherdetails'].'</p>'; }
         }
