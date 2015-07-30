@@ -1,9 +1,5 @@
 	</head>
-	<?php // Generating the body tag with onload functions for different pages
-		echo "<body";
-			if (isset($curTimestamp)) { echo ' onload="moveWindow()"'; } // Diary pages - jumps to current day
-		echo ">";
-	?>
+  <body>
 		
 		<!-- These divs create the blue and white bars across the top and bottom of the page. On small screens, appropriate elements can handle this styling as the screen width will equal the page width. -->
 		<div class="colourbar lrg" id="top"></div>

@@ -18,8 +18,23 @@
 ?>
 
 <script type="text/javascript" language="javascript">
-  // Jumps the page to the actual day being navigated
-	function moveWindow (){window.location.hash="<?php echo date('Ymd',$curTimestamp); ?>";}
+  // Make the preview popup appear in place of the links menu when hovering over the widget
+  function diaryPreview(text) {
+    document.getElementById('diaryLinks').style.display = 'none';
+    document.getElementById('diaryPreview').innerHTML = '<ul>';
+    var previews = text.split(',');
+    for (x in previews) {
+      if (previews[x] != '') {
+        document.getElementById('diaryPreview').innerHTML += '<li>' + previews[x] + '</li>';
+      }
+    }
+    document.getElementById('diaryPreview').innerHTML += '</ul>';
+    document.getElementById('diaryPreview').style.display = 'block';
+  }
+  function diaryLinks() {
+    document.getElementById('diaryLinks').style.display='block';
+    document.getElementById('diaryPreview').style.display='none';
+  }
 </script>
 
 <?php
@@ -195,9 +210,19 @@
         }
         echo '<p id="';
           if (substr($calDay,4,2) != $thisM) { echo 'notMonth'; }
-          elseif ($calDay == $curDay) { echo 'today'; }
-        echo '">';
-          echo '<a href="/diary/'.substr($calDay,6,2).'/'.substr($calDay,4,2).'/'.substr($calDay,0,4).'/">';
+          elseif ($calDay == date('Ymd',time())) { echo 'today'; }
+          echo '"';
+          if (isset($diaryArray[$calDay])) { echo ' class="event"'; }
+        echo '>';
+          echo '<a href="/diary/'.substr($calDay,6,2).'/'.substr($calDay,4,2).'/'.substr($calDay,0,4).'/"';
+            if (isset($diaryArray[$calDay])) {
+              $previewText = '';
+              foreach ($diaryArray[$calDay] as $preview) {
+                $previewText .= str_replace("'","\'",$preview['event']).',';
+              }
+              echo ' onmouseover="diaryPreview(\''.$previewText.'\')" onmouseleave="diaryLinks()"';
+            }
+          echo '>';
             echo ltrim(substr($calDay,6,2),'0');
           echo '</a>';
         echo '</p>';
@@ -205,7 +230,8 @@
       echo '</div>';
     echo '</div>';
 
-    echo '<div class="diarylinks lrg">';
+    echo '<div id="diaryPreview"></div>';
+    echo '<div id="diaryLinks">';
       echo '<p><a href="/diary/year/">Year summary</a></p>';
 			echo '<p><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
       echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
@@ -218,7 +244,6 @@
     $curWeek = $curTimestamp-(date('N',$curTimestamp)-1)*86400;
     for ($d = 0; $d < 7; $d++) {
       $curDay = $curWeek + $d*86400;
-      echo '<a class="anchor" name="'.date('Ymd',$curDay).'"></a>';
       echo '<h2>'.date('l jS',$curDay);
       if (date("j",$curDay) == 1 || $d == 0) { // If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
         echo '<span>'.date('F Y',$curDay).'</span>';

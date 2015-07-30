@@ -4,7 +4,7 @@ h1 { margin-bottom: 15px; text-align: center; }
 div.ncol { position: fixed; }
 
 div.calendar {
-    margin: -12px 0px 12px 0px;
+    margin: -8px 0px 12px 0px;
     padding-bottom: 8px;
     border-bottom: 1px solid #aaaaaa;
     }
@@ -34,7 +34,7 @@ div.weekdays, div.week {
     }
 div.week p, div.weekdays p {
 	float: left;
-    width: 32px; margin: 0px 2px 0px 2px;
+    width: 35px; margin: 0px 1px 0 0;
     text-align: center;
 	font-size: 11px; 
 	}
@@ -53,6 +53,7 @@ div.week p, div.weekdays p {
        #selected { background-color: #F9D27B; }
     div.week p { height: 22px; padding-top: 0px; }
        div.week p#today { font-weight: bold; }
+       div.week p.event { background-color: rgba(239,162,7,0.35); }
     div.week a {
        color: #000000;
        display: block; padding: 0px 0px 1px 0px;
@@ -62,28 +63,28 @@ div.week p, div.weekdays p {
        p#notMonth a { color: #aaaaaa; }
        div.week a:hover { background-color: #EFA207; }
 
-div.preview {
-    visibility: hidden;
-    position: fixed; margin-top: 75px;
+div#diaryPreview {
+    display: none;
     }
-    div.preview p { margin-top: 0px; font-size: 12px; line-height: 17px; }
-    div.preview p.more {
-       font-size: 11px;
-       margin-top: 5px; text-align: center;
-       font-weight: bold; font-style: italic;
-       }
+    div#diaryPreview li {
+        font-family: Trebuchet, Verdana, sans-serif;
+        font-size: 14px; line-height: 20px;
+        list-style-type: square;
+        list-style-position: outside;
+        margin-left: 22px; padding-left: 5px;
+    }
 
-div.diarylinks p { margin: 0; }
-div.diarylinks p:nth-child(2) { margin-bottom: 8px; }
+div#diaryLinks p { margin: 0; }
+div#diaryLinks p:nth-child(2) { margin-bottom: 8px; }
 
-div.diarylinks a {
+div#diaryLinks a {
     display: block;
     padding: 5px 8px;
     font-size: 16px; text-decoration: none;
     transition: background-color 0.2s, color 0.2s;
     -webkit-trasition: background-color 0.2s, color 0.2s;
 }
-    div.diarylinks a:hover {
+    div#diaryLinks a:hover {
         background-color: #2358A3;
         color: #ffffff;
     }
