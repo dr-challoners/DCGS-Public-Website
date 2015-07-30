@@ -1,5 +1,12 @@
 <?php
 
+function makeID($string) { // At the moment just used for creating IDs for diary events, but I figure it might be useful elsewhere
+    $string = base64_encode($string);
+    $string = str_replace(array('+','/','='),'z',$string);
+    $string = substr($string,0,5);
+    return $string;
+  }
+
 function sheetToArray($sheetKey,$cacheFolder,$refreshTime) {
   
   // When called, this function reads the JSON from the specified Google Sheet, stores it in the specified folder as a JSON file and also returns it to the page as a multidimensional array.

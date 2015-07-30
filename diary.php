@@ -15,11 +15,9 @@
     $curTimestamp = time();
   }
 
-  if ($_GET['device'] != "mobile") {
   echo '<script type="text/javascript" language="javascript">'; // Jumps the page to the actual day being navigated
 	  echo 'function moveWindow (){window.location.hash='.date('Ymd',$curTimestamp).'";}';
   echo '</script>';
-  }
 
   include('header_navigation.php');
 
@@ -95,11 +93,13 @@
 
       // Now generate an ID for this event and work out which dates it occurs on
       // This first sequence means that the event both has a unique identifier AND can be sorted by time
+      $eventID = makeID($eventDetails['event']);
       if (isset($time{start})) {
-        $eventID = str_replace(':','',$time{start}).mt_rand();
+        $eventID = str_replace(':','',$time{start}).$eventID;
       } else {
-        $eventID = '0000'.mt_rand();
+        $eventID = '0000'.$eventID;
       }
+      $eventID = 'X';
       foreach ($bounds as $bound) {
         if (!isset($date{$bound})) { $date{$bound} = str_replace('-','',$entry[$bound]['date']); }
       }
@@ -112,25 +112,28 @@
     }
 
     foreach ($sportsData['data'] as $entry) {
-      // Get rid of unused elements so you only need to do an isset check, not also a !empty check
-      foreach ($entry as $key => $item) {
-        if ($item == '') { unset($entry[$key]); }
+      if (isset($entry['event'])) {
+        // Get rid of unused elements so you only need to do an isset check, not also a !empty check
+        foreach ($entry as $key => $item) {
+          if ($item == '') { unset($entry[$key]); }
+        }
+        // Generate a unique, orderable ID for the event, as above
+        $eventID = makeID($entry['event']);
+        if (isset($entry['meettime'])) {
+          $eventID = str_replace(':','',$entry['meettime']).$eventID;
+        } elseif (isset($entry['matchtime'])) {
+          $eventID = str_replace(':','',$entry['matchtime']).$eventID;
+        } else {
+          $eventID = '0000'.$eventID;
+        }
+        // Take the date from a human-readable format to an orderable one
+        $date = explode('/',$entry['date']);
+        $d = str_pad($date[0],2,'0',STR_PAD_LEFT);
+        $m = str_pad($date[1],2,'0',STR_PAD_LEFT);
+        $y = str_pad($date[2],4,'20',STR_PAD_LEFT); // If someone has left the year in YY form, it assumes it's in this millenium
+        unset($entry['date']); // As we won't need it in the final array
+        $generalData[$y.$m.$d][$eventID] = $entry;
       }
-      // Generate a unique, orderable ID for the event, as above
-      if (isset($entry['meettime'])) {
-        $eventID = str_replace(':','',$entry['meettime']).mt_rand();
-      } elseif (isset($entry['matchtime'])) {
-        $eventID = str_replace(':','',$entry['matchtime']).mt_rand();
-      } else {
-        $eventID = '0000'.mt_rand();
-      }
-      // Take the date from a human-readable format to an orderable one
-      $date = explode('/',$entry['date']);
-      $d = str_pad($date[0],2,'0',STR_PAD_LEFT);
-      $m = str_pad($date[1],2,'0',STR_PAD_LEFT);
-      $y = str_pad($date[2],4,'20',STR_PAD_LEFT); // If someone has left the year in YY form, it assumes it's in this millenium
-      unset($entry['date']); // As we won't need it in the final array
-      $generalData[$y.$m.$d][$eventID] = $entry;
     }
 
     // Now just put all the data in chronological order
@@ -193,11 +196,8 @@
       if (isset($diaryArray[date('Ymd',$curDay)])) {
         foreach ($diaryArray[date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
           echo '<h3>';
-          if (isset($event['sport'])) {
-            echo $event['sport'];
-            if (isset($event['event'])) { echo ': '; }
-          }
-          if (isset($event['event'])) { echo $event['event']; }
+            if (isset($event['sport'])) { echo $event['sport'].': '; }
+            echo $event['event'];
           echo '</h3>';
           echo '<p class="time">';
             if (isset($event['timestart'])) {
@@ -271,7 +271,7 @@
               }
             echo '</p>';
             if (isset($event['teams']) && isset($event['players'])) {
-              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'">View printable team sheets</a></p>';
+              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a></p>';
             }
           }
           if (isset($event['venuepostcode'])) {

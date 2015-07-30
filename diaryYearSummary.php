@@ -1,11 +1,16 @@
 <?php
   
   include('header_declarations.php');
-  echo '</head><body>';
+  echo '</head>';
+  echo '<body>';
 
 ?>
 
 <style>
+  
+  @media screen {
+    body { margin: 1em; }
+  }
   
   img { width: 100%; }
   
@@ -29,14 +34,15 @@
 
   div.day { margin-bottom: 0.5em;}
 
-  p.printLink {
+  p.link {
     font-size: 150%; font-weight: bold;
-    margin: 0.6em 0 0.6em 0.5em;
+    margin: 0.6em 0.8em 0.6em 0.5em;
   }
-  p.printLink a { text-decoration: none; }
+  p.link a { text-decoration: none; }
+  p.link span { float: right; }
   
   @media print {
-    p.printLink { display: none; }
+    p.link { display: none; }
   }
   
   div.columns {
@@ -62,7 +68,7 @@
 
   echo '<img src="/styles/imgs/logo_lrg.png" alt="Dr Challoner\'s Grammar School" />';
   echo '<h1>Events for September '.$startY.' to July '.$endY.'</h1>';
-  echo '<p class="printLink"><a href="javascript:window.print()">&#10151; Print</a></p>';
+  echo '<p class="link"><a href="javascript:window.print()">&#10151; Print</a> <span><a href="/diary">Back to diary</a></span></p>';
   echo '<p>Warning: subject to changes and additions over the course of the year.</p>';
   if ($m == 7) { echo '<p>Next year\'s calendar will be available from August.</p>'; }
 
@@ -73,6 +79,7 @@
       if (strpos($file,'generalData') !== false) {
         $diaryArray = file_get_contents('data_diary/'.$file);
         $diaryArray = json_decode($diaryArray, true);
+        break;
       }
     }
 
