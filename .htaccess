@@ -24,6 +24,8 @@ RewriteRule    ^news/(.+)$    content_news.php?story=$1    [L]
 RewriteRule    ^diary/?$    diary.php    [L]
 RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary.php?d=$1&m=$2&y=$3    [L]
 RewriteRule    ^diary/sync/?$    diary.php?diarySync=1    [L]    #Force syncing the diary
+RewriteRule    ^diary/year/?$    diaryYearSummary.php    [L]
+RewriteRule    ^teamsheet/([0-9]+)-([0-9]+)$    diaryTeamSheets.php    [L]
 
 #Learn websites
 RewriteRule    ^learn/([^/.]+)/?$    learn/?subject=$1   [L]
