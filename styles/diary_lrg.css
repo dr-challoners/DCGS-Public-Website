@@ -52,14 +52,14 @@ div.week p, div.weekdays p {
        }
        #selected { background-color: #F9D27B; }
     div.week p { height: 22px; padding-top: 0px; }
-       div.week p.today { font-weight: bold; }
+       div.week p#today { font-weight: bold; }
     div.week a {
        color: #000000;
        display: block; padding: 0px 0px 1px 0px;
        transition: background-color 0.2s;
        -webkit-transition: background-color 0.2s;
        }
-       p.xmonth a { color: #aaaaaa; }
+       p#notMonth a { color: #aaaaaa; }
        div.week a:hover { background-color: #EFA207; }
 
 div.preview {

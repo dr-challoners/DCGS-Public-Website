@@ -15,9 +15,14 @@
     $curTimestamp = time();
   }
 
-  echo '<script type="text/javascript" language="javascript">'; // Jumps the page to the actual day being navigated
-	  echo 'function moveWindow (){window.location.hash='.date('Ymd',$curTimestamp).'";}';
-  echo '</script>';
+?>
+
+<script type="text/javascript" language="javascript">
+  // Jumps the page to the actual day being navigated
+	function moveWindow (){window.location.hash="<?php echo date('Ymd',$curTimestamp); ?>";}
+</script>
+
+<?php
 
   include('header_navigation.php');
 
@@ -173,7 +178,33 @@
         echo '<p>Sat</p>';
         echo '<p>Sun</p>';
       echo '</div>';
+      $thisM = date('m',$curTimestamp);
+      $thisY = date('Y',$curTimestamp);
+      $calStartDay = date('N',mktime(0,0,0,$thisM,1,$thisY));
+      $calStartDay = date('Ymd',mktime(0,0,0,$thisM,2-$calStartDay,$thisY));
+      $curDay = date('Ymd',$curTimestamp);
+      for ($day = 0; $day < 42; $day++) {
+        $calDay = date('Ymd',mktime(0,0,0,substr($calStartDay,4,2),substr($calStartDay,6,2)+$day,substr($calStartDay,0,4)));
+        if ($day%7 == 0) {
+          if ($day != 0) { echo '</div>'; }
+          echo '<div class="week"';
+            if ($curDay >= $calDay && $curDay <= $calDay+6) {
+              echo ' id="selected"';
+            }
+          echo '>';
+        }
+        echo '<p id="';
+          if (substr($calDay,4,2) != $thisM) { echo 'notMonth'; }
+          elseif ($calDay == $curDay) { echo 'today'; }
+        echo '">';
+          echo '<a href="/diary/'.substr($calDay,6,2).'/'.substr($calDay,4,2).'/'.substr($calDay,0,4).'/">';
+            echo ltrim(substr($calDay,6,2),'0');
+          echo '</a>';
+        echo '</p>';
+      }
+      echo '</div>';
     echo '</div>';
+
     echo '<div class="diarylinks lrg">';
       echo '<p><a href="/diary/year/">Year summary</a></p>';
 			echo '<p><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
@@ -187,7 +218,7 @@
     $curWeek = $curTimestamp-(date('N',$curTimestamp)-1)*86400;
     for ($d = 0; $d < 7; $d++) {
       $curDay = $curWeek + $d*86400;
-      echo '<a class="anchor" name="'.$curDay.'"></a>';
+      echo '<a class="anchor" name="'.date('Ymd',$curDay).'"></a>';
       echo '<h2>'.date('l jS',$curDay);
       if (date("j",$curDay) == 1 || $d == 0) { // If it's the start of the month or the first entry displayed (ie, a Monday), then give the month
         echo '<span>'.date('F Y',$curDay).'</span>';
@@ -271,7 +302,7 @@
               }
             echo '</p>';
             if (isset($event['teams']) && isset($event['players'])) {
-              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a>.</p>';
+              echo '<p class="details lrg"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a>.</p>';
             }
           }
           if (isset($event['venuename']) || isset($event['venuepostcode'])) {

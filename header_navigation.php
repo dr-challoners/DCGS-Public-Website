@@ -1,7 +1,7 @@
 	</head>
 	<?php // Generating the body tag with onload functions for different pages
 		echo "<body";
-			if (isset($_GET['date'])) { echo ' onload="moveWindow()"'; } // Diary pages - jumps to current day
+			if (isset($curTimestamp)) { echo ' onload="moveWindow()"'; } // Diary pages - jumps to current day
 		echo ">";
 	?>
 		
@@ -100,7 +100,7 @@
                 echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
               }
             echo '>Overview</a></li>';
-            echo '<li><a href="/diary/'.date('d').'/'.date('m').'/'.date('Y').'"';
+            echo '<li><a href="/diary"';
               if (isset($_GET['date'])) { echo ' id="selected"'; }
             echo '>Diary</a></li>';
             echo '<li><a href="/intranet/"';
