@@ -4,7 +4,7 @@ h1 { margin-bottom: 15px; text-align: center; }
 div.ncol { position: fixed; }
 
 div.calendar {
-    margin: -15px 0px 12px 0px;
+    margin: -12px 0px 12px 0px;
     padding-bottom: 8px;
     border-bottom: 1px solid #aaaaaa;
     }
@@ -73,12 +73,9 @@ div.preview {
        font-weight: bold; font-style: italic;
        }
 
-div.diarylinks p {
-    margin: 0;
-}
-    div.diarylinks p#terms {
-        margin-bottom: 8px;
-    }
+div.diarylinks p { margin: 0; }
+div.diarylinks p:nth-child(2) { margin-bottom: 8px; }
+
 div.diarylinks a {
     display: block;
     padding: 5px 8px;
@@ -92,35 +89,30 @@ div.diarylinks a {
     }
 
 /* Event display */
-div.day { margin-left: 10px; }
-    div.day hr {
-       clear: both;
-       border-bottom: 1px solid #aaaaaa;
-       padding-top: 22px; margin-bottom: 15px;
-       }
+div.diary {
+    padding-left: 10px;
+    width: 700px;
+    }
 
-div.day h2 { margin: 2px 0 0 0; }
-    div.day h2 span { float: right; }
-    h2.noevents { margin-bottom: 15px; }
+div.diary h2 {
+    margin: 19px 0 0 0; padding: 15px 0 0 0;
+    border-top: 1px solid #aaaaaa;
+    }
+    div.diary h2:first-of-type {
+        border: 0; margin: 0; padding: 0;
+    }
+    div.diary h2 span { float: right; }
 
-div.ncol h2 { margin-top: 2px; text-align: center; }
-
-p.time {
-    clear: both; float: left;
-    margin-top: 9px; width: 115px;
-    font-weight: bold; font-size: 12px;
+div.diary h3, p.details {
+    margin: 0 0 0 115px;
     }
-div.day h3 {
-    float: right;
-    width: 580px;
-    }
-p.details {
-    clear: both;
-    margin: 0px; padding: 0px 60px 0px 119px;
-    }
-    p.details span {
-        font-weight: bold;
-    }
-    span#win { color: #247703; }
+    div.diary h3 { margin-top: 8px; }
+    p.details span { font-weight: bold; }
+    span#win  { color: #247703; }
     span#draw { color: #E87B19; }
     span#loss { color: #D32918; }
+
+p.time {
+    float: left; margin-top: -22px;
+    font-weight: bold; font-size: 12px;
+    }

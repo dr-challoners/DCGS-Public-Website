@@ -25,7 +25,7 @@
 
   // First up: building the array from which all the data will be read. This is going to take the separate data from the Google Calendar XML file and the sports calendar Google Sheet, and re-work them as a single multidimensional array, with each date being subdivided into ordered events and then into details for each event.
 
-  if (isset($_GET['diarySync'])) { $refreshTime = 0; } else { $refreshTime = 0.5; } // To allow a forced resync on the data
+  if (isset($_GET['diarySync'])) { $refreshTime = 0; } else { $refreshTime = 24; } // To allow a forced resync on the data
 
   // This is the Google Sheet for the sports calendar
   $sportsData = sheetToArray('1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA','data_diary',$refreshTime);
@@ -112,6 +112,10 @@
     }
 
     foreach ($sportsData['data'] as $entry) {
+      // Get rid of unused elements so you only need to do an isset check, not also a !empty check
+      foreach ($entry as $key => $item) {
+        if ($item == '') { unset($entry[$key]); }
+      }
       // Generate a unique, orderable ID for the event, as above
       if (isset($entry['meettime'])) {
         $eventID = str_replace(':','',$entry['meettime']).mt_rand();
@@ -149,8 +153,34 @@
 
   // Now to make the diary display itself
 
+  // The calendar widget
+  echo '<!--googleoff: all--><div class="ncol">';
+    echo '<div class="calendar">';
+      echo '<p class="month">';
+        echo  '<a class="lmonth">&#171;</a> ';
+        echo date('F Y',$curTimestamp);
+        echo ' <a class="nmonth">&#187;</a>';
+      echo '</p>';
+      echo '<div class="weekdays">';
+        echo '<p>Mon</p>';
+        echo '<p>Tue</p>';
+        echo '<p>Wed</p>';
+        echo '<p>Thu</p>';
+        echo '<p>Fri</p>';
+        echo '<p>Sat</p>';
+        echo '<p>Sun</p>';
+      echo '</div>';
+    echo '</div>';
+    echo '<div class="diarylinks lrg">';
+      echo '<p><a href="/diary/year/">Year summary</a></p>';
+			echo '<p><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
+      echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
+      echo '<p><a href="https://www.google.com/calendar/ical/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic.ics">Download iCal format</a></p>';
+		echo "</div>";
+  echo '</div><!--googleon: all-->';
+
   // Display the selected week's events
-  echo '<div class="mcol-rgt" id="diary">';
+  echo '<div class="diary mcol-rgt">';
     $curWeek = $curTimestamp-(date('N',$curTimestamp)-1)*86400;
     for ($d = 0; $d < 7; $d++) {
       $curDay = $curWeek + $d*86400;
@@ -161,7 +191,14 @@
         }
       echo '</h2>';
       if (isset($diaryArray[date('Ymd',$curDay)])) {
-        foreach ($diaryArray[date('Ymd',$curDay)] as $event) {
+        foreach ($diaryArray[date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
+          echo '<h3>';
+          if (isset($event['sport'])) {
+            echo $event['sport'];
+            if (isset($event['event'])) { echo ': '; }
+          }
+          if (isset($event['event'])) { echo $event['event']; }
+          echo '</h3>';
           echo '<p class="time">';
             if (isset($event['timestart'])) {
               echo $event['timestart'];
@@ -173,15 +210,70 @@
               echo $event['matchtime'];
               if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
             }
-          echo '</p>';
-          echo '<h3>';
-          if (isset($event['sport'])) {
-            echo $event['sport'];
-            if (isset($event['event'])) { echo ': '; }
+          echo '</p> ';
+          if (isset($event['venue']) || isset($event['teams']) || isset($event['results'])) {
+            echo '<p class="details">';
+              if (isset($event['venue'])) {
+                echo $event['venue'];
+                if (isset($event['teams']) || isset($event['results'])) { echo ' - '; }
+              }
+              if (isset($event['teams'])) {
+                if (isset($event['results'])) {
+                  $results = explode(';',$event['results']);
+                  foreach ($results as $key => $result) {
+                    $result = trim($result);
+                    if ($result == '') { unset($results[$key]); }
+                    elseif (preg_match('/^[0-9]+-[0-9]+$/',$result)) { // Football-type scores
+                      unset($outcome);
+                      $scores = explode('-',$result);
+                      if ($scores[0] >  $scores[1]) { $outcome = 'win';  }
+                      if ($scores[0] <  $scores[1]) { $outcome = 'loss'; }
+                      if ($scores[0] == $scores[1]) { $outcome = 'draw'; }
+                      $results[$key] = '&nbsp;<span id="'.$outcome.'">('.$result.' '.$outcome.')</span>';
+                    } elseif (preg_match('/^[0-9]+-[0-9]{1,2}F?,[0-9]+-[0-9]{1,2}F?$/i',$result)) { // Cricket scores
+                      unset($outcome);
+                      $scores = explode(',',$result);
+                      foreach ($scores as $side => $score) {
+                        $score = trim($score);
+                        $score = strtolower($score);
+                        $score = explode('-',$score);
+                        if (strpos($score[1],'f') == true) {
+                          $scores[$side] = array($score[0],chop($score[1],'f'),'first');
+                        } else {
+                          $scores[$side] = array($score[0],$score[1]);
+                        }
+                      }
+                      $runsDiff = $scores[0][0] - $scores[1][0];
+                      if ($runsDiff == 0) { $result = 'draw'; $outcome = 'draw'; }
+                      if ($runsDiff > 0 && isset($scores[0][2])) { $result = 'Challoner\'s win by '.$runsDiff.' runs'; $outcome = 'win'; }
+                      elseif ($runsDiff > 0) { $result = 'Challoner\'s win by '.(10 - $scores[0][1]).' wickets'; $outcome = 'win'; }
+                      if ($runsDiff < 0 && isset($scores[1][2])) { $result = 'opponents win by '.($runsDiff*-1).' runs'; $outcome = 'loss'; }
+                      elseif ($runsDiff < 0) { $result = 'opponents win by '.(10 - $scores[1][1]).' wickets'; $outcome = 'loss'; }
+                      $result = str_replace(' ','&nbsp;',$result); // This is just to make the code above a little easier to read!
+                      $results[$key] = '&nbsp;<span id="'.$outcome.'">('.$result.')</span>';
+                    } else { // Any other input for the scores not covered by the above
+                      $results[$key] = '&nbsp;<span>('.$result.')</span>';
+                    }
+                  }
+                }
+                $teams = explode(';',$event['teams']);
+                foreach ($teams as $key => $team) {
+                  $tCount = $key+2;
+                  $team = trim($team);
+                  $team = str_replace(' ','&nbsp;',$team); // This, and in the results processing above, keeps team names and scores neatly together
+                  echo $team;
+                  if (isset($results[$key])) { echo $results[$key]; }
+                  if ($tCount == count($teams)) { echo ' and '; }
+                  elseif ($tCount < count($teams)) { echo ', '; }
+                }
+              } elseif (isset($event['results'])) {
+                echo '<span>'.$event['results'].'</span>';
+              }
+            echo '</p>';
+            if (isset($event['teams']) && isset($event['players'])) {
+              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'">View printable team sheets</a></p>';
+            }
           }
-          if (isset($event['event'])) { echo $event['event']; }
-          echo '</h3>';
-          
           if (isset($event['venuepostcode'])) {
             echo '<p class="details"><a href="https://www.google.co.uk/maps?q='.$event['venuepostcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>';
           }
@@ -190,10 +282,6 @@
       }
     }
   echo '</div>';
-
-  echo '<pre>';
-    print_r($diaryArray);
-  echo '</pre>';
 
   include('footer.php');
 

@@ -1,4 +1,4 @@
-tusfunction __LoadGoogle(source, timeout) {
+function __LoadGoogle(source, timeout) {
 	Tabletop.init( { key: source, callback: __ShowGoogle, simpleSheet: false, parseNumbers: true } );
 	// setTimeout("__LoadGoogle('" + source + "'," + timeout + ")", timeout);
 }
