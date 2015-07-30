@@ -271,13 +271,20 @@
               }
             echo '</p>';
             if (isset($event['teams']) && isset($event['players'])) {
-              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a></p>';
+              echo '<p class="details"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a>.</p>';
             }
           }
-          if (isset($event['venuepostcode'])) {
-            echo '<p class="details"><a href="https://www.google.co.uk/maps?q='.$event['venuepostcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>';
+          if (isset($event['venuename']) || isset($event['venuepostcode'])) {
+            echo '<p class="details">';
+            if (isset($event['venuename'])) {
+              echo $event['venuename'].'. ';
+            }
+            if (isset($event['venuepostcode'])) {
+              echo '<a href="https://www.google.co.uk/maps?q='.$event['venuepostcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>.';
+            }
+            echo '</p>';
           }
-          if (isset($event['otherdetails'])) { echo '<p class="details">'.$event['otherdetails'].'</p>'; }
+          if (isset($event['otherdetails'])) { echo '<p class="details">'.str_replace('||','<br />',$event['otherdetails']).'</p>'; }
         }
       }
     }

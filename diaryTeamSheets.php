@@ -7,11 +7,79 @@
 ?>
 
 <style>
+  
+  * {
+    font-family: Arial, sans-serif!important;
+  }
+  
+  p,li {
+    margin: 0; padding: 0;
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+  
+  @media screen {
+    body { margin: 1.5em; }
+    li { margin-left: 1.5em; }
+  }
+
+  h1,h2 {
+    font-weight: bold;
+    margin-bottom: 0.2em;
+  }
+
+  p.links {
+    font-size: 1.2em; font-weight: bold;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #aaaaaa;
+    margin-bottom: 1.4em;
+  }
+  p.links a { text-decoration: none;}
+  p.links span {
+    float: right;
+    word-spacing: 1.4em;
+  }
+  p.links span a { word-spacing: 0; }
+
+  @media print {
+    p.links { display: none; }
+    li { margin-left: -0.8em; }
+  }
+
+  img {
+    width: 16%;
+    float: left;
+  }
+
+  div.match {
+    text-align: right;
+    margin-bottom: 1.4em;
+  }
+  
+  p#break { margin-top: 0.6em; }
+  p#times { word-spacing: 1.8em; }
+  p#times span { word-spacing: 0; }
+
+  div.list {
+    clear: left; float: left;
+    width: 50%;
+    margin-bottom: 1.8em;
+  }
+  div.list:nth-of-type(3) {
+    clear: none;
+  }
+
+  p.otherDetails {
+    clear: left;
+    text-align: center;
+    font-size: 2em; font-weight: bold;
+    border-top: 1px solid #aaaaaa;
+    padding-top: 0.4em;
+  }
+  
 </style>
 
 <?php
-
-  echo '<img src="/styles/imgs/logoCrest.png" />';
 
   $caches = scandir('data_diary/', SCANDIR_SORT_DESCENDING);
   foreach ($caches as $file) {
@@ -25,9 +93,85 @@
   $date = $_GET['date'];
   $eventID = $_GET['eventID'];
   $matchData = $diaryArray[$date][$eventID];
-  
-  echo '<pre>';
-  print_r($matchData);
-  echo '</pre>';
+
+  $pos = $_GET['sheet']*2-1;
+
+  $teams = explode(';',$matchData['teams']);
+  $players = explode(';',$matchData['players']);
+  $teamLists = array();
+  foreach ($teams as $key => $row) {
+    if (!empty(trim($players[$key]))) {
+      $teamLists[] = array(trim($row),$players[$key]);
+    }
+  }
+
+  // Check to see if next/previous pages need to be made and create the variables to do so
+  if (isset($teamLists[$pos+1])) { $npos = $_GET['sheet']+1; }
+  if ($pos > 1) { $lpos = $_GET['sheet']-1; }
+
+  foreach ($teamLists as $key => $list) {
+    if ($key != $pos && $key != $pos-1) { unset($teamLists[$key]); }
+  }
+
+  echo '<p class="links">';
+    echo '<a href="javascript:window.print()">&#10151; Print</a>';
+    echo ' <span>';
+    if (isset($lpos)) {
+      echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$lpos.'">&#171; Last page</a> ';
+    }
+    if (isset($npos)) {
+      echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$npos.'">&#187; Next page</a> ';
+    }
+    echo '<a href="/diary">Back to diary</a>';
+    echo '</span>';
+  echo '</p>';
+
+  echo '<img src="/styles/imgs/logoCrest.png" />';
+
+  echo '<div class="match">';
+    echo '<h1>';
+      if (isset($matchData['sport'])) {
+        echo $matchData['sport'];
+      } else {
+        echo $matchData['event'];
+      }
+      echo ': '.$teamLists[$pos-1][0];
+      if (isset($teamLists[$pos][0])) {
+        echo ' and '.$teamLists[$pos][0];
+      }
+    echo '</h1>';
+    if (isset($matchData['sport'])) {
+      echo '<p>Opponents: '.$matchData['event'].'</p>';
+    }
+    if (isset($matchData['venue'])) {
+      echo '<p>'.$matchData['venue'];
+      if (isset($matchData['venuename'])) { echo ' - '.$matchData['venuename']; }
+      echo '</p>';
+    }
+    echo '<p id="break">'.date('l jS F Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'</p>';
+    if (isset($matchData['meettime']) || isset($matchData['matchtime'])) {
+      echo '<p id="times">';
+        if (isset($matchData['meettime']))  { echo ' <span>Meeting at '.$matchData['meettime'].'</span>'; }
+        if (isset($matchData['matchtime'])) { echo ' <span>Start at '.$matchData['matchtime'].'</span>';  }
+        if (isset($matchData['timeend']))   { echo ' <span>Finish at '.$matchData['timeend'].'</span>';   }
+      echo '</p>';
+    }
+  echo '</div>';
+
+  foreach ($teamLists as $list) {
+    echo '<div class="list">';
+      echo '<h2>'.$list[0].'</h2>';
+      $players = explode(',',$list[1]);
+      echo '<ol>';
+      foreach ($players as $player) {
+        echo '<li>'.trim($player).'</li>';
+      }
+      echo '</ol>';
+    echo '</div>';
+  }
+
+  if (isset($matchData['otherdetails'])) {
+    echo '<p class="otherDetails">'.str_replace('||','<br />',$matchData['otherdetails']).'</p>';
+  }
 
 ?>
