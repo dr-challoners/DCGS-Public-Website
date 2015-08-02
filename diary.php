@@ -174,7 +174,47 @@
   $diaryArray = file_get_contents('data_diary/'.$newFile);
   $diaryArray = json_decode($diaryArray, true);
 
-  // Now to make the diary display itself
+  // Now to make the actual display
+
+?>
+
+
+
+  <!--googleoff: all-->
+  <!--
+  <div class="ncol">
+    <div class="calendar">
+      <p id="month"></p>
+    </div>
+  </div>
+  -->
+  <!--googleon: all-->
+
+<!--
+<script type="text/javascript" language="javascript">
+  
+  // The calendar widget - basic variables/array
+  var eventsSummary = [];
+  <?php // Might as well create this array in PHP as we've already got the file loaded there
+  /*
+    foreach ($diaryArray as $key => $day) {
+      echo 'eventsSummary['.$key.'] = "';
+      foreach ($day as $entry) {
+        echo $entry['event'].',';
+      }
+      echo "\";\n";
+    }
+  */
+  ?>
+  var mnth = '<?php //echo $_GET['m']; ?>';
+  var year = '<?php //echo $_GET['y']; ?>';
+  
+  document.getElementById('month').innerHTML = mnth + ' ' + year;
+  
+</script>
+-->
+      
+<?php 
 
   // The calendar widget
   echo '<!--googleoff: all--><div class="ncol">';

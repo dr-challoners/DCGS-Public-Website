@@ -1,10 +1,6 @@
-/* NHS NATIONAL BLOOD WEEK */
-span.hide { color: rgba(0,0,0,0.25); float: none!important; }
-span.hideW { color: rgba(255,255,255,0.25); float: none!important; }
-
 /* Override */
 .override {
-    margin-bottom: 14px;
+    margin: 0 8px 14px 0;
     border-top:    4px solid #2F5397;
     border-bottom: 4px solid #2F5397;
     }
@@ -37,6 +33,9 @@ span.hideW { color: rgba(255,255,255,0.25); float: none!important; }
       
 
 /* Magazine */
+#magazine {
+  margin-left: -8px;
+}
 
 #magazine a {
   text-decoration: none;
@@ -69,7 +68,7 @@ span.hideW { color: rgba(255,255,255,0.25); float: none!important; }
   #magazine p { margin: 0; }
 
 #magazine .newsImg {
-  float: left;
+  float: left; margin-left: 8px;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -87,7 +86,7 @@ span.hideW { color: rgba(255,255,255,0.25); float: none!important; }
   }
 
 #magazine .row {
-  padding: 8px;
+  padding: 6px 8px 8px 8px;
   margin: -6px 0 6px 0;
 }
   #magazine .row p, #magazine .row h1 { margin: 0 4px; }
@@ -100,7 +99,7 @@ span.hideW { color: rgba(255,255,255,0.25); float: none!important; }
 /* All magazine images must have the same proportions, so that editors can purposefully size images for the magazine if they wish. */
 #magazine .std .newsImg, #magazine .error .newsImg { width: 250px; height: 140px; margin-right: 16px; }
 #magazine .top .newsImg, #magazine #slideshow, #magazine iframe.videoPreview { width: 430px; height: 240px; margin-right: 20px; }
-#magazine .row .newsImg { width: 166px; height: 93px;  margin: 0 10px 6px 0; }
+#magazine .row .newsImg { width: 168px; height: 94px;  margin: 0 10px 6px 0; }
   #magazine .row .newsImg:last-of-type { margin-right: 0px; }
 #magazine > .audio .newsImg { 
   width: 130px; height: 120px;
@@ -139,13 +138,24 @@ div.intranetbox h3:hover, div.linkbox h3:hover {
   }
 
 div.intranetbox {
-  padding: 5px 0;
+  padding: 6px 0;
+  border-top: 1px solid #bbbbbb;
 }
-  div.intranetbox img {
-    float: right;
-    padding: 3px;
+  div.intranetbox div.tinyicon {
+    float: right; display: block;
+    width: 16px; height: 16px;
+    border: 0; margin: 0; padding: 3px 6px;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
-   div.intranetbox a:first-child img { margin-right: 2px; }
+  div.intranetbox a:first-child div.tinyicon { margin-right: 2px; }
+  div.tinyicon img { visibility: visible; }
+  div.tinyicon:hover img { visibility: hidden; }
+  div.tinyicon#gmail     { background-image: url(/styles/imgs/tinyiconHover_gmail.png);     }
+  div.tinyicon#classroom { background-image: url(/styles/imgs/tinyiconHover_classroom.png); }
+  div.tinyicon#okta      { background-image: url(/styles/imgs/tinyiconHover_okta.png);      }
+  div.tinyicon#drive     { background-image: url(/styles/imgs/tinyiconHover_drive.png);     }
+
   div.intranetbox h4 {
     margin: 0 0 0 6px;
     font-size: 11px; letter-spacing: 0.5px;
@@ -153,13 +163,13 @@ div.intranetbox {
   }
   div.intranetbox h3 {
     float: left;
-    padding: 2px 8px 3px 8px; margin: -1px 0 2px 0;
+    padding: 2px 8px 3px 8px;
     font-size: 16px;
   }
 
 div.linkbox {
    clear: left;
-   height: 80px; padding: 5px 0 8px 0;
+   height: 80px; padding: 6px 0 22px 0;
    }
    div.linkbox h3 {
      background-color: #eeeeee;

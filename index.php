@@ -30,14 +30,12 @@ jQuery(document).ready(function(){
 <?php include('header_navigation.php'); ?>
 
 <div class="ncol rgt lrg">
-  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
-  <div class="astratext" id="astra"><p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p></div>
   
   <div class="intranetbox">
-    <a href="https://classroom.google.com"><img src="./styles/imgs/tinyicon_classroom.png" alt="Google Classroom" /></a>
-    <a href="https://mail.google.com"><img src="./styles/imgs/tinyicon_gmail.png" alt="Google Mail" /></a>
-    <a href="https://drive.google.com"><img src="./styles/imgs/tinyicon_drive.png" alt="Google Drive" /></a>
-    <a href="https://dcgs.okta.com/"><img src="./styles/imgs/tinyicon_okta.png" alt="Okta" /></a>
+    <a href="https://classroom.google.com"><div class="tinyicon" id="classroom"><img src="/styles/imgs/tinyicon_classroom.png" /></div></a>
+    <a href="https://mail.google.com"><div class="tinyicon" id="gmail"><img src="/styles/imgs/tinyicon_gmail.png" /></div></a>
+    <a href="https://drive.google.com"><div class="tinyicon" id="drive"><img src="/styles/imgs/tinyicon_drive.png" /></div></a>
+    <a href="https://dcgs.okta.com/"><div class="tinyicon" id="okta"><img src="/styles/imgs/tinyicon_okta.png" /></div></a>
     <h4>Intranet</h4>
     <a href="/intranet/students"><h3>Students</h3></a>
     <a href="/intranet/staff"><h3>Staff</h3></a>
@@ -52,6 +50,9 @@ jQuery(document).ready(function(){
     <a href="/pages/Overview/Governors_and_Friends/The_Friends_of_DCGS"><h3>Friends</h3></a>
     <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
 	</div>
+  
+  <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>
+  <div class="astratext" id="astra"><p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p></div>
 	
 	<div class="twitter-header" id="news"><a href="https://twitter.com/ChallonersNews" target="<?php echo 'page'.mt_rand(); ?>"><p>DCGS News <span>Follow</span></p></a></div>
 	<a class="twitter-timeline"  href="https://twitter.com/ChallonersNews" data-chrome="noborders noheader nofooter" data-widget-id="430598364401373184">Tweets by @ChallonersNews</a>

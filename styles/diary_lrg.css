@@ -11,11 +11,11 @@ div.calendar {
 
 div.calendar a { text-decoration: none; }
 
-	p.month {
+	p.month, p#month {
        text-align: center;
        font-weight: bold; font-size: 15px;
        }
-       p.month a {
+       p.month a, p#month a {
           display: block;
           font-size: 20px;
           margin-top: -6px;      

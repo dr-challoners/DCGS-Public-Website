@@ -88,37 +88,35 @@ div.main_nav {
        }
 
 div.sub_nav {
-    visibility: hidden;
-    position: absolute;
-   border-top: 8px solid #2358A2;
-   border-bottom: 4px solid #2358A2;
-   background-color: #F7F7F7;
-    top: 144px; left: -5px;
-    width: 970px; padding: 10px 10px 12px 10px;
+   visibility: hidden;
+   position: absolute;
+   background-color: #2358A2;
+   top: 144px; left: -7px; width: 993px;
+   margin: 0; padding: 2px 0 3px 0;
     }
     div.sub_nav h2 {
-       text-align: left;
-       margin: 12px 5px 3px 15px;
+       float: left; clear: right;
+       margin-top: 10px; padding: 0 0 0 16px;
        font-size: 18px;
+       text-align: left; color: #ffffff;
        }
-    div.category:first-child h2 {
-       margin-top: 5px;
+    div.sub_nav ul {
+       float: right;
+       width: 750px; padding: 6px;
+       background-color: #F2F7FF;
+    }
+    div.sub_nav .category:last-child ul {
+       padding-bottom: 10px;
     }
     div.sub_nav li {
        float: left;
-       width: 232px; padding: 0 4px 0 5px;
-       margin-bottom: -3px;
-       border-right: 1px solid #cccccc;
+       margin: 0; padding: 0;
     }
-       div.sub_nav li:nth-child(4n),
-       div.category li:last-of-type {
-          border-right: 0; padding-right: 5px;
-       }
     div.sub_nav a {
        font-family: Trebuchet, Verdana, sans-serif; font-size: 14px;
        text-align: left; 
        color: #000000;
-       padding: 6px 10px 8px 10px;
+       padding: 8px 14px;
        }
        div.sub_nav a:hover {
           color: #ffffff;
@@ -371,6 +369,9 @@ div.intranet_head h3 a:hover, div.intranet_head h3.open a {
 /* Twitter */
 div.twitter-header {
     margin: 10px 0px 4px 0px;
+    }
+    .rgt div#news {
+       margin-top: 4px;
     }
 
 div.twitter-header p {
