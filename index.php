@@ -69,8 +69,6 @@ jQuery(document).ready(function(){
 </div>
 <div class="mcol">
 
-<h1 class="dcgs sml">Welcome to Dr Challoner's Grammar School</h1>
-
 <?php
 if (preg_match('/(?i)msie [4-7]/',$_SERVER['HTTP_USER_AGENT']) || isset($_GET['updatebrowser'])) { // Notification to upgrade for older versions of IE
   echo '<div class="old_browser_notice lrg">'; // Put in the 'lrg' because the notice *shouldn't* appear on mobiles, but that'll catch it if it does

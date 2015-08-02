@@ -1,15 +1,12 @@
-div.page { }
-div.ncol {  }
-div.mcol-rgt { padding-top: 6.2em; }
-a.anchor { height: 16.7em; margin: -16.7em 0 0 0; }
+div.mcol-rgt { padding-top: 40px; }
 
 /* Calendar widget */
 div.calendar {  }
 
 div.calendar a { text-decoration: none; }
 
-	p.month { text-align: center; margin: 1.5em 0 1em 0; }
-       p.month a {
+	p.month, p#month { text-align: center; margin: 1.5em 0 1em 0; }
+       p.month a, p#month a {
           display: block;
           font-size: 1.8em;
           margin: 0; padding: 0 1em 0 1em;    
@@ -44,18 +41,12 @@ div.week p, div.weekdays p {
        div.week a:hover { background-color: #EFA207; }
 
 /* Event display */
-div.day {  }
-    div.day hr {
-       clear: both;
-       border-bottom: 1px solid #aaaaaa;
-       padding-top: 1.5em; margin-bottom: 1em;
-       }
-       
-div.day strong { color: red; }
-
-div.day h2 { }
-    div.day h2 span { float: right; }
-    h2.noevents { }
+div.diary h2 {
+  margin-top: 19px; padding-top: 15px;
+  border-top: 2px solid #aaaaaa;
+}
+div.diary h2:first-of-type { border: 0; margin: 0; padding: 0; }
+div.diary h2 span { float: right; font-size: 34px!important; }
 
 p.time { margin: 1em 0 -0.2em 0; color: #173F7A; font-style: italic; }
 

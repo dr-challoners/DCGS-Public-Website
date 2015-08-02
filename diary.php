@@ -218,7 +218,9 @@
 
   // The calendar widget
   echo '<!--googleoff: all--><div class="ncol">';
-    echo '<div class="calendar">';
+    echo '<div class="calendar';
+      if (!isset($_GET['calendar'])) { echo ' lrg'; } // We're on a mobile and viewing just the weekly events right now
+    echo '">';
       echo '<p class="month">';
         echo  '<a class="lmonth">&#171;</a> ';
         echo date('F Y',$curTimestamp);
@@ -270,8 +272,8 @@
       echo '</div>';
     echo '</div>';
 
-    echo '<div id="diaryPreview"></div>';
-    echo '<div id="diaryLinks">';
+    echo '<div id="diaryPreview" class="lrg"></div>';
+    echo '<div id="diaryLinks" class="lrg">';
       echo '<p><a href="/diary/year/">Year summary</a></p>';
 			echo '<p><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
       echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
@@ -280,7 +282,9 @@
   echo '</div><!--googleon: all-->';
 
   // Display the selected week's events
-  echo '<div class="diary mcol-rgt">';
+  echo '<div class="diary mcol-rgt';
+    if (isset($_GET['calendar'])) { echo ' lrg'; } // We're on a mobile and viewing just the calendar right now
+  echo '">';
     $curWeek = $curTimestamp-(date('N',$curTimestamp)-1)*86400;
     for ($d = 0; $d < 7; $d++) {
       $curDay = $curWeek + $d*86400;

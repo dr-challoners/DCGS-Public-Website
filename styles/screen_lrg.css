@@ -87,38 +87,41 @@ div.main_nav {
        height: 31px; padding: 7px 2px 0px 2px;
        }
 
-div.sub_nav {
+div.sub_menu {
    visibility: hidden;
    position: absolute;
-   background-color: #2358A2;
+   background-color: #e5e5e5;
+   border-top: 3px solid;
+   border-bottom: 4px solid;
+   border-color: #2358A3;
    top: 144px; left: -7px; width: 993px;
-   margin: 0; padding: 2px 0 3px 0;
     }
-    div.sub_nav h2 {
-       float: left; clear: right;
-       margin-top: 10px; padding: 0 0 0 16px;
+    div.sub_menu h2 {
+       float: left; clear: both;
+       width: 215px;
+       margin-top: 10px;
        font-size: 18px;
-       text-align: left; color: #ffffff;
+       text-align: right;
        }
-    div.sub_nav ul {
+    div.sub_menu ul {
        float: right;
        width: 750px; padding: 6px;
-       background-color: #F2F7FF;
+       background-color: #fafafa;
     }
-    div.sub_nav .category:last-child ul {
+    div.sub_menu .category:last-child ul {
        padding-bottom: 10px;
     }
-    div.sub_nav li {
+    div.sub_menu li {
        float: left;
        margin: 0; padding: 0;
     }
-    div.sub_nav a {
+    div.sub_menu a {
        font-family: Trebuchet, Verdana, sans-serif; font-size: 14px;
        text-align: left; 
        color: #000000;
        padding: 8px 14px;
        }
-       div.sub_nav a:hover {
+       div.sub_menu a:hover {
           color: #ffffff;
           background-color: #2358A3;
           }

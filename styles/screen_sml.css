@@ -7,37 +7,38 @@ body {  }
 
 div.page { margin: 0; }
 
-div.mcol, div.mcol-rgt, div.intranet, div.parsebox {
-    padding: 2.9em 2% 3.5em 2%;
+div.mcol, div.mcol-rgt, div.parsebox {
+    padding: 40px; clear: right;
     }
 	
 iframe {margin-top: 1em; width: 100%; }
 
 /* General typography */
-h1 { font-size: 4.5em; line-height: 1.2em; margin-bottom: 0.2em; }
-h2 { font-size: 3.6em; margin-top: 0.4em; }
-div.parsebox h2 { font-size: 3.8em; margin-top: 0.8em; }
-h3 { font-size: 2.8em; margin-top: 0.3em;}
-div.parsebox h3 { font-size: 3.2em; margin-top: 0.8em;}
-p, div.parsebox p { font-size: 2.3em; line-height: 1.7em; margin-bottom: 1em; }
+h1 { font-size: 48px; line-height: 82px; margin-bottom: 10px; }
+h2 { font-size: 34px; margin-bottom: 10px; }
+h3 { font-size: 20px; margin-bottom: 10px; }
+h3:nth-child(2) { padding-bottom: 24px; }
+p, div.parsebox p { font-size: 16px; line-height: 60px; margin-bottom: 24px; }
+div.parsebox p:last-child { margin-bottom: 0; }
 h4 { font-size: 3.6em; margin-top: 1em; }
-li { font-size: 2.3em; line-height: 1.2em; }
+li { font-size: 16px; line-height: 60px; }
 
 div.mcol ul, div.mcol-rgt ul, div.parsebox ul { margin: 0 0 2em 4.2em; }
-div.mcol li, div.mcol-rgt li, div.parsebox li {
-    font-family: Trebuchet, Verdana, sans-serif;
-    font-size: 2.3em;
-    line-height: 1.8em;
-    padding-left: 0.8em;
-    }
 
 a.anchor { height: 9.5em; margin: -9.5em 0 0 0; display: block; background-color: transparent; }
 
-/* Other ParseBox modifications */
+/* Other general ParseBox modifications */
 
-div.parsebox img.right, div.parse img.left { margin-top: 1.8em; }
+div.parsebox img.right, div.parsebox img.left { margin-top: 1.8em; }
+div.parsebox table.imgRow { margin-bottom: 32px; }
+div.parsebox .imgDiv p {
+  font-size: 25px;
+  margin-top: -50px;
+}
+table.imgRow .imgDiv p { margin-top: -40px; }
+
 div.gallery { padding: 0 11.5%; }
-p.linkout img.icon { height: 65px; border-right: 0.4em solid #ffffff; }
+p.linkout img.icon { height: 65px!important; margin-right: 30px!important; }
 
 div.parsebox table { margin-top: 2em; }
 div.parsebox table td { padding: 1%; }
@@ -50,70 +51,68 @@ div.header {
     background-color: #ffffff;
     }
     div.main_nav {
-       width: 100%; height: 7.8em;
+       width: 100%; height: 125px;
        background-color: #173F7A;
        }
        div.main_nav a {
           color: #ffffff; text-decoration: none; 
           }
-       .rbutton { float: right; }
-       div.main_nav img { padding-top: 0.3em; }
-          img.banner_img { padding-left: 0.6em; }
-          img.rbutton { margin-bottom: -0.8em; }
-       div.main_nav p { 
-          margin-top: 0.18em;
-          font-size: 3.7em;
-          border-width: 0 1px;
-          border-style: solid;
-          border-color: #286EC9;
-          }
-          div.main_nav span {
-             vertical-align: top; margin-left: 11.8em;
-             font-size: 0.55em;
-             }
-          div.main_nav p a { padding: 0.35em; }
+       div.main_nav img {
+         padding: 7px 0 0 14px;
+       }
+       div.main_nav p {
+         float: right;
+         margin: 0; padding: 32px 46px 25px;
+         font-size: 52px;
+         border-bottom: 8px solid #286EC9;
+       }
+       div.main_nav p a { padding: 0.35em; }
     div.nav_menu {
        display: none;
-       padding: 1.8em 0 0.2em 0;
-       background-color: #2358A2;
+       padding-left: 20px;
+       background-color: #e5e5e5;
+       border-bottom: 10px solid #173F7A;
        }
-       h1.sub_nav { 
-          font-size: 4.5em; float: left; width: 50%;
-          }
-          h1.sub_nav span {  }
-          h1.sub_nav a {
+       div.nav_menu h1 { font-size: 32px; }
+          div.nav_menu h1 a {
              display: block;
-             padding: 0 0.5em 0.4em 0.5em;
-             color: #ffffff;  text-decoration: none;
-             }
-          h1.sub_nav#last { float: none; }
-       div.sub_nav {
-          clear: left;
-          background-color: #d4e8ff;
-          padding: 0.4em 0 1em 0; margin-bottom: 1.2em;
-          }
-          div.sub_menu { display: none; }
-          div.sub_nav h2 {
-             font-size: 3.3em; font-weight: bold;
-             padding: 0.3em 0.4em 0.15em 0.4em;
-             }
-          div.sub_nav li { font-size: 3.3em; }
-             div.sub_nav li#first { pading-top: 0.3em; }
-          div.sub_nav a { 
-             display: block; padding: 0.35em 0.4em 0.2em 0.4em;
+             padding: 12px 30px;
              color: #000000; text-decoration: none;
              }
+          div.nav_menu h1:first-of-type { padding-top: 35px; }
+          div.nav_menu h1:last-of-type { padding-bottom: 25px; }
+          div.sub_menu {
+            float: right; display: none;
+            padding: 40px 30px 40px; width: 52%;
+            background-color: #fafafa;
+          }
+          div.sub_menu h2, div.sub_menu li {
+             font-family: Trebuchet, Verdana, sans-serif; font-size: 46px;
+             }
+          div.sub_menu h2 {
+            font-weight: bold; padding-top: 40px;
+          }
+          div.sub_menu h2:first-child { padding-top: 24px; }
+          div.sub_menu li { list-style-type: none; }
+          div.sub_menu a { 
+             display: block; padding: 15px;
+             color: #000000; text-decoration: none;
+             }
+          div.sub_menu a, div.sub_menu h2 { padding-left: 20px; padding-right: 20px; }
 
 
 /* Footer */
 div.footer {
-    height: 4.8em; width: 100%;
-    background-color: #ffffff; border-top: 0.65em solid #173F7A;
+    height: 90px; width: 100%;
+    background-color: #ffffff; border-top: 8px solid #173F7A;
     }
     div.footer p {
-       text-align: right; font-size: 1.8em; line-height: 1.35em;
-       padding: 0.5em 1.2em 0 1.2em; margin: 0;
+       text-align: right; font-size: 32px;
+       padding: 10px 40px 0; margin: 0;
+      word-spacing: 10px;
        }
+    div.footer a { text-decoration: none; }
+    div.footer a, div.footer span.left { word-spacing: 0; }
     div.footer span.left { float: left; }
 
 /* News story */
@@ -125,48 +124,47 @@ div.newsimg {
     background-position: center top; background-repeat: no-repeat; background-size: cover;
     }
 
-div.parsebox h3.newsdate { margin: 0 0 0.8em 0; }
-
 /* Intranet links */
-div.intranet h1 { margin: -0.3em 0 0 0; }
+div.intranet h3, div.intranet li { font-family: Trebuchet, Verdana, sans-serif; }
 
-div.intranet_head h3 { font-size: 3.6em; margin-bottom: -0.2em; }
-    div.intranet_head h3 a {
-       display: block; padding: 0.5em 0.7em;
-       color: #000000; font-weight: normal;
-       background-color: #F7F7F7;
-       }
-       div.intranet_head h3 a:hover {
-         text-decoration: none;
-         background-color: #2358A3; color: #ffffff;
-         }
+div.intranet_head h3 { margin-top: 15px; }
+div.intranet_head a {
+  display: block; padding: 20px;
+  color: #000000; font-weight: normal;
+  background-color: #e5e5e5;
+  }
+div.intranet_head h3 a:hover {
+  text-decoration: none;
+  background-color: #2358A3; color: #ffffff;
+  }
+div.intranet h2 {
+  font-size: 48px; line-height: 82px;
+  margin-top: 40px;
+}
+
+
+div.intranetbox div {
+  margin: 15px 20px 0;
+  display: none;
+}
+div.intranetbox div.open { display: block; }
+div.parsebox div.intranetbox ul { margin: 0; }
+div.parsebox div.intranetbox li {
+  list-style-type: none; padding: 8px 0;
+}
+
+div.intranetbox h3 {
+  font-weight: bold;
+  margin-top: 35px;
+}
+
+div.intranetbox div a { display: block; }
+
 div.intranetbox hr {
    background-color: #cccccc;
-   height: 1px; margin: 1em 0 0.8em 0;
+   height: 2px; margin: 15px -20px;
    }
-    div.intranetbox div {
-       display: none;
-       padding: 0 2.9em;
-       margin: 2em 0 2em 0;
-        }
-        div.intranetbox div.open { display: block; }
-
-div.parsebox div.intranetbox ul, div.parsebox div.intranetbox p { margin: 0; }
-div.parsebox div.intranetbox li, div.subjectbox li {
-       list-style-type: none; padding: 0.4em 0;
-       }
-   div.intranetbox div a {
-      display: block;
-   }
-div.parsebox div.intranetbox a:before, div.subjectbox a:before {
-      content: none;
-      }
-
-/* Search */
-div.searchpage {
-  padding: 2.9em 2% 4.5em 2%;
-}
-div.searchpage > div {  }
+div.intranetbox hr#end { display: none; }
 
 /* Houses pages */
 

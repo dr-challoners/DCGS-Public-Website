@@ -162,7 +162,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
 	break;
 	}
   
-      echo '<div class="clear lrg">';
+      echo '<div class="clear">';
         echo "<h2>Subject resources</h2>";
         makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','N');
       echo '</div>';
