@@ -222,9 +222,9 @@
       if (!isset($_GET['calendar'])) { echo ' lrg'; } // We're on a mobile and viewing just the weekly events right now
     echo '">';
       echo '<p class="month">';
-        echo  '<a class="lmonth">&#171;</a> ';
+        echo  '<a class="last">&#171;</a> ';
         echo date('F Y',$curTimestamp);
-        echo ' <a class="nmonth">&#187;</a>';
+        echo ' <a class="next">&#187;</a>';
       echo '</p>';
       echo '<div class="weekdays">';
         echo '<p>Mon</p>';
@@ -286,6 +286,11 @@
     if (isset($_GET['calendar'])) { echo ' lrg'; } // We're on a mobile and viewing just the calendar right now
   echo '">';
     $curWeek = $curTimestamp-(date('N',$curTimestamp)-1)*86400;
+    $lastWeek = date('d/m/Y',mktime(0,0,0,date('m',$curWeek),date('d',$curWeek)-7,date('Y',$curWeek)));
+    $nextWeek = date('d/m/Y',mktime(0,0,0,date('m',$curWeek),date('d',$curWeek)+7,date('Y',$curWeek)));
+    echo '<p class="weekNav sml">';
+      echo '<a class="last" href="/diary/'.$lastWeek.'/">&#171; Last week</a> <a class="next" href="/diary/'.$nextWeek.'/">Next week &#187;</a>';
+    echo '</p>';
     for ($d = 0; $d < 7; $d++) {
       $curDay = $curWeek + $d*86400;
       echo '<h2>'.date('l jS',$curDay);
@@ -300,15 +305,11 @@
             echo $event['event'];
           echo '</h3>';
           echo '<p class="time">';
-            if (isset($event['timestart'])) {
-              echo $event['timestart'];
-              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
-            } elseif (isset($event['meettime'])) {
-              echo $event['meettime'];
-              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
-            } elseif (isset($event['matchtime'])) {
-              echo $event['matchtime'];
-              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
+            if (isset($event['timestart']))     { echo $event['timestart']; }
+            elseif (isset($event['meettime']))  { echo $event['meettime']; }
+            elseif (isset($event['matchtime'])) { echo $event['matchtime']; }
+            if ((isset($event['timestart']) || isset($event['meettime']) || isset($event['matchtime'])) && isset($event['timeend'])) {
+              echo ' - '.$event['timeend'];
             }
           echo '</p> ';
           if (isset($event['venue']) || isset($event['teams']) || isset($event['results'])) {
@@ -389,6 +390,12 @@
       }
     }
   echo '</div>';
+
+  if (isset($_GET['calendar'])) { // Pins the footer tidily to the bottom of the page when viewing the calendar on mobiles (the calendar does not fill the whole screen)
+    echo '<style>';
+    echo 'div.footer { position: absolute; bottom: 0; }';
+    echo '</style>';
+  }
 
   include('footer.php');
 

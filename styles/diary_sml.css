@@ -1,72 +1,71 @@
 div.mcol-rgt { padding-top: 40px; }
 
 /* Calendar widget */
-div.calendar {  }
-
 div.calendar a { text-decoration: none; }
 
-	p.month, p#month { text-align: center; margin: 1.5em 0 1em 0; }
-       p.month a, p#month a {
-          display: block;
-          font-size: 1.8em;
-          margin: 0; padding: 0 1em 0 1em;    
-          }
-          a.lmonth { float: left; }
-	      a.nmonth { float: right; }
+p.month, p#month {
+  text-align: center; font-size: 300%;
+  margin: 60px 0;
+}
+p.month a, p#month a {
+  display: block;
+  font-size: 1.8em;
+  margin: 0; padding: 0 40px;    
+  }
+p.month a.last { float: left; }
+p.month a.next { float: right; }
 
-div.weekdays, div.week {
-    
-    }
 div.week p, div.weekdays p {
-	float: left;
-    width: 14.25%;
-    text-align: center;
-	
+	float: left; font-size: 300%;
+  width: 14.25%;
+  text-align: center;
 	}
+div.weekdays p {
+  padding-bottom: 30px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #aaaaaa;
+}
 
-    div.weekdays { }
-    div.weekdays p {
-       margin-top: 0.8em; padding-bottom: 0.3em;
-       text-transform: uppercase; border-bottom: 1px solid #aaaaaa; }
-    
-    div.week { }
-    div.week p { margin-top: 0; }
-       div.week p.today { font-weight: bold; }
-    div.week a {
-       color: #000000;
-       display: block;
-       padding: 0.6em 0 0.6em 0;
-       }
-       p.xmonth a { color: #aaaaaa; }
-       div.week a:hover { background-color: #EFA207; }
+div.week p { margin-top: 0; }
+#selected { background-color: #F9D27B; }
+div.week a {
+  color: #000000;
+  display: block;
+  padding: 0.6em 0 0.6em 0;
+}
+div.week p#today { font-weight: bold; }
+p#notMonth a { color: #aaaaaa; }
+div.week a:hover { background-color: #EFA207; }
+div.week p.event { background-color: rgba(239,162,7,0.35); }
+
+div#diaryPreview { display: none!important; }
 
 /* Event display */
+p.weekNav { font-weight: bold; }
+p.weekNav a { text-decoration: none; } 
+p.weekNav a.next {
+  float: right;
+  font-size: 300%; line-height: 135%;
+}
+
 div.diary h2 {
-  margin-top: 19px; padding-top: 15px;
+  font-size: 14px;
+  margin-top: 28px; padding-top: 24px;
   border-top: 2px solid #aaaaaa;
 }
-div.diary h2:first-of-type { border: 0; margin: 0; padding: 0; }
-div.diary h2 span { float: right; font-size: 34px!important; }
+div.diary h2:first-of-type {
+  margin-top: 18px; padding-top: 34px;
+  border-color: #173F7A;
+}
+div.diary h2 span { float: right; font-size: 300%; } /* I don't know why it needs to be 300%, but there you go */
 
-p.time { margin: 1em 0 -0.2em 0; color: #173F7A; font-style: italic; }
+.diary h3, .diary p {
+  font-size: 14px; line-height: 35px;
+}
+.diary p { margin-bottom: 0; }
 
-div.day h3 { }
-
-p.allevents { display: none; }
-
-p.details {
-    margin: 0.1em 0 0 0; line-height: 1.5em; padding: 0;
-    
-    }
-
-div.browse {
-    width: 94%;
-    padding: 0 3% 0.5em 3%; margin-bottom: -4em;
-    background-color: #ffffff; border-bottom: 1px solid #aaaaaa;
-    }
-    div.browse p.weeknav {
-       text-align: right; margin: 1em 0 0.5em 0;
-       font-size: 3em;
-       }
-       span.lft { float: left; }
-    div.browse a { text-decoration: none; }
+div.diary h3 {
+  font-family: Trebuchet, Verdana, sans-serif;
+  font-weight: bold;
+  padding: 0; margin: 20px 0 0 0;
+}

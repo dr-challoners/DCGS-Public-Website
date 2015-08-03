@@ -20,11 +20,11 @@ div.calendar a { text-decoration: none; }
           font-size: 20px;
           margin-top: -6px;      
           }
-          a.lmonth {
+          a.last {
              float: left;
              padding: 5px 20px 5px 3px;
              }
-	      a.nmonth {
+	      a.next {
              float: right;
              padding: 5px 3px 5px 20px;
              }
@@ -109,9 +109,6 @@ div.diary h3, p.details {
     }
     div.diary h3 { margin-top: 8px; }
     p.details span { font-weight: bold; }
-    span#win  { color: #247703; }
-    span#draw { color: #E87B19; }
-    span#loss { color: #D32918; }
 
 p.time {
     float: left; margin-top: -22px;

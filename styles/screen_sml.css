@@ -25,11 +25,14 @@ li { font-size: 16px; line-height: 60px; }
 
 div.mcol ul, div.mcol-rgt ul, div.parsebox ul { margin: 0 0 2em 4.2em; }
 
-a.anchor { height: 9.5em; margin: -9.5em 0 0 0; display: block; background-color: transparent; }
-
 /* Other general ParseBox modifications */
 
-div.parsebox img.right, div.parsebox img.left { margin-top: 1.8em; }
+.parsebox .imgDiv.left, .imgDiv.right {
+  width: 45%;
+  margin-top: 10px;
+}
+.parsebox .imgDiv.left { margin-right: 35px; }
+.parsebox .imgDiv.right { margin-left: 35px; }
 div.parsebox table.imgRow { margin-bottom: 32px; }
 div.parsebox .imgDiv p {
   font-size: 25px;
@@ -37,7 +40,7 @@ div.parsebox .imgDiv p {
 }
 table.imgRow .imgDiv p { margin-top: -40px; }
 
-div.gallery { padding: 0 11.5%; }
+div.gallery { padding: 35px 0 30px 92px; }
 p.linkout img.icon { height: 65px!important; margin-right: 30px!important; }
 
 div.parsebox table { margin-top: 2em; }
@@ -117,12 +120,6 @@ div.footer {
 
 /* News story */
 p.credit { text-align: right; font-style: italic; }
-
-div.newsimg {
-    margin: 2em 0 2em 0;
-    width: 100%; height: 22.3em;
-    background-position: center top; background-repeat: no-repeat; background-size: cover;
-    }
 
 /* Intranet links */
 div.intranet h3, div.intranet li { font-family: Trebuchet, Verdana, sans-serif; }

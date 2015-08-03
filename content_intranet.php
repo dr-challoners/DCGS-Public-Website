@@ -185,11 +185,11 @@ function makeIntranetLinks($sheetKey,$prefix) {
       echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
       function makeQuickLinks($sheetKey) {
         
-        $caches = scandir('sync_logs/', 1);
+        $caches = scandir('data_intranet/', 1);
 
         foreach ($caches as $file) {
           if (strpos($file,$sheetKey) !== false) {
-            $links = json_decode(file_get_contents('sync_logs/'.$file), true);
+            $links = json_decode(file_get_contents('data_intranet/'.$file), true);
           }
         }
         
