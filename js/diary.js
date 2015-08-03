@@ -1,106 +1,105 @@
-function __LoadGoogle(source, timeout) {
-	Tabletop.init( { key: source, callback: __ShowGoogle, simpleSheet: false, parseNumbers: true } );
-	// setTimeout("__LoadGoogle('" + source + "'," + timeout + ")", timeout);
-}
+// Make the preview popup appear in place of the links menu when hovering over the widget
+  function diaryPreview(text) {
+    document.getElementById('diaryLinks').style.display = 'none';
+    document.getElementById('diaryPreview').innerHTML = '<ul>';
+    var previews = text.split('//');
+    for (x in previews) {
+      if (previews[x] != '') {
+        document.getElementById('diaryPreview').innerHTML += '<li>' + previews[x] + '</li>';
+      }
+    }
+    document.getElementById('diaryPreview').innerHTML += '</ul>';
+    document.getElementById('diaryPreview').style.display = 'block';
+  }
+  function diaryLinks() {
+    document.getElementById('diaryLinks').style.display='block';
+    document.getElementById('diaryPreview').style.display='none';
+  }
+  function scaffoldDiary(d, s, data) {
+    // Grabs a reference to the element with the ID of diaryCalendar and clears it.
+        var diary = $("#diaryCalendar");
+        diary.empty();
+        
+        // Adds the header and the forward/back links
+        var month = $('<p/>', {class: 'month', text: d.format(' MMMM YYYY ')}).prepend(
+          $('<a/>', {class: 'last', html: "&#171;", href: "#"}).click(function(){generateDiary(d.clone().subtract(1, 'month'), s);})
+        ).append(
+          $('<a/>', {class: 'next', html: "&#187;", href: "#"}).click(function(){generateDiary(d.clone().add(1, 'month'), s);})
+        ).appendTo(diary);
+        
+        // Adds the Days
+        var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        var weekdays = $('<div/>', {class: 'weekdays'}).appendTo(diary);
+        for (var day = 0; day < days.length; day++) {
+          weekdays.append($('<p/>', {text: days[day]}));
+        }
+        
+        // Grab the numerical of the 'd' Date = Start of Month (ISO, Monday = 1)
+        var _day = d.clone().date(1).isoWeekday() - 1; // Now 0 = Monday
+        var day_Date = d.clone().subtract(_day, 'days').startOf('day');
+        var _weeks = 6;
+        
+        for (var week = 0; week < _weeks; week++) {
+          var _week = $('<div/>', {class: 'week'}).appendTo(diary)
+          for (var day = 0; day < 7; day++) {
+            var _dayLink = $('<a/>', {text: day_Date.date(), href: day_Date.format('[/diary/]DD/MM/YYYY/')})
+            var _day = $('<p/>').append(_dayLink).appendTo(_week);
+            var _dayF = day_Date.format('YYYYMMDD');
 
-
-function __ShowGoogle(data, tabletop) {
-
-	// console.log("-- FIXTURES --");
-	// console.log(tabletop.sheets("Fixtures"));
-	__OutputFixtures(tabletop.sheets("Fixtures"));
-
-}
-
-
-function __OutputFixtures(fixtures) {
-  
-	for (i = 0; i < fixtures.elements.length; i++) {
-
-		var fixture = fixtures.elements[i];
-
-		console.log(fixture);
-    
-    		var fixture_Date = moment(fixture.date);
-    		var _fixture_Date = fixture_Date.format("YYYYMMDD");
-		var _div = $("#" + _fixture_Date);
-		    if (_div) {
-		      $("#" + _fixture_Date + " h2").removeClass("noevents");
-		      $("#" + _fixture_Date + " hr").remove();
-          
-          var eventTime = "<p class='time'>" + fixture.timestart;
-          if (fixture.timeend) {
-            eventTime += " - " + fixture.timeend;
-          }
-          _div.append(eventTime);
-          
-          var eventTitle = "<h3>";
-          if (fixture.sport) {
-            eventTitle += fixture.sport;
-          }
-          if (fixture.sport && fixture.event) {
-            eventTitle += ": ";
-          }
-          if (fixture.event) {
-            eventTitle += fixture.event;
-          }
-          _div.append(eventTitle);
-                   
-          var matchLine = "<p class='details'>";
-          if (fixture.venue) {
-            matchLine += fixture.venue;
-          }
-          if (fixture.venue && (fixture.teams || fixture.results)) {
-            matchLine += " - ";
-          }
-          if (fixture.teams) {
-            var eventTeams = fixture.teams.split(",");
-            var eventResults = fixture.results.split(",");
-            for (var m = 0; m < eventTeams.length;) {
-              matchLine += eventTeams[m].trim();
-              if (m < eventResults.length && eventResults[m].trim()) {
-                var scores = eventResults[m].trim().split("-");
-                var outcome = "";
-                if (scores[0] > scores[1]) { outcome = "win"; }
-                if (scores[0] < scores[1]) { outcome = "loss"; }
-                if (scores[0] === scores[1]) { outcome = "draw"; }
-                if (outcome) {
-                  matchLine += " <span id='" + outcome + "'>(";
-                } else {
-                matchLine += " <span>(";
-                }
-                matchLine += eventResults[m].trim();
-                if (outcome) {
-                  matchLine += " " + outcome;
-                }
-                matchLine += ")</span>";
-              }
-              m++;
-              if (m < eventTeams.length-1) {
-                matchLine += ", ";
-              } else if (m < eventTeams.length) {
-                matchLine += " and ";
+            if (data) {
+              var _d = data.events[_dayF];
+              if (_d) {
+                _day.addClass("event")
+                var preview = "";
+                $.each(_d, function(key, val){
+                  if (preview) preview += "//";
+                  preview += val.event;
+                })
+                _dayLink.attr("onmouseover", 'diaryPreview("' + preview + '");').attr("onmouseleave", 'diaryLinks();')
               }
             }
-          } else if (fixture.results) {
-            matchLine += "<span>" + fixture.results;
+            
+            if (day_Date.month() !== d.month()) _day.addClass("notMonth");
+            if (_dayF == s.format('YYYYMMDD')) _day.addClass("selected");
+            if (_dayF == moment().format('YYYYMMDD')) _day.addClass("today");
+            
+            // Do Events here
+            day_Date.add(1, 'day');
           }
-          if (fixture.venue || fixture.teams || fixture.results) {
-            _div.append(matchLine);
+        }
+  }
+  function generateDiary(d, s) {
+    // Builds the URL to grab the JSON-encoded events
+    var jsonUrl = "/data_diary/data-" + d.format("YYYY") + "-" + d.format("MM") + ".json"
+    // Makes an sync call (wrapped by JQuery)
+    $.ajax({
+      url: jsonUrl,
+      dataType:'JSON',
+      success:function(data){
+        
+        scaffoldDiary(d, s, data);
+        /* $.each(data.events, function(key, val){
+          var dt = new Date(key.substr(0,4) + "-" + key.substr(4,2) + "-" + key.substr(6,2));
+          if (!isNaN(dt.getTime() ) ) {
+            console.log(dt);
+            $.each(val, function(key, val){
+              console.log("Id: " + key);
+              console.log("Event: " + val.event);
+              if (val.timestart) {
+               console.log("Start: " + val.timestart);
+               if (val.timeend) {
+                 console.log("End: " + val.timeend);
+                }
+              }
+              if (val.otherdetails) {
+               console.log("Details: " + val.otherdetails);
+              }
+            })
           }
-          
-          if (fixture.venuepostcode) {
-            var eventMap = "<p class='details'><a href='https://www.google.co.uk/maps?q=" + fixture.venuepostcode + "' target='" + Math.random() + "'>See the location on Google Maps</a>";
-            _div.append(eventMap);
-          }
-          
-          if (fixture.otherdetails) {
-            _div.append("<p class='details'>" + fixture.otherdetails);
-          }
-          
-		      _div.append("<hr />");
-		    }
-    
-	}
-	
-}
+        }) */
+      },
+      error:function(){
+        scaffoldDiary(d, s);
+      }
+    });
+  }

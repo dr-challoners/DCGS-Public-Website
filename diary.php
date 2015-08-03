@@ -17,24 +17,10 @@
 
 ?>
 
-<script type="text/javascript" language="javascript">
-  // Make the preview popup appear in place of the links menu when hovering over the widget
-  function diaryPreview(text) {
-    document.getElementById('diaryLinks').style.display = 'none';
-    document.getElementById('diaryPreview').innerHTML = '<ul>';
-    var previews = text.split(',');
-    for (x in previews) {
-      if (previews[x] != '') {
-        document.getElementById('diaryPreview').innerHTML += '<li>' + previews[x] + '</li>';
-      }
-    }
-    document.getElementById('diaryPreview').innerHTML += '</ul>';
-    document.getElementById('diaryPreview').style.display = 'block';
-  }
-  function diaryLinks() {
-    document.getElementById('diaryLinks').style.display='block';
-    document.getElementById('diaryPreview').style.display='none';
-  }
+<script type='text/javascript' src='/js/diary.js'></script>
+
+<script type="text/javascript" language="javascript">;
+  generateDiary(moment('<?php echo date('Y-m',$curTimestamp).'-01'; ?>'), moment('<?php echo date('Y-m-d',$curTimestamp); ?>'));
 </script>
 
 <?php
@@ -42,6 +28,14 @@
   include('header_navigation.php');
 
   // First up: building the array from which all the data will be read. This is going to take the separate data from the Google Calendar XML file and the sports calendar Google Sheet, and re-work them as a single multidimensional array, with each date being subdivided into ordered events and then into details for each event.
+
+  // These variables allow us to create JSON files that have only the current month and the two months either side of it, for quicker processing
+  $getMonthYear = date('Y-m',$curTimestamp);
+  $getLastMonth = date('Y-m',mktime(0,0,0,substr($getMonthYear,5,2)-1,1,substr($getMonthYear,0,4)));
+  $getNextMonth = date('Y-m',mktime(0,0,0,substr($getMonthYear,5,2)+1,1,substr($getMonthYear,0,4)));
+  $getDaysNextMonth = date('t',mktime(0,0,0,substr($getMonthYear,5,2)+1,1,substr($getMonthYear,0,4)));
+
+  $filename = 'data-'.$getMonthYear;
 
   if (isset($_GET['diarySync'])) { $refreshTime = 0; } else { $refreshTime = 24; } // To allow a forced resync on the data
 
@@ -51,14 +45,14 @@
   $caches = scandir('data_diary/', SCANDIR_SORT_DESCENDING);
 
     foreach ($caches as $file) {
-      if (strpos($file,'generalData') !== false) {
+      if (strpos($file,$filename) !== false) {
         $oldFile   = $file;
         $syncCheck = explode('[',$file);
         if (isset($syncCheck[1])) {
           $syncCheck = explode(']',$syncCheck[1]);
           $syncCheck = $syncCheck[0];
           break;
-        }
+        } else { unset($syncCheck); }
       }
     }
 
@@ -66,14 +60,14 @@
   if (!isset($syncCheck) || $syncCheck < (time()-$refreshTime)) {
 
     // This is the Google Calendar data
-    $data = 'https://www.googleapis.com/calendar/v3/calendars/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/events?key=AIzaSyAutsgnyl2Qf4qEJqnPo5U3OEoRow49h6M&maxResults=2500'; // You cannot get more than 2500 events on a results page, which as a limit will take a little while to reach but after that will get interesting. You can find help here: https://developers.google.com/google-apps/calendar/v3/reference/events/list
+    $data = 'https://www.googleapis.com/calendar/v3/calendars/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/events?key=AIzaSyAutsgnyl2Qf4qEJqnPo5U3OEoRow49h6M&maxResults=2500&timeMin='.$getLastMonth.'-01T00:00:00-00:00&timeMax='.$getNextMonth.'-'.$getDaysNextMonth.'T23:59:59-00:00';
     $data = file_get_contents($data);
     $data = json_decode($data, true);
     $data = $data['items'];
 
     $generalData = array();
 
-    // Take all the information that we're interested in that we're interested, and put it into the final calendar array by date
+    // Take all the information that we're interested in, and put it into the final calendar array by date
     foreach ($data as $entry) {
       unset($description,$location,$time{start},$time{end},$date{start},$date{end});
       $eventDetails = array();
@@ -119,54 +113,64 @@
       } else {
         $eventID = '0000'.$eventID;
       }
-      $eventID = 'X';
       foreach ($bounds as $bound) {
         if (!isset($date{$bound})) { $date{$bound} = str_replace('-','',$entry[$bound]['date']); }
       }
 
       // Keep adding the event to the generalData array until it has been added for each relevant date
-      while ($date{start} <= $date{end}) {
-        $generalData[$date{start}][$eventID] = $eventDetails;
-        $date{start}++;
+      $dateNow = $date{start};
+      while ($dateNow <= $date{end}) {
+        $generalData['events'][$dateNow][$eventID] = $eventDetails;
+        $dateNow = date('Ymd',mktime(0,0,0,substr($dateNow,4,2),substr($dateNow,6,2)+1,substr($dateNow,0,4)));
       }
     }
 
     foreach ($sportsData['data'] as $entry) {
       if (isset($entry['event'])) {
-        // Get rid of unused elements so you only need to do an isset check, not also a !empty check
-        foreach ($entry as $key => $item) {
-          if ($item == '') { unset($entry[$key]); }
-        }
-        // Generate a unique, orderable ID for the event, as above
-        $eventID = makeID($entry['event']);
-        if (isset($entry['meettime'])) {
-          $eventID = str_replace(':','',$entry['meettime']).$eventID;
-        } elseif (isset($entry['matchtime'])) {
-          $eventID = str_replace(':','',$entry['matchtime']).$eventID;
-        } else {
-          $eventID = '0000'.$eventID;
-        }
         // Take the date from a human-readable format to an orderable one
         $date = explode('/',$entry['date']);
         $d = str_pad($date[0],2,'0',STR_PAD_LEFT);
         $m = str_pad($date[1],2,'0',STR_PAD_LEFT);
         $y = str_pad($date[2],4,'20',STR_PAD_LEFT); // If someone has left the year in YY form, it assumes it's in this millenium
-        unset($entry['date']); // As we won't need it in the final array
-        $generalData[$y.$m.$d][$eventID] = $entry;
+        
+        $lastMonth = str_replace('-','',$getLastMonth);
+        $nextMonth = str_replace('-','',$getNextMonth);
+        $thisEventMonth = $y.$m;
+        
+        if ($thisEventMonth >= $lastMonth && $thisEventMonth <= $nextMonth) {
+        
+          // Get rid of unused elements so you only need to do an isset check, not also a !empty check
+          foreach ($entry as $key => $item) {
+            if ($item == '') { unset($entry[$key]); }
+          }
+          // Generate a unique, orderable ID for the event, as above
+          $eventID = makeID($entry['event']);
+          if (isset($entry['meettime'])) {
+            $eventID = str_replace(':','',$entry['meettime']).$eventID;
+          } elseif (isset($entry['matchtime'])) {
+            $eventID = str_replace(':','',$entry['matchtime']).$eventID;
+          } else {
+            $eventID = '0000'.$eventID;
+          }
+
+          unset($entry['date']); // As we won't need it in the final array
+          $generalData['events'][$y.$m.$d][$eventID] = $entry;
+        }
       }
     }
 
     // Now just put all the data in chronological order
-    ksort($generalData);
-    foreach ($generalData as $key => $day) {
+    ksort($generalData['events']);
+    foreach ($generalData['events'] as $key => $day) {
       ksort($day);
-      $generalData[$key] = $day;
+      $generalData['events'][$key] = $day;
     }
+    
+    $generalData['meta']['retrieved'] = time();
 
     // Cache this final array as JSON and record the time of syncing; remove the old cache
-      $newFile = 'generalData['.time().'].json';
+      $newFile = $filename.'.json';
       file_put_contents('data_diary/'.$newFile, json_encode($generalData));
-      if (isset($oldFile)) { unlink('data_diary/'.$oldFile); }
     
   } else { $newFile = $oldFile; }
 
@@ -176,102 +180,11 @@
 
   // Now to make the actual display
 
-?>
-
-
-
-  <!--googleoff: all-->
-  <!--
-  <div class="ncol">
-    <div class="calendar">
-      <p id="month"></p>
-    </div>
-  </div>
-  -->
-  <!--googleon: all-->
-
-<!--
-<script type="text/javascript" language="javascript">
-  
-  // The calendar widget - basic variables/array
-  var eventsSummary = [];
-  <?php // Might as well create this array in PHP as we've already got the file loaded there
-  /*
-    foreach ($diaryArray as $key => $day) {
-      echo 'eventsSummary['.$key.'] = "';
-      foreach ($day as $entry) {
-        echo $entry['event'].',';
-      }
-      echo "\";\n";
-    }
-  */
-  ?>
-  var mnth = '<?php //echo $_GET['m']; ?>';
-  var year = '<?php //echo $_GET['y']; ?>';
-  
-  document.getElementById('month').innerHTML = mnth + ' ' + year;
-  
-</script>
--->
-      
-<?php 
-
   // The calendar widget
   echo '<!--googleoff: all--><div class="ncol">';
     echo '<div class="calendar';
       if (!isset($_GET['calendar'])) { echo ' lrg'; } // We're on a mobile and viewing just the weekly events right now
-    echo '">';
-      echo '<p class="month">';
-        echo  '<a class="last">&#171;</a> ';
-        echo date('F Y',$curTimestamp);
-        echo ' <a class="next">&#187;</a>';
-      echo '</p>';
-      echo '<div class="weekdays">';
-        echo '<p>Mon</p>';
-        echo '<p>Tue</p>';
-        echo '<p>Wed</p>';
-        echo '<p>Thu</p>';
-        echo '<p>Fri</p>';
-        echo '<p>Sat</p>';
-        echo '<p>Sun</p>';
-      echo '</div>';
-      $thisM = date('m',$curTimestamp);
-      $thisY = date('Y',$curTimestamp);
-      $calStartDay = date('N',mktime(0,0,0,$thisM,1,$thisY));
-      $calStartDay = date('Ymd',mktime(0,0,0,$thisM,2-$calStartDay,$thisY));
-      $curDay = date('Ymd',$curTimestamp);
-      for ($day = 0; $day < 42; $day++) {
-        $calDay = date('Ymd',mktime(0,0,0,substr($calStartDay,4,2),substr($calStartDay,6,2)+$day,substr($calStartDay,0,4)));
-        if ($day%7 == 0) {
-          if ($day != 0) { echo '</div>'; }
-          echo '<div class="week"';
-            if ($curDay >= $calDay && $curDay <= $calDay+6) {
-              echo ' id="selected"';
-            }
-          echo '>';
-        }
-        echo '<p id="';
-          if (substr($calDay,4,2) != $thisM) { echo 'notMonth'; }
-          elseif ($calDay == date('Ymd',time())) { echo 'today'; }
-          echo '"';
-          if (isset($diaryArray[$calDay])) { echo ' class="event"'; }
-        echo '>';
-          echo '<a href="/diary/'.substr($calDay,6,2).'/'.substr($calDay,4,2).'/'.substr($calDay,0,4).'/"';
-            if (isset($diaryArray[$calDay])) {
-              $previewText = '';
-              foreach ($diaryArray[$calDay] as $preview) {
-                $previewText .= str_replace("'","\'",$preview['event']).',';
-              }
-              echo ' onmouseover="diaryPreview(\''.$previewText.'\')" onmouseleave="diaryLinks()"';
-            }
-          echo '>';
-            echo ltrim(substr($calDay,6,2),'0');
-          echo '</a>';
-        echo '</p>';
-      }
-      echo '</div>';
-    echo '</div>';
-
+    echo '" id="diaryCalendar"></div>';
     echo '<div id="diaryPreview" class="lrg"></div>';
     echo '<div id="diaryLinks" class="lrg">';
       echo '<p><a href="/diary/year/">Year summary</a></p>';
@@ -298,8 +211,8 @@
         echo '<span>'.date('F Y',$curDay).'</span>';
         }
       echo '</h2>';
-      if (isset($diaryArray[date('Ymd',$curDay)])) {
-        foreach ($diaryArray[date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
+      if (isset($diaryArray['events'][date('Ymd',$curDay)])) {
+        foreach ($diaryArray['events'][date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
           echo '<h3>';
             if (isset($event['sport'])) { echo $event['sport'].': '; }
             echo $event['event'];
@@ -390,6 +303,10 @@
       }
     }
   echo '</div>';
+
+?>
+
+<?php
 
   if (isset($_GET['calendar'])) { // Pins the footer tidily to the bottom of the page when viewing the calendar on mobiles (the calendar does not fill the whole screen)
     echo '<style>';

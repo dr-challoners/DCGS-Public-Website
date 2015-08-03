@@ -27,13 +27,13 @@ div.weekdays p {
 }
 
 div.week p { margin-top: 0; }
-#selected { background-color: #F9D27B; }
+#selected, .selected { background-color: #F9D27B; }
 div.week a {
   color: #000000;
   display: block;
   padding: 0.6em 0 0.6em 0;
 }
-div.week p#today { font-weight: bold; }
+div.week p#today, div.week p.today { font-weight: bold; }
 p#notMonth a { color: #aaaaaa; }
 div.week a:hover { background-color: #EFA207; }
 div.week p.event { background-color: rgba(239,162,7,0.35); }

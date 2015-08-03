@@ -21,7 +21,7 @@ h3:nth-child(2) { padding-bottom: 24px; }
 p, div.parsebox p { font-size: 16px; line-height: 60px; margin-bottom: 24px; }
 div.parsebox p:last-child { margin-bottom: 0; }
 h4 { font-size: 3.6em; margin-top: 1em; }
-li { font-size: 16px; line-height: 60px; }
+li { font-size: 16px; line-height: 60px; font-family: Trebuchet, Verdana, sans-serif; }
 
 div.mcol ul, div.mcol-rgt ul, div.parsebox ul { margin: 0 0 2em 4.2em; }
 
@@ -176,8 +176,8 @@ table.houselist p { padding: 0 6px; }
 
 div.totalscores { margin-bottom: 3.5em; }
 div.totalscores p {
-   fnt-size: 18px;
-   lne-height: 26px;
+   font-size: 48px;
+   line-height: 60px;
    margin: 0 0 0.2em 0;
    padding: 0 0.4em;
    }
@@ -188,16 +188,17 @@ div.totalscores p {
       }
 
 table.eventscores th, table.eventscores td {
-   width: 20%;
+   width: 200px;
    }
 table.eventscores td { padding: 5px 0!important; }
 table.eventscores tr:nth-child(2) { border-top: none; }
 table.eventscores tr:nth-child(2) td { padding-top: 7px!important; }
 table.eventscores p {
-   text-align: center!important; padding: 3px;
+   font-size: 200%; line-height: 30px!important;
+   text-align: center!important; padding: 20px 5px;
    }
 table.eventscores th.eventname, table.eventscores td.eventname {
-   width: 40%;
+   width: 400px;
    }
    table.eventscores th.eventname p, table.eventscores td.eventname p {
      text-align: left!important;
@@ -217,7 +218,7 @@ div.podium { margin: 0 5%; }
    .podium div.block:nth-child(2) { margin: 0 2%; }
 
 .podium div.block p {
-   font-size: 3em;
+   font-size: 300%!important;
    margin-bottom: 0;
 }
    .podium div.block#first p { font-weight: bold; }
@@ -249,11 +250,13 @@ div.honourRoll {
    }
 
 div.honourRoll h3 {
+   font-size: 250%;
    padding: 0.2em;
    margin: 0!important;
 }
 
 div.honourRoll p {
+   font-size: 250%;
    margin: 0!important;
    color: #000000;
    background-color: #ffffff;
@@ -270,5 +273,5 @@ div.honourRoll p {
 
 .honourRoll div.runnerUp {
    width: 34%; margin-bottom: 1em;
-   float: right;
+   float: right; padding: 40px 0 30px;
 }
