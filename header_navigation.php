@@ -1,9 +1,5 @@
 	</head>
-	<?php // Generating the body tag with onload functions for different pages
-		echo "<body";
-			if (isset($_GET['date'])) { echo ' onload="moveWindow()"'; } // Diary pages - jumps to current day
-		echo ">";
-	?>
+  <body>
 		
 		<!-- These divs create the blue and white bars across the top and bottom of the page. On small screens, appropriate elements can handle this styling as the screen width will equal the page width. -->
 		<div class="colourbar lrg" id="top"></div>
@@ -85,9 +81,7 @@
 				
 				<a class="bannerlink lrg" href="/"></a>
 				<!-- 'sml' and 'lrg' classes allow different objects to be displayed in small/big screens: the CSS selects appropriately. -->
-        <?php
-  echo '<img class="banner_img lrg" src="/styles/imgs/logo_lrg.png" alt="Dr Challoner\'s Grammar School" />';
-   ?>
+        <img class="banner_img lrg" src="/styles/imgs/logo_lrg.png" alt="Dr Challoner's Grammar School" />
 				
 				<div class="main_nav lrg">
 				<a class="lbutton" href="/"><img src="/styles/imgs/home.png" alt="Home" /></a>
@@ -100,8 +94,8 @@
                 echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
               }
             echo '>Overview</a></li>';
-            echo '<li><a href="/diary/'.date('d').'/'.date('m').'/'.date('Y').'"';
-              if (isset($_GET['date'])) { echo ' id="selected"'; }
+            echo '<li><a href="/diary"';
+              if (isset($curTimestamp)) { echo ' id="selected"'; }
             echo '>Diary</a></li>';
             echo '<li><a href="/intranet/"';
               if (isset($intranet)) { echo ' id="selected"'; }
@@ -132,9 +126,8 @@
 				</div>
 				
 				<div class="main_nav sml">
-					<a class="bannerlink" href="/"><img class="banner_img" src="/styles/imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
-					<a href="/search/"><img class="rbutton" src="/styles/imgs/sml_search.png" alt="Search" /></a>
-					<p class="rbutton"><a href="javascript:openClose('main_nav')">Menu <span>&#9660;</span></a></p>
+					<a href="/"><img src="/styles/imgs/logo_sml.png" alt="Dr Challoner's Grammar School" /></a>
+					<p><a href="javascript:openClose('main_nav')">Menu</a></p>
 				</div>
 				
 				<div class="nav_menu" id="main_nav"> <!-- This serves no purpose on big screens, but on small screens provides a box to open and close to access the menu. -->
@@ -145,9 +138,8 @@
 				$div_id = 1;
 				
 				foreach ($dropdowns as $maindir) {
-					
-					echo "<h1 class=\"sub_nav sml\"><a href=\"javascript:openCloseAll('n".$div_id."')\">".$maindir."</a></h1>";
-					echo "<div class=\"sub_nav sub_menu\" name=\"submenu\" id=\"n".$div_id."\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">";
+          
+					echo '<div class="sub_menu" name="submenu" id="n'.$div_id.'" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">';
 				
 					$dir = scandir("content_main/".$maindir, 1); // First, get all the subdirectories in the main directory being looked at
 					$dir = array_reverse($dir);
@@ -185,29 +177,17 @@
 				
 					echo "</div>";
 					
-					$div_id++; }
+					$div_id++;
+        }
 
-          // Intranet quick links to display as a dropdown - not on the mobile site
-          if (file_exists('content_system/intranet/00~QuickLinks.txt')) {
-            echo '<div class="sub_nav sub_menu lrg" name="submenu" id="nQL" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">';
-              echo '<div class="category">';
-                echo '<h1>Quick links</h1>';
-                echo '<p id="intranetLink"><a href="/intranet/">See the full intranet</a></p>';
-              echo '</div>';
-              $quickLinks = file_get_contents('content_system/intranet/00~QuickLinks.txt');
-              $quickLinks = Parsedown::instance()->parse($quickLinks);
-              $quickLinks = str_replace('<h2>','<div class="category"><h2>',$quickLinks);
-              $quickLinks = str_replace('</ul>','</ul></div>',$quickLinks);
-              echo $quickLinks;
-					  echo '</div>';
-          }
+        ?>
 
-				?>
-					
-					<!-- Remainder of the links for the mobile menu. -->
-					
-          <h1 class="sub_nav sml"><a href="javascript:openCloseAll('nA')">Alumni</a></h1>
-					<div class="sub_nav sub_menu" name="submenu" id="nA"><ul>
+        <!-- These are mobile-specific navigation menus -->
+          
+          <!-- Alumni -->
+          <div class="sub_menu" name="submenu" id="nA">
+            <h2>Alumni</h2>
+            <ul>
 				  <?php    
 							$files = scandir("content_main/Information/5~Alumni", 1); // Now get all the files in each subdirectory and turn them into appropriate links
 							$files = array_reverse($files);
@@ -227,21 +207,52 @@
 								}
 				    ?>
 					  </ul></div>
-          <h1 class="sub_nav sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
-						<div class="sub_nav sub_menu" name="submenu" id="n0"><ul>
-							<li id="first"><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile"; ?>">This week's events</a></li>
-							<li><a href="/diary/<?php echo date('d')."/".date('m')."/".date('Y')."/&device=mobile&display=calendar"; ?>">Browse the calendar</a></li>
-							<li><a href="/pages/Information/General information/Term dates">See term dates</a></li>
-						</ul></div>
-					<h1 class="sub_nav sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
-						<div class="sub_nav sub_menu" name="submenu" id="n9"><ul>
-							<li id="first"><a href="/intranet/Staff_links">Staff links</a></li>
-              <li id="first"><a href="/intranet/Student_links">Student links</a></li>
-							<li><a href="/intranet/Parent_links">Parent links and information</a></li>
-							<li><a href="/intranet/Subject_resources">Subject resources</a></li>
-						</ul></div>
-					<h1 class="sub_nav sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>
+          
+					<!-- Diary -->	
+          <div class="sub_menu" name="submenu" id="n0">
+            <h2>Diary</h2>
+            <ul>
+							<li><a href="/diary">This week's events</a></li>
+							<li><a href="/diary/calendar/">Browse the calendar</a></li>
+						</ul>
+          </div>
 					
-					</div>
+          <!-- Intranet -->
+						<div class="sub_menu" name="submenu" id="n9">
+              <h2>Intranet</h2>
+              <ul>
+                <li><a href="/intranet/students">Students</a></li>
+                <li><a href="/intranet/staff">Staff</a></li>
+                <li><a href="/intranet/parents">Parents</a></li>
+						  </ul>
+              <ul>
+                <h2>Quick links</h2>
+                <li><a href="https://dcgs.okta.com/">Okta portal</a></li>
+                <li><a href="https://drive.google.com">Google Drive</a></li>
+                <li><a href="https://mail.google.com">Gmail</a></li>
+                <li><a href="https://classroom.google.com">Google Classroom</a></li>
+              </ul>
+          </div>
+          
+        <?php  
+        
+        // Corresponding mobile menu navigation links
+
+				$div_id = 1;
+				foreach ($dropdowns as $maindir) {
+					echo '<h1 class="sml"><a href="javascript:openCloseAll(\'n'.$div_id.'\')">'.$maindir.'</a></h1>';
+          $div_id++;
+        }
+
+				?>
+					
+					<!-- Remainder of the links for the mobile menu. -->
+					
+          <h1 class="sub_nav sml"><a href="javascript:openCloseAll('nA')">Alumni</a></h1>
+          <h1 class="sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
+          <h1 class="sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
+          <h1 class="sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>					
+					
+					<hr class="clear" /></div>
 
 			<!--googleon: all--></div>

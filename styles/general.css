@@ -29,3 +29,7 @@ a:hover { color: #3E70EF; }
 #pearson		{ background-color: #96c4f8; }
 #rayner			{ background-color: #2542a1; color: #ffffff; }
 #thorne 		{ background-color: #247703; color: #ffffff; }
+
+span#win  { color: #247703; }
+span#draw { color: #E87B19; }
+span#loss { color: #D32918; }

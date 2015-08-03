@@ -1,6 +1,13 @@
 <?php
 
-function sheetToArray($sheetKey,$cacheFolder) {
+function makeID($string) { // At the moment just used for creating IDs for diary events, but I figure it might be useful elsewhere
+    $string = base64_encode($string);
+    $string = str_replace(array('+','/','='),'z',$string);
+    $string = substr($string,0,5);
+    return $string;
+  }
+
+function sheetToArray($sheetKey,$cacheFolder,$refreshTime) {
   
   // When called, this function reads the JSON from the specified Google Sheet, stores it in the specified folder as a JSON file and also returns it to the page as a multidimensional array.
   // The stored JSON file also includes a datestamp - to limit slow load times, data is only fetched from Google every half hour, otherwise the cached version is used.
@@ -28,7 +35,14 @@ function sheetToArray($sheetKey,$cacheFolder) {
     
   } else { mkdir($cacheFolder.'/'); }
   
-  if (!isset($syncCheck) || $syncCheck < (time()-1800)) { // Either this sheet has never been fetched before, or the record is stale
+  if (isset($refreshTime)) {
+    $refreshTime = $refreshTime*3600;
+    // Converts from hours to seconds - allows easier user input
+  } else {
+    $refreshTime = 86400; // Default is once per day
+  }
+  
+  if (!isset($syncCheck) || $syncCheck < (time()-$refreshTime)) { // Either this sheet has never been fetched before, or the record is stale
   
     // Create an array of all the worksheets within the specified sheet
 

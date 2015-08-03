@@ -3,124 +3,108 @@ h1 { margin-bottom: 15px; text-align: center; }
 /* Calendar widget */
 div.ncol { position: fixed; }
 
-div.calendar {
-    margin: -15px 0px 12px 0px;
+#diaryCalendar {
+    margin: -8px 0px 12px 0px;
     padding-bottom: 8px;
     border-bottom: 1px solid #aaaaaa;
     }
+#diaryCalendar a { text-decoration: none; }
 
-div.calendar a { text-decoration: none; }
-
-	p.month {
-       text-align: center;
-       font-weight: bold; font-size: 15px;
-       }
-       p.month a {
-          display: block;
-          font-size: 20px;
-          margin-top: -6px;      
-          }
-          a.lmonth {
-             float: left;
-             padding: 5px 20px 5px 3px;
-             }
-	      a.nmonth {
-             float: right;
-             padding: 5px 3px 5px 20px;
-             }
-
-div.weekdays, div.week {
-    margin: 0px 1px 0px 2px;
-    }
-div.week p, div.weekdays p {
-	float: left;
-    width: 32px; margin: 0px 2px 0px 2px;
+p.month {
     text-align: center;
-	font-size: 11px; 
-	}
-
-    div.weekdays {
-       padding: 8px 0px 0px 0px; height: 22px;
-       border-bottom: 1px solid #aaaaaa;
-       margin-bottom: 6px;
-       }
-    div.weekdays p { text-transform: uppercase; }
-    
-    div.week {
-       height: 23px;
-       clear: left;
-       }
-       #selected { background-color: #F9D27B; }
-    div.week p { height: 22px; padding-top: 0px; }
-       div.week p.today { font-weight: bold; }
-    div.week a {
-       color: #000000;
-       display: block; padding: 0px 0px 1px 0px;
-       transition: background-color 0.2s;
-       -webkit-transition: background-color 0.2s;
-       }
-       p.xmonth a { color: #aaaaaa; }
-       div.week a:hover { background-color: #EFA207; }
-
-div.preview {
-    visibility: hidden;
-    position: fixed; margin-top: 75px;
-    }
-    div.preview p { margin-top: 0px; font-size: 12px; line-height: 17px; }
-    div.preview p.more {
-       font-size: 11px;
-       margin-top: 5px; text-align: center;
-       font-weight: bold; font-style: italic;
-       }
-
-div.diarylinks p {
-    margin: 0;
+    font-weight: bold; font-size: 15px;
 }
-    div.diarylinks p#terms {
-        margin-bottom: 8px;
+p.month a {
+    display: block;
+    font-size: 20px;
+    margin-top: -6px; padding: 5px 3px 5px 3px;
+}
+a.last {
+    float: left;
+    padding-right: 20px;
+}
+a.next {
+    float: right;
+    padding-left: 20px;
+}
+
+div.weekdays, div.week { margin-left: 3px; }
+div.weekdays p, div.week p {
+    float: left; margin: 0;
+    width: 36px;
+    text-align: center;	font-size: 11px; 
+}
+
+div.weekdays {
+    padding-top: 8px; height: 22px;
+    border-bottom: 1px solid #aaaaaa;
+    margin-bottom: 6px;
+}
+div.weekdays p { text-transform: uppercase; }
+
+div.week {
+    height: 22px;
+    clear: left;
+}
+div.week a {
+    display: block;
+    color: #000000;
+    transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+}
+div.week a:hover, p.selected { background-color: #EFA207; }
+p.notMonth a { color: #aaaaaa; }
+.today { font-weight: bold; }
+.event { background-color: rgba(239,162,7,0.35); }
+
+div#diaryPreview {
+    display: none;
     }
-div.diarylinks a {
+    div#diaryPreview li {
+        font-family: Trebuchet, Verdana, sans-serif;
+        font-size: 14px; line-height: 20px;
+        list-style-type: square;
+        list-style-position: outside;
+        margin-left: 22px; padding-left: 5px;
+    }
+
+div#diaryLinks p { margin: 0; }
+div#diaryLinks p:nth-child(2) { margin-bottom: 8px; }
+
+div#diaryLinks a {
     display: block;
     padding: 5px 8px;
     font-size: 16px; text-decoration: none;
     transition: background-color 0.2s, color 0.2s;
     -webkit-trasition: background-color 0.2s, color 0.2s;
 }
-    div.diarylinks a:hover {
+    div#diaryLinks a:hover {
         background-color: #2358A3;
         color: #ffffff;
     }
 
 /* Event display */
-div.day { margin-left: 10px; }
-    div.day hr {
-       clear: both;
-       border-bottom: 1px solid #aaaaaa;
-       padding-top: 22px; margin-bottom: 15px;
-       }
+div.diary {
+    padding-left: 10px;
+    width: 700px;
+    }
 
-div.day h2 { margin: 2px 0 0 0; }
-    div.day h2 span { float: right; }
-    h2.noevents { margin-bottom: 15px; }
+div.diary h2 {
+    margin: 19px 0 0 0; padding: 15px 0 0 0;
+    border-top: 1px solid #aaaaaa;
+    }
+    div.diary h2:first-of-type {
+        border: 0; margin: 0; padding: 0;
+    }
+    div.diary h2 span { float: right; }
 
-div.ncol h2 { margin-top: 2px; text-align: center; }
+div.diary h3, p.details {
+    margin: 0 0 0 115px;
+    }
+    div.diary h3 { margin-top: 8px; }
+    p.details span { font-weight: bold; }
 
 p.time {
-    clear: both; float: left;
-    margin-top: 9px; width: 115px;
+    float: left; margin-top: -22px;
     font-weight: bold; font-size: 12px;
     }
-div.day h3 {
-    float: right;
-    width: 580px;
-    }
-p.details {
-    clear: both;
-    margin: 0px; padding: 0px 60px 0px 119px;
-    }
-    p.details span {
-        font-weight: bold;
-    }
-    span#win { color: #247703; }
-    span#draw { color: #E87B19; }
-    span#loss { color: #D32918; }

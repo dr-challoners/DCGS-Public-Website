@@ -12,7 +12,7 @@ if (isset($_GET['user'])) {
 function makeIntranetLinks($sheetKey,$prefix) {
   
   // Use the stored spreadsheet array to generate the links list
-  $lists = sheetToArray($sheetKey,'sync_logs');
+  $lists = sheetToArray($sheetKey,'data_intranet',6);
   $headings = array_keys($lists);
   
   $c = 0;
@@ -162,7 +162,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
 	break;
 	}
   
-      echo '<div class="clear lrg">';
+      echo '<div class="clear">';
         echo "<h2>Subject resources</h2>";
         makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','N');
       echo '</div>';
@@ -185,11 +185,11 @@ function makeIntranetLinks($sheetKey,$prefix) {
       echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
       function makeQuickLinks($sheetKey) {
         
-        $caches = scandir('sync_logs/', 1);
+        $caches = scandir('data_intranet/', 1);
 
         foreach ($caches as $file) {
           if (strpos($file,$sheetKey) !== false) {
-            $links = json_decode(file_get_contents('sync_logs/'.$file), true);
+            $links = json_decode(file_get_contents('data_intranet/'.$file), true);
           }
         }
         

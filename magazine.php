@@ -237,7 +237,7 @@ if (!isset($error)) {
         }
       }
       echo '<h1>'.$story['name'].'</h1>';
-      echo '<p><em>'.$story['date'].'</em><span class="lrg"><em>:</em> ';
+      echo '<p><em>'.$story['date'].'</em><span><em>:</em> ';
       echo  word_cutoff($story['text'],$chars).'...';
       echo '</span></p>';
     echo '</div></a>';
