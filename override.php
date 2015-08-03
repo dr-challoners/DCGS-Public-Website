@@ -102,7 +102,7 @@
         }
       
         $message = Parsedown::instance()->parse($row['message']);
-        $message = str_replace('||','</p><p>',$message); // This means that || can be used to indicate new paragraphs in a spreadsheet cell
+        $message = str_replace('\\','</p><p>',$message); // This means that || can be used to indicate new paragraphs in a spreadsheet cell
         echo $message;
       
         if (isset($image) && $image[1] == 'bottom')   { echo '<img src="'.$image[0].'" class="wide bottom" />'; }  

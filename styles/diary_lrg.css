@@ -3,65 +3,59 @@ h1 { margin-bottom: 15px; text-align: center; }
 /* Calendar widget */
 div.ncol { position: fixed; }
 
-div.calendar {
+#diaryCalendar {
     margin: -8px 0px 12px 0px;
     padding-bottom: 8px;
     border-bottom: 1px solid #aaaaaa;
     }
+#diaryCalendar a { text-decoration: none; }
 
-div.calendar a { text-decoration: none; }
-
-	p.month, p#month {
-       text-align: center;
-       font-weight: bold; font-size: 15px;
-       }
-       p.month a, p#month a {
-          display: block;
-          font-size: 20px;
-          margin-top: -6px;      
-          }
-          a.last {
-             float: left;
-             padding: 5px 20px 5px 3px;
-             }
-	      a.next {
-             float: right;
-             padding: 5px 3px 5px 20px;
-             }
-
-div.weekdays, div.week {
-    margin: 0px 1px 0px 2px;
-    }
-div.week p, div.weekdays p {
-	float: left;
-    width: 35px; margin: 0px 1px 0 0;
+p.month {
     text-align: center;
-	font-size: 11px; 
-	}
+    font-weight: bold; font-size: 15px;
+}
+p.month a {
+    display: block;
+    font-size: 20px;
+    margin-top: -6px; padding: 5px 3px 5px 3px;
+}
+a.last {
+    float: left;
+    padding-right: 20px;
+}
+a.next {
+    float: right;
+    padding-left: 20px;
+}
 
-    div.weekdays {
-       padding: 8px 0px 0px 0px; height: 22px;
-       border-bottom: 1px solid #aaaaaa;
-       margin-bottom: 6px;
-       }
-    div.weekdays p { text-transform: uppercase; }
-    
-    div.week {
-       height: 23px;
-       clear: left;
-       }
-       #selected, .selected { background-color: #FF6666; }
-    div.week p { height: 22px; padding-top: 0px; }
-       div.week p#today, div.week p.today { font-weight: bold; }
-       div.week p.event { background-color: rgba(239,162,7,0.35); }
-    div.week a {
-       color: #000000;
-       display: block; padding: 0px 0px 1px 0px;
-       transition: background-color 0.2s;
-       -webkit-transition: background-color 0.2s;
-       }
-       p#notMonth a, p.notMonth a { color: #aaaaaa; }
-       div.week a:hover { background-color: #EFA207; }
+div.weekdays, div.week { margin-left: 3px; }
+div.weekdays p, div.week p {
+    float: left; margin: 0;
+    width: 36px;
+    text-align: center;	font-size: 11px; 
+}
+
+div.weekdays {
+    padding-top: 8px; height: 22px;
+    border-bottom: 1px solid #aaaaaa;
+    margin-bottom: 6px;
+}
+div.weekdays p { text-transform: uppercase; }
+
+div.week {
+    height: 22px;
+    clear: left;
+}
+div.week a {
+    display: block;
+    color: #000000;
+    transition: background-color 0.2s;
+    -webkit-transition: background-color 0.2s;
+}
+div.week a:hover, p.selected { background-color: #EFA207; }
+p.notMonth a { color: #aaaaaa; }
+.today { font-weight: bold; }
+.event { background-color: rgba(239,162,7,0.35); }
 
 div#diaryPreview {
     display: none;

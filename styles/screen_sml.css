@@ -165,14 +165,11 @@ div.intranetbox hr#end { display: none; }
 
 /* Houses pages */
 
-table.houselist { table-layout: fixed; }
-table.houselist td { padding: 0 4px 16px 0!important; }
-table.houselist h2 { margin: 0 0 0 0!important; padding: 3px 6px; }
-table.houselist h3 { margin: 10px 0 0 0!important; padding: 0 6px; }
-table.houselist p { padding: 0 6px; }
-  table.houselist a > h3:before { content: "+ "; font-size: 14px; }
-  div.dropdown p.rep { display: none; }
-  div.open p.rep { display: block; }
+div.houseLists > * { padding: 0 20px; }
+div.houseLists h3  {
+  font-family: Trebuchet, Verdana, sans-serif;
+  font-size: 16px; line-height: 60px; margin-bottom: 24px;
+}
 
 div.totalscores { margin-bottom: 3.5em; }
 div.totalscores p {
@@ -232,7 +229,7 @@ div.podium { margin: 0 5%; }
 
 .podium > h1 {
    text-align: center;
-   font-size: 6em;
+   font-size: 5em;
 }
 
 .podium > p {
@@ -273,5 +270,5 @@ div.honourRoll p {
 
 .honourRoll div.runnerUp {
    width: 34%; margin-bottom: 1em;
-   float: right; padding: 40px 0 30px;
+   float: right; padding: 10px 0 15px;
 }

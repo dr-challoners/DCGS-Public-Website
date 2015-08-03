@@ -415,15 +415,8 @@ iframe { margin-top: 0px; }
 
 /* Houses pages */
 
-table.houselist { table-layout: fixed; }
-table.houselist td { padding: 0 4px 16px 0!important; }
-table.houselist h2 { margin: 0 0 0 0!important; padding: 3px 6px; }
-table.houselist h3 { margin: 10px 0 0 0!important; padding: 0 6px; }
-table.houselist p { padding: 0 6px; }
-  table.houselist a > h3:before { content: "+ "; font-size: 14px; }
-  div.dropdown p.rep { display: none; }
-  div.open p.rep { display: block; }
-table.houselist tr:nth-child(2n+1) { background-color: #ffffff!important; }
+div.houseLists > * { padding: 0 10px; }
+div.houseLists h3  { margin: 0 0 8px 0!important; }
 
 div.totalscores p {
    font-size: 18px!important;

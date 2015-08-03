@@ -7,11 +7,12 @@
     div.override h1 {
         color: #ffffff;
         font-size: 26px; font-weight: normal;
-        padding: 0 8px 2px 44px; margin-top: -3px;
+        padding: 0 8px 2px; margin-top: -3px;
         background-image: url(imgs/override_default.png);
         background-repeat: no-repeat;
-        background-position: 8px 5px;
+        background-position: right 8px center;
         background-color: #2F5397;
+        background-size: 25px;
        }
     div.override p {
        margin: 8px;
@@ -25,7 +26,7 @@
     .override#travel h1 { background-color: #165d13; background-image: url(imgs/override_travel.png); }
     .override#drama h1  { background-image: url(imgs/override_drama.png); }
 
-    div.override img.wide, img.override { width: 710px; }
+    div.override img.wide, img.override { width: 702px; }
       div.override img.bottom { margin-bottom: -4px; }
     div.override img.side { width: 170px; margin: 8px; }
       div.override img.left  { float: left;  }

@@ -298,7 +298,7 @@
             }
             echo '</p>';
           }
-          if (isset($event['otherdetails'])) { echo '<p class="details">'.str_replace('||','<br />',$event['otherdetails']).'</p>'; }
+          if (isset($event['otherdetails'])) { echo '<p class="details">'.str_replace('\\','<br />',$event['otherdetails']).'</p>'; }
         }
       }
     }
