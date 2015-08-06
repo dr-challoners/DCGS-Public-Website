@@ -28,6 +28,14 @@ RewriteRule    ^diary/year/?$    diaryYearSummary.php    [L]
 RewriteRule    ^diary/calendar/?$    diary.php?calendar=1   [L]    #Viewing the calendar on mobiles
 RewriteRule    ^teamsheet/([0-9]+)-([0-9A-Za-z]+)-([0-9]+)$    diaryTeamSheets.php?date=$1&eventID=$2&sheet=$3    [L]
 
+#Calendar entries, where $1 is the day, $2 the month and $3 the year
+RewriteRule    ^calendar/?$    diary.php    [L]
+RewriteRule    ^calendar/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary.php?d=$1&m=$2&y=$3    [L]
+RewriteRule    ^calendar/sync/?$    diary.php?diarySync=1    [L]    #Force syncing the diary
+RewriteRule    ^calendar/year/?$    diaryYearSummary.php    [L]
+RewriteRule    ^calendar/calendar/?$    diary.php?calendar=1   [L]    #Viewing the calendar on mobiles
+RewriteRule    ^teams/([0-9]+)-([0-9A-Za-z]+)-([0-9]+)$    diaryTeamSheets.php?date=$1&eventID=$2&sheet=$3    [L]
+
 #Learn websites
 RewriteRule    ^learn/([^/.]+)/?$    learn/?subject=$1   [L]
 RewriteRule    ^learn/([^/.]+)/([^/.]+)/?$    learn/?subject=$1&folder=$2   [L]
