@@ -1,0 +1,115 @@
+/* This in time will replace the old (horribly messy) screen_lrg. Hopefully it won't become horribly messy itself! */
+
+.sheetCMS {
+  width: 710px;
+  float: right;
+}
+  .sheetCMS a.img {
+    width: 470px;
+    margin: 18px 120px 0;
+  }
+  .sheetCMS a.img.wide, .sheetCMS a.img.left, .sheetCMS a.img.right {
+    margin-left: 0; margin-right: 0;
+  }
+  .sheetCMS a.img.left, .sheetCMS a.img.right {
+    width: 310px;
+  }
+  .sheetCMS a.img.left {
+    margin-right: 16px;
+  }
+  .sheetCMS a.img.right {
+    margin-left: 16px;
+  }
+  .sheetCMS div.imageSet {
+    margin-top: 18px;
+  }
+    .sheetCMS div.imageSet a.img {
+      margin: 0 10px 12px 0;
+      float: left;
+    }
+      .sheetCMS div.imageSet a.img:last-child,
+      .sheetCMS div.imageSet.scrolling a.img:nth-child(3n) {
+        margin-right: 0;
+      }
+      .sheetCMS div.imageSet.two   a.img { width: 350px; }
+      .sheetCMS div.imageSet.three a.img { width: 230px; }
+      .sheetCMS div.imageSet.four  a.img { width: 170px; }
+      .sheetCMS div.imageSet.scrolling a.img {
+        width: 230px;
+        margin: 10px 10px -4px 0;
+        overflow: hidden;
+      }
+      .sheetCMS div.imageSet.scrolling a.img:nth-child(1),
+      .sheetCMS div.imageSet.scrolling a.img:nth-child(2),
+      .sheetCMS div.imageSet.scrolling a.img:nth-child(3) {
+        margin-top: 0;
+      }
+      .sheetCMS div.imageSet.scrolling img {
+        height: 230px;
+        width: auto;
+        left: 50%
+      }
+  .sheetCMS div.imageSet.scrolling {
+    height: 230px;
+    width: 733px;
+    overflow: auto;
+  }
+
+  .sheetCMS p.link a {
+    display: block;
+    padding: 1px 4px 3px 36px;
+    font-weight: bold;
+    text-decoration: none;
+    background-image: url('/styles/imgs/linkIcons/link.png');
+    background-size: 26px;
+    background-repeat: no-repeat;
+  }
+  .sheetCMS p.link.soundcloud a { background-image: url('/styles/imgs/linkIcons/soundcloud.png'); }
+  .sheetCMS p.link.video a { background-image: url('/styles/imgs/linkIcons/video.png'); }
+  .sheetCMS p.link a:hover {
+    margin: -1px;
+    border: 1px solid #dddddd;
+    background-color: #fdfdfd;
+  }
+
+  .sheetCMS iframe {
+    margin-top: 16px;
+  }
+  .sheetCMS iframe.video { height: 430px; }
+
+  .sheetCMS p.newsCredit, .sheetCMS p.newsEditor {
+    font-style: italic;
+    text-align: right;
+  }
+  .sheetCMS p.newsEditor {
+    margin-top: 0;
+    font-size: 80%;
+  }
+
+div.pageNav {
+  width: 255px; float: left;
+  border-right: 1px solid #aaaaaa;
+  margin-left: -10px; padding: 10px 0px 10px 0px;
+}
+  div.pageNav h2 {
+    margin: -8px 0px 5px 0px;
+  }
+  div.pageNav ul {
+    margin: -10px 0px 8px 0px;
+  }
+  div.pageNav li {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 18px;
+    list-style-type: none;
+    margin: -4px 0px -5px 0px;
+  }
+  
+  div.pageNav a {
+    text-decoration: none; color: #000000;
+    display: block; padding: 6px 0px 7px 10px;
+    transition: background-color 0.2s, color 0.2s;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+  }
+  div.pageNav a:hover {
+    background-color: #2358A3; color: #ffffff;
+  }

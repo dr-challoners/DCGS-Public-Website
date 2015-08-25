@@ -15,18 +15,28 @@
     $linkRplce = array('_','~N~');
 		
 		if (isset($_GET['subfolder'])) { echo str_replace($linkRplce,$linkChars,$_GET['subfolder'])." - "; } // General content pages
-		if (isset($_GET['page'])) { echo str_replace($linkRplce,$linkChars,str_replace('[plus]','+',$_GET['page']))." - "; }
+		if (isset($_GET['page']) && !isset($_GET['section'])) { echo str_replace($linkRplce,$linkChars,str_replace('[plus]','+',$_GET['page']))." - "; }
 		
 		if (isset($_GET['story'])) { // News stories
 			$news_title = explode ("~",$_GET['story']);
 			echo "News - ".str_replace($linkRplce,$linkChars,$news_title[1])." - ";
 			}
+
+    // This will replace the above
+    if (isset($_GET['section'])) {
+      if ($_GET['section'] == 'News') {
+        echo 'News - ';
+      }
+      if (isset($_GET['page'])) {
+        echo str_replace('-',' ',$_GET['page']).' -';
+      } elseif ($_GET['section'] != 'News') {
+        echo str_replace('-',' ',$_GET['section']).' -';
+      }
+    }
 			
 		if (isset($intranet)) { echo "Intranet - "; }
 		
 		if (isset($_GET['date']) || isset($_GET['event'])) { echo "Diary - "; } // Diary and events pages
-
-    include ('commonFunctions.php');
 		
 		?>
 		Dr Challoner's Grammar School</title>
@@ -43,8 +53,10 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="/styles/general.css"/>
     <?php if (!preg_match('/(?i)msie [4-8]/',$_SERVER['HTTP_USER_AGENT'])) { // IE 8 or earlier can't handle media queries - and as such is AN UTTER PAIN
 		  echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 481px)" href="/styles/screen_lrg.css"/>';
+      echo '<link rel="stylesheet" type="text/css" media="screen and (min-device-width : 481px)" href="/styles/screenLrg.css"/>';
     } else {
       echo '<link rel="stylesheet" type="text/css" href="/styles/screen_lrg.css"/>';
+      echo '<link rel="stylesheet" type="text/css" href="/styles/screenLrg.css"/>';
     } ?>
 		
 		<?php // Dirty rotten browser hacks
@@ -58,7 +70,7 @@
 		?>
     
 		<?php
-      include_once('parsing/Parsedown.php'); // Converts markdown text to HTML - see parsedown.org
+      include('newsync/sheetCMS.php');
       include('parsing/config_dcgs.php');
 		?>
     

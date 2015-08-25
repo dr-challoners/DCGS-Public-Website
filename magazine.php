@@ -7,7 +7,26 @@ function word_cutoff($text, $length) { // Creates the preview text for articles
     return $text;
 	}
 
-// Create a multi-dimensional array of the first X news articles, by looking recursively through each of the month folders
+// Create a multi-dimensional array of the first X news articles, by looking recursively through each of the News sheets
+$storyList = array();
+$x = 0; $max = 10; // Determines the number of stories to display
+if (!isset($mainSheetArray)) {
+  $mainSheetArray = file_get_contents($dataSrc.'/'.$mainSheet.'.json');
+  $mainSheetArray = json_decode($mainSheetArray, true);
+}
+foreach ($mainSheetArray['data']['News'] as $sheet) {
+  if (!isset($sheetArray)) {
+    $sheetArray = file_get_contents($dataSrc.'/'.$sheet['sheetid'].'.json');
+    $sheetArray = json_decode($sheetArray, true);
+  }
+  foreach ($sheetArray['data'] as $key => $page) {
+    $storyList[$key] = $page;
+    $x++;
+    //if ($x >= $max) { break; }
+  }
+}
+echo '<pre>'; print_r($storyList); echo '</pre>';
+
 if (file_exists('content_news/')) {
   $months = scandir("content_news/", 1);
   $imgTypes = array("jpg","jpeg","gif","png"); 
@@ -171,7 +190,7 @@ if (!isset($error)) {
     if ((!isset($story['imgs']) && !isset($story['videoID']))) {
       $boxType = 'non';
       $chars = 160;
-    } elseif (!isset($topCheck) && $override != 1 && !isset($error)) {
+    } elseif (!isset($topCheck) && !isset($override) && !isset($error)) {
       $boxType = 'top';
       $chars = 120;
       $topCheck = 1;

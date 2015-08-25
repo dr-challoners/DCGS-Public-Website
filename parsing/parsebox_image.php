@@ -9,7 +9,7 @@ echo '<div class="imgDiv';
   if (isset($filevalue)) { echo ' '.$filevalue; }
 echo '">';
   echo '<a href="/'.$rootpath.$filedir.'" data-lightbox="gallery"'; // Setting data-lightbox to gallery includes ALL images on the page as part of a Lightbox set
-    if (isset($filename)) { echo 'data-title="'.$filename.'"'; }
+    if (isset($filename)) { echo ' data-title="'.$filename.'"'; }
   echo '>';
     echo '<img';
       if (isset($filename)) { echo ' alt="'.$filename.'"'; } else { echo ' alt="Image '.$file[0].'"'; } // If there's no caption, then the alt text will just be the image id

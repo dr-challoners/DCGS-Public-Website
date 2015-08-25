@@ -1,0 +1,65 @@
+.sheetCMS a.img {
+  display: block;
+}
+.sheetCMS a.img img {
+  transition: filter 0.2s;
+  -webkit-transition: -webkit-filter 0.2s;
+}
+  .sheetCMS a.img img:hover {
+    filter: contrast(150%);
+    -webkit-filter: contrast(150%);
+  }
+
+.sheetCMS a.img p {
+  position: absolute;
+  margin: -25px 0 0 5px;
+  font-size: 67%; font-weight: bold;
+  color: white;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+   -1px  1px 0 #000,
+    1px  1px 0 #000;
+}
+
+.sheetCMS img,
+.sheetCMS a.img.wide,
+.sheetCMS iframe {
+  width: 100%;
+}
+.sheetCMS a.img.left {
+  float: left;
+  clear: left;
+}
+.sheetCMS a.img.right {
+  float: right;
+  clear: right;
+}
+
+div.simpleOpenClose iframe,
+div.simpleOpenClose p.close,
+div.simpleOpenClose ul {
+  display: none;
+}
+div.simpleOpenClose.open iframe,
+div.simpleOpenClose.open p.close,
+div.simpleOpenClose.open ul {
+  display: block;
+}
+div.simpleOpenClose.open p.link {
+  display: none;
+}
+p.close {
+  margin-top: 0;
+  text-align: right;
+  font-size: 67%;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+  p.close a {
+    color: #888888;
+    text-decoration: none;
+  }
+  p.close a:hover {
+    color: #000000;
+  }
