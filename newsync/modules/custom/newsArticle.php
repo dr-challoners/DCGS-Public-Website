@@ -14,7 +14,12 @@
     break;
     
     case 'newscredit';
+    case 'newsauthor':
     case 'newseditor';
+      if ($dataType == 'newsauthor') {
+        $dataType = 'newscredit';
+        // author and credit are synonyms, but one word may feel more natural than the other to some people
+      }
       if ($dataType == 'newseditor') {
         $row['content'] = 'Edited by '.$row['content'];
       }

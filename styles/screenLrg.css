@@ -85,6 +85,20 @@
     margin-top: 0;
     font-size: 80%;
   }
+  .sheetCMS p.newsCredit:nth-last-child(2), .sheetCMS p.newsEditor:nth-last-child(2) {
+   margin-bottom: -40px;
+  }
+
+  .sheetCMS div.share {
+    margin-top: 18px;
+    padding-bottom: 30px;
+  }
+  .sheetCMS div.share iframe, .sheetCMS div.share a {
+    height: 20px;
+    width: 62px;
+    margin: 0;
+    float: left;
+  }
 
 div.pageNav {
   width: 255px; float: left;
