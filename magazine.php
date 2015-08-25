@@ -15,133 +15,75 @@ if (!isset($mainSheetArray)) {
   $mainSheetArray = json_decode($mainSheetArray, true);
 }
 foreach ($mainSheetArray['data']['News'] as $sheet) {
-  if (!isset($sheetArray)) {
-    $sheetArray = file_get_contents($dataSrc.'/'.$sheet['sheetid'].'.json');
-    $sheetArray = json_decode($sheetArray, true);
-  }
+  $sheetArray = file_get_contents($dataSrc.'/'.$sheet['sheetid'].'.json');
+  $sheetArray = json_decode($sheetArray, true);
   foreach ($sheetArray['data'] as $key => $page) {
     $storyList[$key] = $page;
+    $storyList[$key]['section'] = $sheetArray['meta']['sheetName'];
     $x++;
-    //if ($x >= $max) { break; }
+    if ($x >= $max) { break; }
   }
+  if ($x >= $max) { break; }
 }
-echo '<pre>'; print_r($storyList); echo '</pre>';
 
-if (file_exists('content_news/')) {
-  $months = scandir("content_news/", 1);
-  $imgTypes = array("jpg","jpeg","gif","png"); 
-  $x = 0; $max = 10; // Determines the number of stories to display
-  $storyList = array();
-  foreach ($months as $month) {
-    if (strlen($month) == 6) { // A basic check that the date is formatted correctly - should avoid publishing rogue folders that end up here
-      $articles = scandir("content_news/".$month."/", 1);
-      foreach ($articles as $post) {
-        unset ($c);
-        if (substr($post,2,1) == "~" && $x < $max) { // Checks the date is formatted correctly on the article - this also allows you to hide newsposts
-          $details = array();
-          $details['data-month'] = $month;
-          $details['data-url'] = $post;
-          $details['link'] = $month.str_replace(" ","_",$post);
-
-          $date = $month.explode("~",$post)[0];
-          $date = date("jS F Y",mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4)));
-          $details['date'] = $date;
-
-          $details['name'] = explode("~",$post)[1];
-
-          // Now fetch text and images from the story to display
-          $files = scandir("content_news/".$month."/".$post."/", 1);
-          $files = array_reverse($files);
-          $text = "";
-          $imgs = array();
-          foreach ($files as $file) {
-            $check = pathinfo($file);
-            if (isset($check['extension'])) { $extn = strtolower($check['extension']); }
-            // Create the preview text for the story
-            if (isset($check['extension']) && $extn == "txt") {
-              // This sequence removes formatting elements that would cause problems in the preview
-              $lines = file("content_news/".$month."/".$post."/".$file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-              $l = 0;
-              foreach ($lines as $line) {
-                // If the first line is a link to a video, that video should play in place of an image
-                if ($l == 0 && substr($line,0,1) == '~' && (strpos($line,"youtu.be") !== false || strpos($line,"youtube") !== false || strpos($line,"vimeo") !== false)) {
-                  $url = explode('](',$line)[1];
-                  $url = explode(')',$url)[0];
-                  if (strpos($url,"youtu.be") !== false) {
-                    $details['videoType'] = 'youtube';
-                    $id = strpos($url,"e/");
-                    $id = substr($url,$id+2);
-                  }
-                  elseif (strpos($url,"youtube") !== false && strpos($url,"watch")) {
-                    $details['videoType'] = 'youtube';
-                    $id = strpos($url,"v=");
-                    $id = substr($url,$id+2);
-                  }
-                  elseif (strpos($url,"youtube") !== false && strpos($url,"edit")) {
-                    $details['videoType'] = 'youtube';
-                    $id = strpos($url,"d=");
-                    $id = substr($url,$id);
-                  }
-                  elseif (strpos($url,"vimeo") !== false) {
-                    $details['videoType'] = 'vimeo';
-                    $id = strrpos($url,'/');
-                    $id = substr($url,$id+1);
-                  }
-                  $details['videoID'] = $id;
-                }
-                elseif (substr($line,0,1) != "#" && substr($line,0,1) != '~') { // If it's a header or a tilde link (anywhere but as a video on the first line), it's ignored
-                  $line = Parsedown::instance()->parse($line);
-                  $line = strip_tags($line); // Remove other HTML and PHP
-                  $line = str_replace("_","",$line); // Remove bold and emphasis markdown formatting, in case strip_tags doesn't work
-                  $line = str_replace("*","",$line);
-                  $text .= $line." "; // Put the line into the story so far, adding a space afterwards to separate it from the next line
-                }
-              $l++; }
-            } elseif (isset($check['extension']) && in_array($extn,$imgTypes) == TRUE) {
-              $imgs[] = $file;
-            } elseif (!isset($check['extension'])) { // This is a folder - look for images inside it
-              $files_r = scandir("content_news/".$month."/".$post."/".$file."/", 1);
-              $files_r = array_reverse($files_r);
-              foreach ($files_r as $file_r) {
-                $check_r = pathinfo($file_r);
-                if (isset($check_r['extension'])) { $extn = strtolower($check_r['extension']); }
-                if (isset($check_r['extension']) && in_array($extn,$imgTypes) == TRUE) {
-                  $imgs[] = $file."/".$file_r;
-                }
-              }
-            }
-          }
-          $details["text"] = $text;
-          // To determine what images are available to use, check to see if any have been designated as cover images. If any have, only use those, otherwise use all the available images.
-          if (!empty($imgs)) {
-            foreach ($imgs as $img) {
-              if (strpos(strtolower($img),'newscover') !== false) {
-                $c = 1;
-              }
-            }
-            if (isset($c)) {
-              foreach ($imgs as $img) {
-                if (strpos(strtolower($img),'newscover') !== false) {
-                  $details["imgs"][] = $img;
-                }
-              }
-            } else {
-              $details["imgs"] = $imgs;
-            }
-          }
-
-          array_push($storyList,$details);
-          $x++;
-        }
+foreach ($storyList as $key => $row) {
+  $details = array();
+  $details['name'] = $key;
+  $details['link'] = '/c/News/'.clean($row['section']).'/'.clean($key);
+  $urlID_start = makeID($row['section']).makeID($key);
+  unset($row['section']);
+  $text = '';
+  $image = array();
+  $newsImage = array();
+  foreach ($row as $datum) {
+    //view($datum);
+    if ($datum['datatype'] == '' || $datum['datatype'] == 'text') {
+      $text .= $datum['content'];
+    }
+    if ($datum['datatype'] == 'newsDate' && !isset($details['date'])) {
+      $details['date'] = $datum['content'];
+    }
+    if ($datum['datatype'] == 'image' || $datum['datatype'] == 'newsImage') {
+      $urlID = $urlID_start.makeID($datum['url']);
+      fetchImage($datum['url'],$urlID);
+      ${$datum['datatype']}[] = '/'.$imgsSrc.'/'.$urlID;
+    }
+    if ($datum['datatype'] == 'newsVideo' && !isset($details['videoID'])) {
+      if (strpos($datum['url'],"youtu.be") !== false) {
+        $details['videoType'] = 'youtube';
+        $id = strpos($datum['url'],"e/");
+        $id = substr($datum['url'],$id+2);
+      } elseif (strpos($datum['url'],"youtube") !== false && strpos($datum['url'],"watch")) {
+        $details['videoType'] = 'youtube';
+        $id = strpos($datum['url'],"v=");
+        $id = substr($datum['url'],$id+2);
+      } elseif (strpos($datum['url'],"youtube") !== false && strpos($datum['url'],"edit")) {
+        $details['videoType'] = 'youtube';
+        $id = strpos($datum['url'],"d=");
+        $id = substr($datum['url'],$id);
+      } elseif (strpos($datum['url'],"vimeo") !== false) {
+        $details['videoType'] = 'vimeo';
+        $id = strrpos($datum['url'],'/');
+        $id = substr($datum['url'],$id+1);
       }
+      $details['videoID'] = $id;
     }
   }
-} else { $error = 1; }
+  $text = Parsedown::instance()->parse($text);
+  $text = strip_tags($text); // Remove other HTML and PHP
+  $details['text'] = $text;
+  if (count($newsImage) > 0) {
+    $details['imgs'] = $newsImage;
+  } else {
+    $details['imgs'] = $image;
+  }
+  $storyList[] = $details;
+  unset($storyList[$key]);
+}
 
 // In summary, the code above has produced the storyList array, with the following items for each article:
 
-// data-month and data-url - presently used only to construct the full image url
-// link - url to the article, already processed with underscores in place of spcaes
+// link - url to the article, already processed with underscores in place of spaces
 // name - title of the article
 // date - already formatted as text to output
 // text - already processed as plaintext
@@ -206,7 +148,7 @@ if (!isset($error)) {
     }
     echo '<a ';
     if ($s >= 8) { echo 'class="lrg" '; } // Limits the number of articles displayed on mobiles, to speed up browsing
-    echo 'href="news/'.$story['link'].'" />';
+    echo 'href="'.$story['link'].'" />';
     echo '<div class="'.$boxType.'">';
       if ($boxType != 'non') { // If there's an image, display it
         if ($boxType == 'top' && isset($story['videoID'])) { // If it's the headline story and there's a video specified, embed the video
@@ -230,13 +172,11 @@ if (!isset($error)) {
             }
           echo '</div>';
           // The slideshow shouldn't be displayed on the mobile site, so show this image instead
-          $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][0];
-          $imgLink = str_replace("'","\'",$imgLink);
+          $imgLink = $story['imgs'][0];
           echo '<div class="newsImg sml" style="background-image:url(\''.$imgLink.'\');"></div>';
         } elseif ($boxType == 'row') { // Otherwise if there are sufficient stories, make a row of them
           for ($i = 0; $i < 4; $i++) {
-            $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][$i];
-            $imgLink = str_replace("'","\'",$imgLink);
+            $imgLink = $story['imgs'][$i];
             echo '<div class="newsImg';
             if ($i > 0) { echo ' lrg'; } // So only one image is displayed on mobiles
             echo '" style="background-image:url(\''.$imgLink.'\');"></div>';
@@ -250,8 +190,7 @@ if (!isset($error)) {
             echo '<div class="newsImg" style="background-image:url(\''.$thumbnail[0]['thumbnail_large'].'\');"></div>';
           }
         } else {
-          $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$story['imgs'][0];
-          $imgLink = str_replace("'","\'",$imgLink);
+          $imgLink = $story['imgs'][0];
           echo '<div class="newsImg" style="background-image:url(\''.$imgLink.'\');"></div>';
         }
       }

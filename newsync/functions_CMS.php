@@ -85,29 +85,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
 
           case 'image':
-            // Make or fetch the image
-            if (!file_exists($imgsSrc.'/'.$urlID)) {
-              if (strpos($row['url'],'drive.google.com') !== false) {
-                while (@file_get_contents($file) === false) { // This should (hopefully) make the program persevere if it struggles to pull the image from Drive
-                  if (strpos($row['url'],'/file/d/') !== false) {
-                    $file = strpos($row['url'],'/file/d/');
-                  } elseif (strpos($row['url'],'open?id=') !== false) {
-                    $file = strpos($row['url'],'open?id=');
-                  }
-                  $file = $file+8;
-                  $file = substr($row['url'],$file);
-                  $file = explode('/',$file)[0];
-                  $file = 'http://drive.google.com/uc?export=view&id='.$file;
-                }
-              } elseif (isImage($row['url'])) {
-                $file = $row['url'];
-              }
-              $file = file_get_contents($file);
-              if (!file_exists($imgsSrc)) {
-                mkdir($imgsSrc,0777,true);
-              }
-              file_put_contents($imgsSrc.'/'.$urlID,$file);
-            }
+            fetchImage($row['url'],$urlID);
             // Constructing sets
             if (strpos($row['format'],'set') !== false && !isset($set)) {
               $set = 1;
@@ -229,6 +207,35 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameTitle = '') {
     $line .= "\n".'<p class="close"><a href="javascript:simpleOpenClose(\''.$iFrameID.'\',\''.$iFrameName.'\')">&#x2715; Close</a></p>'."\n".'</div>';
   }
   echo $line;
+}
+
+function fetchImage($imageURL,$urlID) {
+  //urlID is three makeIDs concatenated: section name, page name and image url
+  
+  global $imgsSrc;
+  
+  if (!file_exists($imgsSrc.'/'.$urlID)) {
+    if (strpos($imageURL,'drive.google.com') !== false) {
+      while (@file_get_contents($file) === false) { // This should (hopefully) make the program persevere if it struggles to pull the image from Drive
+        if (strpos($imageURL,'/file/d/') !== false) {
+          $file = strpos($imageURL,'/file/d/');
+        } elseif (strpos($imageURL,'open?id=') !== false) {
+          $file = strpos($imageURL,'open?id=');
+        }
+        $file = $file+8;
+        $file = substr($imageURL,$file);
+        $file = explode('/',$file)[0];
+        $file = 'http://drive.google.com/uc?export=view&id='.$file;
+      }
+    } elseif (isImage($imageURL)) {
+      $file = $imageURL;
+    }
+    $file = file_get_contents($file);
+    if (!file_exists($imgsSrc)) {
+      mkdir($imgsSrc,0777,true);
+    }
+    file_put_contents($imgsSrc.'/'.$urlID,$file);
+  }
 }
 
 function navigatePagesSheet($sectionName, $variablesAs = '?section=[SECTION]&sheet=[SHEET]&page=[PAGE]', $dropdownMenus = '', $giveSheetAsKey = '') {

@@ -140,4 +140,11 @@ function isImage($url) {
     return false;
   }
 
+function view($array) {
+  // Just because I'm bored of writing the same thing again and again...
+  echo '<pre>';
+    print_r($array);
+  echo '</pre>';
+}
+
 ?>
