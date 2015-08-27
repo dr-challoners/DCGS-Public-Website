@@ -17,12 +17,9 @@
   echo '<h1>DCGS content management system</h1>';
   echo '<p class="warning">This system is currently in development.</p>';
 
-  if (!isset($_GET['sheet'])) {
-
-    if (isset($mainData)) {
-      $mainData = file_get_contents('../'.$dataSrc.'/mainData.json');
-      $mainData = json_decode($mainData, true);
-    } else {
+  if (!isset($_GET['sheet']) && !isset($_GET['action'])) {
+    
+    if (!isset($mainData)) {
       $mainData = array();
     }
     $_GET['sync'] = 1;
@@ -32,27 +29,47 @@
     echo '<p>The following data has been found. Use the links to add or update this data on the website.</p>';
     echo '<p>The original data can be found in <a href="https://drive.google.com/open?id=0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">this Google Drive folder</a>. Speak to SBU if you need permission to access.</p>';
     echo '<p><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a>.</p>';
-
     foreach ($newData['data'] as $sectionName => $section) {
       echo '<h2>Section: '.$sectionName.'</h2>';
       echo '<ul>';
         foreach ($section as $sheet) {
-          $mainData['data']['sheets'][$sheet['sheetid']]['section'] = $sectionName;
-          echo '<li><p>';
-            if (isset($mainData['data']['sheets'][$sheet['sheetid']]['lastupdate'])) {
-              $name = $mainData['data']['sheets'][$sheet['sheetid']]['sheetname'];
-              echo str_pad($name.':',30,' ',STR_PAD_RIGHT);
-              echo '<a href="?sheet='.$sheet['sheetid'].'">Update content</a>';
-            } else {
-              $name = $sheet['sheetname'];
-              echo '<span class="warning">(New)</span> ';
-              echo str_pad($name.':',24,' ',STR_PAD_RIGHT);
-              echo '<a href="?sheet='.$sheet['sheetid'].'">Create content</a>';
+          if (!empty($sheet['sheetid'])) {
+            if (strpos($sheet['sheetid'],'spreadsheets/d/') !== false) {
+              $cutoff = strpos($sheet['sheetid'],'spreadsheets/d/');
+              $cutoff = $cutoff+15;
+              $sheet['sheetid'] = substr($sheet['sheetid'],$cutoff);
+              $sheet['sheetid'] = explode('/',$sheet['sheetid'])[0];
             }
-            echo ' | ';
-            echo '<a href="https://docs.google.com/spreadsheets/d/'.$sheet['sheetid'].'" target="'.mt_rand().'">Edit spreadsheet</a>';
-          echo '</p></li>';
+            $mainData['data']['sheets'][$sheet['sheetid']]['section'] = $sectionName;
+            echo '<li><p>';
+              if (isset($mainData['data']['sheets'][$sheet['sheetid']]['lastupdate'])) {
+                $name = $mainData['data']['sheets'][$sheet['sheetid']]['sheetname'];
+                echo str_pad($name.':',30,' ',STR_PAD_RIGHT);
+                echo '<a href="?sheet='.$sheet['sheetid'].'">Update content</a>';
+              } else {
+                if (!empty($sheet['sheetname'])) {
+                  $name = $sheet['sheetname'];
+                } else {
+                  $name = 'Unnamed';
+                }
+                echo '<span class="warning">(New)</span> ';
+                echo str_pad($name.':',24,' ',STR_PAD_RIGHT);
+                echo '<a href="?sheet='.$sheet['sheetid'].'">Create content</a>';
+              }
+              echo ' | ';
+              echo '<a href="https://docs.google.com/spreadsheets/d/'.$sheet['sheetid'].'" target="'.mt_rand().'">Edit spreadsheet</a>';
+              if (isset($mainData['data']['sheets'][$sheet['sheetid']]['lastupdate'])) {
+                echo ' | ';
+                echo '<a href="http://'.$_SERVER['SERVER_NAME'].'/c/'.clean($sectionName).'/'.clean($name).'">Visit content</a>';
+              }
+            echo '</p></li>';
+          }
         }
+      echo '</ul>';
+      
+      echo '<h2>Other options</h2>';
+      echo '<ul>';
+        echo '<li><p><a href="?action=clean">Clean stored data</a> - use this if sections are appearing incorrectly on the website.</p></li>';
       echo '</ul>';
     }
 
@@ -61,12 +78,14 @@
     }
     file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
     
-  } else {
+  } elseif (isset($_GET['sheet'])) {
     if (!isset($_GET['page'])) {
    
       $_GET['sync'] = 1;
       $sheetData = sheetToArray($_GET['sheet'],'../'.$dataSrc,'manual');
 
+      if ($sheetData != 'ERROR') {
+      
       $pages = array();
 
       foreach ($sheetData['data'] as $page => $content) {
@@ -82,9 +101,16 @@
       }
       file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
 
-      echo '<p><b>Updated: '.$mainData['data']['sheets'][$_GET['sheet']]['section'].'/'.$sheetData['meta']['sheetname'].'</b></p>';
+      echo '<p>Updated: '.$mainData['data']['sheets'][$_GET['sheet']]['section'].'/'.$sheetData['meta']['sheetname'].'</p>';
       echo '<p>Now fetching images and tags - please wait...</p>';
       echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=./?sheet='.$_GET['sheet'].'&page=0">';
+        
+      } else {
+        
+        echo '<p class="warning"><b>Failed to fetch data!</b></p>';
+        echo '<p class="warning">Please <a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">check the sheet ID</a>, or ask for support.</p>';
+        
+      }
       
     } else {
       
@@ -159,10 +185,10 @@
       $_GET['page']++;
       if (isset($mainData['data']['sheets'][$_GET['sheet']]['pages'][$_GET['page']])) {
         echo '<p>Checking next page - please wait...</p>';
-        echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=./?sheet='.$_GET['sheet'].'&page='.$_GET['page'].'">';
+       echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=./?sheet='.$_GET['sheet'].'&page='.$_GET['page'].'">';
       } else {
         echo '<p>Update complete! Returning to main menu...</p>';
-        echo '<META HTTP-EQUIV="Refresh" CONTENT="1;URL=./">';
+       echo '<META HTTP-EQUIV="Refresh" CONTENT="1;URL=./">';
       }
       
       $gitm = preg_replace('/[^0-9]/', '', $_GET['sheet']);
@@ -172,9 +198,56 @@
       }
       
     }
+  } elseif (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+      
+      case 'clean';
+      
+        if (!isset($mainData)) {
+          $mainData = array();
+        }
+        $_GET['sync'] = 1;
+        $newData = sheetToArray($mainSheet,0);
+        $mainData['meta'] = $newData['meta'];
+      
+        foreach ($mainData['data']['sheets'] as $id => $sheet) {
+          if (!file_exists('../'.$dataSrc.'/'.$id.'.json')) {
+            unset($mainData['data']['sheets'][$id]);
+          }     
+        }
+      
+        if (!file_exists('../'.$dataSrc)) {
+          mkdir('../'.$dataSrc,0777,true);
+        }
+        file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
+      
+        $files = scandir('../'.$dataSrc);
+        $ignore = array('.','..','mainData.json');
+        foreach ($files as $file) {
+          if (!in_array($file,$ignore)) {
+            $file = pathinfo($file);
+            if ($file['extension'] != 'json' || !isset($mainData['data']['sheets'][$file['filename']])) {
+              unlink('../'.$dataSrc.'/'.$file['basename']);
+            }
+          }
+        }
+      
+        echo '<p><b>The data has been cleaned.</b></p>';
+        echo '<p>If this doesn\'t resolve your problem, please ask for support.</p>';
+        echo '<p><a href="./">Return to the main menu</a>.</p>';
+      
+      break;
+      
+      default:
+        echo '<p class="warning">That\'s an invalid action.</p>';
+        echo '<p class="warning">Returning you to the main menu...</p>';
+        echo '<META HTTP-EQUIV="Refresh" CONTENT="3;URL=./">';
+      break;
+      
+    }
   }
 
-   //view($mainData);  
+  // view($mainData);  
 
   /*
 

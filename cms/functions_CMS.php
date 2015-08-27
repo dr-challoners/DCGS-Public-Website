@@ -76,7 +76,13 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
                 echo ' file';
               }
             echo '">';
-              echo '<a href="'.$row['url'].'">'.$row['content'].'</a>';
+              echo '<a href="'.$row['url'].'">';
+                if (!empty($row['content'])) {
+                  echo $row['content'];
+                } else {
+                  echo $row['url'];
+                }
+              echo '</a>';
             echo '</p>';
           break;
 
@@ -192,6 +198,7 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
   // It can take any format as long as [SECTION], [SHEET] and [PAGE] are present
   
   foreach ($sheetsToNavigate as $id => $sheet) {
+    if (isset($sheet['sheetname'])) {
     if (!empty($dropdownMenus)) {
       echo '<div class="simpleOpenClose';
       if (isset($_GET['sheet']) && clean($sheet['sheetname']) == clean($_GET['sheet'])) {
@@ -223,6 +230,7 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
       echo '</div>'."\n";
     }
     echo "\n";
+    }
   }
   
 }

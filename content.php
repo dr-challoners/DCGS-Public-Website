@@ -18,7 +18,7 @@
     foreach ($mainData['data']['sheets'] as $id => $sheet) {
       if ($sheet['section'] == $_GET['section']) {
         $sheets[$id] = $sheet;
-        if (isset($_GET['sheet']) && clean($sheet['sheetname']) == clean($_GET['sheet'])) {
+        if (isset($_GET['sheet']) && isset($sheet['sheetname']) && clean($sheet['sheetname']) == clean($_GET['sheet'])) {
           $sheetID = $id;
           if (!isset($_GET['page'])) {
             $page = $sheet['pages'][0];
