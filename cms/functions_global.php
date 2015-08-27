@@ -13,7 +13,9 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
   
   // First call up the cache folder and see if there's already stored data for this sheet
   
-  $stored = $cacheFolder.'/'.$sheetKey.'.json';
+  if (!empty($cacheFolder)) {
+    $stored = $cacheFolder.'/'.$sheetKey.'.json';
+  }
   
   if (is_numeric($refreshTime)) {
     $refreshTime = $refreshTime*3600;
@@ -22,7 +24,7 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
     $refreshTime = time(); // This means it never refreshes (the last update time cannot be less than zero - see below)
   }
   
-  if (file_exists($stored)) {
+  if (isset($stored) && file_exists($stored)) {
     $sheetArray = file_get_contents($stored);
     $sheetArray = json_decode($sheetArray, true);
     if (isset($sheetArray['meta']['lastUpdate'])) {
@@ -42,9 +44,9 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
       $worksheetList = json_decode($worksheetList, true);
       
       $sheetArray = array();
-      $sheetArray['meta']['lastUpdate'] = time();
-      $sheetArray['meta']['sheetName'] = $worksheetList['feed']['title']['$t'];
-      $sheetArray['meta']['sheetID'] = $sheetKey;
+      $sheetArray['meta']['lastupdate'] = time();
+      $sheetArray['meta']['sheetname'] = $worksheetList['feed']['title']['$t'];
+      $sheetArray['meta']['sheetid'] = $sheetKey;
 
       $worksheetList = $worksheetList['feed']['entry'];
 
@@ -83,12 +85,13 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
         $worksheetKey++;
       }
 
-      // Cache the array as JSON into the specified caching folder
-      if (!file_exists($cacheFolder)) {
-        mkdir($cacheFolder,0777,true);
+      if (!empty($cacheFolder)) {
+        // Cache the array as JSON into the specified caching folder
+        if (!file_exists($cacheFolder)) {
+          mkdir($cacheFolder,0777,true);
+        }
+        file_put_contents($stored, json_encode($sheetArray));
       }
-      file_put_contents($stored, json_encode($sheetArray));
-      
     } else { $sheetArray = 'ERROR'; }   
   }
   
@@ -103,9 +106,11 @@ function clean($string) {
    return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
 }
 
-function makeID($string) {
+function makeID($string, $short = '') {
     $string = md5($string);
-    $string = substr($string,0,8);
+    if (!empty($short)) {
+      $string = substr($string,0,8);
+    }
     return $string;
   }
 

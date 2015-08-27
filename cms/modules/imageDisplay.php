@@ -1,7 +1,12 @@
 <?php // This has been separated from the main parsing process simply because it is huge and made the other file difficult to navigate
 
 if (!empty($row['url'])) {
-  $check = fetchImage($row['url'],$urlID);
+  if (!empty($row['content'])) {
+    $imageName = makeID($row['url'],1).'-'.clean($row['content']);                      
+  } else {
+    $imageName = makeID($row['url']);
+  }
+  $check = fetchImage($row['url'],$imageName);
   if ($check != 'ERROR') {
     
     // Constructing sets
@@ -16,8 +21,8 @@ if (!empty($row['url'])) {
       }
       if ($set > 1) {
         echo '<div class="imageSet ';
-        if ($set >= 5 || strpos($row['format'],'scrolling') !== false) {
-          echo 'scrolling';
+        if ($set >= 5 || strpos($row['format'],'gallery') !== false) {
+          echo 'gallery';
         } else {
           $numWords = array(2 => 'two', 3 => 'three', 4 => 'four');
           echo $numWords[$set];
@@ -29,7 +34,7 @@ if (!empty($row['url'])) {
     }
     
     // Displaying the image
-    echo '<a href="/'.$imgsSrc.'/'.$urlID.'" data-lightbox="gallery" class="img'; // Setting data-lightbox to gallery includes ALL images on the page as part of a Lightbox set
+    echo '<a href="/'.$imgsSrc.'/'.$imageName.'" data-lightbox="page" class="img'; // Setting data-lightbox to page includes ALL images on the page as part of a Lightbox set
     if (!isset($set)) {    
       $imgFormats = array('wide','left','right');
       if (in_array($row['format'],$imgFormats)) {
@@ -41,7 +46,7 @@ if (!empty($row['url'])) {
       echo ' data-title="'.str_replace('=','-',$row['content']).'"';
     }
     echo '>'."\n";
-    echo '<img src="/'.$imgsSrc.'/'.$urlID.'" ';
+    echo '<img src="/'.$imgsSrc.'/'.$imageName.'" ';
     if (!empty($row['content'])) {
       echo 'alt="'.str_replace('=','-',$row['content']).'" ';
     }

@@ -7,23 +7,24 @@ function word_cutoff($text, $length) { // Creates the preview text for articles
     return $text;
 	}
 
-// Create a multi-dimensional array of the first X news articles, by looking recursively through each of the News sheets
+// Create a multi-dimensional array of the first X news articles
 $storyList = array();
 $x = 0; $max = 10; // Determines the number of stories to display
-if (!isset($mainSheetArray)) {
-  $mainSheetArray = file_get_contents($dataSrc.'/'.$mainSheet.'.json');
-  $mainSheetArray = json_decode($mainSheetArray, true);
-}
-foreach ($mainSheetArray['data']['News'] as $sheet) {
-  $sheetArray = file_get_contents($dataSrc.'/'.$sheet['sheetid'].'.json');
-  $sheetArray = json_decode($sheetArray, true);
-  foreach ($sheetArray['data'] as $key => $page) {
-    $storyList[$key] = $page;
-    $storyList[$key]['section'] = $sheetArray['meta']['sheetName'];
-    $x++;
+
+//view($mainData);
+
+foreach ($mainData['data']['sheets'] as $id => $sheet) {
+  if ($sheet['section'] = 'News') {
+    $sheetArray = file_get_contents($dataSrc.'/'.$id.'.json');
+    $sheetArray = json_decode($sheetArray, true);
+    foreach ($sheetArray['data'] as $key => $page) {
+      $storyList[$key] = $page;
+      $storyList[$key]['section'] = $sheetArray['meta']['sheetname'];
+      $x++;
+      if ($x >= $max) { break; }
+    }
     if ($x >= $max) { break; }
   }
-  if ($x >= $max) { break; }
 }
 
 foreach ($storyList as $key => $row) {
@@ -44,9 +45,13 @@ foreach ($storyList as $key => $row) {
       $details['date'] = $datum['content'];
     }
     if ($datum['datatype'] == 'image' || $datum['datatype'] == 'newsImage') {
-      $urlID = $urlID_start.makeID($datum['url']);
-      fetchImage($datum['url'],$urlID);
-      ${$datum['datatype']}[] = '/'.$imgsSrc.'/'.$urlID;
+      if (!empty($datum['content'])) {
+        $imageName = makeID($datum['url'],1).'-'.clean($datum['content']);                      
+      } else {
+        $imageName = makeID($datum['url']);
+      }
+      fetchImage($datum['url'],$imageName);
+      ${$datum['datatype']}[] = '/'.$imgsSrc.'/'.$imageName;
     }
     if ($datum['datatype'] == 'newsVideo' && !isset($details['videoID'])) {
       if (strpos($datum['url'],"youtu.be") !== false) {

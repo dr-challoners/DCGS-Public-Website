@@ -28,28 +28,26 @@
       float: left;
     }
       .sheetCMS div.imageSet a.img:last-child,
-      .sheetCMS div.imageSet.scrolling a.img:nth-child(3n) {
+      .sheetCMS div.imageSet.gallery a.img:nth-child(3n) {
         margin-right: 0;
       }
       .sheetCMS div.imageSet.two   a.img { width: 350px; }
       .sheetCMS div.imageSet.three a.img { width: 230px; }
       .sheetCMS div.imageSet.four  a.img { width: 170px; }
-      .sheetCMS div.imageSet.scrolling a.img {
+      .sheetCMS div.imageSet.gallery a.img {
         width: 230px;
         margin: 10px 10px -4px 0;
         overflow: hidden;
       }
-      .sheetCMS div.imageSet.scrolling a.img:nth-child(1),
-      .sheetCMS div.imageSet.scrolling a.img:nth-child(2),
-      .sheetCMS div.imageSet.scrolling a.img:nth-child(3) {
+      .sheetCMS div.imageSet.gallery a.img:nth-child(-n+3) {
         margin-top: 0;
       }
-      .sheetCMS div.imageSet.scrolling img {
+      .sheetCMS div.imageSet.gallery img {
         height: 230px;
         width: auto;
         left: 50%
       }
-  .sheetCMS div.imageSet.scrolling {
+  .sheetCMS div.imageSet.gallery {
     height: 230px;
     width: 733px;
     overflow: auto;

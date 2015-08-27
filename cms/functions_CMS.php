@@ -17,12 +17,9 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
   // Where possible, this system creates HTML only and leaves styling to the website
   
   global $dataSrc, $imgsSrc, $sheetCMS, $colour;
-  global $sheetArray;
   
-  if (!isset($sheetArray)) {
-    $sheetArray = file_get_contents($dataSrc.'/'.$sheetKey.'.json');
-    $sheetArray = json_decode($sheetArray, true);
-  }
+  $sheetArray = file_get_contents($dataSrc.'/'.$sheetKey.'.json');
+  $sheetArray = json_decode($sheetArray, true);
   
   foreach ($sheetArray['data'] as $page => $data) {
     if (clean($pageName) == clean($page)) {
@@ -30,9 +27,9 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
       break;
     }
   }
-  
   if (!isset($pageArray)) {
-    return 'ERROR';
+    $error = 1;
+    return $error;
   } else {
     
     if ($CMSdiv == 0) {
@@ -44,8 +41,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     }
     
     foreach ($pageArray as $key => $row) {
-      unset($urlID,$dataType,$file,$skipRow);
-      $urlID = makeID($sheetArray['meta']['sheetName']).makeID($page).makeID($row['url']);
+      unset($imageName,$dataType,$file,$skipRow);
       
       if (!empty($row['datatype'])) {
         $dataType = strtolower(clean($row['datatype']));
@@ -114,6 +110,11 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               makeiFrame($iFrameContent,'soundcloud',$row['content']);
             }
           break;
+          
+          case 'tags':
+          case 'tag':  // The instruction is to write 'tags' for this datatype, but this is a failsafe
+            // Just ignore them... for now. Consider building a 'similar articles' feature.
+          break;
 
         }
       }
@@ -154,12 +155,12 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameTitle = '') {
   echo $line;
 }
 
-function fetchImage($imageURL,$urlID) {
+function fetchImage($imageURL,$imageName) {
   //urlID is three makeIDs concatenated: section name, page name and image url
   
   global $imgsSrc;
   
-  if (!file_exists($imgsSrc.'/'.$urlID)) {
+  if (!file_exists($imgsSrc.'/'.$imageName)) {
     if (strpos($imageURL,'drive.google.com') !== false) {
       while (@file_get_contents($file) === false) { // This should (hopefully) make the program persevere if it struggles to pull the image from Drive
         if (strpos($imageURL,'/file/d/') !== false) {
@@ -180,42 +181,25 @@ function fetchImage($imageURL,$urlID) {
       if (!file_exists($imgsSrc)) {
         mkdir($imgsSrc,0777,true);
       }
-      file_put_contents($imgsSrc.'/'.$urlID,$file);
+      file_put_contents($imgsSrc.'/'.$imageName,$file);
     } else { return 'ERROR'; }
   }
 }
 
-function navigatePagesSheet($sectionName, $variablesAs = '?section=[SECTION]&sheet=[SHEET]&page=[PAGE]', $dropdownMenus = '', $giveSheetAsKey = '') {
+function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION]&sheet=[SHEET]&page=[PAGE]', $dropdownMenus = '') {
   
   // variablesAs gives control over the url given by each link in the navigation menu, particularly useful for URL re-writing
   // It can take any format as long as [SECTION], [SHEET] and [PAGE] are present
-  // Change giveSheetAsKey to yes for less pretty URLs but ones that have the sheetKey as a variable to pick out
   
-  global $dataSrc, $mainSheet;
-  global $mainSheetArray, $sheetArray;
-  
-  if (!isset($mainSheetArray)) {
-    $mainSheetArray = file_get_contents($dataSrc.'/'.$mainSheet.'.json');
-    $mainSheetArray = json_decode($mainSheetArray, true);
-  }
-  
-  $sectionArray = $mainSheetArray['data'][$sectionName];
-  
-  foreach ($sectionArray as $sheet) {
-    if (!isset($sheetArray) || $sheetArray['meta']['sheetID'] != $sheet['sheetid']) {
-      $thisSheetArray = file_get_contents($dataSrc.'/'.$sheet['sheetid'].'.json');
-      $thisSheetArray = json_decode($thisSheetArray, true);
-    } else {
-      $thisSheetArray = $sheetArray;
-    }
+  foreach ($sheetsToNavigate as $id => $sheet) {
     if (!empty($dropdownMenus)) {
       echo '<div class="simpleOpenClose';
       if (isset($_GET['sheet']) && clean($sheet['sheetname']) == clean($_GET['sheet'])) {
         echo ' open';
       }
-      echo '" id="'.$sheet['sheetid'].'" name="'.$dropdownMenus.'">'."\n";
+      echo '" id="'.$id.'" name="'.$dropdownMenus.'">'."\n";
       echo '<h2>';
-        echo '<a href="javascript:simpleOpenClose(\''.$sheet['sheetid'].'\',\''.$dropdownMenus.'\')">';
+        echo '<a href="javascript:simpleOpenClose(\''.$id.'\',\''.$dropdownMenus.'\')">';
           echo $sheet['sheetname'];
         echo '</a>';
       echo '</h2>'."\n";
@@ -223,16 +207,14 @@ function navigatePagesSheet($sectionName, $variablesAs = '?section=[SECTION]&she
       echo '<h2>'.$sheet['sheetname'].'</h2>'."\n";
     }
     echo '<ul>'."\n";
-    foreach ($thisSheetArray['data'] as $pageName => $array) {
+    foreach ($sheet['pages'] as $page) {
       
-      $pageURL  = clean($pageName);
-      $sheetURL = clean($sheet['sheetname']);
-      $pageURL = str_replace('[PAGE]',$pageURL,$variablesAs);
-      $pageURL = str_replace('[SHEET]',$sheetURL,$pageURL);
-      $pageURL = str_replace('[SECTION]',$sectionName,$pageURL);
+      $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+      $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+      $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
       
       echo '<li>';
-        echo '<a href="'.$pageURL.'">'.$pageName.'</a>';
+        echo '<a href="'.$pageURL.'">'.$page.'</a>';
       echo '</li>'."\n";
       
     }

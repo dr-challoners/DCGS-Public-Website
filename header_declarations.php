@@ -70,7 +70,7 @@
 		?>
     
 		<?php
-      include('newsync/sheetCMS.php');
+      include('cms/sheetCMS.php');
       include('parsing/config_dcgs.php');
 		?>
     
