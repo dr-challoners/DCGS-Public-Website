@@ -23,7 +23,9 @@
           if (!isset($_GET['page'])) {
             $page = $sheet['pages'][0];
           } else {
-            $page = $_GET['page'];
+            foreach($sheet['pages'] as $page) {
+              if (strpos(clean($page),$_GET['page']) !== false) { break; }
+            }
           }
         }    
       }

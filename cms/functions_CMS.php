@@ -37,7 +37,9 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     }
     
     if ($titleDisplay == 1) {
-      echo '<h1>'.$page.'</h1>'."\n\n";
+      $title = str_ireplace('[HIDDEN]','',$page);
+      $title = trim($title);
+      echo '<h1>'.$title.'</h1>'."\n\n";
     }
     
     foreach ($pageArray as $key => $row) {
@@ -215,15 +217,14 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
     }
     echo '<ul>'."\n";
     foreach ($sheet['pages'] as $page) {
-      
-      $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
-      $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
-      $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
-      
-      echo '<li>';
-        echo '<a href="'.$pageURL.'">'.$page.'</a>';
-      echo '</li>'."\n";
-      
+      if (strpos(strtolower($page),'[hidden]') === false) {
+        $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+        $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+        $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+        echo '<li>';
+          echo '<a href="'.$pageURL.'">'.$page.'</a>';
+        echo '</li>'."\n";
+      }
     }
     echo '</ul>'."\n";
     if (!empty($dropdownMenus)) {
