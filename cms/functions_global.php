@@ -16,19 +16,17 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
   if (!empty($cacheFolder)) {
     $stored = $cacheFolder.'/'.$sheetKey.'.json';
   }
-  
   if (is_numeric($refreshTime)) {
     $refreshTime = $refreshTime*3600;
     // Converts from hours to seconds - allows easier user input
   } else {
     $refreshTime = time(); // This means it never refreshes (the last update time cannot be less than zero - see below)
   }
-  
   if (isset($stored) && file_exists($stored)) {
     $sheetArray = file_get_contents($stored);
     $sheetArray = json_decode($sheetArray, true);
-    if (isset($sheetArray['meta']['lastUpdate'])) {
-      $lastUpdate = $sheetArray['meta']['lastUpdate'];
+    if (isset($sheetArray['meta']['lastupdate'])) {
+      $lastUpdate = $sheetArray['meta']['lastupdate'];
     }
   }
     

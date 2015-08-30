@@ -90,7 +90,7 @@ if (!empty($row['url'])) {
       }
     }
     // Displaying the image
-    if (isset($boxes[0]) && $boxes[0] == 'tny') {
+    if (isset($boxes[0]) && $boxes[0] == 'tny' && !isset($tiny)) {
       echo '<div class="tinyBox">'."\n\n";
       $tiny = 4;
       array_shift($boxes);
@@ -105,6 +105,7 @@ if (!empty($row['url'])) {
       if (array_shift($boxes) == 'wde') {
         echo ' wide'.'"';
       }
+      echo '"';
     } else {
       echo '"';
     }

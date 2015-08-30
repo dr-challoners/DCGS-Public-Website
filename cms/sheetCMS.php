@@ -9,6 +9,7 @@
     $mainSheet  = '1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM';
     $contentURL = '/c/[SECTION]/[SHEET]/[PAGE]';
     $colour     = '#2358A3';
+    $acronyms = array('dcgs','dchs','slt','sslt','sjt','pe','rs','pshe','uksa','ucas');
 
   // -------------------------------------------------- //
 

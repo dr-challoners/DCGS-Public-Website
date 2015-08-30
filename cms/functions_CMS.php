@@ -109,7 +109,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           
           case 'audio':
             // Currently only SoundCloud audio embedding is supported (and this is unlikely to change without good reason)
-            if (strpos($row['url'],"soundcloud") !== false && substr_count($row['url'],"/") == 4) {
+            if (strpos($row['url'],'soundcloud') !== false && substr_count($row['url'],"/") == 4) {
               $sc = file_get_contents('http://api.soundcloud.com/resolve.json?url='.$row['url'].'&client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
               $sc = json_decode($sc);
               $id = $sc->id;
@@ -122,6 +122,37 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           case 'tags':
           case 'tag':  // The instruction is to write 'tags' for this datatype, but this is a failsafe
             // Just ignore them... for now. Consider building a 'similar articles' feature.
+          break;
+          
+          case 'table':
+            if (strpos($row['url'],'google.com/spreadsheets') !== false) {
+              $cutoff = strpos($row['url'],'spreadsheets/d/');
+              $cutoff = $cutoff+15;
+              $sheetID = substr($row['url'],$cutoff);
+              $sheetID = explode('/',$sheetID)[0];
+              $tableArray = sheetToArray($sheetID,$dataSrc);
+              foreach ($tableArray['data'] as $table => $rows) {
+                $top = 1;
+                echo '<h2>'.$table.'</h2>';
+                echo '<table>';
+                foreach ($rows as $row) {
+                  if (isset($top)) {
+                    echo '<tr>';
+                      foreach ($row as $heading => $cell) {
+                        echo '<th><h3>'.ucwords($heading).'</h3></th>';
+                      }
+                    echo '</tr>';
+                    unset($top);
+                  }
+                  echo '<tr>';
+                    foreach ($row as $cell) {
+                      echo '<td><p>'.$cell.'</p></td>';
+                    }
+                  echo '</tr>';
+                }
+                echo '</table>';
+              }
+            }
           break;
 
         }
@@ -164,7 +195,6 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameTitle = '') {
 }
 
 function fetchImage($imageURL,$imageName) {
-  //urlID is three makeIDs concatenated: section name, page name and image url
   
   global $imgsSrc;
   

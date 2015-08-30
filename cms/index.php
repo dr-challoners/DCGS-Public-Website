@@ -69,8 +69,28 @@
       
       echo '<h2>Other options</h2>';
       echo '<ul>';
-        echo '<li><p><a href="?action=clean">Clean stored data</a> - use this if sections are appearing incorrectly on the website.</p></li>';
+        echo '<li><p><a href="?action=clean">Clean stored data</a> - try this if any content is appearing incorrectly on the website.</p></li>';
       echo '</ul>';
+      
+      if (isset($mainData['data']['tags'])) {
+        ksort($mainData['data']['tags']);
+        echo '<h2>Tags</h2>';
+        echo '<p class="warning">In the future, tags will be used to make a new search facility for the website - you should start adding them to your articles in preparation for this.</p>';
+        echo '<p>Pages should have a small number of tags. Tags should be broad in scope, so that more articles can be matchd up.</p>';
+        echo '<p>Use \'Key Stage 3\', \'Key Stage 4\' and \'Sixth Form\' instead of referring to years or to GCSEs or A Levels.</p>';
+        echo 'In the case of subjects that are part of a broader subject group (Languages with French, German and Spanish; Humanities with History, Geography and so on; Sports and each individual sport) tag both the individual subject and the subject group.</p>';
+        echo '<p>The following tags have been recorded:</p>';
+        echo '<ul>';
+          foreach ($mainData['data']['tags'] as $tag => $content) {
+            echo '<li>';
+              $tagdetails = '<b>'.$tag.'</b> in '.count($content).' article';
+              if (count($content) != 1) { $tagdetails .= 's'; }
+              echo str_pad($tagdetails,54,' ',STR_PAD_RIGHT);
+              echo '<a href="?action=droptag&tag='.$tag.'">Delete</a>';
+            echo '</li>';
+          }
+        echo '</ul>';
+      }
     }
 
     if (!file_exists('../'.$dataSrc)) {
@@ -138,21 +158,21 @@
           }
         } elseif (strtolower($row['datatype']) == 'tags' || strtolower($row['datatype']) == 'tag') {
           $tagReport = array();
-          $acronyms = array('dcgs','dchs','slt','sslt','sjt','pe','rs','pshe','uksa');
           $tags = explode(',',$row['content']);
           foreach ($tags as $tag) {
             $tag = trim($tag);
-            $tag = strtolower($tag);
-            if (in_array($tag,$acronyms)) {
-              $tag = strtoupper($tag);
-            } else {
-              $tag = ucwords($tag);
+            if (!empty($tag)) {
+              if (in_array($tag,$acronyms)) { // The acronyms list is in the config file to make it easier to get to for modification
+                $tag = strtoupper($tag);
+              } else {
+                $tag = ucwords($tag);
+              }
+              $section = $mainData['data']['sheets'][$_GET['sheet']]['section'];
+              $sheet   = $sheetData['meta']['sheetname'];
+              $pageID  = makeID($_GET['sheet'],1).str_pad($_GET['page'],3,'0',STR_PAD_LEFT);
+              $mainData['data']['tags'][$tag][$pageID] = array($section,$sheet,$page);
+              $tagReport[] = $tag;
             }
-            $section = $mainData['data']['sheets'][$_GET['sheet']]['section'];
-            $sheet   = $sheetData['meta']['sheetname'];
-            $pageID  = makeID($_GET['sheet'],1).str_pad($_GET['page'],3,'0',STR_PAD_LEFT);
-            $mainData['data']['tags'][$tag][$pageID] = array($section,$sheet,$page);
-            $tagReport[] = $tag;
           }
         }
       }
@@ -192,9 +212,10 @@
       }
       
       $gitm = preg_replace('/[^0-9]/', '', $_GET['sheet']);
-      $gitm = $gitm%11;
-      if ($gitm == 0) {
-        echo '<img src="modules/gitm/gitm'.($_GET['page']%6).'.gif" />';
+      $gitm = $gitm+date('j',time());
+      $gitm = $gitm%5;
+      if ($gitm == 0 && $mainData['data']['sheets'][$_GET['sheet']]['section'] == 'News') {
+        echo '<img src="modules/gitm/gitm'.($_GET['page']%6).'.png" />';
       }
       
     }
@@ -202,7 +223,6 @@
     switch ($_GET['action']) {
       
       case 'clean';
-      
         if (!isset($mainData)) {
           $mainData = array();
         }
@@ -215,12 +235,10 @@
             unset($mainData['data']['sheets'][$id]);
           }     
         }
-      
         if (!file_exists('../'.$dataSrc)) {
           mkdir('../'.$dataSrc,0777,true);
         }
         file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
-      
         $files = scandir('../'.$dataSrc);
         $ignore = array('.','..','mainData.json');
         foreach ($files as $file) {
@@ -231,11 +249,16 @@
             }
           }
         }
-      
         echo '<p><b>The data has been cleaned.</b></p>';
         echo '<p>If this doesn\'t resolve your problem, please ask for support.</p>';
-        echo '<p><a href="./">Return to the main menu</a>.</p>';
+      break;
       
+      case 'droptag';
+        $tag = $_GET['tag'];
+        unset($mainData['data']['tags'][$tag]);
+        echo '<p><b>'.$tag.' has been removed from the stored list of tags.</b></p>';
+        echo '<p>This only removes the tag from the website, not from the sheets the page content is stored in.</p>';
+        echo '<p>You need to remove the tag there as well, otherwise it will reappear next time you sync the data.</p>';
       break;
       
       default:
@@ -245,6 +268,11 @@
       break;
       
     }
+    if (!file_exists('../'.$dataSrc)) {
+      mkdir('../'.$dataSrc,0777,true);
+    }
+    file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
+    echo '<p><a href="./">Return to the main menu</a>.</p>';
   }
 
   // view($mainData);  
