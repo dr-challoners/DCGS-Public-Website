@@ -1,6 +1,6 @@
 <?php
 
-  $dataFolder = 'data_override';
+  $dataFolder = 'data/override';
 
   if ((isset($_GET['overrideSync']) || isset($_GET['overridePreview'])) && file_exists($dataFolder.'/')) {
     // You can automatically re-sync the override messages on the website by deleting the old cache, thereby forcing it to start again
@@ -14,38 +14,7 @@
 
   $overrideData = sheetToArray('1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk',$dataFolder,1);
 
-  function isImage($url) {
-     $params = array('http' => array(
-                  'method' => 'HEAD'
-               ));
-     $ctx = stream_context_create($params);
-     $fp = @fopen($url, 'rb', false, $ctx);
-     if (!$fp) 
-        return false;  // Problem with url
-
-    $meta = stream_get_meta_data($fp);
-    if ($meta === false)
-    {
-        fclose($fp);
-        return false;  // Problem reading data from url
-    }
-
-    $wrapper_data = $meta["wrapper_data"];
-    if(is_array($wrapper_data)){
-      foreach(array_keys($wrapper_data) as $hh){
-          if (substr($wrapper_data[$hh], 0, 19) == "Content-Type: image") // strlen("Content-Type: image") == 19 
-          {
-            fclose($fp);
-            return true;
-          }
-      }
-    }
-
-    fclose($fp);
-    return false;
-  }
-
-  foreach ($overrideData['Messages'] as $row) {
+  foreach ($overrideData['data']['Messages'] as $row) {
     unset($archived,$start,$end,$image);
     
     $bounds = array('start','end');
@@ -102,7 +71,7 @@
         }
       
         $message = Parsedown::instance()->parse($row['message']);
-        $message = str_replace('\\','</p><p>',$message); // This means that || can be used to indicate new paragraphs in a spreadsheet cell
+        $message = str_replace('\\','</p><p>',$message); // This means that \\ can be used to indicate new paragraphs in a spreadsheet cell
         echo $message;
       
         if (isset($image) && $image[1] == 'bottom')   { echo '<img src="'.$image[0].'" class="wide bottom" />'; }  

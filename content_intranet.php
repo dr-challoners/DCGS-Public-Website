@@ -12,8 +12,8 @@ if (isset($_GET['user'])) {
 function makeIntranetLinks($sheetKey,$prefix) {
   
   // Use the stored spreadsheet array to generate the links list
-  $lists = sheetToArray($sheetKey,'data_intranet',6);
-  $headings = array_keys($lists);
+  $lists = sheetToArray($sheetKey,'data/intranet',6);
+  $headings = array_keys($lists['data']);
   
   $c = 0;
   foreach ($headings as $list) {
@@ -32,7 +32,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
     // Now for the links lists themselves
     echo '<div class="intranetbox"><div class="dropdown" name="boxlist" id="'.$prefix.$c.'">';
       $l = 0;
-      foreach ($lists[$list] as $link) {
+      foreach ($lists['data'][$list] as $link) {
         if (strtolower($link['special']) != 'subheading') {
           if (strpos(str_replace(" ","",strtolower($link['special'])),'linebreak') !== false) {
             if ($l > 0) { echo '</ul>'; }
@@ -185,16 +185,16 @@ function makeIntranetLinks($sheetKey,$prefix) {
       echo '<p class="quickLinkNote">Quick links below - click above to see the full menus.</p>';
       function makeQuickLinks($sheetKey) {
         
-        $caches = scandir('data_intranet/', 1);
+        $caches = scandir('data/intranet/', 1);
 
         foreach ($caches as $file) {
           if (strpos($file,$sheetKey) !== false) {
-            $links = json_decode(file_get_contents('data_intranet/'.$file), true);
+            $links = json_decode(file_get_contents('data/intranet/'.$file), true);
           }
         }
         
         if (isset($links)) {
-          foreach ($links as $row) {
+          foreach ($links['data'] as $row) {
             foreach ($row as $link) {
               if (strpos(str_replace(" ","",strtolower($link['special'])),'quicklink') !== false) {
                 echo '<li>';

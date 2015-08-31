@@ -1,0 +1,29 @@
+/* This in time will replace the old (horribly messy) screen_lrg. Hopefully it won't become horribly messy itself! */
+
+div.pageNav {
+  width: 255px; float: left;
+  border-right: 1px solid #aaaaaa;
+  margin-left: -10px; padding: 10px 0px 10px 0px;
+}
+  div.pageNav h2 {
+    margin: -8px 0px 5px 0px;
+  }
+  div.pageNav ul {
+    margin: -10px 0px 8px 0px;
+  }
+  div.pageNav li {
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    font-size: 18px;
+    list-style-type: none;
+    margin: -4px 0px -5px 0px;
+  }
+  
+  div.pageNav a {
+    text-decoration: none; color: #000000;
+    display: block; padding: 6px 0px 7px 10px;
+    transition: background-color 0.2s, color 0.2s;
+    -webkit-transition: background-color 0.2s, color 0.2s;
+  }
+  div.pageNav a:hover {
+    background-color: #2358A3; color: #ffffff;
+  }

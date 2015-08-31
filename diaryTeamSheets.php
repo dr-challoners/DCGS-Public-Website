@@ -69,10 +69,10 @@
     clear: none;
   }
 
-  p.otherDetails {
+  div.otherDetails {
     clear: left;
     text-align: center;
-    font-size: 2em; font-weight: bold;
+    font-size: 2em;
     border-top: 1px solid #aaaaaa;
     padding-top: 0.4em;
   }
@@ -85,8 +85,8 @@
   $_date = substr($date,0,4).'-'.substr($date,4,2);
   $eventID = $_GET['eventID'];
 
-  if (file_exists('data_diary/data-'.$_date.'.json')) {
-    $matchData = file_get_contents('data_diary/data-'.$_date.'.json');
+  if (file_exists('data/diary/data-'.$_date.'.json')) {
+    $matchData = file_get_contents('data/diary/data-'.$_date.'.json');
     $matchData = json_decode($matchData, true);
     $matchData = $matchData['events'][$date][$eventID];
     
@@ -167,7 +167,10 @@
     }
 
     if (isset($matchData['otherdetails'])) {
-      echo '<p class="otherDetails">'.str_replace('||','<br />',$matchData['otherdetails']).'</p>';
+      $details = htmlentities($matchData['otherdetails']);
+      echo '<div class="otherDetails">';
+        echo Parsedown::instance()->parse($details);
+      echo '</div>';
     }
   } else {
     echo '<style> body { background-image: url(\'/styles/imgs/error.png\'); background-position: right bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>';

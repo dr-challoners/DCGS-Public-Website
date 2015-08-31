@@ -75,10 +75,10 @@
   $start = $startY.'0901'; $end = $endY.'0731';
 
   $diaryArray = array();
-  $caches = scandir('data_diary/', SCANDIR_SORT_DESCENDING);
+  $caches = scandir('data/diary/', SCANDIR_SORT_DESCENDING);
     foreach ($caches as $file) {
       if (strpos($file,'data-') !== false) {
-        $cacheData = file_get_contents('data_diary/'.$file);
+        $cacheData = file_get_contents('data/diary/'.$file);
         $cacheData = json_decode($cacheData, true);
         foreach ($cacheData['events'] as $date => $events) {
           if (!isset($diaryArray[$date])) { $diaryArray[$date] = $cacheData['events'][$date]; }

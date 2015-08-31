@@ -1,4 +1,4 @@
-<?php date_default_timezone_set("Europe/London"); ?>
+<?php // date_default_timezone_set("Europe/London"); ?>
 
 <?php
   echo "<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\"";
@@ -34,7 +34,7 @@ function str_replace_first($search, $replace, $subject) {
 	src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script> -->
 
-<!-- Pop-up images in galleries -->
-<script src="/<?php echo $codepath; ?>lightbox/jquery-1.11.0.min.js"></script>
-<script src="/<?php echo $codepath; ?>lightbox/lightbox.min.js"></script>
-<link rel="stylesheet" type="text/css" media="screen" href="/<?php echo $codepath; ?>lightbox/lightbox.css"/>
+<!-- Pop-up images in galleries 
+<script src="/<?php //echo $codepath; ?>lightbox/jquery-1.11.0.min.js"></script>
+<script src="/<?php //echo $codepath; ?>lightbox/lightbox.min.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="/<?php //echo $codepath; ?>lightbox/lightbox.css"/> -->
