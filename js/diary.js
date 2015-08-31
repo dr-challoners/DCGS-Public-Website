@@ -70,7 +70,7 @@
   }
   function generateDiary(d, s) {
     // Builds the URL to grab the JSON-encoded events
-    var jsonUrl = "/data_diary/data-" + d.format("YYYY") + "-" + d.format("MM") + ".json"
+    var jsonUrl = "/data/diary/data-" + d.format("YYYY") + "-" + d.format("MM") + ".json"
     // Makes an sync call (wrapped by JQuery)
     $.ajax({
       url: jsonUrl,

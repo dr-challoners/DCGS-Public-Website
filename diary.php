@@ -40,9 +40,9 @@
   if (isset($_GET['diarySync'])) { $refreshTime = 0; } else { $refreshTime = 24; } // To allow a forced resync on the data
 
   // This is the Google Sheet for the sports calendar
-  $sportsData = sheetToArray('1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA','data_diary',$refreshTime);
+  $sportsData = sheetToArray('1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA','data/diary',$refreshTime);
 
-  $caches = scandir('data_diary/', SCANDIR_SORT_DESCENDING);
+  $caches = scandir('data/diary/', SCANDIR_SORT_DESCENDING);
 
     foreach ($caches as $file) {
       if (strpos($file,$filename) !== false) {
@@ -69,14 +69,18 @@
 
     // Take all the information that we're interested in, and put it into the final calendar array by date
     foreach ($data as $entry) {
-      unset($description,$location,$time{start},$time{end},$date{start},$date{end});
+      unset($description,$location);
+      $bounds = array('start','end');
+      foreach ($bounds as $bound) {
+        if (isset($time{$bound})) { unset($time{$bound}); }
+        if (isset($date{$bound})) { unset($date{$bound}); }
+      }
       $eventDetails = array();
 
       // Get the title of the event
       $eventDetails['event'] = $entry['summary'];
 
       // Get the start and end times for the event, if any are given
-      $bounds = array('start','end');
       foreach ($bounds as $bound) {
         if (isset($entry[$bound]['dateTime'])) {
           $time{$bound} = $entry[$bound]['dateTime'];
@@ -108,8 +112,8 @@
       // Now generate an ID for this event and work out which dates it occurs on
       // This first sequence means that the event both has a unique identifier AND can be sorted by time
       $eventID = makeID($eventDetails['event']);
-      if (isset($time{start})) {
-        $eventID = str_replace(':','',$time{start}).$eventID;
+      if (isset($time{'start'})) {
+        $eventID = str_replace(':','',$time{'start'}).$eventID;
       } else {
         $eventID = '0000'.$eventID;
       }
@@ -118,14 +122,14 @@
       }
 
       // Keep adding the event to the generalData array until it has been added for each relevant date
-      $dateNow = $date{start};
-      while ($dateNow <= $date{end}) {
+      $dateNow = $date{'start'};
+      while ($dateNow <= $date{'end'}) {
         $generalData['events'][$dateNow][$eventID] = $eventDetails;
         $dateNow = date('Ymd',mktime(0,0,0,substr($dateNow,4,2),substr($dateNow,6,2)+1,substr($dateNow,0,4)));
       }
     }
 
-    foreach ($sportsData['data'] as $entry) {
+    foreach ($sportsData['data']['data'] as $entry) {
       if (isset($entry['event'])) {
         // Take the date from a human-readable format to an orderable one
         $date = explode('/',$entry['date']);
@@ -144,7 +148,7 @@
             if ($item == '') { unset($entry[$key]); }
           }
           // Generate a unique, orderable ID for the event, as above
-          $eventID = makeID($entry['event']);
+          $eventID = makeID($entry['event'],1);
           if (isset($entry['meettime'])) {
             $eventID = str_replace(':','',$entry['meettime']).$eventID;
           } elseif (isset($entry['matchtime'])) {
@@ -159,23 +163,25 @@
       }
     }
 
-    // Now just put all the data in chronological order
-    ksort($generalData['events']);
-    foreach ($generalData['events'] as $key => $day) {
-      ksort($day);
-      $generalData['events'][$key] = $day;
+    if (!empty($generalData['events'])) {
+      // Now just put all the data in chronological order
+      ksort($generalData['events']);
+      foreach ($generalData['events'] as $key => $day) {
+        ksort($day);
+        $generalData['events'][$key] = $day;
+      }
     }
     
     $generalData['meta']['retrieved'] = time();
 
     // Cache this final array as JSON and record the time of syncing; remove the old cache
       $newFile = $filename.'.json';
-      file_put_contents('data_diary/'.$newFile, json_encode($generalData));
+      file_put_contents('data/diary/'.$newFile, json_encode($generalData));
     
   } else { $newFile = $oldFile; }
 
   // Now output the array for use
-  $diaryArray = file_get_contents('data_diary/'.$newFile);
+  $diaryArray = file_get_contents('data/diary/'.$newFile);
   $diaryArray = json_decode($diaryArray, true);
 
   // Now to make the actual display

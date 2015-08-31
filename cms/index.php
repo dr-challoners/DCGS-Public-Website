@@ -5,6 +5,7 @@
   </head>
   <body>
     <style>
+      body { width: 100%; }
       .warning { color: red; font-weight: bold; }
       img { position: absolute; bottom: 0; right: 0; }
     </style>
@@ -67,6 +68,12 @@
         }
       echo '</ul>';
       
+      echo '<h2>Website systems</h2>';
+      echo '<ul>';
+        echo '<li><p><a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE">Manage intranet links</a></p></li>';
+        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit">View help file</a></p></li>';
+      echo '</ul>';
+      
       echo '<h2>Other options</h2>';
       echo '<ul>';
         echo '<li><p><a href="?action=clean">Clean stored data</a> - try this if any content is appearing incorrectly on the website.</p></li>';
@@ -75,10 +82,10 @@
       if (isset($mainData['data']['tags'])) {
         ksort($mainData['data']['tags']);
         echo '<h2>Tags</h2>';
-        echo '<p class="warning">In the future, tags will be used to make a new search facility for the website - you should start adding them to your articles in preparation for this.</p>';
-        echo '<p>Pages should have a small number of tags. Tags should be broad in scope, so that more articles can be matchd up.</p>';
+        echo '<p class="warning">In the future, tags will be used to make a new search facility for the website - you should start adding them<br />to your articles in preparation for this.</p>';
+        echo '<p>Pages should have a small number of tags. Tags should be broad in scope, so that more articles can be matched up.</p>';
         echo '<p>Use \'Key Stage 3\', \'Key Stage 4\' and \'Sixth Form\' instead of referring to years or to GCSEs or A Levels.</p>';
-        echo 'In the case of subjects that are part of a broader subject group (Languages with French, German and Spanish; Humanities with History, Geography and so on; Sports and each individual sport) tag both the individual subject and the subject group.</p>';
+        echo 'In the case of subjects that are part of a broader subject group (Languages with French, German and Spanish;<br />Humanities with History, Geography and so on; Sports and each individual sport) tag both the individual subject<br />and the subject group.</p>';
         echo '<p>The following tags have been recorded:</p>';
         echo '<ul>';
           foreach ($mainData['data']['tags'] as $tag => $content) {

@@ -1,6 +1,6 @@
 <?php
 
-  $dataFolder = 'data_override';
+  $dataFolder = 'data/override';
 
   if ((isset($_GET['overrideSync']) || isset($_GET['overridePreview'])) && file_exists($dataFolder.'/')) {
     // You can automatically re-sync the override messages on the website by deleting the old cache, thereby forcing it to start again
