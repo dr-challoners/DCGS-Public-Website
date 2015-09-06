@@ -67,8 +67,9 @@
           }
         }
       echo '</ul>';
-      
-      echo '<h2>Website systems</h2>';
+    }
+    
+    echo '<h2>Website systems</h2>';
       echo '<ul>';
         echo '<li><p><a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE">Manage intranet links</a></p></li>';
         echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit">View help file</a></p></li>';
@@ -98,7 +99,6 @@
           }
         echo '</ul>';
       }
-    }
 
     if (!file_exists('../'.$dataSrc)) {
       mkdir('../'.$dataSrc,0777,true);

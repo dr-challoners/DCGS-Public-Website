@@ -129,7 +129,7 @@
       }
     }
 
-    foreach ($sportsData['data']['data'] as $entry) {
+    foreach ($sportsData['data']['data'] as $i => $entry) {
       if (isset($entry['event'])) {
         // Take the date from a human-readable format to an orderable one
         $date = explode('/',$entry['date']);
@@ -148,7 +148,7 @@
             if ($item == '') { unset($entry[$key]); }
           }
           // Generate a unique, orderable ID for the event, as above
-          $eventID = makeID($entry['event'],1);
+          $eventID = makeID($entry['event'],1).$i;
           if (isset($entry['meettime'])) {
             $eventID = str_replace(':','',$entry['meettime']).$eventID;
           } elseif (isset($entry['matchtime'])) {
@@ -156,7 +156,6 @@
           } else {
             $eventID = '0000'.$eventID;
           }
-
           unset($entry['date']); // As we won't need it in the final array
           $generalData['events'][$y.$m.$d][$eventID] = $entry;
         }
