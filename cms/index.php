@@ -26,26 +26,38 @@
     $_GET['sync'] = 1;
     $newData = sheetToArray($mainSheet,0);
     $mainData['meta'] = $newData['meta'];
+    
+    $orderSheets = array();
+    foreach ($newData['data'] as $sectionname => $section) {
+      foreach ($section as $key => $sheet) {
+        if (strpos($sheet['sheetid'],'spreadsheets/d/') !== false) {
+          $cutoff = strpos($sheet['sheetid'],'spreadsheets/d/');
+          $cutoff = $cutoff+15;
+          $sheet['sheetid'] = substr($sheet['sheetid'],$cutoff);
+          $sheet['sheetid'] = explode('/',$sheet['sheetid'])[0];
+        }
+        if (strlen($sheet['sheetid']) == 44) {
+          $orderSheets[] = $sheet['sheetid'];
+        } else {
+          $sheet['sheetid'] = '';
+        }
+        $newData['data'][$sectionname][$key]['sheetid'] = $sheet['sheetid'];
+      }
+    }
 
     echo '<p>The following data has been found. Use the links to add or update this data on the website.</p>';
-    echo '<p>The original data can be found in <a href="https://drive.google.com/open?id=0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">this Google Drive folder</a>. Speak to SBU if you need permission to access.</p>';
+    echo '<p>The original data can be found in <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">this Google Drive folder</a>. Speak to SBU if you need permission to access.</p>';
     echo '<p><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a>.</p>';
     foreach ($newData['data'] as $sectionName => $section) {
       echo '<h2>Section: '.$sectionName.'</h2>';
       echo '<ul>';
         foreach ($section as $sheet) {
           if (!empty($sheet['sheetid'])) {
-            if (strpos($sheet['sheetid'],'spreadsheets/d/') !== false) {
-              $cutoff = strpos($sheet['sheetid'],'spreadsheets/d/');
-              $cutoff = $cutoff+15;
-              $sheet['sheetid'] = substr($sheet['sheetid'],$cutoff);
-              $sheet['sheetid'] = explode('/',$sheet['sheetid'])[0];
-            }
             $mainData['data']['sheets'][$sheet['sheetid']]['section'] = $sectionName;
             echo '<li><p>';
               if (isset($mainData['data']['sheets'][$sheet['sheetid']]['lastupdate'])) {
                 $name = $mainData['data']['sheets'][$sheet['sheetid']]['sheetname'];
-                echo str_pad($name.':',30,' ',STR_PAD_RIGHT);
+                echo str_pad($name.': ',29,' ',STR_PAD_RIGHT);
                 echo '<a href="?sheet='.$sheet['sheetid'].'">Update content</a>';
               } else {
                 if (!empty($sheet['sheetname'])) {
@@ -54,14 +66,14 @@
                   $name = 'Unnamed';
                 }
                 echo '<span class="warning">(New)</span> ';
-                echo str_pad($name.':',24,' ',STR_PAD_RIGHT);
+                echo str_pad($name.': ',23,' ',STR_PAD_RIGHT);
                 echo '<a href="?sheet='.$sheet['sheetid'].'">Create content</a>';
               }
               echo ' | ';
               echo '<a href="https://docs.google.com/spreadsheets/d/'.$sheet['sheetid'].'" target="'.mt_rand().'">Edit spreadsheet</a>';
               if (isset($mainData['data']['sheets'][$sheet['sheetid']]['lastupdate'])) {
                 echo ' | ';
-                echo '<a href="http://'.$_SERVER['SERVER_NAME'].'/c/'.clean($sectionName).'/'.clean($name).'">Visit content</a>';
+                echo '<a href="http://'.$_SERVER['SERVER_NAME'].'/c/'.clean($sectionName).'/'.clean($name).'" target="'.mt_rand().'">Visit content</a>';
               }
             echo '</p></li>';
           }
@@ -69,10 +81,19 @@
       echo '</ul>';
     }
     
+    $orderSheets = array_flip($orderSheets);
+    foreach ($orderSheets as $id => $ignore) {
+      $orderSheets[$id] = $mainData['data']['sheets'][$id];
+    }
+    $mainData['data']['sheets'] = $orderSheets;
+    
     echo '<h2>Website systems</h2>';
       echo '<ul>';
-        echo '<li><p><a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE">Manage intranet links</a></p></li>';
-        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit">View help file</a></p></li>';
+        echo '<li><p>Intranet links:               <a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="'.mt_rand().'">Edit spreadsheets</a> | <a href="https://docs.google.com/document/d/1y3nAKXu7hbfMlp23KctIT3mAJ1lbiIdQK80zmC40mzo/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Front page override:          <a href="https://docs.google.com/spreadsheets/d/1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/?overrideSync=1" target="'.mt_rand().'">Force re-sync</a> | <a href="http://www.challoners.com/?overridePreview=1" target="'.mt_rand().'">Preview overrides</a> | <a href="https://docs.google.com/document/d/1vcCNqjPMzeWCm-nQDxLT2OoydrApvOdkJhfBfz6Ji2o/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync" target="'.mt_rand().'">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>House Competition:            <a href="http://www.challoners.com/pages/Student_life/House_Competition/Current_positions&sync=1" target="'.mt_rand().'">Update website</a> | <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="'.mt_rand().'">Edit content</a></p></li>';
+        echo '<li><p>Clubs and societies:          <a href="http://www.challoners.com/pages/Student_life/Enrichment/Clubs_and_societies_calendar&sync=1" target="'.mt_rand().'">Update website</a> | Edit calendar - <a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="'.mt_rand().'">Autumn</a> | <a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="'.mt_rand().'">Spring</a> | <a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="'.mt_rand().'">Summer</a></p></li>';
       echo '</ul>';
       
       echo '<h2>Other options</h2>';

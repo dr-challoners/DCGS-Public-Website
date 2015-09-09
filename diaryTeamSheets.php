@@ -14,8 +14,8 @@
   
   p,li {
     margin: 0; padding: 0;
-    font-size: 1.2em;
-    line-height: 1.4em;
+    font-size: 1.15em;
+    line-height: 1.3em;
   }
   
   @media screen {
@@ -53,7 +53,7 @@
 
   div.match {
     text-align: right;
-    margin-bottom: 1.4em;
+    margin-bottom: 1.2em;
   }
   
   p#break { margin-top: 0.6em; }
@@ -72,7 +72,7 @@
   div.otherDetails {
     clear: left;
     text-align: center;
-    font-size: 2em;
+    font-size: 1.2em;
     border-top: 1px solid #aaaaaa;
     padding-top: 0.4em;
   }
