@@ -142,6 +142,8 @@
         $thisEventMonth = $y.$m;
         
         if ($thisEventMonth >= $lastMonth && $thisEventMonth <= $nextMonth) {
+          
+          $entry['sportCheck'] = 1; // So that the diary can easily recognise sporting events, to make specific responses
         
           // Get rid of unused elements so you only need to do an isset check, not also a !empty check
           foreach ($entry as $key => $item) {
@@ -238,7 +240,7 @@
               }
               if (isset($event['teams'])) {
                 if (isset($event['results'])) {
-                  $results = explode(';',$event['results']);
+                  $results = preg_split('/[;:]/',$event['results']);
                   foreach ($results as $key => $result) {
                     $result = trim($result);
                     if ($result == '') { unset($results[$key]); }
@@ -275,7 +277,7 @@
                     }
                   }
                 }
-                $teams = explode(';',$event['teams']);
+                $teams = preg_split('/[;:]/',$event['teams']);
                 foreach ($teams as $key => $team) {
                   $tCount = $key+2;
                   $team = trim($team);
@@ -303,7 +305,26 @@
             }
             echo '</p>';
           }
-          if (isset($event['otherdetails'])) { echo '<p class="details">'.str_replace('\\','<br />',$event['otherdetails']).'</p>'; }
+          if (isset($event['otherdetails'])) {
+            $remove = array('[display]','[display only]','[repeat]');
+            if (isset($event['sportCheck'])) {
+              $details = '';
+              $event['otherdetails'] = preg_split('/[;:]/',$event['otherdetails']);
+              foreach ($event['otherdetails'] as $line) {
+                if (stripos($line,'[display]') !== false || stripos($line,'[display only]') !== false) {
+                  $line = str_ireplace($remove,'',$line);
+                  $line = trim($line);
+                  $details .= $line.'</p><p class="details">';
+                }
+              }
+              $details = str_replace('<p class="details"></p>','',$details);
+            } else {
+              $details = $event['otherdetails'];
+            }
+            $details = Parsedown::instance()->parse($details);
+            $details = str_replace('<p>','<p class="details">',$details);
+            echo $details;
+          }
         }
       }
     }

@@ -62,8 +62,8 @@
 
   div.list {
     clear: left; float: left;
-    width: 50%;
-    margin-bottom: 1.8em;
+    width: 46%;
+    margin: 0 2% 1.8em;
   }
   div.list:nth-of-type(3) {
     clear: none;
@@ -91,14 +91,45 @@
     $matchData = $matchData['events'][$date][$eventID];
     
     $pos = $_GET['sheet']*2-1;
-
-    $teams = explode(';',$matchData['teams']);
-    $players = explode(';',$matchData['players']);
-    $teamLists = array();
-    foreach ($teams as $key => $row) {
-      if (!empty(trim($players[$key]))) {
-        $teamLists[] = array(trim($row),$players[$key]);
+    
+    if (isset($matchData['otherdetails'])) {
+      $details = array();
+      $matchData['otherdetails'] = $matchData['otherdetails'];
+      $matchData['otherdetails'] = preg_split('/[;:]/',$matchData['otherdetails']);
+      foreach ($matchData['otherdetails'] as $key => $line) {
+        if (stripos($line,'[display only]') == false) {
+          if (stripos($line,'[repeat]') == false) {
+            unset($lastLine);
+            $line = str_ireplace('[display]','',$line);
+            $line = htmlentities($line);
+            $line = trim($line);
+            $lastLine = $line;
+          } else {
+            if (isset($lastLine)) {
+              $line = $lastLine;
+            } else {
+              $line = '';
+            }
+          }
+          $details[] = $line;
+        }
       }
+    }
+
+    $teams = str_replace(':','[BRK]:',$matchData['teams']);
+    $teams = preg_split('/[;:]/',$teams);
+    $players = preg_split('/[;:]/',$matchData['players']);
+    $teamLists = array();
+    $c = 0;
+    foreach ($teams as $key => $row) {
+      if (!empty($row) && !empty(trim($players[$key]))) {
+        $teamLists[] = array(trim(str_replace('[BRK]','',$row)),$players[$key]);
+        if (strpos($row,'[BRK]') !== false && $c%2 == 0) {
+          $teamLists[] = '[BRK]';
+          $c++;
+        }
+      }
+      $c++;
     }
 
     // Check to see if next/previous pages need to be made and create the variables to do so
@@ -118,7 +149,7 @@
       if (isset($npos)) {
         echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$npos.'">&#187; Next page</a> ';
       }
-      echo '<a href="/diary">Back to diary</a>';
+      echo '<a href="/diary/'.date('d/m/Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'/">Back to diary</a>';
       echo '</span>';
     echo '</p>';
 
@@ -132,7 +163,7 @@
           echo $matchData['event'];
         }
         echo ': '.$teamLists[$pos-1][0];
-        if (isset($teamLists[$pos][0])) {
+        if (isset($teamLists[$pos][0]) && $teamLists[$pos] !== '[BRK]') {
           echo ' and '.$teamLists[$pos][0];
         }
       echo '</h1>';
@@ -155,21 +186,26 @@
     echo '</div>';
 
     foreach ($teamLists as $list) {
-      echo '<div class="list">';
-        echo '<h2>'.$list[0].'</h2>';
-        $players = explode(',',$list[1]);
-        echo '<ol>';
-        foreach ($players as $player) {
-          echo '<li>'.trim($player).'</li>';
-        }
-        echo '</ol>';
-      echo '</div>';
+      if ($list !== '[BRK]') {
+        echo '<div class="list">';
+          echo '<h2>'.$list[0].'</h2>';
+          $players = explode(',',$list[1]);
+          echo '<ol>';
+          foreach ($players as $player) {
+            echo '<li>'.trim($player).'</li>';
+          }
+          echo '</ol>';
+        echo '</div>';
+      }
     }
 
-    if (isset($matchData['otherdetails'])) {
-      $details = htmlentities($matchData['otherdetails']);
+    if (isset($details)) {
       echo '<div class="otherDetails">';
-        echo Parsedown::instance()->parse($details);
+        if (isset($details[1]) && isset($details[$_GET['sheet']-1])) {
+          echo Parsedown::instance()->parse($details[$_GET['sheet']-1]);
+        } else {
+          echo Parsedown::instance()->parse($details[0]);
+        }
       echo '</div>';
     }
   } else {
