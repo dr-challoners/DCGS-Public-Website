@@ -171,7 +171,7 @@ if (!isset($error)) {
           $slideImgs = array_reverse($story['imgs']); // The slideshow code needs the images going in reverse order
           echo '<div id="slideshow">';
             foreach ($slideImgs as $slide) {
-              $imgLink = '/content_news/'.$story['data-month'].'/'.$story['data-url'].'/'.$slide;
+              $imgLink = $slide;
               $imgLink = str_replace("'","\'",$imgLink);
               echo '<div class="newsImg" style="background-image:url(\''.$imgLink.'\');"></div>';
             }
