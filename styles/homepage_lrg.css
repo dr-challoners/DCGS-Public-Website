@@ -55,6 +55,7 @@
 #magazine iframe.videoPreview {
   display: block;
   float: left;
+  margin-left: 8px;
 }
 #magazine > .audio { cursor: pointer; }
 #magazine > .error {

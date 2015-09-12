@@ -110,7 +110,9 @@ if (!empty($row['url'])) {
       echo '"';
     }
     if (!empty($row['content'])) {
-      echo ' data-title="'.str_replace('=','-',$row['content']).'"';
+      echo ' data-title="'.str_replace('=','-',formatText($row['content'],0)).'"';
+    } else {
+      echo '"';
     }
     echo '>'."\n";
     echo '<img src="/'.$imgsSrc.'/'.$imageName.'" ';

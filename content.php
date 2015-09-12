@@ -1,15 +1,6 @@
 <?php
 
   include('header_declarations.php');
-
-  // Meta tags for Facebook sharing, provided there's a story to display
-  if ($_GET['section'] == 'News' && isset($_GET['page'])) {
-    echo '<meta property="og:type" content ="article" />';
-    echo '<meta property="og:title" content ="'.str_replace('-',' ',$_GET['page']).' - News from Challoner\'s" />';
-    echo '<meta property="og:site_name" content ="Dr Challoner\'s Grammar School" />';
-    echo '<meta property="og:image" content ="http://'.$_SERVER['SERVER_NAME'].'/styles/imgs/fb-shared-post.png" />';
-  }
-
   include('header_navigation.php');
 
   if (isset($_GET['section'])) {
@@ -24,7 +15,7 @@
             $page = $sheet['pages'][0];
           } else {
             foreach($sheet['pages'] as $page) {
-              if (strpos(clean($page),$_GET['page']) !== false) { break; }
+              if (clean($page) == $_GET['page']) { break; }
             }
           }
         }    
@@ -46,14 +37,8 @@
           $error = parsePagesSheet($sheetID,$page,1,1,'newsArticle.php');
 
           if (!isset($error)) {
-            echo '<div class="share lrg">';  
-
-              // Share on Facebook
-              echo '<iframe src="//www.facebook.com/plugins/share_button.php?href=';
-              $shareurl = 'http://'.$_SERVER['SERVER_NAME'].'/c/News/'.$_GET['sheet'].'/'.$_GET['page'];
-              echo urlencode($shareurl);
-              echo '&amp;layout=button" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>';
-
+            echo '<div class="share lrg">';
+            
               // Share on Twitter
               echo '<a href="https://twitter.com/share" class="twitter-share-button" data-text="';
               echo 'News from DCGS: '.str_replace('-',' ',$_GET['page']);

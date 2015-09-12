@@ -74,7 +74,7 @@ foreach ($storyList as $key => $row) {
       $details['videoID'] = $id;
     }
   }
-  $text = Parsedown::instance()->parse($text);
+  $text = formatText($text);
   $text = strip_tags($text); // Remove other HTML and PHP
   $details['text'] = $text;
   if (count($newsImage) > 0) {
@@ -199,7 +199,7 @@ if (!isset($error)) {
           echo '<div class="newsImg" style="background-image:url(\''.$imgLink.'\');"></div>';
         }
       }
-      echo '<h1>'.$story['name'].'</h1>';
+      echo '<h1>'.formatText($story['name'],0).'</h1>';
       echo '<p><em>'.$story['date'].'</em><span><em>:</em> ';
       echo  word_cutoff($story['text'],$chars).'...';
       echo '</span></p>';

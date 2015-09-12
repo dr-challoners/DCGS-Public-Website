@@ -39,7 +39,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     if ($titleDisplay == 1) {
       $title = str_ireplace('[HIDDEN]','',$page);
       $title = trim($title);
-      echo '<h1>'.$title.'</h1>'."\n\n";
+      echo '<h1>'.formatText($title,0).'</h1>'."\n\n";
     }
     
     foreach ($pageArray as $key => $row) {
@@ -67,8 +67,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
 
           case 'text':
           default:
-            $row['content'] = htmlentities($row['content']);
-            echo Parsedown::instance()->parse($row['content']);
+            echo formatText($row['content']);
           break;
 
           case 'link':
@@ -80,7 +79,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
             echo '">';
               echo '<a href="'.$row['url'].'">';
                 if (!empty($row['content'])) {
-                  echo $row['content'];
+                  echo formatText($row['content'],0);
                 } else {
                   echo $row['url'];
                 }
@@ -180,7 +179,7 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameTitle = '') {
   if (!empty($iFrameTitle)) {
     $line .= '<div class="simpleOpenClose" name="'.$iFrameName.'" id="'.$iFrameID.'">'."\n";
     $line .= '<p class="link '.$iFrameName.'"><a href="javascript:simpleOpenClose(\''.$iFrameID.'\',\''.$iFrameName.'\')">';
-    $line .= $iFrameTitle.'</a></p>'."\n";
+    $line .= formatText($iFrameTitle,0).'</a></p>'."\n";
   }
   $line .= '<iframe ';
   if (!empty($iFrameClass)) {
@@ -239,11 +238,11 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
       echo '" id="'.$id.'" name="'.$dropdownMenus.'">'."\n";
       echo '<h2>';
         echo '<a href="javascript:simpleOpenClose(\''.$id.'\',\''.$dropdownMenus.'\')">';
-          echo $sheet['sheetname'];
+          echo formatText($sheet['sheetname'],0);
         echo '</a>';
       echo '</h2>'."\n";
     } else {
-      echo '<h2>'.$sheet['sheetname'].'</h2>'."\n";
+      echo '<h2>'.formatText($sheet['sheetname'],0).'</h2>'."\n";
     }
     echo '<ul>'."\n";
     foreach ($sheet['pages'] as $page) {
@@ -252,7 +251,7 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
         $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
         $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
         echo '<li>';
-          echo '<a href="'.$pageURL.'">'.$page.'</a>';
+          echo '<a href="'.$pageURL.'">'.formatText($page,0).'</a>';
         echo '</li>'."\n";
       }
     }

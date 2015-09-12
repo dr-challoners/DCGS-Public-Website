@@ -98,6 +98,15 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
     
   }
 
+function formatText($text,$paragraphs = 1) {
+  $text = htmlentities($text);
+  $text = Parsedown::instance()->parse($text);
+  if ($paragraphs == 0) {
+    $text = str_replace(array('<p>','</p>'),'',$text);
+  }
+  return $text;
+}
+
 function clean($string) {
    $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
    $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.

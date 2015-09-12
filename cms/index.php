@@ -115,7 +115,7 @@
               $tagdetails = '<b>'.$tag.'</b> in '.count($content).' article';
               if (count($content) != 1) { $tagdetails .= 's'; }
               echo str_pad($tagdetails,54,' ',STR_PAD_RIGHT);
-              echo '<a href="?action=droptag&tag='.$tag.'">Delete</a>';
+              //echo '<a href="?action=droptag&tag='.$tag.'">Delete</a>';
             echo '</li>';
           }
         echo '</ul>';
