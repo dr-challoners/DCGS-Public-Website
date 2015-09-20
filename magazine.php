@@ -41,10 +41,10 @@ foreach ($storyList as $key => $row) {
     if ($datum['datatype'] == '' || $datum['datatype'] == 'text') {
       $text .= $datum['content'];
     }
-    if ($datum['datatype'] == 'newsDate' && !isset($details['date'])) {
+    if (strtolower($datum['datatype']) == 'newsdate' && !isset($details['date'])) {
       $details['date'] = $datum['content'];
     }
-    if ($datum['datatype'] == 'image' || $datum['datatype'] == 'newsImage') {
+    if (strtolower($datum['datatype']) == 'image' || strtolower($datum['datatype']) == 'newsimage') {
       if (!empty($datum['content'])) {
         $imageName = makeID($datum['url'],1).'-'.clean($datum['content']);                      
       } else {
@@ -53,7 +53,7 @@ foreach ($storyList as $key => $row) {
       fetchImage($datum['url'],$imageName);
       ${$datum['datatype']}[] = '/'.$imgsSrc.'/'.$imageName;
     }
-    if ($datum['datatype'] == 'newsVideo' && !isset($details['videoID'])) {
+    if (strtolower($datum['datatype']) == 'newsvideo' && !isset($details['videoID'])) {
       if (strpos($datum['url'],"youtu.be") !== false) {
         $details['videoType'] = 'youtube';
         $id = strpos($datum['url'],"e/");
