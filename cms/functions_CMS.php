@@ -199,16 +199,20 @@ function fetchImage($imageURL,$imageName) {
   
   if (!file_exists($imgsSrc.'/'.$imageName)) {
     if (strpos($imageURL,'drive.google.com') !== false) {
-      while (@file_get_contents($file) === false) { // This should (hopefully) make the program persevere if it struggles to pull the image from Drive
-        if (strpos($imageURL,'/file/d/') !== false) {
-          $file = strpos($imageURL,'/file/d/');
-        } elseif (strpos($imageURL,'open?id=') !== false) {
-          $file = strpos($imageURL,'open?id=');
-        }
+      if (strpos($imageURL,'/file/d/') !== false) {
+        $file = strpos($imageURL,'/file/d/');
+      } elseif (strpos($imageURL,'open?id=') !== false) {
+        $file = strpos($imageURL,'open?id=');
+      }
+      if (isset($file)) {
         $file = $file+8;
         $file = substr($imageURL,$file);
         $file = explode('/',$file)[0];
         $file = 'http://drive.google.com/uc?export=view&id='.$file;
+        if (@file_get_contents($file) === false) {
+          // This means if the image doesn't fetch, it just drops out (hopefully)
+          unset ($file);
+        }
       }
     } elseif (isImage($imageURL)) {
       $file = $imageURL;

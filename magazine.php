@@ -11,17 +11,19 @@ function word_cutoff($text, $length) { // Creates the preview text for articles
 $storyList = array();
 $x = 0; $max = 10; // Determines the number of stories to display
 
-//view($mainData);
+// view($mainData);
 
 foreach ($mainData['data']['sheets'] as $id => $sheet) {
   if ($sheet['section'] = 'News') {
     $sheetArray = file_get_contents($dataSrc.'/'.$id.'.json');
     $sheetArray = json_decode($sheetArray, true);
     foreach ($sheetArray['data'] as $key => $page) {
-      $storyList[$key] = $page;
-      $storyList[$key]['section'] = $sheetArray['meta']['sheetname'];
-      $x++;
-      if ($x >= $max) { break; }
+      if (strpos(strtolower($key),'[hidden]') === false) {
+        $storyList[$key] = $page;
+        $storyList[$key]['section'] = $sheetArray['meta']['sheetname'];
+        $x++;
+        if ($x >= $max) { break; }
+      }
     }
     if ($x >= $max) { break; }
   }
@@ -79,7 +81,7 @@ foreach ($storyList as $key => $row) {
   $details['text'] = $text;
   if (count($newsImage) > 0) {
     $details['imgs'] = $newsImage;
-  } else {
+  } elseif (count($image) > 0) {
     $details['imgs'] = $image;
   }
   $storyList[] = $details;
