@@ -287,6 +287,7 @@
                   if ($tCount == count($teams)) { echo ' and '; }
                   elseif ($tCount < count($teams)) { echo ', '; }
                 }
+                unset($results);
               } elseif (isset($event['results'])) {
                 echo '<span>'.$event['results'].'</span>';
               }

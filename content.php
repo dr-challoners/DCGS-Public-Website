@@ -14,9 +14,7 @@
           if (!isset($_GET['page'])) {
             $page = $sheet['pages'][0];
           } else {
-            foreach($sheet['pages'] as $page) {
-              if (clean($page) == $_GET['page']) { break; }
-            }
+            $page = $_GET['page'];
           }
         }    
       }

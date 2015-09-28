@@ -22,7 +22,14 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
   $sheetArray = json_decode($sheetArray, true);
   
   foreach ($sheetArray['data'] as $page => $data) {
-    if (clean($pageName) == clean($page)) {
+    $pageSearch = array($pageName,$page);
+    foreach ($pageSearch as $key => $term) {
+      $pageSearch[$key] = strtolower($pageSearch[$key]);
+      $pageSearch[$key] = str_replace('[hidden]','',$pageSearch[$key]);
+      $pageSearch[$key] = trim($pageSearch[$key]);
+      $pageSearch[$key] = clean($pageSearch[$key]);
+    }
+    if ($pageSearch[0] == $pageSearch[1]) {
       $pageArray = $data;
       break;
     }
