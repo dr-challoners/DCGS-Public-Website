@@ -7,7 +7,8 @@
     // This is necessary - otherwise there's an error
     $sheets = array();
     foreach ($mainData['data']['sheets'] as $id => $sheet) {
-      if ($sheet['section'] == $_GET['section']) {
+      if (strtolower(clean($sheet['section'])) == strtolower(clean($_GET['section']))) {
+        $sectionName = $sheet['section'];
         $sheets[$id] = $sheet;
         if (isset($_GET['sheet']) && isset($sheet['sheetname']) && clean($sheet['sheetname']) == clean($_GET['sheet'])) {
           $sheetID = $id;
@@ -71,7 +72,7 @@
         if ($r == 2) { echo '<div class="photostub med" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>'; } 
       echo '</div>';
       echo '<div class="mcol frontmenu lrg">';
-        echo '<h1>'.$_GET['section'].'</h1>';
+        echo '<h1>'.$sectionName.'</h1>';
         navigatePagesSheet($sheets,$contentURL);
       echo '</div>';
     }

@@ -46,8 +46,20 @@
     }
 
     echo '<p>The following data has been found. Use the links to add or update this data on the website.</p>';
-    echo '<p>The original data can be found in <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">this Google Drive folder</a>. Speak to SBU if you need permission to access.</p>';
-    echo '<p><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a>.</p>';
+    echo '<ul>';
+      echo '<p><li><a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">Public website data folder</a> - speak to SBU if you need permission to access</li></p>';
+      echo '<p><li><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a></li></p>';
+    echo '</ul>';
+    
+    echo '<h2>Website systems</h2>';
+      echo '<ul>';
+        echo '<li><p>Intranet links:               <a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="'.mt_rand().'">Edit spreadsheets</a> | <a href="https://docs.google.com/document/d/1y3nAKXu7hbfMlp23KctIT3mAJ1lbiIdQK80zmC40mzo/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Front page override:          <a href="https://docs.google.com/spreadsheets/d/1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/?overrideSync=1" target="'.mt_rand().'">Force re-sync</a> | <a href="http://www.challoners.com/?overridePreview=1" target="'.mt_rand().'">Preview overrides</a> | <a href="https://docs.google.com/document/d/1vcCNqjPMzeWCm-nQDxLT2OoydrApvOdkJhfBfz6Ji2o/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync" target="'.mt_rand().'">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>House Competition:            <a href="http://www.challoners.com/pages/Student_life/House_Competition/Current_positions&sync=1" target="'.mt_rand().'">Update website</a> | <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="'.mt_rand().'">Edit content</a></p></li>';
+        echo '<li><p>Clubs and societies:          <a href="http://www.challoners.com/pages/Student_life/Enrichment/Clubs_and_societies_calendar&sync=1" target="'.mt_rand().'">Update website</a> | Edit calendar - <a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="'.mt_rand().'">Autumn</a> | <a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="'.mt_rand().'">Spring</a> | <a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="'.mt_rand().'">Summer</a></p></li>';
+      echo '</ul>';
+    
     foreach ($newData['data'] as $sectionName => $section) {
       echo '<h2>Section: '.$sectionName.'</h2>';
       echo '<ul>';
@@ -86,15 +98,6 @@
       $orderSheets[$id] = $mainData['data']['sheets'][$id];
     }
     $mainData['data']['sheets'] = $orderSheets;
-    
-    echo '<h2>Website systems</h2>';
-      echo '<ul>';
-        echo '<li><p>Intranet links:               <a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="'.mt_rand().'">Edit spreadsheets</a> | <a href="https://docs.google.com/document/d/1y3nAKXu7hbfMlp23KctIT3mAJ1lbiIdQK80zmC40mzo/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>Front page override:          <a href="https://docs.google.com/spreadsheets/d/1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/?overrideSync=1" target="'.mt_rand().'">Force re-sync</a> | <a href="http://www.challoners.com/?overridePreview=1" target="'.mt_rand().'">Preview overrides</a> | <a href="https://docs.google.com/document/d/1vcCNqjPMzeWCm-nQDxLT2OoydrApvOdkJhfBfz6Ji2o/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync" target="'.mt_rand().'">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>House Competition:            <a href="http://www.challoners.com/pages/Student_life/House_Competition/Current_positions&sync=1" target="'.mt_rand().'">Update website</a> | <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="'.mt_rand().'">Edit content</a></p></li>';
-        echo '<li><p>Clubs and societies:          <a href="http://www.challoners.com/pages/Student_life/Enrichment/Clubs_and_societies_calendar&sync=1" target="'.mt_rand().'">Update website</a> | Edit calendar - <a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="'.mt_rand().'">Autumn</a> | <a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="'.mt_rand().'">Spring</a> | <a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="'.mt_rand().'">Summer</a></p></li>';
-      echo '</ul>';
       
       echo '<h2>Other options</h2>';
       echo '<ul>';

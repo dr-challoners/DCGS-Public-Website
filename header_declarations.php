@@ -30,7 +30,7 @@
       if (isset($_GET['page'])) {
         echo str_replace('-',' ',$_GET['page']).' -';
       } elseif ($_GET['section'] != 'News') {
-        echo str_replace('-',' ',$_GET['section']).' -';
+        echo ucwords(str_replace('-',' ',$_GET['section'])).' -';
       }
     }
 			
