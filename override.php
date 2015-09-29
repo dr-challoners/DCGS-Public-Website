@@ -33,9 +33,17 @@
     }
     if ((isset($start) && $start > time()) || (isset($end) && $end < time())) { $archived = 1; }
     
-    $positions = array('left','right','top','bottom','title','full');
-    if (!empty($row['image']) && in_array(strtolower($row['imageposition']),$positions) && isImage($row['image'])) {
-      $image = array($row['image'],strtolower($row['imageposition']));
+    if (!empty($row['image'])) {
+      $positions = array('left','right','top','bottom','title','full');
+      if (!empty($datum['content'])) {
+        $imageName = makeID($row['image'],1).'-'.clean($row['title']);                      
+      } else {
+        $imageName = makeID($row['image']);
+      }
+      $check = fetchImage($row['image'],$imageName);
+      if ($check !== 'ERROR' && in_array(strtolower($row['imageposition']),$positions)) {
+        $image = array($imgsSrc.'/'.$imageName,strtolower($row['imageposition']));
+      }
     }
     
     if (!empty($row['message']) && (isset($_GET['overridePreview']) || (empty($row['preview'])) && !isset($archived))) {
