@@ -16,6 +16,7 @@ div.pageNav {
     font-size: 18px;
     list-style-type: none;
     margin: -4px 0px -5px 0px;
+    padding: 0;
   }
   
   div.pageNav a {

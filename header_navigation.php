@@ -87,7 +87,7 @@
 				<a class="lbutton" href="/"><img src="/styles/imgs/home.png" alt="Home" /></a>
 					<ul>
             <?php
-            echo '<li><a href="/pages/Overview/" ';
+            echo '<li><a href="/c/Overview/" ';
               if (isset($_GET['folder']) && strtolower($_GET['folder']) == "overview") {
                 echo 'id="selected"';
               } else {
@@ -100,25 +100,25 @@
             echo '<li><a href="/intranet/"';
               if (isset($intranet)) { echo ' id="selected"'; }
             echo '>Intranet</a></li>';
-            echo '<li><a href="/pages/Student_life/" ';
-              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "student_life") {
+            echo '<li><a href="/c/Student-life/" ';
+              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "student-life") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n3\')" onmouseout="mclosetime()"';
               }
             echo '>Student life</a></li>';
-            echo '<li><a href="/pages/Showcase/" ';
+            echo '<li><a href="/c/Showcase/" ';
               if (isset($_GET['folder']) && strtolower($_GET['folder']) == "showcase") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n4\')" onmouseout="mclosetime()"';
               }
             echo '>Showcase</a></li>';
-            echo '<li><a href="/pages/Information/Alumni/"';
+            echo '<li><a href="/c/Information/Alumni/"';
                if (isset($_GET['subfolder']) && strtolower($_GET['subfolder']) == "alumni") { echo ' id="selected"'; }
             echo '>Alumni</a></li>';
-            echo '<li><a href="/pages/Information/General_information/Contact_us"';
-               if (isset($_GET['page']) && strtolower($_GET['page']) == "contact_us") { echo ' id="selected"'; }
+            echo '<li><a href="/c/Information/General-information/Contact-us"';
+               if (isset($_GET['page']) && strtolower($_GET['page']) == "contact-us") { echo ' id="selected"'; }
             echo '>Contact us</a></li>';
             ?>
 					</ul>
@@ -251,7 +251,7 @@
           <h1 class="sub_nav sml"><a href="javascript:openCloseAll('nA')">Alumni</a></h1>
           <h1 class="sml"><a href="javascript:openCloseAll('n0')">Diary</a></h1>
           <h1 class="sml"><a href="javascript:openCloseAll('n9')">Intranet</a></h1>
-          <h1 class="sml" id="last"><a href="/pages/Information/General_information/Contact_us">Contact us</a></h1>					
+          <h1 class="sml" id="last"><a href="/c/Information/General-information/Contact-us">Contact us</a></h1>					
 					
 					<hr class="clear" /></div>
 

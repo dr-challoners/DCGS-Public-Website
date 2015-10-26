@@ -6,7 +6,7 @@
   //   - the path to the directory that any images are stored in
   //   - the sheet ID for the main content sheet, which specifies the structure for all other sheets
 
-function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $customModule = 'none') {
+function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $customModule = 'none', $showRelated = 0) {
   
   // This is the big one. This function goes through the collected array and converts each row into HTML according to the content found there.
   // sheetKey need just be the sheet key for the data (as the function must be used with the config file that gives the rest)
@@ -14,9 +14,10 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
   // Setting CMSdiv to 1 tells the function that the div with class 'sheetCMS' has already been included, and so won't be made here
   // Make sure that this div exists if you wish to use the built-in sheetCMS styles
   // If titleDisplay is set to 0 then the first line won't be an h1 header of the page's name
+  // If showRelated is set to 1 and the page has tags, related pages will be shown at the bottom of the page
   // Where possible, this system creates HTML only and leaves styling to the website
   
-  global $dataSrc, $imgsSrc, $sheetCMS, $colour;
+  global $mainData, $dataSrc, $imgsSrc, $codeSrc, $sheetCMS, $colour, $pageTitle;
   
   $sheetArray = file_get_contents($dataSrc.'/'.$sheetKey.'.json');
   $sheetArray = json_decode($sheetArray, true);
@@ -38,7 +39,10 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     $error = 1;
     return $error;
   } else {
-    
+    $pageTitle = str_replace('[PAGE]',trim(str_ireplace('[hidden]','',$page)),$pageTitle);
+    $pageTitle = formatText($pageTitle,0);
+    $pageTitle = strip_tags($pageTitle);
+    echo '<script type="text/javascript">document.title = "'.$pageTitle.'"</script>';
     if ($CMSdiv == 0) {
       echo '<div class="sheetCMS">'."\n\n";
     }
@@ -74,17 +78,43 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
 
           case 'text':
           default:
-            echo formatText($row['content']);
+            $content = formatText($row['content']);
+            if (strpos($row['format'],'style[') !== false || strpos($row['format'],'div[') !== false) {
+              $styles = explode(',',$row['format']);
+              $styles = array_reverse($styles);
+              foreach ($styles as $style) {
+                $style = trim($style);
+                if (strpos($style,'style[') !== false) {
+                  $style = str_replace(array('style[',']'),'',$style);
+                  $content = str_replace('<p>','<p style="'.$style.'">',$content);
+                }
+                if (strpos($style,'div[') !== false) {
+                  $style = str_replace(array('div[',']'),'',$style);
+                  $content = '<div style="'.$style.'">'.$content.'</div>';
+                }
+              }
+            }
+            echo $content;
           break;
 
           case 'link':
           case 'file':
+          case 'email':
+            // Redefining url and dataType as separate variables allows us to make modifications without losing the original info
+            $url = $row['url'];
+            $type = $dataType;
+            if ($type == 'email') {
+              // Add the 'mailto:' component and some simple robot baffling
+              $address = ""; $i = 0;
+              for ($i = 0; $i < strlen($url); $i++) { $address .= '&#'.ord($url[$i]).';'; }
+              $url = "mailto:".$address;              
+            }
             echo '<p class="link';
-              if ($dataType = 'file') {
-                echo ' file';
+              if ($type != 'link') {
+                echo ' '.$type;
               }
             echo '">';
-              echo '<a href="'.$row['url'].'">';
+              echo '<a href="'.$url.'">';
                 if (!empty($row['content'])) {
                   echo formatText($row['content'],0);
                 } else {
@@ -127,7 +157,47 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           
           case 'tags':
           case 'tag':  // The instruction is to write 'tags' for this datatype, but this is a failsafe
-            // Just ignore them... for now. Consider building a 'similar articles' feature.
+          // This doesn't actually output yet - that's the next step!
+            if (strpos($row['format'],'related') !== false || $showRelated == 1) {
+              $matched = array();
+              $related = array();
+              $highRank = 0;
+              $tags = explode(',',$row['content']);
+              foreach ($mainData['data']['tags'] as $key => $data) {
+                foreach ($tags as $tag) {
+                  if (strtolower(trim($tag)) == strtolower($key)) {
+                    foreach ($mainData['data']['tags'][$key] as $id => $info) {
+                      if (clean($info[2]) != clean($pageName)) {
+                        if (isset($matched[$id])) {
+                          $rank = $matched[$id]['rank'];
+                          $rank++;
+                        } else {
+                          $rank = 1;
+                        }
+
+                        $matched[$id] = $info;
+                        $matched[$id]['rank'] = $rank;
+                        if ($highRank < $rank) {
+                          $highRank = $rank;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              $matched = array_reverse($matched);
+              for ($r = $highRank; $r > 0; $r--) {
+                foreach ($matched as $match) {
+                  if ($match['rank'] == $r) {
+                    $returned[] = array('section' => $match[0],'sheet' => $match[1],'page' => $match[2]);
+                  }
+                }
+              }
+              if (count($returned) < 4) {
+                unset ($returned);
+              }
+              //if (isset($returned)){view ($returned);}
+            }
           break;
           
           case 'table':
@@ -136,29 +206,50 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               $cutoff = $cutoff+15;
               $sheetID = substr($row['url'],$cutoff);
               $sheetID = explode('/',$sheetID)[0];
-              $tableArray = sheetToArray($sheetID,$dataSrc);
+              $tableArray = sheetToArray($sheetID,$dataSrc,1);
               foreach ($tableArray['data'] as $table => $rows) {
                 $top = 1;
-                echo '<h2>'.$table.'</h2>';
+                if (strpos($row['format'],'title') !== false) {
+                  echo '<h2>'.$table.'</h2>';
+                }
                 echo '<table>';
                 foreach ($rows as $row) {
-                  if (isset($top)) {
+                  if ($top == 1) {
                     echo '<tr>';
                       foreach ($row as $heading => $cell) {
-                        echo '<th><h3>'.ucwords($heading).'</h3></th>';
+                        echo '<th><h3>';
+                          if ($heading[0] != '_') {
+                            echo ucwords($heading);
+                            $top = 0;
+                          } else {
+                            echo trim(str_ireplace('[empty]','',$cell));
+                            $top = 2;
+                          }
+                        echo '</h3></th>';
                       }
                     echo '</tr>';
-                    unset($top);
                   }
-                  echo '<tr>';
-                    foreach ($row as $cell) {
-                      echo '<td><p>'.$cell.'</p></td>';
-                    }
-                  echo '</tr>';
+                  if ($top == 0) {
+                    echo '<tr>';
+                      foreach ($row as $cell) {
+                        echo '<td><p>'.trim(str_ireplace('[empty]','',$cell)).'</p></td>';
+                      }
+                    echo '</tr>';
+                  } else {
+                    $top = 0;
+                  }
                 }
                 echo '</table>';
               }
             }
+          break;
+          
+          case 'code':
+            if (!file_exists($codeSrc)) {
+              mkdir($codeSrc,0777,true);
+            }
+            file_put_contents($codeSrc.'/'.makeID($row['content']),$row['content']);
+            include($codeSrc.'/'.makeID($row['content']));
           break;
 
         }

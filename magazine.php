@@ -14,7 +14,7 @@ $x = 0; $max = 10; // Determines the number of stories to display
 // view($mainData);
 
 foreach ($mainData['data']['sheets'] as $id => $sheet) {
-  if ($sheet['section'] = 'News') {
+  if ($sheet['section'] == 'News' && file_exists($dataSrc.'/'.$id.'.json')) {
     $sheetArray = file_get_contents($dataSrc.'/'.$id.'.json');
     $sheetArray = json_decode($sheetArray, true);
     foreach ($sheetArray['data'] as $key => $page) {

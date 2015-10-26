@@ -17,7 +17,7 @@
           } else {
             $page = $_GET['page'];
           }
-        }    
+        }
       }
     }
     if (empty($sheets)) {
@@ -33,7 +33,7 @@
       if (isset($sheetID)) {
       echo '<div class="sheetCMS">'."\n\n";
         if ($_GET['section'] == 'News') {
-          $error = parsePagesSheet($sheetID,$page,1,1,'newsArticle.php');
+          $error = parsePagesSheet($sheetID,$page,1,1,'newsArticle.php',1);
 
           if (!isset($error)) {
             echo '<div class="share lrg">';
@@ -72,7 +72,11 @@
         if ($r == 2) { echo '<div class="photostub med" style="background-image:url(\'/content_system/sidebarImgs/'.array_pop($photos).'\');"></div>'; } 
       echo '</div>';
       echo '<div class="mcol frontmenu lrg">';
-        echo '<h1>'.$sectionName.'</h1>';
+        if (isset($sectionName)) {
+          echo '<h1>'.$sectionName.'</h1>';
+        } else {
+          $error = 1;
+        }
         navigatePagesSheet($sheets,$contentURL);
       echo '</div>';
     }

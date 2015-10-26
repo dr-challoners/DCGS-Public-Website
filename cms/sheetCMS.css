@@ -129,6 +129,8 @@
   }
   .sheetCMS p.link.soundcloud a { background-image: url('/styles/imgs/linkIcons/soundcloud.png'); }
   .sheetCMS p.link.video a { background-image: url('/styles/imgs/linkIcons/video.png'); }
+  .sheetCMS p.link.file a { background-image: url('/styles/imgs/linkIcons/file.png'); }
+  .sheetCMS p.link.email a { background-image: url('/styles/imgs/linkIcons/email.png'); }
   .sheetCMS p.link a:hover {
     margin: -1px;
     border: 1px solid #dddddd;
