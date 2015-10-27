@@ -17,7 +17,7 @@
 </script>
 <div class="searchpage">
   <h1>Search the site</h1>
-  <p>If you still can't find what you are looking for, please feel free to <a href=\"/pages/Information/General information/Contact us\">contact us</a>.</p>
+  <p>If you still can't find what you are looking for, please feel free to <a href="/c/Information/General-information/Contact-us\">contact us</a>.</p>
   <div>
     <gcse:search></gcse:search>
   </div>

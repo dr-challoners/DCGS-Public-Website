@@ -88,7 +88,7 @@
 					<ul>
             <?php
             echo '<li><a href="/c/Overview/" ';
-              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "overview") {
+              if (isset($_GET['section']) && strtolower($_GET['section']) == "overview") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
@@ -101,21 +101,21 @@
               if (isset($intranet)) { echo ' id="selected"'; }
             echo '>Intranet</a></li>';
             echo '<li><a href="/c/Student-life/" ';
-              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "student-life") {
+              if (isset($_GET['section']) && strtolower($_GET['section']) == "student-life") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n3\')" onmouseout="mclosetime()"';
               }
             echo '>Student life</a></li>';
             echo '<li><a href="/c/Showcase/" ';
-              if (isset($_GET['folder']) && strtolower($_GET['folder']) == "showcase") {
+              if (isset($_GET['section']) && strtolower($_GET['section']) == "showcase") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n4\')" onmouseout="mclosetime()"';
               }
             echo '>Showcase</a></li>';
             echo '<li><a href="/c/Information/Alumni/"';
-               if (isset($_GET['subfolder']) && strtolower($_GET['subfolder']) == "alumni") { echo ' id="selected"'; }
+               if (isset($_GET['sheet']) && strtolower($_GET['sheet']) == "alumni") { echo ' id="selected"'; }
             echo '>Alumni</a></li>';
             echo '<li><a href="/c/Information/General-information/Contact-us"';
                if (isset($_GET['page']) && strtolower($_GET['page']) == "contact-us") { echo ' id="selected"'; }
@@ -136,77 +136,32 @@
 				
 				$dropdowns = array("Information","Overview","Student life","Showcase");
 				$div_id = 1;
-				
 				foreach ($dropdowns as $maindir) {
-          
 					echo '<div class="sub_menu" name="submenu" id="n'.$div_id.'" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">';
-				
-					$dir = scandir("content_main/".$maindir, 1); // First, get all the subdirectories in the main directory being looked at
-					$dir = array_reverse($dir);
-
-					foreach ($dir as $subdir) { // List all the subdirectories
-						$dirname = explode("~",$subdir);
-						if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
-						
-							echo "<div class=\"category\">";
-							echo "<h2>".$dirname[1]."</h2>";
-    
-							$files = scandir("content_main/".$maindir."/".$subdir, 1); // Now get all the files in each subdirectory and turn them into appropriate links
-							$files = array_reverse($files);
-    
-							echo "<ul>";
-    
-							foreach ($files as $page) {
-								$detail = explode("~",$page);
-								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo '<li><a href="'.file_get_contents("content_main/".$maindir."/".$subdir."/".$page).'" target="page'.mt_rand().'" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
-								}
-								elseif (isset ($detail[1])) {
-									$pagename = explode(".",$detail[1]);
-									$pagename = $pagename[0];
-									echo '<li><a href="/pages/'.str_replace($linkChars,$linkRplce,$maindir).'/'.str_replace($linkChars,$linkRplce,$dirname[1]).'/'.str_replace($linkChars,$linkRplce,$pagename).'">';
-                  echo str_replace('[plus]','+',$pagename).'</a></li>';
-									}
-								}
-    
-							echo '</ul>';
-              echo '</div>';
-    
-							}	
-						}
-				
+          $sheets = array();
+				  foreach ($mainData['data']['sheets'] as $id => $sheet) {
+            if (strtolower(clean($sheet['section'])) == strtolower(clean($maindir))) {
+              $sectionName = $sheet['section'];
+              $sheets[$id] = $sheet;
+            }
+          }
+          navigatePagesSheet($sheets,$contentURL);
 					echo "</div>";
-					
 					$div_id++;
         }
-
         ?>
 
         <!-- These are mobile-specific navigation menus -->
           
           <!-- Alumni -->
           <div class="sub_menu" name="submenu" id="nA">
-            <h2>Alumni</h2>
-            <ul>
-				  <?php    
-							$files = scandir("content_main/Information/5~Alumni", 1); // Now get all the files in each subdirectory and turn them into appropriate links
-							$files = array_reverse($files);
-    
-							echo "<ul>";
-    
-							foreach ($files as $page) {
-								$detail = explode("~",$page);
-								if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-									echo '<li><a href="'.file_get_contents("content_main/Information/5~Alumni/".$page).'" target="page'.mt_rand().'" class="external" >'.str_replace('[plus]','+',$detail[1]).'</a></li>';
-								}
-								elseif (isset ($detail[1])) {
-									$pagename = explode(".",$detail[1]);
-									$pagename = $pagename[0];
-									echo "<li><a href=\"/pages/Information/Alumni/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
-									}
-								}
+				  <?php
+            $id = '1omig90iSURs1yZXtPo5ce6S-xBkESFFL23ukSKHgANw';
+            $sheets = array();
+            $sheets[$id] = $mainData['data']['sheets'][$id];
+						navigatePagesSheet($sheets,$contentURL);
 				    ?>
-					  </ul></div>
+					</div>
           
 					<!-- Diary -->	
           <div class="sub_menu" name="submenu" id="n0">

@@ -103,7 +103,7 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24,$debug = 0) {
   }
 
 function formatText($text,$paragraphs = 1) {
-  $text = htmlentities($text);
+  //$text = htmlentities($text);
   $text = Parsedown::instance()->parse($text);
   if ($paragraphs == 0) {
     $text = str_replace(array('<p>','</p>'),'',$text);

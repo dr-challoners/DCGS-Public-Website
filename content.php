@@ -86,7 +86,7 @@
     echo "<style> body { background-image: url('/styles/imgs/error.png'); background-position: right bottom; background-repeat: no-repeat; background-attachment: fixed; background-size: 980px auto; } </style>"."\n\n";;
     echo '<div class="sheetCMS">'."\n\n";;
       echo '<h1>Oh dear!</h1>'."\n";;
-      echo '<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there\'s an error, you could <a href="/pages/Information/General information/Contact us">contact us</a> to report the problem.</p>'."\n\n";;
+      echo '<p>This page seems to be lost. You could go back to the home page and try again, or check down the back of sofa. If you think there\'s an error, you could <a href="/c/Information/General-information/Contact-us">contact us</a> to report the problem.</p>'."\n\n";;
     echo '</div>'."\n\n";;
   }
 

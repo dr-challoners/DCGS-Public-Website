@@ -39,7 +39,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     $error = 1;
     return $error;
   } else {
-    $pageTitle = str_replace('[PAGE]',trim(str_ireplace('[hidden]','',$page)),$pageTitle);
+    $pageTitle = str_replace('[PAGE]',trim(str_ireplace(array('[hidden]','[link]'),'',$page)),$pageTitle);
     $pageTitle = formatText($pageTitle,0);
     $pageTitle = strip_tags($pageTitle);
     echo '<script type="text/javascript">document.title = "'.$pageTitle.'"</script>';
@@ -48,7 +48,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     }
     
     if ($titleDisplay == 1) {
-      $title = str_ireplace('[HIDDEN]','',$page);
+      $title = str_ireplace(array('[hidden]','[link]'),'',$page);
       $title = trim($title);
       echo '<h1>'.formatText($title,0).'</h1>'."\n\n";
     }
@@ -112,6 +112,8 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
             echo '<p class="link';
               if ($type != 'link') {
                 echo ' '.$type;
+              } elseif (strpos($url,"twitter.com") !== false) {
+                echo ' twitter';
               }
             echo '">';
               echo '<a href="'.$url.'">';
@@ -129,6 +131,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
           
           case 'video':
+          case 'youtube':
             // YouTube videos
             if (strpos($row['url'],"youtu.be") !== false) {
               $id = strpos($row['url'],"e/");
@@ -144,6 +147,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
           
           case 'audio':
+          case 'soundcloud':
             // Currently only SoundCloud audio embedding is supported (and this is unlikely to change without good reason)
             if (strpos($row['url'],'soundcloud') !== false && substr_count($row['url'],"/") == 4) {
               $sc = file_get_contents('http://api.soundcloud.com/resolve.json?url='.$row['url'].'&client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
@@ -152,6 +156,16 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               if (isset($colour)) { $colour = strtolower(str_replace("hex","",$colour)); } else { $colour = "666666"; }
               $iFrameContent  = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id&amp;color=$colour&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=false";
               makeiFrame($iFrameContent,'soundcloud',$row['content']);
+            }
+          break;
+          
+          case 'form':
+            // Google Forms (possibly other forms later, but for now...)
+            if (strpos($row['url'],"docs.google") !== false && strpos($row['url'],"forms") !== false) {
+              $id = strpos($row['url'],"d/");
+              $id = substr($row['url'],$id+2);
+              $id = explode("/",$id)[0];
+              makeiFrame("https://docs.google.com/forms/d/$id/viewform?embedded=true",'form',$row['content']);
             }
           break;
           
@@ -209,14 +223,14 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               $tableArray = sheetToArray($sheetID,$dataSrc,1);
               foreach ($tableArray['data'] as $table => $rows) {
                 $top = 1;
-                if (strpos($row['format'],'title') !== false) {
+                if (strpos($row['format'],'title') !== false && strtolower($table) != '[untitled]') {
                   echo '<h2>'.$table.'</h2>';
                 }
                 echo '<table>';
-                foreach ($rows as $row) {
+                foreach ($rows as $line) {
                   if ($top == 1) {
                     echo '<tr>';
-                      foreach ($row as $heading => $cell) {
+                      foreach ($line as $heading => $cell) {
                         echo '<th><h3>';
                           if ($heading[0] != '_') {
                             echo ucwords($heading);
@@ -231,7 +245,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
                   }
                   if ($top == 0) {
                     echo '<tr>';
-                      foreach ($row as $cell) {
+                      foreach ($line as $cell) {
                         echo '<td><p>'.trim(str_ireplace('[empty]','',$cell)).'</p></td>';
                       }
                     echo '</tr>';
@@ -327,6 +341,8 @@ function fetchImage($imageURL,$imageName) {
 
 function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION]&sheet=[SHEET]&page=[PAGE]', $dropdownMenus = '') {
   
+  global $dataSrc;
+  
   // variablesAs gives control over the url given by each link in the navigation menu, particularly useful for URL re-writing
   // It can take any format as long as [SECTION], [SHEET] and [PAGE] are present
   
@@ -349,9 +365,22 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
     echo '<ul>'."\n";
     foreach ($sheet['pages'] as $page) {
       if (strpos(strtolower($page),'[hidden]') === false) {
-        $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
-        $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
-        $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+        if (strpos(strtolower($page),'[link]') === false) {
+          $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+          $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+          $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+        } else {
+          $linkSheet = file_get_contents($dataSrc.'/'.$id.'.json');
+          $linkSheet = json_decode($linkSheet, true);
+          if (isset($linkSheet['data'][$page][2]['url'])) {
+            $pageURL = $linkSheet['data'][$page][2]['url'];
+          } else {
+            $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+            $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+            $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+          }
+          $page    = trim(str_ireplace('[link]','',$page));
+        }
         echo '<li>';
           echo '<a href="'.$pageURL.'">'.formatText($page,0).'</a>';
         echo '</li>'."\n";

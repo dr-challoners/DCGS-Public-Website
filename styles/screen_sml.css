@@ -7,6 +7,10 @@ body {  }
 
 div.page { margin: 0; }
 
+.sheetCMS {
+  margin: 30px;
+}
+
 div.mcol, div.mcol-rgt, div.parsebox {
     padding: 40px; clear: right;
     }

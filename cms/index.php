@@ -49,6 +49,7 @@
     echo '<ul>';
       echo '<p><li><a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">Public website data folder</a> - speak to SBU if you need permission to access</li></p>';
       echo '<p><li><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a></li></p>';
+      echo '<p><li><a href="https://drive.google.com/open?id=1DD_BwORIWA7qonnq09tB_B9UYYBccg--gsd5b-uJrSQ" target="'.mt_rand().'">View the help file for formatting content</a></li></p>';
     echo '</ul>';
     
     echo '<h2>Website systems</h2>';

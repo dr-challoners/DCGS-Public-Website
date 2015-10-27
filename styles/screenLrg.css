@@ -28,3 +28,8 @@ div.pageNav {
   div.pageNav a:hover {
     background-color: #2358A3; color: #ffffff;
   }
+
+.sheetCMS {
+  width: 710px;
+  float: right;
+}
