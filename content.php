@@ -32,24 +32,18 @@
       echo '<!--googleon: all-->'."\n\n";
       if (isset($sheetID)) {
       echo '<div class="sheetCMS">'."\n\n";
+        $error = parsePagesSheet($sheetID,$page,1,1,'newsArticle.php',1);
         if ($_GET['section'] == 'News') {
-          $error = parsePagesSheet($sheetID,$page,1,1,'newsArticle.php',1);
-
           if (!isset($error)) {
             echo '<div class="share lrg">';
-            
               // Share on Twitter
               echo '<a href="https://twitter.com/share" class="twitter-share-button" data-text="';
               echo 'News from DCGS: '.str_replace('-',' ',$_GET['page']);
               echo '" data-via="ChallonersNews" data-count="none">Tweet</a>';
               echo "<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>";
-
             echo '</div>';
           }
-        } else {
-          $error = parsePagesSheet($sheetID,$page,1);
         }
-      
       echo '</div>'."\n\n";
       } else {
         $error = 1;

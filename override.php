@@ -35,11 +35,7 @@
     
     if (!empty($row['image'])) {
       $positions = array('left','right','top','bottom','title','full');
-      if (!empty($datum['content'])) {
-        $imageName = makeID($row['image'],1).'-'.clean($row['title']);                      
-      } else {
-        $imageName = makeID($row['image']);
-      }
+      $imageName = makeID($row['image'],1).'-'.clean($row['title']);
       $check = fetchImage($row['image'],$imageName);
       if ($check !== 'ERROR' && in_array(strtolower($row['imageposition']),$positions)) {
         $image = array($imgsSrc.'/'.$imageName,strtolower($row['imageposition']));

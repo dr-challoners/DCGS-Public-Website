@@ -23,7 +23,7 @@
       if ($dataType == 'newseditor') {
         $row['content'] = 'Edited by '.$row['content'];
       }
-      echo str_replace('<p>','<p class="'.$row['datatype'].'">',Parsedown::instance()->parse($row['content']));
+      echo str_replace('<p>','<p class="'.strtolower($row['datatype']).'">',Parsedown::instance()->parse($row['content']));
       $skipRow = 1;
     break;
     

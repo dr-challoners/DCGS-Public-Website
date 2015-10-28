@@ -25,6 +25,8 @@
     .override#travel    { border-color: #165d13; }
     .override#travel h1 { background-color: #165d13; background-image: url(imgs/override_travel.png); }
     .override#drama h1  { background-image: url(imgs/override_drama.png); }
+    .override#astra     { border-color: #8EAFCE; }
+    .override#astra h1  { background-color: #8EAFCE; background-image: url(imgs/override_astra.png); color: #1B3B67; }
 
     div.override img.wide, img.override { width: 702px; }
       div.override img.bottom { margin-bottom: -4px; }

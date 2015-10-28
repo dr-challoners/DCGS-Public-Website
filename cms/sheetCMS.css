@@ -140,15 +140,15 @@
   .sheetCMS iframe.video { height: 430px; }
   .sheetCMS iframe.form  { height: 650px; }
 
-  .sheetCMS p.newsCredit, .sheetCMS p.newsEditor {
+  .sheetCMS p.newscredit, .sheetCMS p.newseditor {
     font-style: italic;
     text-align: right;
   }
-  .sheetCMS p.newsEditor {
+  .sheetCMS p.newseditor {
     margin-top: 0;
     font-size: 80%;
   }
-  .sheetCMS p.newsCredit:nth-last-child(2), .sheetCMS p.newsEditor:nth-last-child(2) {
+  .sheetCMS p.newscredit:nth-last-child(2), .sheetCMS p.newseditor:nth-last-child(2) {
    margin-bottom: -40px;
   }
 
