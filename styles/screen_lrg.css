@@ -398,6 +398,7 @@ div.twitter-header span {
     }
 
 div.twitter-header a {
+    padding: 0!important;
     display: block;
     text-decoration: none;
     }

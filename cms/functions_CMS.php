@@ -47,7 +47,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
       echo '<div class="sheetCMS">'."\n\n";
     }
     
-    if ($titleDisplay == 1) {
+    if ($titleDisplay == 1 && $pageArray[2]['datatype'] != 'title') {
       $title = str_ireplace(array('[hidden]','[link]'),'',$page);
       $title = trim($title);
       echo '<h1>'.formatText($title,0).'</h1>'."\n\n";
@@ -95,6 +95,14 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               }
             }
             echo $content;
+          break;
+            
+          case 'title':
+            if ($key == 2) {
+              // Only allows you to do this on the first row of the worksheet, to prevent confusing the process
+              // Otherwise people might try to do this for titles throughout, when they should be specifying them through Markdown
+              echo '<h1>'.formatText($row['content'],0).'</h1>';
+            }
           break;
 
           case 'link':

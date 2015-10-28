@@ -7,16 +7,17 @@
     <style>
       body { width: 100%; }
       .warning { color: red; font-weight: bold; }
+      .menu { display: none; }
+      .open { display: block; }
       img { position: absolute; bottom: 0; right: 0; }
     </style>
 
-<?php // In development - more options and instructions will appear over time
+<?php // In development - more options will appear over time
 
   include('sheetCMS.php');
   
   echo '<pre>';
   echo '<h1>DCGS content management system</h1>';
-  echo '<p class="warning">This system is currently in development.</p>';
 
   if (!isset($_GET['sheet']) && !isset($_GET['action'])) {
     
@@ -45,7 +46,7 @@
       }
     }
 
-    echo '<p>The following data has been found. Use the links to add or update this data on the website.</p>';
+    echo '<h2>Main menu</h2>';
     echo '<ul>';
       echo '<p><li><a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="'.mt_rand().'">Public website data folder</a> - speak to SBU if you need permission to access</li></p>';
       echo '<p><li><a href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="'.mt_rand().'">Modify the master spreadsheet</a></li></p>';
@@ -54,16 +55,18 @@
     
     echo '<h2>Website systems</h2>';
       echo '<ul>';
-        echo '<li><p>Intranet links:               <a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="'.mt_rand().'">Edit spreadsheets</a> | <a href="https://docs.google.com/document/d/1y3nAKXu7hbfMlp23KctIT3mAJ1lbiIdQK80zmC40mzo/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>Front page override:          <a href="https://docs.google.com/spreadsheets/d/1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/?overrideSync=1" target="'.mt_rand().'">Force re-sync</a> | <a href="http://www.challoners.com/?overridePreview=1" target="'.mt_rand().'">Preview overrides</a> | <a href="https://docs.google.com/document/d/1vcCNqjPMzeWCm-nQDxLT2OoydrApvOdkJhfBfz6Ji2o/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>Sports fixtures:              <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a> | <a href="http://www.challoners.com/diary/sync" target="'.mt_rand().'">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit" target="'.mt_rand().'">View help file</a></p></li>';
-        echo '<li><p>House Competition:            <a href="http://www.challoners.com/pages/Student_life/House_Competition/Current_positions&sync=1" target="'.mt_rand().'">Update website</a> | <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="'.mt_rand().'">Edit content</a></p></li>';
-        echo '<li><p>Clubs and societies:          <a href="http://www.challoners.com/pages/Student_life/Enrichment/Clubs_and_societies_calendar&sync=1" target="'.mt_rand().'">Update website</a> | Edit calendar - <a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="'.mt_rand().'">Autumn</a> | <a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="'.mt_rand().'">Spring</a> | <a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="'.mt_rand().'">Summer</a></p></li>';
+        echo '<li><p>Intranet links:          <a href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="'.mt_rand().'">Edit spreadsheets</a> | Force re-sync - <a href="/intranet/students&sync=1" target="'.mt_rand().'">Students</a> - <a href="/intranet/staff&sync=1" target="'.mt_rand().'">Staff</a> - <a href="/intranet/parents&sync=1" target="'.mt_rand().'">Parents</a> | <a href="https://docs.google.com/document/d/1y3nAKXu7hbfMlp23KctIT3mAJ1lbiIdQK80zmC40mzo/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Front page override:     <a href="https://docs.google.com/spreadsheets/d/1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a>  | <a href="http://www.challoners.com/?overrideSync=1" target="'.mt_rand().'">Force re-sync</a> | <a href="http://www.challoners.com/?overridePreview=1" target="'.mt_rand().'">Preview overrides</a> | <a href="https://docs.google.com/document/d/1vcCNqjPMzeWCm-nQDxLT2OoydrApvOdkJhfBfz6Ji2o/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>Sports fixtures:         <a href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="'.mt_rand().'">Edit spreadsheet</a>  | <a href="http://www.challoners.com/diary/sync" target="'.mt_rand().'">Force re-sync</a> | <a href="https://docs.google.com/document/d/1BWoJOevcLzb6papnBfiWx4UUvtHsLlxjyHqNv3J-gAQ/edit" target="'.mt_rand().'">View help file</a></p></li>';
+        echo '<li><p>House Competition:       <a href="http://www.challoners.com/pages/Student_life/House_Competition/Current_positions&sync=1" target="'.mt_rand().'">Update website</a> | <a href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="'.mt_rand().'">Edit content</a></p></li>';
+        echo '<li><p>Clubs and societies:     <a href="http://www.challoners.com/pages/Student_life/Enrichment/Clubs_and_societies_calendar&sync=1" target="'.mt_rand().'">Update website</a> | Edit calendar - <a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="'.mt_rand().'">Autumn</a> - <a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="'.mt_rand().'">Spring</a> - <a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="'.mt_rand().'">Summer</a></p></li>';
       echo '</ul>';
     
+    echo '<h2>Content sections</h2>';
+    echo '<ul>';
     foreach ($newData['data'] as $sectionName => $section) {
-      echo '<h2>Section: '.$sectionName.'</h2>';
-      echo '<ul>';
+      echo '<li><h3><a href="javascript:simpleOpenClose(\''.makeID($sectionName,1).'\',\'content\')">'.$sectionName.'</a></h3>';
+      echo '<ul id="'.makeID($sectionName,1).'" name="content" class="menu">';
         foreach ($section as $sheet) {
           if (!empty($sheet['sheetid'])) {
             $mainData['data']['sheets'][$sheet['sheetid']]['section'] = $sectionName;
@@ -91,8 +94,9 @@
             echo '</p></li>';
           }
         }
-      echo '</ul>';
+      echo '</ul></li>';
     }
+    echo '</ul>';
     
     $orderSheets = array_flip($orderSheets);
     foreach ($orderSheets as $id => $ignore) {
