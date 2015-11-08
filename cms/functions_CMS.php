@@ -56,6 +56,8 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     foreach ($pageArray as $key => $row) {
       unset($imageName,$dataType,$file,$skipRow);
       
+      $row['format'] = strtolower($row['format']);
+      
       if (!empty($row['datatype'])) {
         $dataType = strtolower(clean($row['datatype']));
       } else {
@@ -155,8 +157,10 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
           
           case 'audio':
+          // Following extra cases are insurance should people forget the correct datatype
           case 'soundcloud':
-            // Currently only SoundCloud audio embedding is supported (and this is unlikely to change without good reason)
+          case 'audioboom':
+            // The substr_count is a cheap way of ensuring we're not looking at a playlist link - at some point you should code this in better
             if (strpos($row['url'],'soundcloud') !== false && substr_count($row['url'],"/") == 4) {
               $sc = file_get_contents('http://api.soundcloud.com/resolve.json?url='.$row['url'].'&client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
               $sc = json_decode($sc);
@@ -165,6 +169,11 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               $iFrameContent  = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id&amp;color=$colour&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=false";
               makeiFrame($iFrameContent,'soundcloud',$row['content']);
             }
+          elseif (strpos($row['url'],'audioboom') !== false && substr_count($row['url'],"/") == 4) {
+            $src = str_replace('https://','//embeds.',$row['url']);
+            $iFrameContent = $src.'/embed/v3?link_color=%232358A3&amp;image_option=none"';
+            makeiFrame($iFrameContent,'audioboom',$row['content']);
+          }
           break;
           
           case 'form':

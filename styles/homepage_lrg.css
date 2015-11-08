@@ -60,11 +60,14 @@
 }
 #magazine iframe#latestAudio {
   margin: 0 0 8px 8px;
-  height: 64px; width: 345px;
+  padding: 5px;
+  height: 46px; width: 335px;
+  overflow: hidden;
+  background-color: #f3f3f3;
   }
-#magazine iframe#latestAudio:nth-of-type(1) {
-  margin-right: 4px;
-}
+  #magazine iframe#latestAudio:nth-of-type(1) {
+    margin-right: 4px;
+  }
 #magazine > .error {
   overflow: hidden;
   clear: left;
@@ -88,10 +91,13 @@
   border-width: 1px 0;
   border-style: solid;
   border-color: #cccccc;
-  padding: 8px 14px;
+  padding: 8px 8px;
+  margin: 0 8px 12px;
 }
   #magazine .non:hover {
     border-color: #2358A3;
+    padding: 8px 16px;
+    margin: 0 0 12px;
   }
 
 #magazine .row {

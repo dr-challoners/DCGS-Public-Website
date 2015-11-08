@@ -92,7 +92,7 @@ function makeIntranetLinks($sheetKey,$prefix) {
       break;
       case "students":
       case "Student_links":
-        //echo '<li><a href="">Community section</a></li>'; - coming soon!
+        echo '<li><a href="/c/Community">Community section</a></li>';
         $feedURL  = 'Student_SLT';
         $feedName = 'DCGS Student SLT';
         $feedID   = '606700413740564480';

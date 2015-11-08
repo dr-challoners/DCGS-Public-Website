@@ -94,12 +94,6 @@
                 echo 'onmouseover="mopen(\'n2\')" onmouseout="mclosetime()"';
               }
             echo '>Overview</a></li>';
-            echo '<li><a href="/diary"';
-              if (isset($curTimestamp)) { echo ' id="selected"'; }
-            echo '>Diary</a></li>';
-            echo '<li><a href="/intranet/"';
-              if (isset($intranet)) { echo ' id="selected"'; }
-            echo '>Intranet</a></li>';
             echo '<li><a href="/c/Student-life/" ';
               if (isset($_GET['section']) && strtolower($_GET['section']) == "student-life") {
                 echo 'id="selected"';
@@ -107,13 +101,19 @@
                 echo 'onmouseover="mopen(\'n3\')" onmouseout="mclosetime()"';
               }
             echo '>Student life</a></li>';
-            echo '<li><a href="/c/Showcase/" ';
-              if (isset($_GET['section']) && strtolower($_GET['section']) == "showcase") {
+            echo '<li><a href="/c/Community/" ';
+              if (isset($_GET['section']) && strtolower($_GET['section']) == "community") {
                 echo 'id="selected"';
               } else {
                 echo 'onmouseover="mopen(\'n4\')" onmouseout="mclosetime()"';
               }
-            echo '>Showcase</a></li>';
+            echo '>Community</a></li>';
+            echo '<li><a href="/intranet/"';
+              if (isset($intranet)) { echo ' id="selected"'; }
+            echo '>Intranet</a></li>';
+            echo '<li><a href="/diary"';
+              if (isset($curTimestamp)) { echo ' id="selected"'; }
+            echo '>Diary</a></li>';
             echo '<li><a href="/c/Information/Alumni/"';
                if (isset($_GET['sheet']) && strtolower($_GET['sheet']) == "alumni") { echo ' id="selected"'; }
             echo '>Alumni</a></li>';
@@ -134,7 +134,7 @@
           				
 				<?php // This next section creates the drop-down menus for the main navigation
 				
-				$dropdowns = array("Information","Overview","Student life","Showcase");
+				$dropdowns = array("Information","Overview","Student life","Community");
 				$div_id = 1;
 				foreach ($dropdowns as $maindir) {
 					echo '<div class="sub_menu" name="submenu" id="n'.$div_id.'" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">';

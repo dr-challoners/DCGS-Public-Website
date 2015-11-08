@@ -1,26 +1,23 @@
 <?php
 	include('header_declarations.php');
 	include('header_navigation.php');
-?>
 
-<script>
-  (function() {
-    var cx = '000855791578980490437:ci73_tsmloo';
-    var gcse = document.createElement('script');
-    gcse.type = 'text/javascript';
-    gcse.async = true;
-    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-        '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0];
-    s.parentNode.insertBefore(gcse, s);
-  })();
-</script>
-<div class="searchpage">
-  <h1>Search the site</h1>
-  <p>If you still can't find what you are looking for, please feel free to <a href="/c/Information/General-information/Contact-us\">contact us</a>.</p>
-  <div>
-    <gcse:search></gcse:search>
-  </div>
-</div>
+  foreach ($mainData['data']['tags'] as $tag => $pages) {
+    if (count($pages) > 1) {
+      echo '<h3>'.$tag.'</h3>';
+      echo '<ul>';
+      foreach ($pages as $page) {
+        $page[2] = str_ireplace('[hidden]','',$page[2]);
+        $page[2] = trim($page[2]);
+        $page[2] = formatText($page[2],0);
+        echo '<li><p>';
+          echo '<a href="/c/'.clean($page[0]).'/'.clean($page[1]).'/'.clean($page[2]).'">';
+            echo $page[2];
+          echo '</a>';
+        echo '</p></li>';
+      }
+      echo '</ul>';
+    }
+  }
 
-<?php include('footer.php'); ?>
+  include('footer.php'); ?>

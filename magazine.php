@@ -117,9 +117,12 @@ if (!isset($error)) {
       $errorCheck = 1;
     }
     if ($a >= 2 && !isset($error) && !isset($audio)) {
-      $sc = file_get_contents('http://api.soundcloud.com/users/88582271/tracks.json?client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
-      $sc = json_decode($sc);
-      //view ($sc);
+      
+      $ab = 'https://audioboom.com/users/4576749/boos.rss';
+      $ab = simplexml_load_file($ab);
+      $ab = (array) $ab->channel;
+      $ab = $ab['item'];
+      
       $track1 = rand(0,24);
       $track2 = rand(0,24);
       if ($track1 == $track2) {
@@ -127,13 +130,9 @@ if (!isset($error)) {
       }
       $tracks = array($track1,$track2);
       foreach ($tracks as $track) {
-        $audioName = $sc[$track]->title;
-        $audioIcon = $sc[$track]->artwork_url;
-        $audioText = $sc[$track]->description;
-        $audioDate = $sc[$track]->last_modified;
-        $audioDate = date("jS F Y",mktime(0,0,0,substr($audioDate,5,2),substr($audioDate,8,2),substr($audioDate,0,4)));
-        $id = $sc[$track]->id;
-        echo '<iframe id="latestAudio" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'.$id.'&amp;show_artwork=false&amp;show_user=false"></iframe>';
+        $src = $ab[$track]->link;
+        $src = str_replace('https://','//embeds.',$src);
+        echo '<iframe id="latestAudio" src="'.$src.'/embed/v3?link_color=%232358A3&amp;image_option=none" scrolling="no"></iframe>';
       }
       $audio = 1;
     }

@@ -123,7 +123,8 @@
     background-size: 26px;
     background-repeat: no-repeat;
   }
-  .sheetCMS p.link.soundcloud a { background-image: url('/styles/imgs/linkIcons/soundcloud.png'); }
+  .sheetCMS p.link.soundcloud a { background-image: url('/styles/imgs/linkIcons/audio.png'); }
+  .sheetCMS p.link.audioboom a { background-image: url('/styles/imgs/linkIcons/audio.png'); }
   .sheetCMS p.link.video a { background-image: url('/styles/imgs/linkIcons/video.png'); }
   .sheetCMS p.link.file a { background-image: url('/styles/imgs/linkIcons/file.png'); }
   .sheetCMS p.link.email a { background-image: url('/styles/imgs/linkIcons/email.png'); }
