@@ -74,23 +74,31 @@ function makeIntranetLinks($sheetKey,$prefix) {
   
 }
   
-  echo '<div class="ncol lft intranetSidebar lrg">';
-  
-  switch ($_GET['user']) {
-    case "parents":
-    case "Parent_links":
-      $feedURL  = 'DCGSParenting';
-      $feedName = 'DCGS Parenting';
-      $feedID   = '606699684757913600';
-    break;
-    case "students":
-    case "Student_links":
-      $feedURL  = 'Student_SLT';
-      $feedName = 'DCGS Student SLT';
-      $feedID   = '606700413740564480';
-    break;
-  }
-  
+  echo '<div class="pageNav lrg">';
+    echo '<ul>';
+      $users = array('Students','Staff','Parents');
+      foreach ($users as $user) {
+        if (strtolower($user) != strtolower($_GET['user'])) {
+          echo '<li><a href="/intranet/'.strtolower($user).'">'.$user.' intranet</a></li>';
+        }
+      }
+    switch ($_GET['user']) {
+      case "parents":
+      case "Parent_links":
+        echo '<li><a href="/c/Information">Information section</a></li>';
+        $feedURL  = 'DCGSParenting';
+        $feedName = 'DCGS Parenting';
+        $feedID   = '606699684757913600';
+      break;
+      case "students":
+      case "Student_links":
+        echo '<li><a href="/c/Community">Community section</a></li>';
+        $feedURL  = 'Student_SLT';
+        $feedName = 'DCGS Student SLT';
+        $feedID   = '606700413740564480';
+      break;
+    }
+    echo '</ul>';
   if (isset($feedID)) {
     echo '<div class="twitter-header" id="intranet"><a href="https://twitter.com/'.$feedURL.'" target="page'.mt_rand().'"><p>'.$feedName.' <span>Follow</span></p></a></div>';
     echo '<a class="twitter-timeline"  href="https://twitter.com/'.$feedURL.'" data-chrome="noborders noheader nofooter" data-widget-id="'.$feedID.'">Tweets by @'.$feedURL.'</a>';
@@ -115,53 +123,10 @@ function makeIntranetLinks($sheetKey,$prefix) {
 	break;
 	case "parents":
   case "Parent_links":
-		echo "<h1>Parent links and information</h1>";
-		
-    // First repeat the information in the Information content folder, to give parents another opportunity to find it all
-				
-				$dir = scandir("content_main/Information", 1); //First, get all the subdirectories in the main directory being looked at
-        foreach ($dir as $subdir) { // List all the subdirectories
-					$dirname = explode("~",$subdir);
-					if (isset($dirname[1])) { // This is a cheap and cheerful way to confirm that the object being looked at is a folder, but it requires ALL subdirectories to be in the form 'X~NAME'
-            $links[] = $subdir;
-          }
-        }
-				$links = array_reverse($links);
-
-        $c_end = count($links)-1;
-				for ($c=0; $c<=$c_end; $c++) { // List all the subdirectories
-					$cn = $c+1;
-          $dirname = explode("~",$links[$c]);
-          if ($cn <= $c_end) { $ndirname = explode("~",$links[$cn]); }
-          if ($c%2 == 0 && $cn <= $c_end) { // The boxOpen function is in Parsebox
-						echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$c.'\',\'boxlist\')">'.$dirname[1].'</a></h3></div>';
-            echo '<div class="intranet_head lrg"><h3><a href="javascript:boxOpen(\'I'.$cn.'\',\'boxlist\')">'.$ndirname[1].'</a></h3></div>';
-          }
-						$files = scandir("content_main/Information/".$links[$c], 1); // Now get all the files in each subdirectory and turn them into appropriate links
-						$files = array_reverse($files);
-    
-            echo '<div class="intranetbox lrg"><div class="dropdown" name="boxlist" id="I'.$c.'">';
-						echo "<ul>";
-            
-						foreach ($files as $page) {
-							$detail = explode("~",$page);
-							if (isset($detail[2]) && $detail[2] == "LINK.txt") { // This needs to be a link to an outside site - it opens in a new tab. The link info is written inside the text file
-								echo '<li><a href="'.file_get_contents('content_main/Information/'.$links[$c].'/'.$page).'" target="page'.mt_rand().'">'.str_replace('[plus]','+',$detail[1]).'</a></li>';
-							}
-							elseif (isset ($detail[1]) && substr($detail[1],-4) == ".txt") {
-								$pagename = explode(".",$detail[1]);
-								$pagename = $pagename[0];
-								echo "<li><a href=\"/pages/Information/".$dirname[1]."/".$pagename."\">".str_replace('[plus]','+',$pagename)."</a></li>";
-								}
-							}
-    
-						echo '</ul><hr id="end" /></div></div>';
-					}
-				
+		echo "<h1>Parent links and information</h1>";				
       makeIntranetLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg','Q');
 	break;
-	}
-  
+	} 
       echo '<div class="clear">';
         echo "<h2>Subject resources</h2>";
         makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','N');

@@ -25,6 +25,8 @@
     .override#travel    { border-color: #165d13; }
     .override#travel h1 { background-color: #165d13; background-image: url(imgs/override_travel.png); }
     .override#drama h1  { background-image: url(imgs/override_drama.png); }
+    .override#astra     { border-color: #8EAFCE; }
+    .override#astra h1  { background-color: #8EAFCE; background-image: url(imgs/override_astra.png); color: #1B3B67; }
 
     div.override img.wide, img.override { width: 702px; }
       div.override img.bottom { margin-bottom: -4px; }
@@ -43,7 +45,7 @@
   color: #000000;
 }
 
-#magazine a > div, #magazine > .audio {
+#magazine a > div {
   overflow: hidden; 
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
   -webkit-transition: background-color 0.2s, color 0.2s, border-color 0.2s;
@@ -51,20 +53,28 @@
   padding-right: 14px;
   margin-bottom: 12px;
 }
-#magazine iframe { display: none; }
 #magazine iframe.videoPreview {
   display: block;
   float: left;
   margin-left: 8px;
 }
-#magazine > .audio { cursor: pointer; }
+#magazine iframe#latestAudio {
+  margin: 0 0 8px 8px;
+  padding: 5px;
+  height: 46px; width: 335px;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  }
+  #magazine iframe#latestAudio:nth-of-type(1) {
+    margin-right: 4px;
+  }
 #magazine > .error {
   overflow: hidden;
   clear: left;
   padding-right: 14px;
   margin-bottom: 12px;
   }
-  #magazine a > div:hover, #magazine > .audio:hover {
+  #magazine a > div:hover {
     background-color: #2358A3; color: #ffffff;
   }
   #magazine p { margin: 0; }
@@ -81,10 +91,13 @@
   border-width: 1px 0;
   border-style: solid;
   border-color: #cccccc;
-  padding: 8px 14px;
+  padding: 8px 8px;
+  margin: 0 8px 12px;
 }
   #magazine .non:hover {
     border-color: #2358A3;
+    padding: 8px 16px;
+    margin: 0 0 12px;
   }
 
 #magazine .row {

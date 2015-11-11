@@ -100,6 +100,9 @@ if (!empty($row['url'])) {
       $imgFormats = array('wide','left','right');
       if (in_array($row['format'],$imgFormats)) {
         echo ' '.$row['format'].'"';
+      } elseif (strpos($row['format'],'style[') !== false) {
+        $style = str_replace(array('style[',']'),'',$row['format']);
+        echo '" style="'.$style.'"';
       }
     } elseif (isset($boxes) && !isset($tiny)) {
       if (array_shift($boxes) == 'wde') {

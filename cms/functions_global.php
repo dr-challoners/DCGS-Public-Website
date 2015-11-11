@@ -2,7 +2,7 @@
 
   // Anything in here can be used outside the sheetCMS program with no additional parameters required
 
-function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
+function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24,$debug = 0) {
   
   // When called, this function reads the JSON from the specified Google Sheet, stores it in the specified folder as a JSON file and also returns it to the page as a multidimensional array.
   // The stored JSON file also includes a timestamp - to limit slow load times, data is only fetched from Google periodically, otherwise the cached version is used.
@@ -60,6 +60,10 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
       foreach ($worksheets as $worksheet) {
         $worksheetData = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$worksheetKey.'/public/values?alt=json');
         $worksheetData = json_decode($worksheetData, true);
+        
+        if ($debug == 1) {
+          view ($worksheetData);
+        }
 
         if (isset($worksheetData['feed']['entry'])) { // Ignores empty worksheets and worksheets that only have header information
           $worksheetData = $worksheetData['feed']['entry'];
@@ -99,7 +103,7 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24) {
   }
 
 function formatText($text,$paragraphs = 1) {
-  $text = htmlentities($text);
+  //$text = htmlentities($text);
   $text = Parsedown::instance()->parse($text);
   if ($paragraphs == 0) {
     $text = str_replace(array('<p>','</p>'),'',$text);

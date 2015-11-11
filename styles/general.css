@@ -5,7 +5,7 @@ body {
     }
     
 /* General typography */
-p { font-family: Trebuchet, Verdana, sans-serif; }
+p,ul { font-family: Trebuchet, Verdana, sans-serif; }
 
 h1, h2, h3 {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;

@@ -10,34 +10,15 @@
 		<title>
 		<?php // Creating more informative titles
 
-    // These variables allow problematic characters to be stripped from titles when they are being passed as URLs
+    // TO BE REMOVED
     $linkChars = array(' ','&');
     $linkRplce = array('_','~N~');
-		
-		if (isset($_GET['subfolder'])) { echo str_replace($linkRplce,$linkChars,$_GET['subfolder'])." - "; } // General content pages
-		if (isset($_GET['page']) && !isset($_GET['section'])) { echo str_replace($linkRplce,$linkChars,str_replace('[plus]','+',$_GET['page']))." - "; }
-		
-		if (isset($_GET['story'])) { // News stories
-			$news_title = explode ("~",$_GET['story']);
-			echo "News - ".str_replace($linkRplce,$linkChars,$news_title[1])." - ";
-			}
 
-    // This will replace the above
-    if (isset($_GET['section'])) {
-      if ($_GET['section'] == 'News') {
-        echo 'News - ';
+      if (isset($intranet)) {
+        echo "Intranet - ";
+      } elseif (isset($_GET['date']) || isset($_GET['event'])) {
+        echo "Diary - ";
       }
-      if (isset($_GET['page'])) {
-        echo str_replace('-',' ',$_GET['page']).' -';
-      } elseif ($_GET['section'] != 'News') {
-        echo str_replace('-',' ',$_GET['section']).' -';
-      }
-    }
-			
-		if (isset($intranet)) { echo "Intranet - "; }
-		
-		if (isset($_GET['date']) || isset($_GET['event'])) { echo "Diary - "; } // Diary and events pages
-		
 		?>
 		Dr Challoner's Grammar School</title>
 		

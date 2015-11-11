@@ -6,7 +6,7 @@
   //   - the path to the directory that any images are stored in
   //   - the sheet ID for the main content sheet, which specifies the structure for all other sheets
 
-function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $customModule = 'none') {
+function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $customModule = 'none', $showRelated = 0) {
   
   // This is the big one. This function goes through the collected array and converts each row into HTML according to the content found there.
   // sheetKey need just be the sheet key for the data (as the function must be used with the config file that gives the rest)
@@ -14,9 +14,10 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
   // Setting CMSdiv to 1 tells the function that the div with class 'sheetCMS' has already been included, and so won't be made here
   // Make sure that this div exists if you wish to use the built-in sheetCMS styles
   // If titleDisplay is set to 0 then the first line won't be an h1 header of the page's name
+  // If showRelated is set to 1 and the page has tags, related pages will be shown at the bottom of the page
   // Where possible, this system creates HTML only and leaves styling to the website
   
-  global $dataSrc, $imgsSrc, $sheetCMS, $colour;
+  global $mainData, $dataSrc, $imgsSrc, $codeSrc, $sheetCMS, $colour, $pageTitle;
   
   $sheetArray = file_get_contents($dataSrc.'/'.$sheetKey.'.json');
   $sheetArray = json_decode($sheetArray, true);
@@ -38,19 +39,24 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
     $error = 1;
     return $error;
   } else {
-    
+    $pageTitle = str_replace('[PAGE]',trim(str_ireplace(array('[hidden]','[link]'),'',$page)),$pageTitle);
+    $pageTitle = formatText($pageTitle,0);
+    $pageTitle = strip_tags($pageTitle);
+    echo '<script type="text/javascript">document.title = "'.$pageTitle.'"</script>';
     if ($CMSdiv == 0) {
       echo '<div class="sheetCMS">'."\n\n";
     }
     
-    if ($titleDisplay == 1) {
-      $title = str_ireplace('[HIDDEN]','',$page);
+    if ($titleDisplay == 1 && $pageArray[2]['datatype'] != 'title') {
+      $title = str_ireplace(array('[hidden]','[link]'),'',$page);
       $title = trim($title);
       echo '<h1>'.formatText($title,0).'</h1>'."\n\n";
     }
     
     foreach ($pageArray as $key => $row) {
       unset($imageName,$dataType,$file,$skipRow);
+      
+      $row['format'] = strtolower($row['format']);
       
       if (!empty($row['datatype'])) {
         $dataType = strtolower(clean($row['datatype']));
@@ -74,17 +80,53 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
 
           case 'text':
           default:
-            echo formatText($row['content']);
+            $content = formatText($row['content']);
+            if (strpos($row['format'],'style[') !== false || strpos($row['format'],'div[') !== false) {
+              $styles = explode(',',$row['format']);
+              $styles = array_reverse($styles);
+              foreach ($styles as $style) {
+                $style = trim($style);
+                if (strpos($style,'style[') !== false) {
+                  $style = str_replace(array('style[',']'),'',$style);
+                  $content = str_replace('<p>','<p style="'.$style.'">',$content);
+                }
+                if (strpos($style,'div[') !== false) {
+                  $style = str_replace(array('div[',']'),'',$style);
+                  $content = '<div style="'.$style.'">'.$content.'</div>';
+                }
+              }
+            }
+            echo $content;
+          break;
+            
+          case 'title':
+            if ($key == 2) {
+              // Only allows you to do this on the first row of the worksheet, to prevent confusing the process
+              // Otherwise people might try to do this for titles throughout, when they should be specifying them through Markdown
+              echo '<h1>'.formatText($row['content'],0).'</h1>';
+            }
           break;
 
           case 'link':
           case 'file':
+          case 'email':
+            // Redefining url and dataType as separate variables allows us to make modifications without losing the original info
+            $url = $row['url'];
+            $type = $dataType;
+            if ($type == 'email') {
+              // Add the 'mailto:' component and some simple robot baffling
+              $address = ""; $i = 0;
+              for ($i = 0; $i < strlen($url); $i++) { $address .= '&#'.ord($url[$i]).';'; }
+              $url = "mailto:".$address;              
+            }
             echo '<p class="link';
-              if ($dataType = 'file') {
-                echo ' file';
+              if ($type != 'link') {
+                echo ' '.$type;
+              } elseif (strpos($url,"twitter.com") !== false) {
+                echo ' twitter';
               }
             echo '">';
-              echo '<a href="'.$row['url'].'">';
+              echo '<a href="'.$url.'">';
                 if (!empty($row['content'])) {
                   echo formatText($row['content'],0);
                 } else {
@@ -99,6 +141,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
           
           case 'video':
+          case 'youtube':
             // YouTube videos
             if (strpos($row['url'],"youtu.be") !== false) {
               $id = strpos($row['url'],"e/");
@@ -114,7 +157,10 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
           break;
           
           case 'audio':
-            // Currently only SoundCloud audio embedding is supported (and this is unlikely to change without good reason)
+          // Following extra cases are insurance should people forget the correct datatype
+          case 'soundcloud':
+          case 'audioboom':
+            // The substr_count is a cheap way of ensuring we're not looking at a playlist link - at some point you should code this in better
             if (strpos($row['url'],'soundcloud') !== false && substr_count($row['url'],"/") == 4) {
               $sc = file_get_contents('http://api.soundcloud.com/resolve.json?url='.$row['url'].'&client_id=59f4a725f3d9f62a3057e87a9a19b3c6');
               $sc = json_decode($sc);
@@ -123,11 +169,66 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               $iFrameContent  = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/$id&amp;color=$colour&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=false";
               makeiFrame($iFrameContent,'soundcloud',$row['content']);
             }
+          elseif (strpos($row['url'],'audioboom') !== false && substr_count($row['url'],"/") == 4) {
+            $src = str_replace('https://','//embeds.',$row['url']);
+            $iFrameContent = $src.'/embed/v3?link_color=%232358A3&amp;image_option=none"';
+            makeiFrame($iFrameContent,'audioboom',$row['content']);
+          }
+          break;
+          
+          case 'form':
+            // Google Forms (possibly other forms later, but for now...)
+            if (strpos($row['url'],"docs.google") !== false && strpos($row['url'],"forms") !== false) {
+              $id = strpos($row['url'],"d/");
+              $id = substr($row['url'],$id+2);
+              $id = explode("/",$id)[0];
+              makeiFrame("https://docs.google.com/forms/d/$id/viewform?embedded=true",'form',$row['content']);
+            }
           break;
           
           case 'tags':
           case 'tag':  // The instruction is to write 'tags' for this datatype, but this is a failsafe
-            // Just ignore them... for now. Consider building a 'similar articles' feature.
+          // This doesn't actually output yet - that's the next step!
+            if (strpos($row['format'],'related') !== false || $showRelated == 1) {
+              $matched = array();
+              $related = array();
+              $highRank = 0;
+              $tags = explode(',',$row['content']);
+              foreach ($mainData['data']['tags'] as $key => $data) {
+                foreach ($tags as $tag) {
+                  if (strtolower(trim($tag)) == strtolower($key)) {
+                    foreach ($mainData['data']['tags'][$key] as $id => $info) {
+                      if (clean($info[2]) != clean($pageName)) {
+                        if (isset($matched[$id])) {
+                          $rank = $matched[$id]['rank'];
+                          $rank++;
+                        } else {
+                          $rank = 1;
+                        }
+
+                        $matched[$id] = $info;
+                        $matched[$id]['rank'] = $rank;
+                        if ($highRank < $rank) {
+                          $highRank = $rank;
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              $matched = array_reverse($matched);
+              for ($r = $highRank; $r > 0; $r--) {
+                foreach ($matched as $match) {
+                  if ($match['rank'] == $r) {
+                    $returned[] = array('section' => $match[0],'sheet' => $match[1],'page' => $match[2]);
+                  }
+                }
+              }
+              if (count($returned) < 4) {
+                unset ($returned);
+              }
+              //if (isset($returned)){view ($returned);}
+            }
           break;
           
           case 'table':
@@ -136,29 +237,50 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
               $cutoff = $cutoff+15;
               $sheetID = substr($row['url'],$cutoff);
               $sheetID = explode('/',$sheetID)[0];
-              $tableArray = sheetToArray($sheetID,$dataSrc);
+              $tableArray = sheetToArray($sheetID,$dataSrc,1);
               foreach ($tableArray['data'] as $table => $rows) {
                 $top = 1;
-                echo '<h2>'.$table.'</h2>';
+                if (strpos($row['format'],'title') !== false && strtolower($table) != '[untitled]') {
+                  echo '<h2>'.$table.'</h2>';
+                }
                 echo '<table>';
-                foreach ($rows as $row) {
-                  if (isset($top)) {
+                foreach ($rows as $line) {
+                  if ($top == 1) {
                     echo '<tr>';
-                      foreach ($row as $heading => $cell) {
-                        echo '<th><h3>'.ucwords($heading).'</h3></th>';
+                      foreach ($line as $heading => $cell) {
+                        echo '<th><h3>';
+                          if ($heading[0] != '_') {
+                            echo ucwords($heading);
+                            $top = 0;
+                          } else {
+                            echo trim(str_ireplace('[empty]','',$cell));
+                            $top = 2;
+                          }
+                        echo '</h3></th>';
                       }
                     echo '</tr>';
-                    unset($top);
                   }
-                  echo '<tr>';
-                    foreach ($row as $cell) {
-                      echo '<td><p>'.$cell.'</p></td>';
-                    }
-                  echo '</tr>';
+                  if ($top == 0) {
+                    echo '<tr>';
+                      foreach ($line as $cell) {
+                        echo '<td><p>'.trim(str_ireplace('[empty]','',$cell)).'</p></td>';
+                      }
+                    echo '</tr>';
+                  } else {
+                    $top = 0;
+                  }
                 }
                 echo '</table>';
               }
             }
+          break;
+          
+          case 'code':
+            if (!file_exists($codeSrc)) {
+              mkdir($codeSrc,0777,true);
+            }
+            file_put_contents($codeSrc.'/'.makeID($row['content']),$row['content']);
+            include($codeSrc.'/'.makeID($row['content']));
           break;
 
         }
@@ -236,6 +358,8 @@ function fetchImage($imageURL,$imageName) {
 
 function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION]&sheet=[SHEET]&page=[PAGE]', $dropdownMenus = '') {
   
+  global $dataSrc;
+  
   // variablesAs gives control over the url given by each link in the navigation menu, particularly useful for URL re-writing
   // It can take any format as long as [SECTION], [SHEET] and [PAGE] are present
   
@@ -258,9 +382,22 @@ function navigatePagesSheet($sheetsToNavigate, $variablesAs = '?section=[SECTION
     echo '<ul>'."\n";
     foreach ($sheet['pages'] as $page) {
       if (strpos(strtolower($page),'[hidden]') === false) {
-        $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
-        $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
-        $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+        if (strpos(strtolower($page),'[link]') === false) {
+          $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+          $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+          $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+        } else {
+          $linkSheet = file_get_contents($dataSrc.'/'.$id.'.json');
+          $linkSheet = json_decode($linkSheet, true);
+          if (isset($linkSheet['data'][$page][2]['url'])) {
+            $pageURL = $linkSheet['data'][$page][2]['url'];
+          } else {
+            $pageURL = str_replace('[PAGE]',clean($page),$variablesAs);
+            $pageURL = str_replace('[SHEET]',clean($sheet['sheetname']),$pageURL);
+            $pageURL = str_replace('[SECTION]',clean($sheet['section']),$pageURL);
+          }
+          $page    = trim(str_ireplace('[link]','',$page));
+        }
         echo '<li>';
           echo '<a href="'.$pageURL.'">'.formatText($page,0).'</a>';
         echo '</li>'."\n";

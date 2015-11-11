@@ -4,12 +4,14 @@
 
     $dataSrc    = 'data/content';
     $imgsSrc    = 'data/images';
+    $codeSrc    = 'data/code';
     $sheetCMS   = 'cms';
 
     $mainSheet  = '1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM';
     $contentURL = '/c/[SECTION]/[SHEET]/[PAGE]';
     $colour     = '#2358A3';
-    $acronyms = array('dcgs','dchs','slt','sslt','sjt','pe','rs','pshe','uksa','ucas');
+    $pageTitle  = '[PAGE] - Dr Challoner\'s Grammar School';
+    $acronyms   = array('dcgs','dchs','slt','sslt','sjt','pe','rs','pshe','uksa','ucas');
 
   // -------------------------------------------------- //
 

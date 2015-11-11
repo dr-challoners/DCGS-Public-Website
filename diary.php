@@ -195,7 +195,7 @@
     echo '<div id="diaryPreview" class="lrg"></div>';
     echo '<div id="diaryLinks" class="lrg">';
       echo '<p><a href="/diary/year/">Year summary</a></p>';
-			echo '<p><a href="/pages/Information/General information/Term dates">Term dates</a></p>';
+			echo '<p><a href="/c/Information/General-information/Term-and-holiday-dates">Term dates</a></p>';
       echo '<p><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
       echo '<p><a href="https://www.google.com/calendar/ical/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic.ics">Download iCal format</a></p>';
 		echo "</div>";
