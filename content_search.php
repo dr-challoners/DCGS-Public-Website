@@ -2,6 +2,9 @@
 	include('header_declarations.php');
 	include('header_navigation.php');
 
+  echo '<h1>Tagged pages</h1>';
+  echo '<p>We are currently developing this index of content to help you find what you are looking for. Search for pages according to their relevant categories.</p>';
+
   foreach ($mainData['data']['tags'] as $tag => $pages) {
     if (count($pages) > 1) {
       echo '<h3>'.$tag.'</h3>';

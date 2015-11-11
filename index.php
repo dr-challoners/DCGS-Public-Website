@@ -14,18 +14,6 @@ jQuery(document).ready(function(){
 	jQuery('#slideshow').fadeSlideShow();
 });
 </script>
-<script src="http://w.soundcloud.com/player/api.js"></script>
-<script>
-   $(document).ready(function() {
-     var widget = SC.Widget(document.getElementById('latestAudio'));
-     widget.bind(SC.Widget.Events.READY, function() {
-       console.log('Ready...');
-     });
-     $('#audioToggle').click(function() {
-       widget.toggle();
-     });
-   });
-</script>
 
 <?php include('header_navigation.php'); ?>
 
@@ -43,12 +31,12 @@ jQuery(document).ready(function(){
   </div>
   
 	<div class="linkbox">
-    <a href="/pages/Information/Admissions/"><h3>Admissions</h3></a>
-    <a href="/pages/Overview/Introduction/Prospectus"><h3>Prospectus</h3></a>
-    <a href="/pages/Information/General_information/Staff_vacancies"><h3>Vacancies</h3></a>
-    <a href="/pages/Information/"><h3>Information</h3></a>
-    <a href="/pages/Overview/Governors_and_Friends/The_Friends_of_DCGS"><h3>Friends</h3></a>
-    <a href="/pages/Information/Supporting_us/"><h3>Support us</h3></a>
+    <a href="/c/Information/Admissions/"><h3>Admissions</h3></a>
+    <a href="/c/Overview/Introduction/Prospectus"><h3>Prospectus</h3></a>
+    <a href="/c/Information/General-information/Staff-vacancies"><h3>Vacancies</h3></a>
+    <a href="/c/Information/"><h3>Information</h3></a>
+    <a href="/c/Overview/Governors-Friends/The-Friends-of-DCGS"><h3>Friends</h3></a>
+    <a href="/c/Information/Supporting-us/"><h3>Support us</h3></a>
 	</div>
   
   <a href="http://www.astra-alliance.com/" target="page<?php echo mt_rand(); ?>" onmouseover="mopen('astra')" onmouseout="mclosetime()"><img class="linkbutton" src="./styles/imgs/astraLAbutton.png" alt="Astra Learning Alliance" /></a>

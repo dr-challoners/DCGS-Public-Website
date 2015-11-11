@@ -116,6 +116,7 @@
         echo '<p>Pages should have a small number of tags. Tags should be broad in scope, so that more articles can be matched up.</p>';
         echo '<p>Use \'Key Stage 3\', \'Key Stage 4\' and \'Sixth Form\' instead of referring to years or to GCSEs or A Levels.</p>';
         echo 'In the case of subjects that are part of a broader subject group (Languages with French, German and Spanish;<br />Humanities with History, Geography and so on; Sports and each individual sport) tag both the individual subject<br />and the subject group.</p>';
+        //echo '<ul><li><a href="?action=syncTags">Re-sync all tags</a></li></ul>';
         echo '<p>The following tags have been recorded:</p>';
         echo '<ul>';
           foreach ($mainData['data']['tags'] as $tag => $content) {
@@ -123,7 +124,6 @@
               $tagdetails = '<b>'.$tag.'</b> in '.count($content).' article';
               if (count($content) != 1) { $tagdetails .= 's'; }
               echo str_pad($tagdetails,54,' ',STR_PAD_RIGHT);
-              //echo '<a href="?action=droptag&tag='.$tag.'">Delete</a>';
             echo '</li>';
           }
         echo '</ul>';
@@ -289,12 +289,8 @@
         echo '<p>If this doesn\'t resolve your problem, please ask for support.</p>';
       break;
       
-      case 'droptag';
-        $tag = $_GET['tag'];
-        unset($mainData['data']['tags'][$tag]);
-        echo '<p><b>'.$tag.' has been removed from the stored list of tags.</b></p>';
-        echo '<p>This only removes the tag from the website, not from the sheets the page content is stored in.</p>';
-        echo '<p>You need to remove the tag there as well, otherwise it will reappear next time you sync the data.</p>';
+      case 'syncTags';
+        view($mainData);
       break;
       
       default:
@@ -310,8 +306,6 @@
     file_put_contents('../'.$dataSrc.'/mainData.json', json_encode($mainData));
     echo '<p><a href="./">Return to the main menu</a>.</p>';
   }
-
-  // view($mainData);
 
 ?></pre>
     
