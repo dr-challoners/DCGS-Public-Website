@@ -43,7 +43,7 @@ foreach ($storyList as $key => $row) {
     if ($datum['datatype'] == '' || $datum['datatype'] == 'text') {
       $text .= $datum['content'];
     }
-    if (strtolower($datum['datatype']) == 'newsdate' && !isset($details['date'])) {
+    if (trim(strtolower(clean($datum['datatype'])),'-') == 'newsdate' && !isset($details['date'])) {
       $details['date'] = $datum['content'];
     }
     if (strtolower($datum['datatype']) == 'image' || strtolower($datum['datatype']) == 'newsimage') {

@@ -59,7 +59,7 @@ function parsePagesSheet($sheetKey, $pageName, $CMSdiv = 0, $titleDisplay = 1, $
       $row['format'] = strtolower($row['format']);
       
       if (!empty($row['datatype'])) {
-        $dataType = strtolower(clean($row['datatype']));
+        $dataType = trim(strtolower(clean($row['datatype'])),'-');
       } else {
         // If the data type has been specified, then the program can format accordingly.
         // If it hasn't been specified, the program makes a basic guess as to what it might be.
