@@ -1,0 +1,313 @@
+.dcgsBanner {
+  margin-bottom: -20px;
+  position: relative;
+}
+.dcgsBanner a {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0 -15px;
+}
+.dcgsBanner img {
+  position: relative;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dcgsNavbar .navbar-header {
+  background-color: #173F7A;
+}
+.dcgsNavbar .navbar-header > .navbar-toggle {
+  color: #fff;
+  font-size: 20px;
+  margin: 0;
+  padding: 7px 20px 2px;
+  cursor: pointer;
+  border: none;
+  border-bottom: solid #2358A3;
+  border-width: 0 0 4px 0;
+  border-radius: 0;
+}
+  .dcgsNavbar .navbar-header > .navbar-toggle:hover {
+    border-color: #166DE5;
+    text-decoration: none;
+  }
+.dcgsNavbar .navbar-header > .navbar-brand {
+  padding: 0;
+  margin-bottom: -10px;
+}
+  .dcgsNavbar .navbar-header > .navbar-brand img {
+    width: 134px;
+  }
+
+.dcgsNavbar.navbar-fixed-top .navbar-collapse {
+  padding-right: 15px;
+}
+
+@media (max-width: 767px) {
+  .dcgsNavbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+  }
+    body {
+      padding-top: 57px;
+    }
+  
+  .dcgsNavbar .navbar-collapse {
+    max-height: 423px;
+    background-color: #fff;
+    border: solid #2358A3;
+    border-width: 0 0 4px;
+    border-radius: 0;
+    -webkit-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+       -moz-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+            box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+    overflow: auto;
+    padding: 0;
+  }
+  
+  .dcgsNavbar .navbar-nav .open .dropdown-menu {
+    border: solid #d5d5d5;
+    border-width: 1px 0;
+    margin-bottom: 12px;
+  }
+  .dcgsNavbar .navbar-nav > li {
+    font-size: 20px;
+    margin-left: 15px;
+    margin-right: -15px;
+  }
+    .dcgsNavbar .navbar-nav > li > a {
+      padding: 12px 12px;
+    }
+    .dcgsNavbar .nav-justified > li > a {
+        margin-bottom: 0;
+        text-align: left;
+      }
+  .dcgsNavbar .dropdown-menu h3 {
+    font-size: 22px;
+    margin-top: 15px;
+    padding: 0 15px;
+  }
+  .dcgsNavbar .dropdown-menu ul {
+    padding: 0;
+  }
+    .dcgsNavbar .dropdown-menu ul:last-child {
+      padding-bottom: 10px;
+    }
+  .dcgsNavbar .dropdown-menu li {
+    list-style-type: none;
+    font-size: 18px;
+  }
+    .dcgsNavbar .dropdown-menu li > a {
+      display: block;
+      padding: 5px 15px;
+    }
+  
+}
+  
+@media (min-width: 768px) {
+  .dcgsNavbar {
+    background-color: #173F7A;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    min-height: 40px;
+  }
+
+  .dcgsNavbar .navbar-collapse {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .dcgsNavbar .navbar-nav {
+  }
+
+  .dcgsNavbar .navbar-nav > li {
+    font-family: "Crimson Text", "Palatino Linotype", serif;
+    text-transform: uppercase;
+    font-size: 18px;
+    float: none;
+  }
+
+  .dcgsNavbar .navbar-nav > li > a {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    color: #fff;
+  }
+  .dcgsNavbar .navbar-nav > li.active > a {
+    background-color: #1B4B87;
+  }
+  .dcgsNavbar .navbar-nav > li > a:hover,
+  .dcgsNavbar .navbar-nav > li > a:focus,
+  .dcgsNavbar .navbar-nav > li.open > a {
+      background-color: #2358A3;
+  }
+
+  .dcgsNavbar .dropdown {
+    position: static;
+  }
+
+  .dcgsNavbar .dropdown-menu {
+    left: 0!important;
+    right: 0;
+    width: 100%;
+    margin: 0 auto;
+    text-transform: none;
+    border: solid #2358A3;
+    border-width: 4px 0;
+    border-radius: 0;
+    -webkit-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+       -moz-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+            box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
+    padding: 0;
+    background-color: #e5e5e5;
+  }
+
+  .dcgsNavbar .dropdown-menu h3 {
+    float: left;
+    clear: both;
+    width: 25%;
+    text-align: right;
+    margin: 0;
+    padding-right: 15px;
+  }
+  .dcgsNavbar .dropdown-menu ul {
+    float: right;
+    width: 75%;
+    line-height: 32px;
+    background-color: #fff;
+    padding: 0 0 0 5px;
+  }
+    .dcgsNavbar .dropdown-menu h3, .dcgsNavbar .dropdown-menu ul {
+      padding-top: 12px;
+    }
+    .dcgsNavbar .dropdown-menu h3:first-of-type, .dcgsNavbar .dropdown-menu ul:first-of-type {
+      padding-top: 16px;
+    }
+    .dcgsNavbar .dropdown-menu h3:last-of-type, .dcgsNavbar .dropdown-menu ul:last-of-type {
+      padding-bottom: 10px;
+    }
+  .dcgsNavbar .dropdown-menu li {
+    display: inline-block;
+    font-family: "Quattrocento Sans", Helvetica, sans-serif;
+    font-size: 17px;
+    margin: 0 15px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .dcgsNavbar .dropdown-menu {
+    width: 970px;
+  }
+}
+
+@media (min-width: 831px) and (max-width: 950px) {
+  .dcgsNavbar .navbar-nav > li {
+    font-size: 16px;
+  }
+  .dcgsNavbar .navbar-nav > li > a {
+    padding: 12px;
+  }
+}
+@media (min-width: 768px) and (max-width: 830px) {
+  .dcgsNavbar .navbar-nav > li {
+    font-size: 15px;
+  }
+  .dcgsNavbar .navbar-nav > li > a {
+    padding: 10px;
+  }
+}
+
+.footerBar {
+  min-height: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-top: 3px solid #173F7A;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000;
+}
+  .footerBar p {
+    margin: 4px 0 0;
+  }
+@media (min-width: 768px) and (max-width: 950px) {
+  .footerBar {
+    font-size: 10px;
+  }
+    .footerBar p {
+      margin: 5px 0 0;
+    }
+}
+
+.sideNav {
+}
+  .sideNav .panel {
+    border: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+       -moz-box-shadow: none;
+            box-shadow: none;
+  }
+  .sideNav .panel-heading {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 0;
+  }
+    .sideNav .panel-heading a {
+      text-decoration: none;
+      display: block;
+      padding: 8px 15px;
+    }
+    .sideNav .panel-heading a:hover {
+      color: #fff;
+      background-color: #2358A3
+    }
+  .sideNav .panel-title {
+    font-size: 20px;
+  }
+  .sideNav .list-group-item {
+    border: 0;
+  }
+  .sideNav .list-group-item:not(:first-child) {
+    padding-top: 0;
+  }
+
+/* Content navigation (kept separate from the content page styles) */
+.newsArchiveLink {
+  text-align: center;
+  font-size: 20px;
+  margin: 15px 0 0;
+}
+.newsArchiveLink a {
+  display: block;
+  padding: 10px 0;
+  background-color: #f5f5f5;
+  color: #111;
+}
+.newsArchiveLink a:hover {
+  background-color: #ccc;
+  text-decoration: none;
+}
+
+.sectionNavigation {
+  padding: 0 15px 10px;
+}
+.sectionNavigation h1 {
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #eee;
+}
+.sectionNavigation h2 {
+  margin-bottom: 15px;
+}
+.sectionNavigation p {
+  font-size: 17px;
+}
+.navDecor {
+  margin: 10px -7px 5px;
+}
+.navDecor > div {
+  padding: 7px;
+}

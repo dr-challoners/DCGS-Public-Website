@@ -1,0 +1,139 @@
+/* Calendar widget */
+
+.calendarSidebar {
+  padding-left: 0;
+}
+
+@media (max-width: 767px) {
+  .calendarSidebar {
+    padding-right: 0;
+  }
+}
+
+.calendarSidebar .month {
+  margin: 6px 0 10px;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.last {
+  float: left;
+}
+.next {
+  float: right;
+}
+
+#diaryCalendar a {
+  text-decoration: none;
+  }
+
+div.weekdays p, div.week p {
+    float: left; margin: 0;
+    width: 14.28%;
+    text-align: center;	font-size: 12.5px; 
+}
+
+div.weekdays p {
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 1px solid #aaaaaa;
+  padding-bottom: 5px;
+}
+
+div.week a {
+    display: block;
+    color: #000000;
+    padding: 3px 0;
+}
+div.week a:hover, p.selected { background-color: #EFA207; }
+p.notMonth a { color: #aaaaaa; }
+.today { font-weight: bold; }
+.event { background-color: rgba(239,162,7,0.35); }
+
+#diaryPreview {
+    display: none;
+    }
+    #diaryPreview li {
+        font-size: 14px; line-height: 20px;
+        list-style-type: square;
+        list-style-position: outside;
+        margin-left: 12px;
+    }
+
+#diaryPreview, #diaryLinks {
+  clear: left;
+  padding-top: 15px;
+}
+
+#diaryLinks h4 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#diaryLinks h4 a { padding: 8px 15px 10px; }
+#diaryLinks p  a { padding: 3px 15px; }
+#diaryLinks a {
+  display: block;
+  margin-bottom: 5px;
+  
+  color: #111;
+  background-color: #f5f5f5;
+}
+#diaryLinks a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #2358A3;
+}
+
+/* Events display */
+.diaryEvents .weekNav {
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #aaaaaa;
+  padding: 10px 0 8px;
+  margin: -10px -15px 20px;
+}
+.diaryEvents .weekNav div {
+  padding: 0 10px;
+}
+.diaryEvents .weekNav div i {
+  padding: 0 5px;
+}
+
+.diaryEvents .eventDay:not(:nth-of-type(2)) {
+  border-top: 1px solid #aaaaaa;
+  padding-top: 15px;
+}
+
+.diaryEvents h3 {
+  margin: 0 -2px 10px;
+}
+
+.diaryEvents .eventDetails {
+  margin-bottom: 15px;
+}
+
+.diaryEvents .eventTime {
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 3px;
+}
+
+.diaryEvents .eventDetails h4 {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+.diaryEvents .eventDetails p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .diaryEvents {
+    padding: 0;
+  }
+}
+
+.diaryEvents #win  { color: #247703; }
+.diaryEvents #draw { color: #E87B19; }
+.diaryEvents #loss { color: #D32918; }

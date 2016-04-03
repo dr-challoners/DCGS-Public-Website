@@ -1,0 +1,250 @@
+.col-sm-frontLarge, .col-sm-frontSmall {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+@media (min-width: 768px) {
+  .col-sm-frontLarge, .col-sm-frontSmall {
+    float: left;
+  }
+  .col-sm-frontLarge {
+    width: 70%;
+    padding-right: 5px;
+  }
+  .col-sm-frontSmall {
+    width: 30%;
+  }
+}
+
+.btn-Astra {
+  background-color: #8EAFCE;
+  margin-bottom: 15px;
+  text-align: left;
+  padding: 0;
+}
+  .btn-Astra:hover {
+    background-color: #B5CFE5;
+  }
+
+.btn-Astra img:first-child {
+  float: right;
+}
+
+#astraLA_tab p {
+  font-size: 14px;
+  text-align: justify;
+  padding: 0 10px;
+}
+
+#astraLA_tab p.astraURL {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+/* Front page news */
+
+.col-sm-frontLarge .newsLink {
+  color: #111;
+}
+.col-sm-frontLarge .newsLink p {
+  margin-bottom: 5px;
+}
+.col-sm-frontLarge .newsLink:hover {
+  color: #fff;
+
+}
+.col-sm-frontLarge .newsLink:hover div {
+  background-color: #2358A3;
+}
+.col-sm-frontLarge .newsLink:hover .newsImgBox div {
+  opacity: 0.8;
+}
+
+.col-sm-frontLarge .newsLink .row,
+.col-sm-frontLarge .newsError {
+  margin-left:  -5px;
+  margin-right: -5px;
+  margin-bottom: 15px;
+}
+.col-sm-frontLarge .newsLink .row > div,
+.col-sm-frontLarge .newsError > div {
+  padding-left:  5px;
+  padding-right: 5px;
+}
+
+.col-sm-frontLarge .newsLink .newsImgBox div,
+.col-sm-frontLarge .newsError .newsImgBox div {
+  height: 0;
+  padding-bottom: 55.8%;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.col-sm-frontLarge .newsLink h3,
+.col-sm-frontLarge .newsError h3 {
+  margin-top: 7px;
+  margin-bottom: 4px;
+}
+
+.col-sm-frontLarge .newsLink h3,
+.col-sm-frontLarge .newsError h3,
+.col-sm-frontLarge .newsLink p,
+.col-sm-frontLarge .newsError p {
+  padding-left:  7px;
+  padding-right: 7px;
+}
+
+.col-sm-frontLarge .newsLink .col-xs-12 {
+  background-color: #f6f6f6;
+}
+.col-sm-frontLarge .newsLink .col-sm-3 {
+  margin-top: -5px;
+}
+.col-sm-frontLarge .newsLink .col-sm-3 > div {
+  margin-top: 5px;
+}
+
+@media (max-width: 969px) {
+  .col-sm-frontLarge .newsLink h3:not(.feature),
+  .col-sm-frontLarge .newsError h3 {
+    font-size: 18px;
+  }
+  .col-sm-frontLarge .newsLink p,
+  .col-sm-frontLarge .newsError p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+@media (max-width: 767px) {
+  .col-sm-frontLarge .newsLink .col-sm-3 {
+    margin-top: 0;
+  }
+  .col-sm-frontLarge .newsLink .col-sm-3 > div {
+    margin-top: 0;
+  }
+}
+
+.col-sm-frontLarge .embed-responsive-audioFront {
+  padding-bottom: 110px;
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+.col-sm-frontLarge .embed-responsive-audioFront iframe {
+  padding: 0 12px;
+}
+
+.intranetButtons {
+  margin-left: 0;
+}
+.intranetButtons > div:first-child {
+  background-color: #f5f5f5;
+  border-top-right-radius: 12px;
+}
+.intranetButtons > div:first-child p {
+  margin: 3px 0 0;
+}
+.intranetButtons > div:last-child {
+  text-align: right;
+  margin: -3px 0 -7px;
+  padding: 0 20px 0 0;
+}
+.intranetButtons a {
+  display: inline-block;
+  padding: 12px 16px;
+  margin: 5px -4px 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+@media (max-width: 991px) {
+  .intranetButtons a {
+    padding: 12px 14px;
+  }
+}
+.intranetButtons a#Drive           { background-image: url('/img/shortcutIcons/shortcutDrive.png'), url('/img/shortcutIcons/shortcutDrive_hover.png'); }
+.intranetButtons a#Drive:hover     { background-image: url('/img/shortcutIcons/shortcutDrive_hover.png'); }
+.intranetButtons a#Gmail           { background-image: url('/img/shortcutIcons/shortcutGmail.png'), url('/img/shortcutIcons/shortcutGmail_hover.png'); }
+.intranetButtons a#Gmail:hover     { background-image: url('/img/shortcutIcons/shortcutGmail_hover.png'); }
+.intranetButtons a#Box             { background-image: url('/img/shortcutIcons/shortcutBox.png'), url('/img/shortcutIcons/shortcutBox_hover.png'); }
+.intranetButtons a#Box:hover       { background-image: url('/img/shortcutIcons/shortcutBox_hover.png'); }
+.intranetButtons a#Classroom       { background-image: url('/img/shortcutIcons/shortcutClassroom.png'), url('/img/shortcutIcons/shortcutClassroom_hover.png'); }
+.intranetButtons a#Classroom:hover { background-image: url('/img/shortcutIcons/shortcutClassroom_hover.png'); }
+
+.intranetAreas {
+  background-color: #f5f5f5;
+}
+.shortcutLinks {
+  padding: 4px 4px 0;
+  margin-bottom: 11px;
+}
+.intranetAreas, .shortcutLinks .row {
+  text-align: center;
+  margin: 0;
+}
+.intranetAreas,
+.intranetAreas div, .shortcutLinks .row div {
+  padding: 4px;
+}
+.intranetAreas p, .shortcutLinks .row p {
+  margin: 0;
+}
+.intranetAreas a, .shortcutLinks .row a {
+  display: block;
+  color: #111;
+  background-color: #e5e5e5;
+}
+.intranetAreas a:hover, .shortcutLinks .row a:hover {
+  background-color: #ccc;
+  text-decoration: none;
+}
+
+/* Override messages */
+
+.overrideMessage {
+  background-color: #1B4B87;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  margin-bottom: 15px;
+  padding-right: 7px;
+}
+
+.overrideMessage .messagePanel {
+  background-color: #fff;
+  padding-top: 8px;
+}
+
+.overrideMessage h1, .overrideMessage h2 {
+  color: #1B4B87;
+  font-family: "Quattrocento Sans", Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+.overrideMessage h1 {
+  font-size: 28px;
+}
+.overrideMessage h2 {
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.overrideMessage .iconPanel {
+  text-align: center;
+  padding-top: 6px;
+  font-size: 26px;
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .overrideMessage {
+    margin-left: 0;
+    margin-right: 0;
+    
+  }
+  .overrideMessage .iconPanel {
+    padding-top: 5px;
+    font-size: 44px;
+  }
+}

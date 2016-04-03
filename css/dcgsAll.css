@@ -1,0 +1,88 @@
+/* --- GENERAL COLOURS --- -/
+
+  Background blue: #173F7A
+    Link on hover: #2358A3
+   Active element: #1B4B87
+     #sports_team: #9B0B0B
+         #astraLA: #8EAFCE (background)
+
+/- ----------------------- */
+
+body {
+  font-family: "Quattrocento Sans", Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111;
+  padding-bottom: 40px;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Crimson Text", "Palatino Linotype", serif;
+}
+  h1:first-child, .h1:first-child {
+    margin-top: 0;
+  }
+a {
+  color: #2358A3;
+}
+
+.container {
+  width: 100%;
+}
+@media (min-width: 1000px) {
+  .container {
+    width: 1000px;
+  }
+}
+
+.img-responsive {
+  width: 100%;
+}
+
+.panel, .btn, .modal-content {
+  -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+.btn:active {
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+
+/* --- Twitter feeds --- */
+
+.twitterColumn {
+  border-bottom: 4px solid;
+  border-color: #173F7A;
+}
+
+.twitterColumn a.twitter-timeline {
+  color: #000;
+  margin: 0 5px;
+}
+
+.twitterColumn a:first-child {
+  display: block;
+  padding: 5px 10px;
+  margin-bottom: 9px;
+  color: #fff;
+  background-color: #173F7A;
+}
+
+.twitterColumn#sports_team {
+  border-color: #9B0B0B;
+}
+.twitterColumn#sports_team a:first-child {
+  background-color: #9B0B0B;
+}
+
+.twitterColumn#astraLA {
+  border-color: #8EAFCE;
+}
+.twitterColumn#astraLA a:first-child {
+  background-color: #8EAFCE;
+  color: #fff;
+}

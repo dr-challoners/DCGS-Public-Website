@@ -1,0 +1,85 @@
+h1 {
+  margin: 25px 0 30px;
+}
+
+.tab-pane {
+  padding: 25px 10px;
+}
+
+.tab-pane .options {
+  margin-bottom: 5px;
+}
+  .tab-pane .options p {
+    padding-top: 7px;
+  }
+
+.buttonLine {
+  margin-bottom: 8px;
+}
+.buttonLine .btn-block {
+  text-align: left;
+}
+
+.buttonLine p {
+  margin: 10px 10px 0;
+}
+.col-sm-9.btn-group > .btn, .col-sm-9.btn-group > .btn-group {
+  width: 25%;
+}
+@media (min-width: 768px) {
+  .buttonLine p {
+    margin: 7px 0 0 -15px;
+  }
+}
+@media (min-width: 992px) {
+  .col-sm-9.btn-group > .btn, .col-sm-9.btn-group > .btn-group {
+    width: 20%;
+  }
+}
+.col-sm-9.btn-group > .btn-group > button, .col-sm-9.btn-group > .btn-group ul {
+  width: 100%;
+}
+
+@media (max-width: 767px) {
+  .btn, .dropdown-menu {
+    border-radius: 0;
+    margin-top: 5px;
+  }
+  .tab-pane > .options .btn:first-child {
+    margin-left: -1px;
+  }
+  .tab-pane > .options p {
+    margin-bottom: 5px;
+  }
+}
+
+.panel-default {
+  margin-top: 15px;
+}
+.panel-body {
+  padding-bottom: 5px;
+}
+.panel-body .btn {
+  margin-bottom: 10px;
+}
+.progress {
+  margin: 5px 0 10px;
+}
+
+.panel.content {
+  margin: 0 0 10px;
+}
+.panel.content .panel-heading {
+  padding: 0;
+}
+.panel.content .panel-heading a {
+  padding: 10px 15px;
+  display: block;
+}
+  .panel.content .panel-heading a:hover, .panel.content .panel-heading a:focus {
+    background-color: #e5e5e5;
+    text-decoration: none;
+  }
+.panel.content .btn {
+  margin-bottom: 0;
+}
