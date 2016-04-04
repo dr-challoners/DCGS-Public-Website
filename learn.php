@@ -49,8 +49,6 @@
   <link rel="stylesheet" href="/css/dcgsLearn.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/modules/fancyBox/jquery.fancybox.css?v=2.1.5" media="screen" />
-	<link rel="stylesheet" href="/modules/fancyBox/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
-	<link rel="stylesheet" href="/modules/fancyBox/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
