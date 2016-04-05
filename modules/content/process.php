@@ -545,7 +545,7 @@ function parsePagesSheet($sheetKey, $pageName, $share = 0, $tools = 1, $pageArra
       echo '</div>';
       echo '<div class="col-xs-2 hidden-print">';
         if ($share == 1) {
-          echo '<a role="button" class="twitterLink" href="https://twitter.com/intent/tweet?url=http://www.challoners.com&amp;text='.urlencode(strip_tags($output['title'])).'&amp;via=ChallonersNews">';
+          echo '<a role="button" class="twitterLink" href="https://twitter.com/intent/tweet?url='.$pageURL.'&amp;text='.urlencode(strip_tags($output['title'])).'&amp;via=ChallonersNews">';
             echo '<i class="fa fa-twitter fa-fw"></i>';
           echo '</a>';
         }
