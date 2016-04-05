@@ -6,7 +6,10 @@ var JSONquery = require("underscore");
 var correctPoints = 1;
 var checkBefore;
 var JSONpath = 'public_html/data/modules/weeklyPuzzle/user_data/';
-app.listen(8080,function(){console.log('listening')});
+app.listen(8080,function(){console.re.log('listening')});
+fs.writeFile(JSONpath + 'master_score.json', '{"scores":[]}', function (err) {
+  console.re.log('Error is ' + err);
+});
 io.on('connection', function(socket){
     socket.on('Pong',function(data){
       //console.re.log('Received data');
@@ -37,12 +40,20 @@ io.on('connection', function(socket){
         console.re.log('Sending score of ' + data.emailId +  ' over')
         fs.exists(JSONpath + data.emailId + '.json', function(exists) {
           if (exists) {
-        var configFile = fs.readFileSync(JSONpath+ data.emailId + '.json');
-        var config1 = JSON.parse(configFile);
-        var filtered = JSONquery.where(config1.results, {"correct": 1});
-        var evens = JSONquery.filter(filtered, function(num){ return num.week < data.week });
+            var configFile = fs.readFileSync(JSONpath+ data.emailId + '.json');
+            var config1 = JSON.parse(configFile);
+            var filtered = JSONquery.where(config1.results, {"correct": 1});
+            var evens = JSONquery.filter(filtered, function(num){ return num.week < data.week });
+            var filtered1 = JSONquery.where(config1.results, {"week": data.week});
+            console.re.log(filtered1);
+            if (filtered1.length == 0){
+              socket.emit('Ping',{'numCorrect' : evens.length ,'totalDone' : config1.results.length,'doneBefore' : '0'});
+            }
+            else {
+              socket.emit('Ping',{'numCorrect' : evens.length ,'totalDone' : config1.results.length,'doneBefore' : '1'});
+              console.re.log('doneBefore');
+            }
         //console.log(evens.length);
-        socket.emit('Ping',{'numCorrect' : evens.length ,'totalDone' : config1.results.length});
           }
         });
       }
@@ -54,7 +65,7 @@ function handler (req, res) {
   function (err, data) {
     if (err) {
       res.writeHead(500);
-      return res.end('Error loading index.html');
+      return res.end('Running node Server');
     }
 res.writeHead(200, {
     "Content-Type": "text/plain",
@@ -63,7 +74,6 @@ res.writeHead(200, {
 res.header('Access-Control-Allow-Origin', "*")
   });
 }
-
 function appendData(emailId,obj){
        var configFile = fs.readFileSync(JSONpath+ emailId + '.json');
         var config1 = JSON.parse(configFile);
@@ -110,7 +120,3 @@ function findAndRemove(array, property, value) {
     }
   });
 }
-
-
-
-
