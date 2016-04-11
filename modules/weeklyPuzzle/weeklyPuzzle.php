@@ -77,6 +77,7 @@
 
   .puzzleData {
     margin-bottom: 15px;
+    display:none;
   }
   .puzzleData h4 {
     font-family: "Quattrocento Sans", Helvetica, sans-serif;
@@ -146,6 +147,16 @@
       <p class="text-danger" id="error3"><i class="fa fa-exclamation-triangle"></i> Sorry, you need to use a Challoner's account to sign in.</p>
     </div>
   </div>
+    <div class="row" id="donePuzzle">
+    <div class="col-xs-12 doneMessage" id="parentTitle">
+      <p>You have already completed this puzzle. Come back next Monday for more!</p>
+    </div>
+  </div>
+  <div class="row" id="completedPuzzle">
+    <div class="col-xs-12" id="parentTitle">
+      <p>Thank you for your submission.<br />Come back next Monday for the answer, and another puzzle!</p>
+    </div>
+  </div>
   <div class="row" id="puzzle">
     <section id="puzzleCont">
       <div class="col-xs-12" id="parentTitle">
@@ -157,35 +168,30 @@
           <ul id="options">
           </ul>
         </div>
-        <div id='puzzleData' class="puzzleData col-xs-12">
-          <p id="score"></p>
-          <h4>Last week's puzzle</h4>
-          <p id='prevQuestion'></p>
-          <p>Answer: <span id="revealAnswerButton"><a onClick="$('#revealAnswer').fadeToggle();$('#revealAnswerButton').hide();">click to reveal</a>.</span>
-            <span id="revealAnswer">
-              <span id='prevAnswer'></span>.
-              <span id='explain'></span>
-            </span>
-          </p>
-        </div>
         <p class="text-danger" id="noAnsError"><i class="fa fa-exclamation-triangle"></i> Sorry, you need to submit an answer.</p>
+        <div class='puzzleData col-xs-12' id='scoreDiv'>
+            <p id="score"></p>
+        </div>
         <div id="buttonContainer" class="col-xs-12">
           <button class="btn btn-signout" onClick="signOut()"><i class="fa fa-google"></i> Sign out</button>
           <button type="button" class="btn btn-puzzleSubmit pull-right" id="submit">Submit</button>
         </div>
       </form>
     </section>
+        <div id='puzzleData' class="puzzleData col-xs-12">
+    <h4>Last week's puzzle</h4>
+    <p id='prevQuestion'></p>
+    <p>Answer: <span id="revealAnswerButton"><a onClick="$('#revealAnswer').fadeToggle();$('#revealAnswerButton').hide();">click to reveal</a>.</span>
+      <span id="revealAnswer">
+        <span id='prevAnswer'></span>.
+        <span id='explain'></span>
+      </span>
+    </p>
   </div>
-  <div class="row" id="donePuzzle">
-    <div class="col-xs-12 doneMessage" id="parentTitle">
-      <p>You have already completed this puzzle. Come back next Monday for more!</p>
-    </div>
   </div>
-  <div class="row" id="completedPuzzle">
-    <div class="col-xs-12" id="parentTitle">
-      <p>Thank you for your submission.<br />Come back next Monday for the answer, and another puzzle!</p>
-    </div>
-  </div>
+
+
+
   <!-- DEVELOPMENT ONLY
   <button class="btn" onClick="removeKey()">Remove local storage</button>-->
 </div>
