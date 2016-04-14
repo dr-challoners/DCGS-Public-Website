@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <!--<div class="row">
           <div class="col-xs-12">
             <h3>Other options</h3>
             <div class="row buttonLine">
@@ -120,7 +120,7 @@
               <div class="col-xs-12 col-sm-7 col-md-8"><p>Try this if any content is appearing incorrectly on the website.</p></div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <?php
         if ($tab == 'sjt') {
