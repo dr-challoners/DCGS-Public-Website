@@ -47,7 +47,7 @@
   if (!isset($syncCheck) || $syncCheck < (time()-$refreshTime)) {
 
     // This is the Google Calendar data
-    $data = 'https://www.googleapis.com/calendar/v3/calendars/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/events?key=AIzaSyAutsgnyl2Qf4qEJqnPo5U3OEoRow49h6M&maxResults=2500&timeMin='.$getLastMonth.'-01T00:00:00-00:00&timeMax='.$getNextMonth.'-'.$getDaysNextMonth.'T23:59:59-00:00';
+    $data = 'https://www.googleapis.com/calendar/v3/calendars/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/events?key=AIzaSyAHDKPyZwt9dn5ZiW0WAOCya7b2mgN0hrE&maxResults=2500&timeMin='.$getLastMonth.'-01T00:00:00-00:00&timeMax='.$getNextMonth.'-'.$getDaysNextMonth.'T23:59:59-00:00';
     $data = file_get_contents($data);
     $data = json_decode($data, true);
     $data = $data['items'];
