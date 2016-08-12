@@ -61,8 +61,6 @@
   <meta name="theme-color" content="#1b4b87">
 
   <?php
-    // sheetCMS main functions
-    $mainSheet  = '1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM';
 
     date_default_timezone_set("Europe/London");
     include('modules/commonFunctions.php');
@@ -71,8 +69,8 @@
     include('modules/parsedown.php');
 
     // All pages rely on the mainData, even if just for navigation
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData.json')) {
-      $mainData = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData.json');
+    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json')) {
+      $mainData = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json');
       $mainData = json_decode($mainData, true);
     }
 

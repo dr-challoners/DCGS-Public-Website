@@ -21,19 +21,17 @@
     include('modules/parsedown.php');
 
     // All pages rely on the mainData, even if just for navigation
-    if (file_exists('data/content/learnData.json') && isset($_GET['subject'])) {
-      $learnData = file_get_contents('data/content/learnData.json');
-      $learnData = json_decode($learnData, true);
-      if (isset($learnData['data'][$_GET['subject']])) {
-        $siteData = $learnData['data'][$_GET['subject']];
+    if (isset($_GET['subject'])) {
+      if (file_exists('data/content/mainData_'.$_GET['subject'].'.json')) {
+        $siteData = file_get_contents('data/content/mainData_'.$_GET['subject'].'.json');
+        $siteData = json_decode($siteData, true);
         $subject  = $siteData['config']['title'];
-        echo '<title>Learn '.$subject.' with DCGS</title>';
-      } else {
-        echo '<title>Learn with DCGS</title>';
-        $error = 1;
-      }
+      } else { $error = 1; }
+    } else { $error = 1; }
+    if (isset($subject)) {
+      echo '<title>Learn '.$subject.' with DCGS</title>';
     } else {
-      $error = 1;
+      echo '<title>Learn with DCGS</title>';
     }
   ?>
   
@@ -125,14 +123,14 @@
                   <li><a href="/learn/<?php echo clean($_GET['subject']); ?>"><i class="fa fa-home fa-fw"></i> Home</a></li>
                   <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
                   <?php
-                    foreach($siteData['sheets'] as $sheet) {
+                    foreach($siteData['data']['sheets'] as $sheet) {
                       if (!isset($section) || $section != $sheet['section']) {
                         if (isset($section)) { echo '</div>'; } // Finishes up the previous panel group
                         $section = $sheet['section'];
                         echo '<h3>'.$section.'</h3>';
                         echo '<div class="panel-group" id="learnMenu" role="tablist" aria-multiselectable="true">';
                       }
-                      
+                      if (isset($sheet['sheetname'])) {
                         echo '<div class="panel">';
                           echo '<div class="panel-heading" role="tab" id="heading-'.clean($section).'-'.clean($sheet['sheetname']).'">';
                             echo '<h4 class="panel-title">';
@@ -162,6 +160,7 @@
                             echo '</ul></div>';
                           echo '</div>';
                         echo '</div>';
+                      }
                     }
                   ?>
                 </ul>
@@ -174,7 +173,7 @@
           if (isset($_GET['page'])) {
             $pageName = $_GET['page'];
           } elseif (isset($_GET['sheet'])) {
-            foreach ($siteData['sheets'] as $sheet) {
+            foreach ($siteData['data']['sheets'] as $sheet) {
               if (clean($_GET['section']) == clean($sheet['section']) && clean($_GET['sheet']) == clean($sheet['sheetname'])) {
                 $pageName = clean($sheet['pages'][0]);
                 break;
@@ -185,8 +184,8 @@
             $pageURL = 'http://www.challoners.com/learn/'.$_GET['subject'];
             parsePagesSheet(false,'Welcome',0,0,$siteData['index']);
           } else {
-            foreach ($siteData['sheets'] as $sheetID => $sheet) {
-              if (clean($_GET['section']) == clean($sheet['section']) && clean($_GET['sheet']) == clean($sheet['sheetname'])) {
+            foreach ($siteData['data']['sheets'] as $sheetID => $sheet) {
+              if (clean($_GET['section']) == clean($sheet['section']) && isset($sheet['sheetname']) && clean($_GET['sheet']) == clean($sheet['sheetname'])) {
                 $pageURL = 'http://www.challoners.com/learn/'.clean($_GET['subject']).'/'.clean($section).'/'.clean($sheet['sheetname']).'/'.clean($pageName);
                 parsePagesSheet($sheetID,$pageName);
                 break;
