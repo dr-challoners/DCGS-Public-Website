@@ -141,6 +141,10 @@
       <div class="row buttonLine">
         <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/a/challoners.org/forms/d/12Sc9coOfWbPRpHQe6C2SATad_wk_wPpai4SWj9bd_Ho/viewform" target="<?php echo mt_rand(); ?>"><i class="fa fa-star fa-fw"></i> Credit contributors for their work</a></div>
       </div>
+      <div class="row buttonLine">
+        <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://statcounter.com/" target="<?php echo mt_rand(); ?>"><i class="fa fa-line-chart fa-fw"></i> Review website statistics</a></div>
+        <div class="col-xs-12 col-sm-7 col-md-8"><p>Speak to Mr Burn if you want access to this.</p></div>
+      </div>
       <hr />
       <div class="row buttonLine">
         <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://trello.com/b/rEUcWF5b/website" target="<?php echo mt_rand(); ?>"><i class="fa fa-trello fa-fw"></i> Trello: Main SJT board</a></div>
