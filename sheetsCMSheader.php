@@ -44,7 +44,11 @@
 
   <?php // sheetCMS main functions
 
-    $mainSheet  = '1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM';
+    $mainSheets = array(
+      "dcgs" => "1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM",
+      "maths" => "1m31LpUcjWpJdvWJl-CVhbeHGlOHzVBARBhHWYfv5tPc",
+      "computing" => "1OfM7JiYrZ0jupDngjBKqcbKVT6-VINjBacUtkkUkxw0"
+    );
 
     date_default_timezone_set("Europe/London");
     include('modules/commonFunctions.php');
@@ -52,19 +56,13 @@
     include('modules/content/process.php');
     include('modules/parsedown.php');
 
-    // All pages rely on the mainData, even if just for navigation
-    if (file_exists('data/content/mainData.json')) {
-      $mainData = file_get_contents('data/content/mainData.json');
-      $mainData = json_decode($mainData, true);
+    // All pages rely on one of the mainData files, even if just for navigation
+    foreach ($mainSheets as $site => $sheetID) {
+      if (file_exists('data/content/mainData_'.$site.'.json')) {
+        $mainData_{$site} = file_get_contents('data/content/mainData_'.$site.'.json');
+        $mainData_{$site} = json_decode($mainData_{$site}, true);
+      }
     }
-    if (file_exists('data/content/learnData.json')) {
-      $learnData = file_get_contents('data/content/learnData.json');
-      $learnData = json_decode($learnData, true);
-    }
-    $learnSites = array(
-      'maths'     => '1m31LpUcjWpJdvWJl-CVhbeHGlOHzVBARBhHWYfv5tPc',
-      'computing' => '1OfM7JiYrZ0jupDngjBKqcbKVT6-VINjBacUtkkUkxw0',
-      );
   ?>
 </head>
 <body>
