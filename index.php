@@ -63,8 +63,8 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="twitterColumn" id="sports_team">
-          <a href="https://twitter.com/ChallonersSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fa fa-twitter fa-lg"></i></span></a>
-          <a class="twitter-timeline" href="https://twitter.com/ChallonersSport" data-chrome="noborders noheader nofooter" data-widget-id="430597618125664256">Tweets by @ChallonersSport</a>
+          <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fa fa-twitter fa-lg"></i></span></a>
+          <a class="twitter-timeline" href="https://twitter.com/DCGSSport" data-chrome="noborders noheader nofooter" data-widget-id="430597618125664256">Tweets by @DCGSSport</a>
         </div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="astraLA_tab">

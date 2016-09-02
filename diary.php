@@ -219,10 +219,10 @@
         foreach ($diaryArray['events'][date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
           echo '<div class="col-xs-4 col-sm-3 eventTime"><p>';
             if (isset($event['timestart']))     { echo $event['timestart']; }
-            elseif (isset($event['meettime']))  { echo $event['meettime']; }
             elseif (isset($event['matchtime'])) { echo $event['matchtime']; }
-            if ((isset($event['timestart']) || isset($event['meettime']) || isset($event['matchtime'])) && isset($event['timeend'])) {
-              echo ' - '.$event['timeend'];
+            if ((isset($event['timestart']) || isset($event['matchtime']))) {
+              if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
+              if (isset($event['pickuptime'])) { echo ' - '.$event['pickuptime']; }
             }
           echo '</p></div>';
           echo '<div class="col-xs-8 col-sm-9 eventDetails">';
