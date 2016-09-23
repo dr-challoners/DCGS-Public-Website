@@ -172,9 +172,9 @@
       echo '<p id="break">'.date('l jS F Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'</p>';
       if (isset($matchData['meettime']) || isset($matchData['matchtime'])) {
         echo '<p id="times">';
-          if (isset($matchData['meettime']))  { echo ' <span>Meeting at '.$matchData['meettime'].'</span>'; }
-          if (isset($matchData['matchtime'])) { echo ' <span>Start at '.$matchData['matchtime'].'</span>';  }
-          if (isset($matchData['timeend']))   { echo ' <span>Finish at '.$matchData['timeend'].'</span>';   }
+          if (isset($matchData['meettime']))  { echo ' <span>Meet '.$matchData['meettime'].'</span>'; }
+          if (isset($matchData['matchtime'])) { echo ' <span>Match start '.$matchData['matchtime'].'</span>';  }
+          if (isset($matchData['pickuptime']))   { echo ' <span>Pick up '.$matchData['pickuptime'].'</span>';   }
         echo '</p>';
       }
     echo '</div>';
