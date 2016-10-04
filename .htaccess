@@ -11,10 +11,12 @@ RewriteRule    ^update/?$     ?sync=1   [L]
 RewriteRule    ^preview/?$    ?preview=1   [L]
 
 #Content pages
-RewriteRule    ^c/([^/]+)/?$                    content.php?section=$1   [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/?$            content.php?section=$1&sheet=$2    [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/?$    content.php?section=$1&sheet=$2&page=$3    [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/update/?$    content.php?section=$1&sheet=$2&page=$3&sync=1    [L]
+RewriteRule    ^c/([^/]+)/?$                          content.php?section=$1                           [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/?$                  content.php?section=$1&sheet=$2                  [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/?$          content.php?section=$1&sheet=$2&page=$3          [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/update/?$   content.php?section=$1&sheet=$2&page=$3&sync=1   [L]
+
+RewriteRule    ^ucas/?$    content.php?section=student-life&sheet=sixth-form&page=ucas    [L]
 
 #Search page
 RewriteRule    ^search/    content_search.php    [L]
