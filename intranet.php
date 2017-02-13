@@ -122,17 +122,42 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
           echo '</div>';
         break;
         case "students":
-          echo '<a class="puzzleButton" data-toggle="modal" data-target="#weeklyPuzzle">';
-            echo 'Weekly puzzle <span class="pull-right"><i class="fa fa-puzzle-piece fa-lg"></i></span>';
-          echo '</a>';
-          echo '<div class="modal fade in" id="weeklyPuzzle" tabindex="-1" role="dialog" aria-labelledby="Weekly puzzle">';
-            echo '<div class="modal-dialog" role="document">';
-              echo '<div class="modal-content">';
-                include('modules/weeklyPuzzle/weeklyPuzzle.php');
-              echo '</div>';
-            echo '</div>';
-          echo '</div>';
-          echo '<div class="fb-page" data-href="https://www.facebook.com/Challoners4Charity/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-height="657"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/Challoners4Charity/"><a href="https://www.facebook.com/Challoners4Charity/">Challoner&#039;s 4 Charity</a></blockquote></div></div>';
+				case "staff":
+					if (file_exists('data/intranet/edVideos.json') && !isset($_GET['sync'])) {
+						$edVideos = file_get_contents('data/intranet/edVideos.json');
+      			$edVideos = json_decode($edVideos, true);
+					} else {
+						$edVideos = array();
+						$pageToken = '';
+						while (isset($pageToken)) {
+							$playlistData = file_get_contents('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50'.$pageToken.'&playlistId=PL95IE7ddeVd5R77NTS_cdoBB1xW3l3GR4&key=AIzaSyCgnnpTk5H9pCr41VyXEicVtxoORxccvfo');
+							$playlistData = json_decode($playlistData, true);
+							if (isset($playlistData['nextPageToken'])) {
+								$pageToken = '&pageToken='.$playlistData['nextPageToken'];
+							} else {
+								unset($pageToken);
+							}
+							foreach ($playlistData['items'] as $item) {
+								$videoData = array();
+								$videoData['id']     = $item['snippet']['resourceId']['videoId'];
+								$videoData['title']  = $item['snippet']['title'];
+								$edVideos[] = $videoData;
+							}
+						}
+						file_put_contents('data/intranet/edVideos.json', json_encode($edVideos));
+					}
+					shuffle ($edVideos);
+					for ($v = 0; $v < 3; $v++) {
+						$video = array_shift($edVideos);
+						echo '<div class="row edVideo">';
+							echo '<div class="embedFeature col-sm-12">';
+								echo '<div class="embed-responsive embed-responsive-video hidden-print">';
+									echo '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video['id'].'?showinfo=0" allowfullscreen="true"></iframe>';
+								echo '</div>';
+								echo '<p>'.$video['title'].'</p>';
+							echo '</div>';
+						echo '</div>';
+					}
         break;
       }
     ?>
