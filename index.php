@@ -15,7 +15,6 @@
       <div class="col-sm-7">
         <a href="http://docs.challoners.org/"   id="Drive"    ></a>
         <a href="http://mail.challoners.org/"   id="Gmail"    ></a>
-        <a href="https://dcgs.app.box.com/"     id="Box"      ></a>
         <a href="https://classroom.google.com/" id="Classroom"></a>
       </div>
     </div>
