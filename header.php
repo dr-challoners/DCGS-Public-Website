@@ -1,14 +1,6 @@
-<?php
-  $userID = time().'-'.mt_rand();
-  if (!isset($_COOKIE['user'])) {
-    setcookie('user', $userID, time() + (86400 * 7), "/");
-  } else {
-    $userID = $_COOKIE['user'];
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- HERE IS A NICE HTML COMMENT. -->
+<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,16 +55,10 @@
   <?php
 
     date_default_timezone_set("Europe/London");
-    include('modules/commonFunctions.php');
-    include('modules/functionsCMS.php');
-    include('modules/content/process.php');
-    include('modules/parsedown.php');
-
-    // All pages rely on the mainData, even if just for navigation
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json')) {
-      $mainData = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json');
-      $mainData = json_decode($mainData, true);
-    }
+		include('modules/functions/parsedown.php');
+		include('modules/functions/miscTools.php');
+		include('modules/functions/fetchData.php');
+		include('modules/functions/transformText.php');
 
     // Common links
     $hardLink_termdates         = '/c/information/general-information/term-and-holiday-dates';

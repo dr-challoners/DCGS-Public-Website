@@ -1,8 +1,6 @@
 <?php
 
-  // Anything in here can be used outside the sheetCMS program with no additional parameters required
-
-function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24,$debug = 0) {
+function sheetToArray($sheetKey, $cacheFolder, $refreshTime = 24, $debug = 0) {
   
   // When called, this function reads the JSON from the specified Google Sheet, stores it in the specified folder as a JSON file and also returns it to the page as a multidimensional array.
   // The stored JSON file also includes a timestamp - to limit slow load times, data is only fetched from Google periodically, otherwise the cached version is used.
@@ -102,68 +100,122 @@ function sheetToArray($sheetKey,$cacheFolder,$refreshTime = 24,$debug = 0) {
     
   }
 
-function formatText($text,$paragraphs = 1) {
-  //$text = htmlentities($text);
-  $text = Parsedown::instance()->parse($text);
-  if ($paragraphs == 0) {
-    $text = str_replace(array('<p>','</p>'),'',$text);
-  }
-  return $text;
+function directoryToArray($dir) { 
+  $result = array(); 
+  $cdir = scandir($dir); 
+  foreach ($cdir as $key => $value) { 
+    if (!in_array($value,array(".",".."))) { 
+      if (is_dir($dir . DIRECTORY_SEPARATOR . $value)) { 
+        $result[$value] = directoryToArray($dir . DIRECTORY_SEPARATOR . $value); 
+      } 
+      else { 
+        $result[] = $value; 
+      } 
+    } 
+  } 
+  return $result; 
 }
 
-function clean($string) {
-   $string = strtolower($string); // Makes all characters lowercase, to effectively allow case-insensitive searching
-   $string = trim($string);
-   $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
-   $string = preg_replace('/[^a-z0-9\-]/', '', $string); // Removes special chars.
-   $string = preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.   
-   return $string;
-}
-
-function makeID($string, $short = '') {
-    $string = md5($string);
-    if (!empty($short)) {
-      $string = substr($string,0,8);
-    }
-    return $string;
+function fetchImageFromURL($localPath,$imageURL,$imageName = null) {
+  // Takes a url for an image, checks to see if the image is already in the system
+  // (at the specified path), and makes it if not. Then returns the location of the image.
+  // The $imageName parameter creates more human-readable image filenames.
+  if (!empty($imageName)) {
+    $imageName = makeID($imageURL,1).'-'.clean($imageName);                      
+  } else {
+    $imageName = makeID($imageURL);
   }
-
-function isImage($url) {
-     $params = array('http' => array(
-                  'method' => 'HEAD'
-               ));
-     $ctx = stream_context_create($params);
-     $fp = @fopen($url, 'rb', false, $ctx);
-     if (!$fp) 
-        return false;  // Problem with url
-
-    $meta = stream_get_meta_data($fp);
-    if ($meta === false)
-    {
-        fclose($fp);
-        return false;  // Problem reading data from url
+  $path = $_SERVER['DOCUMENT_ROOT'].$localPath;
+  if (!file_exists($path)) {
+    mkdir($path,0777,true);
+  }
+  $pathFiles = scandir($path);
+  foreach ($pathFiles as $entry) {
+    if (explode('.',$entry)[0] == $imageName) {
+      $found = 1;
+      return $localPath.'/'.$entry;
+      break;
     }
-
-    $wrapper_data = $meta["wrapper_data"];
-    if(is_array($wrapper_data)){
-      foreach(array_keys($wrapper_data) as $hh){
-          if (substr($wrapper_data[$hh], 0, 19) == "Content-Type: image") // strlen("Content-Type: image") == 19 
-          {
-            fclose($fp);
-            return true;
-          }
+  }
+  if (!isset($found)) {
+    if (strpos($imageURL,'drive.google.com') !== false) {
+      if (strpos($imageURL,'/file/d/') !== false) {
+        $file = strpos($imageURL,'/file/d/');
+      } elseif (strpos($imageURL,'open?id=') !== false) {
+        $file = strpos($imageURL,'open?id=');
       }
+      if (isset($file)) {
+        $file = $file+8;
+        $file = substr($imageURL,$file);
+        $file = explode('/',$file)[0];
+        $file = 'http://drive.google.com/uc?export=view&id='.$file;
+        if (@file_get_contents($file) === false) {
+          // This means if the image doesn't fetch, it just drops out (hopefully)
+          unset ($file);
+        }
+      }
+    } elseif (isImage($imageURL)) {
+      $file = $imageURL;
     }
+    if (isset($file)) {
+      $fileDetails = getimagesize($file);
+      $fileWidth  = $fileDetails[0];
+      $fileHeight = $fileDetails[1];
+      $fileType   = $fileDetails['mime'];
+      switch($fileType) {
+          
+        case 'image/jpeg':
+        case 'image/pjpeg':
+          $fileType = '.jpg';
+        break;
+          
+        case 'image/png':
+          $fileType = '.png';
+        break;
+          
+        case 'image/png':
+          $fileType = '.png';
+        break;
+          
+        case 'image/gif':
+          $fileType = '.gif';
+        break;
+          
+        default:
+          $fileType = false;
+        break;
+          
+      }
+      
+      if ($fileType != false) {
+      
+      $file = file_get_contents($file);
+      
+      // Image resizing
+      if ($fileWidth > 1200 || $fileHeight > 1200) {
+        if ($fileWidth >= $fileHeight) {
+          $newWidth  = 1200;
+          $newHeight = $fileHeight*1200/$fileWidth;
+        } else {
+          $newHeight = 1200;
+          $newWidth  = $fileWidth*1200/$fileHeight;
+        }
+        $src = imagecreatefromstring($file);
+        $dst = imagecreatetruecolor($newWidth, $newHeight);
+        $imageName = $imageName.'.jpg';
+        imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $fileWidth, $fileHeight);
+        imagejpeg($dst,$path.'/'.$imageName,60);
+      } else {
+        $imageName = $imageName.$fileType;
+        file_put_contents($path.'/'.$imageName,$file);
+      }
+      
+      return $localPath.'/'.$imageName;
+        
+      } else { return false; }
 
-    fclose($fp);
-    return false;
+    } else { return false; }
   }
-
-function view($array) {
-  // Just because I'm bored of writing the same thing again and again...
-  echo '<pre>';
-    print_r($array);
-  echo '</pre>';
 }
 
-?>
+?> 
