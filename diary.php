@@ -7,7 +7,7 @@
     $curTimestamp = time();
   }
 
-  $area = 'diary';
+  $section = 'diary';
   include('header.php');
 
 ?>

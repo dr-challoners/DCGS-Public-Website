@@ -1,4 +1,4 @@
-<?php $area = 'intranet'; include('header.php'); ?>
+<?php $section = 'intranet'; include('header.php'); ?>
 <div class="row">
 <?php
 if (isset($_GET['user'])) {

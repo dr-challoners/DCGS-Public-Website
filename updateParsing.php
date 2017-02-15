@@ -9,20 +9,17 @@
   
   // This system creates Bootstrap standard HTML markup, and does not include any additional styles
   
+  $navData = array();
   $output = array();
+  $images = array();
   $fileName = str_ireplace('[hidden]','',$pageName,$hidden);
   $fileName = str_ireplace('[link]','',$fileName,$link);
   $fileName = clean($fileName);
   $section  = clean($_GET['section']);
   $sheet    = clean($sheetData['meta']['sheetname']);
   $directory = $section.'/'.$sheet;
-  $output['pageURL']  = 'http://www.challoners.com/';
-  if ($hidden > 0) {
-    $output['pageURL'] .= 'h';
-  } else {
-    $output['pageURL'] .= 'c';
-  }
-  $output['pageURL'] .= '/'.$directory.'/'.$fileName;
+    $navData['link'] = '/c/'.$directory.'/'.$fileName;
+  $output['pageURL']  = 'http://www.challoners.com/c/'.$directory.'/'.$fileName;
   if (isset($sheetData['data'][$pageName])) {
     $pageData = $sheetData['data'][$pageName];
   } else {
@@ -48,7 +45,6 @@
           $dataType = 'text';
         }
       }
-      if ($row['format'] != 'hidden') {
         if (!isset($output['content'])) {
           $c = 0;
         } else {
@@ -69,26 +65,56 @@
         }
         switch ($dataType) {
           case 'title':
-            $output['title'] = ucwords(formatText(ltrim($row['content'],'#'),0));
+            $output['title'] = formatText(ltrim($row['content'],'#'),0);
             break;
           case 'infodate':
             $output['info']['date'] = $row['content'];
+            $navData['preview']['date'] = $row['content'];
             break;
           case 'infowriting': case 'infoediting': case 'infophotos': case 'inforecording':
             include('modules/parsing/contributors.php');
             break;
           default: case 'text': case 'maths': case 'math':
-            include('modules/parsing/textMaths.php');
+            $previewText = formatText($row['content'],0);
+            $previewText = preg_replace("/<h[0-9]>[^<]+<\/h[0-9]>/",'',$previewText);
+            $previewText = strip_tags($previewText);
+            if (isset($navData['preview']['text'])) {
+              $navData['preview']['text'] .= $previewText;
+            } else {
+              $navData['preview']['text'] = $previewText;
+            }
+            if ($row['format'] != 'hidden') {
+              include('modules/parsing/textMaths.php');
+            }
             break;
           case 'tags': case 'tag': break; // Tags are deprecated, so should be ignored.
           case 'link': case 'file': case 'email':
             include('modules/parsing/links.php');
             break;
           case 'image': case 'newsimage':
-            include ('modules/parsing/images.php');
+            $imageID = makeID($row['url'], 1);
+            $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $row['format']);
+            if ($row['format'] != 'hidden') {
+              if (!isset($set)) {
+                $output['content'][] = '[IMAGE:'.$imageID.']';
+              } else {
+                $output['content'][$set]['set'][] = '[IMAGE:'.$imageID.']';
+              }
+            }
+            if (!empty($row['content'])) {
+              $image = makeID($row['url'],1).'-'.clean($row['content']);                      
+            } else {
+              $image = makeID($row['url']);
+            }
+            $navData['preview']['images'][] = array('file' => $image, 'type' => $dataType);
             break;
           case 'video': case 'newsvideo': case 'youtube':
-            include ('modules/parsing/video.php');
+            if ($row['format'] != 'hidden') {
+              include ('modules/parsing/video.php');
+            }
+            if ($dataType == 'newsvideo') {
+              $navData['preview']['videos'][] = array('type' => $vType, 'id' => $id, 'src' => $src);
+            }
             break;
           case 'audio': case 'soundcloud': case 'audioboom':
             include ('modules/parsing/audio.php');
@@ -111,15 +137,14 @@
             include ('modules/parsing/wolframAlpha.php');
             break;
         }
-      }
     }
     if (!isset($output['title'])) {
       $output['title'] = str_ireplace(array('[hidden]','[link]'),'',$pageName);
       $output['title'] = trim($output['title']);
-      $output['title'] = ucwords(formatText($output['title'],0));
     }
     // Creating the code for the actual page
-    $output['page']  = '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/header.php\'); $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';
+    $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';
+    $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/header.php\'); ?>';
     $output['page'] .= '<div class="row">';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/contentNavigation.php\'); ?>';
     $output['page'] .= '<div class="col-sm-8">';
@@ -220,17 +245,60 @@
     $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/footer.php\'); ?>';
-    if ($hidden > 0) {
-      $directory = 'pages/hidden/'.$directory;
-    } else {
-      $directory = 'pages/visible/'.$directory;
-    }
+    $directory = 'pages/'.$directory;
     if (!file_exists($directory)) {
       mkdir($directory,0777,true);
     }
-
+    if ($hidden == 0) { // Update the directory navigation file, but only if this page is not a hidden page
+      foreach ($navData['preview']['images'] as $row) {
+        if ($row['type'] == 'newsimage') {
+          $news = 1;
+        }
+      }
+      if (isset($news)) {
+        foreach ($navData['preview']['images'] as $key => $row) {
+          if ($row['type'] == 'image') {
+            unset($navData['preview']['images'][$key]);
+          }
+        }
+      }
+      $dir = scandir('pages/'.$section);
+      $dir = array_reverse($dir);
+      foreach ($dir as $row) {
+        if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
+          $fallback = $row; // This is to save the most recent one before the one you're creating, just in case anything goes wrong and the new one drops out
+          $curDir = file_get_contents('pages/'.$section.'/'.$row);
+          $curDir = json_decode($curDir, true);
+          break;
+        }
+      }
+      $mainData = sheetToArray('1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM','data/content');
+      foreach ($mainData['data'][$_GET['section']] as $row) {
+        if ($row['sheetname'] == $sheetData['meta']['sheetname']) {
+          $newDir[$row['sheetname']] = array();
+        } elseif (isset($curDir[$row['sheetname']])) {
+          $newDir[$row['sheetname']] = $curDir[$row['sheetname']];
+        }
+      }
+      foreach ($sheetData['data'] as $key => $row) {
+        if (trim($key) == $pageName) {
+          $newDir[$sheetData['meta']['sheetname']][trim($key)] = $navData;
+        } elseif (isset($curDir[$sheetData['meta']['sheetname']][trim($key)])) {
+          $newDir[$sheetData['meta']['sheetname']][trim($key)] = $curDir[$sheetData['meta']['sheetname']][trim($key)];
+        }
+      }
+      $timestamp = mktime();
+      file_put_contents('pages/'.$section.'/navDir-'.$timestamp.'.json', json_encode($newDir));
+      foreach ($dir as $row) {
+        if (strpos($row,'.json') !== false && $row !== $fallback) {
+          unlink('pages/'.$section.'/'.$row);
+        }
+      }
+    }
     file_put_contents($directory.'/'.$fileName.'.php', $output['page']);
-  } else {
-    return 'ERROR';
-  }
+    if (count($images) > 0) {
+      file_put_contents($directory.'/'.$fileName.'.json', json_encode($images));
+      return count($images);
+    }
+  } 
 } ?>

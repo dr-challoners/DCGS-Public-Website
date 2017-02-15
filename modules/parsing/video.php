@@ -2,10 +2,11 @@
 
 unset ($vID,$pID,$time);
 if (strpos($row['url'],'youtube.com') !== false || strpos($row['url'],'youtu.be') !== false) { // YouTube
+  $vType = 'youtube';
   if (strpos($row['url'],'v=') !== false) { // There's a video ID (this will be most of them, though you can get playlists without
-    $vID = substr($row['url'],strpos($row['url'],'v=')+2,11); // All video IDs seem to be 11 characters long
+    $id = substr($row['url'],strpos($row['url'],'v=')+2,11); // All video IDs seem to be 11 characters long
   } elseif (strpos($row['url'],'youtu.be/') !== false) { // Short URLs have the video ID just past the short domain
-    $vID = substr($row['url'],strpos($row['url'],'youtu.be/')+9,11);
+    $id = substr($row['url'],strpos($row['url'],'youtu.be/')+9,11);
   }
   if (strpos($row['url'],'list=') !== false) { // We're looking at a playlist of videos
     $pID = substr($row['url'],strpos($row['url'],'list=')+5); // Playlist IDs don't have a fixed length
@@ -20,8 +21,8 @@ if (strpos($row['url'],'youtube.com') !== false || strpos($row['url'],'youtu.be'
     }
   }
   $src = 'https://www.youtube.com/embed/';
-  if (isset($vID)) {
-    $src .= $vID;
+  if (isset($id)) {
+    $src .= $id;
     if (isset($time)) {
       $src .= '?start='.$time;
     } elseif (isset($pID)) {
@@ -31,12 +32,14 @@ if (strpos($row['url'],'youtube.com') !== false || strpos($row['url'],'youtu.be'
     $src .= 'playlist?list='.$pID;
   }
 } elseif (strpos($row['url'],'drive.google.com') !== false) { // gDrive
+  $vType = 'drive';
   $id = explode('?id=',$row['url'])[1];
   $id = explode('&',$id)[0]; // Just to tidy up
   $src = 'https://drive.google.com/a/challoners.org/file/d/'.$id.'/preview';
   // It doesn't matter that challoners.org is specified here:
   // if the file is from somewhere else it will figure it out, albeit marginally slower
 } elseif (strpos($row['url'],'vimeo.com') !== false) { // Vimeo
+  $vType = 'vimeo';
   $id = explode('/',$row['url']);
   $id = array_pop($id);
   $src = 'https://player.vimeo.com/video/'.$id.'?color=649DE8&title=0&byline=0&badge=0&portrait=0';

@@ -38,7 +38,6 @@ function sheetToArray($sheetKey, $cacheFolder, $refreshTime = 24, $debug = 0) {
     
       $worksheetList = file_get_contents($worksheetFile);
       $worksheetList = json_decode($worksheetList, true);
-      
       $sheetArray = array();
       $sheetArray['meta']['lastupdate'] = time();
       $sheetArray['meta']['sheetname'] = $worksheetList['feed']['title']['$t'];
@@ -211,7 +210,7 @@ function fetchImageFromURL($localPath,$imageURL,$imageName = null) {
       }
       
       return $localPath.'/'.$imageName;
-        
+      
       } else { return false; }
 
     } else { return false; }

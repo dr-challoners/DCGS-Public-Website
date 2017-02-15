@@ -1,16 +1,15 @@
 <?php
 
-if (!empty($row['url'])) {
-  $image = fetchImageFromURL('/data/images',$row['url'],$row['content']);
+  $image = fetchImageFromURL($directory,$imagesArray['url'],$imagesArray['content']);
   if ($image != false) {
-    $format = $row['format'];
-    $content = '<a class="fancyBox" rel="page" href="'.$image.'"><img class="img-responsive" src="'.$image.'" /></a>';
+    $format = $imagesArray['format'];
+    $content = '<a class="fancyBox" rel="page" href="/'.$image.'"><img class="img-responsive" src="/'.$image.'" /></a>';
     // Setting a constant group includes ALL images on the page as part of a fancyBox set
-    if (!empty($row['content'])) {
-      $imageTitle = str_replace('=','-',formatText($row['content'],0));
+    if (!empty($imagesArray['content'])) {
+      $imageTitle = str_replace('=','-',formatText($imagesArray['content'],0));
       $content = str_replace('<a','<a title="'.$imageTitle.'"',$content);
       $content = str_replace('/>','alt="'.$imageTitle.'" />',$content);
-      $imageTitle = explode('=',$row['content']);
+      $imageTitle = explode('=',$imagesArray['content']);
       if (isset($imageTitle[1])) {
         $credit = trim($imageTitle[1]);
         if (stripos($credit,', Year ') == true) {
@@ -23,12 +22,9 @@ if (!empty($row['url'])) {
         if (isset($imageTitle[2])) {
           $credit = '<a href="'.$imageTitle[2].'">'.$credit.'</a>';
         }
-        if ((isset($output['info']['photos']) && !in_array($credit,$output['info']['photos'])) || !isset($output['info']['photos'])) {
-          $output['info']['photos'][] = $credit;
-        }
       }
     }
-    if (!isset($set)) {
+    if (strpos($format,'set') === false) {
       // Build a basic container first and then modify it if there's any formatting
       $container = '<div class="row"><div class="embedFeature col-sm-X col-sm-offset-X">';
       $content = $container.$content.'</div></div>';
@@ -61,12 +57,6 @@ if (!empty($row['url'])) {
       $content = str_replace('col-sm-X','col-sm-'.$size,$content);
       $content = str_replace('col-sm-offset-X','col-sm-offset-'.$offset,$content);
     }
-    if (!isset($set)) {
-      $output['content'][] = $content;
-    } else {
-      $output['content'][$set]['set'][] = $content;
-    }
   }
-}
 
 ?>
