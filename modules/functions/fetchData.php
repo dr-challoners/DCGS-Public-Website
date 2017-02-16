@@ -124,7 +124,7 @@ function fetchImageFromURL($localPath,$imageURL,$imageName = null) {
   } else {
     $imageName = makeID($imageURL);
   }
-  $path = $_SERVER['DOCUMENT_ROOT'].$localPath;
+  $path = $_SERVER['DOCUMENT_ROOT'].'/'.$localPath;
   if (!file_exists($path)) {
     mkdir($path,0777,true);
   }
