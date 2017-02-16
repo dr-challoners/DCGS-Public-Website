@@ -111,7 +111,7 @@
 					$navMenu .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.str_replace(' ','&nbsp;',$menu).'</a>';
 					$navMenu .= '<div class="dropdown-menu">';
 					
-					$dir = scandir($_SERVER['DOCUMENT_ROOT'].'pages/'.clean($menu));
+					$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
 					$dir = array_reverse($dir);
 					foreach ($dir as $row) {
 						if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
