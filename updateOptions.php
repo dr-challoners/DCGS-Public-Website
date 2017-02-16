@@ -8,7 +8,7 @@
     $tabs =  '<li role="presentation"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main options</a></li>';
     $tabs .= '<li role="presentation"><a href="#sjt" aria-controls="sjt" role="tab" data-toggle="tab">SJT</a></li>';
     $tabs .= '<li role="presentation"><a href="#content" aria-controls="content" role="tab" data-toggle="tab">Update DCGS</a></li>';
-    $tabs .= '<li role="presentation"><a href="#viewdata" aria-controls="viewdata" role="tab" data-toggle="tab">View data</a></li>';
+    $tabs .= '<li role="presentation"><a href="?tab=maths" aria-controls="maths">Mathematics</a></li>';
     $tabs = str_replace('><a href="#'.$tab,' class="active"><a href="#'.$tab,$tabs);
     echo $tabs;
     ?>

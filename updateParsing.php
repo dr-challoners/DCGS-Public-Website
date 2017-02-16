@@ -1,4 +1,4 @@
-<?php function parsePagesSheet($sheetData, $pageName, $share = 0, $tools = 1) {
+<?php function parsePagesSheet($sheetData, $pageName, $mainID, $siteLoc, $pageLoc, $share = 0) {
 
   // This function goes through the collected array and converts each row into HTML according to the content found there
   // It is stored as a single string, to which some content like author credits is then added before the content is returned
@@ -33,8 +33,8 @@
     if ($link > 0) {
       $navData['link'] = $pageData[2]['url'];
     } else {
-      $navData['link'] = '/c/'.$directory.'/'.$fileName;
-  $output['pageURL']  = 'http://www.challoners.com/c/'.$directory.'/'.$fileName;
+      $navData['link'] = '/'.$siteLoc.'/'.$directory.'/'.$fileName;
+  $output['pageURL']  = 'http://www.challoners.com/'.$siteLoc.'/'.$directory.'/'.$fileName;
     foreach ($pageData as $row) {
       unset($imageName,$dataType,$file,$content,$set);
       if (!empty($row['datatype'])) {
@@ -125,6 +125,9 @@
           case 'form':
             include ('modules/parsing/forms.php');
             break;
+          case 'table':
+            include ('modules/parsing/tables.php');
+            break;
           case 'gdocs': case 'docs': case 'gdoc': case 'doc':
           case 'gsheets': case 'sheets': case 'gsheet': case 'sheet':
           case 'gslides': case 'slides': case 'gslide': case 'slide':
@@ -147,10 +150,14 @@
     }
     // Creating the code for the actual page
     $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';
+     if($_GET['tab'] == 'maths') {
+       $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/maths/header.php\'); ?>';
+     } else {
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/header.php\'); ?>';
     $output['page'] .= '<div class="row">';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/navigationSide.php\'); ?>';
     $output['page'] .= '<div class="col-sm-8">';
+     }
     $output['page'] .= '<div class="row articleInfo">';
     $output['page'] .= '<div class="col-xs-10">';
     $output['page'] .= '<h1>'.$output['title'].'</h1>';
@@ -188,14 +195,12 @@
       $output['page'] .= '<i class="fa fa-twitter fa-fw"></i>';
       $output['page'] .= '</a>';
     }
-    if ($tools == 1) {
       $output['page'] .= '<a role="button" href="javascript:window.print()">';
       $output['page'] .= '<i class="fa fa-print fa-fw hidden-xs"></i>';
       $output['page'] .= '</a>';
       $output['page'] .= '<a role="button" data-toggle="modal" data-target="#qrCode">'; 
       $output['page'] .= '<i class="fa fa-qrcode fa-fw hidden-xs"></i>';
       $output['page'] .= '</a>';
-    }
     $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     // QR code pop-up and suggestions for use
@@ -245,11 +250,15 @@
         $output['page'] .= $block;
       }
     }
+      if($_GET['tab'] == 'maths') {
+       $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/maths/footer.php\'); ?>';
+     } else {
     $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/footer.php\'); ?>';
+      }
     }
-    $directory = 'pages/'.$directory;
+    $directory = $pageLoc.$directory;
     if (!file_exists($directory)) {
       mkdir($directory,0777,true);
     }
@@ -266,17 +275,17 @@
           }
         }
       }
-      $dir = scandir('pages/'.$section);
+      $dir = scandir($pageLoc.$section);
       $dir = array_reverse($dir);
       foreach ($dir as $row) {
         if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
           $fallback = $row; // This is to save the most recent one before the one you're creating, just in case anything goes wrong and the new one drops out
-          $curDir = file_get_contents('pages/'.$section.'/'.$row);
+          $curDir = file_get_contents($pageLoc.$section.'/'.$row);
           $curDir = json_decode($curDir, true);
           break;
         }
       }
-      $mainData = sheetToArray('1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM','data/content');
+      $mainData = sheetToArray($mainID,'data/content');
       foreach ($mainData['data'][$_GET['section']] as $row) {
         if ($row['sheetname'] == $sheetData['meta']['sheetname']) {
           $newDir[$row['sheetname']] = array();
@@ -296,10 +305,10 @@
         }
       }
       $timestamp = mktime();
-      file_put_contents('pages/'.$section.'/navDir-'.$timestamp.'.json', json_encode($newDir));
+      file_put_contents($pageLoc.$section.'/navDir-'.$timestamp.'.json', json_encode($newDir));
       foreach ($dir as $row) {
         if (strpos($row,'.json') !== false && $row !== $fallback) {
-          unlink('pages/'.$section.'/'.$row);
+          unlink($pageLoc.$section.'/'.$row);
         }
       }
     }

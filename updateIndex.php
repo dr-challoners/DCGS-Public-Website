@@ -44,9 +44,21 @@
       </div>
 		</div>
 		<div class="row">
-		<?php include('updateOptions.php'); ?>
+		<?php 
+			if ($_GET['tab'] == 'maths') {
+				include('updateMaths.php');
+				$mainID = '1m31LpUcjWpJdvWJl-CVhbeHGlOHzVBARBhHWYfv5tPc';
+				$siteLoc = 'maths';
+				$pageLoc = 'maths/pages/';
+			} else {
+				include('updateOptions.php');
+				$mainID = '1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM';
+				$siteLoc = 'c';
+				$pageLoc = 'pages/';
+			}
+			?>
 		<?php
-  if ($tab == 'content') {
+  if ($tab == 'content' || $tab == 'maths') {
     echo '<div role="tabpanel" class="tab-pane fade in active" id="content">';
   } else {
     echo '<div role="tabpanel" class="tab-pane fade" id="content">';
@@ -59,7 +71,7 @@
 						$sheetData = sheetToArray($_GET['sheet'],'data/content');
 						$percent = 0;
 						$message = 'fetching content, please wait';
-						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=cnt">';
+						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=cnt">';
 					} elseif ($_GET['stage'] == 'cnt') {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
 						if ($_GET['section'] == 'News') {
@@ -67,19 +79,19 @@
 						} else {
 							$share = 0;
 						}
-						$c = parsePagesSheet($sheetData, $_GET['page'], $share);
+						$c = parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc, $share);
 						if ($c > 0) {
 							$percent = round(100/($c+1));
 							$message = 'processing images';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=0&end='.$c.'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=0&end='.$c.'">';
 						} else {
 							$percent = 100;
 							$message = 'no images found, finishing processing';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						}
 					} else {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content');
-						$directory = 'pages/'.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
+						$directory = $pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
 						$workingPage = file_get_contents($directory.'/'.clean($_GET['page']).'.php');
 						$imagesArray = file_get_contents($directory.'/'.clean($_GET['page']).'.json');
           	$imagesArray = json_decode($imagesArray, true);
@@ -91,12 +103,12 @@
 						if ($next < $_GET['end']) {
 							$percent = round((100*($next+1))/($_GET['end']+1));
 							$message = 'processing images';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
 						} else {
 							$percent = 100;
 							$message = 'finishing processing';
 							unlink($directory.'/'.clean($_GET['page']).'.json');
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						}
 					}
 				}
@@ -105,16 +117,16 @@
 						$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
 					}
 					if (isset($_GET['delete'])) {
-						unlink('pages/'.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']).'/'.$_GET['delete']);
+						unlink($pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']).'/'.$_GET['delete']);
 					}
-					$exists = directoryToArray('pages/'.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']));
+					$exists = directoryToArray($pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']));
 					foreach ($exists as $key => $file) {
 						if (stripos($file,'.php') == false) {
 							unset($exists[$key]);
 						}
 					}
-					echo '<a href="/sync?tab=content">Back to main options</a>';
-					echo '<a class="pull-right" href="/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'">Refresh this section (if you have added or renamed pages)</a>';
+					echo '<a href="/sync?tab='.$tab.'">Back to main options</a>';
+					echo '<a class="pull-right" href="/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'">Refresh this section (if you have added or renamed pages)</a>';
 					echo '<div class="panel panel-default quickLinks">';
 					echo '<div class="panel-heading">';
 					echo '<h4 class="panel-title">'.$_GET['section'].': '.$sheetData['meta']['sheetname'].'</h4>';
@@ -129,7 +141,7 @@
 						}
 						echo '<div class="row buttonLine">';
 						if (!isset($_GET['page'])) {
-							$link = '/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$page;
+							$link = '/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$page;
 							if ($e === false) {
 								echo '<div class="col-xs-2"><a class="btn btn-success btn-block btn-center" href="'.$link.'">Create</a></div>';
 							} else {
@@ -155,15 +167,9 @@
 						unset ($e);
 					}
 					if (!isset($_GET['page'])) {
-						foreach ($existV as $row) {
+						foreach ($exists as $row) {
 							echo '<div class="row buttonLine">';
-							echo '<div class="col-xs-2"><a class="btn btn-danger btn-block btn-center" href="/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&delete='.$row.'">Delete</a></div>';
-							echo '<div class="col-xs-10"><p>'.$row.'</p></div>';
-							echo '</div>';
-						}
-						foreach ($existH as $row) {
-							echo '<div class="row buttonLine">';
-							echo '<div class="col-xs-2"><a class="btn btn-danger btn-block btn-center" href="/sync?tab=content&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&delete='.$row.'">Delete</a></div>';
+							echo '<div class="col-xs-2"><a class="btn btn-danger btn-block btn-center" href="/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&delete='.$row.'">Delete</a></div>';
 							echo '<div class="col-xs-10"><p>'.$row.'</p></div>';
 							echo '</div>';
 						}
@@ -172,7 +178,7 @@
 					echo '</div>';
 				}
 				else { // Display the main options
-					$mainData = sheetToArray('1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM','data/content',0);
+					$mainData = sheetToArray($mainID,'data/content',0);
 					foreach ($mainData['data'] as $section => $row) {
 						echo '<div class="panel panel-default content">';
 						echo '<div class="panel-heading" role="tab" id="heading-'.clean($section).'">';
@@ -192,9 +198,9 @@
 							echo '<div class="row options">';
 							echo '<div class="col-xs-12 col-sm-3"><p>'.$data['sheetname'].':</p></div>';
 							echo '<div class="col-xs-12 col-sm-9 btn-group" role="group" aria-label="...">';
-							echo '<a class="btn btn-default" href="/sync?tab=content&section='.$section.'&sheet='.$data['sheetid'].'">Update content</a>';
+							echo '<a class="btn btn-default" href="/sync?tab='.$tab.'&section='.$section.'&sheet='.$data['sheetid'].'">Update content</a>';
 							echo '<a class="btn btn-default" href="https://docs.google.com/spreadsheets/d/'.$data['sheetid'].'" target="'.mt_rand().'">Edit spreadsheet</a>';
-							echo '<a class="btn btn-default" href="/c/'.clean($section).'/'.clean($data['sheetname']).'" target="'.mt_rand().'">Visit content</a>';
+							echo '<a class="btn btn-default" href="/'.$siteLoc.'/'.clean($section).'/'.clean($data['sheetname']).'" target="'.mt_rand().'">Visit content</a>';
 							echo '</div>';
 							echo '</div>';
 						}
