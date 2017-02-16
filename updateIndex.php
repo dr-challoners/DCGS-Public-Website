@@ -66,12 +66,17 @@
   ?>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 			<?php
+				if ($_GET['tab'] == 'maths') {
+					$area = 'maths';
+				} else {
+					$area = 'content';
+				}
 				if (isset($_GET['page'])) { // Write a single page to the server
 					if (!isset($_GET['stage'])) {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content');
 						$percent = 0;
 						$message = 'fetching content, please wait';
-						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=cnt">';
+						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=cnt">';
 					} elseif ($_GET['stage'] == 'cnt') {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
 						if ($_GET['section'] == 'News') {
@@ -83,11 +88,11 @@
 						if ($c > 0) {
 							$percent = round(100/($c+1));
 							$message = 'processing images';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=0&end='.$c.'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=0&end='.$c.'">';
 						} else {
 							$percent = 100;
 							$message = 'no images found, finishing processing';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						}
 					} else {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content');
@@ -103,12 +108,12 @@
 						if ($next < $_GET['end']) {
 							$percent = round((100*($next+1))/($_GET['end']+1));
 							$message = 'processing images';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
 						} else {
 							$percent = 100;
 							$message = 'finishing processing';
 							unlink($directory.'/'.clean($_GET['page']).'.json');
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						}
 					}
 				}
@@ -125,8 +130,8 @@
 							unset($exists[$key]);
 						}
 					}
-					echo '<a href="/sync?tab='.$tab.'">Back to main options</a>';
-					echo '<a class="pull-right" href="/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'">Refresh this section (if you have added or renamed pages)</a>';
+					echo '<a href="/sync?tab='.$area.'">Back to main options</a>';
+					echo '<a class="pull-right" href="/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'">Refresh this section (if you have added or renamed pages)</a>';
 					echo '<div class="panel panel-default quickLinks">';
 					echo '<div class="panel-heading">';
 					echo '<h4 class="panel-title">'.$_GET['section'].': '.$sheetData['meta']['sheetname'].'</h4>';
@@ -141,7 +146,7 @@
 						}
 						echo '<div class="row buttonLine">';
 						if (!isset($_GET['page'])) {
-							$link = '/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$page;
+							$link = '/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$page;
 							if ($e === false) {
 								echo '<div class="col-xs-2"><a class="btn btn-success btn-block btn-center" href="'.$link.'">Create</a></div>';
 							} else {
@@ -169,7 +174,7 @@
 					if (!isset($_GET['page'])) {
 						foreach ($exists as $row) {
 							echo '<div class="row buttonLine">';
-							echo '<div class="col-xs-2"><a class="btn btn-danger btn-block btn-center" href="/sync?tab='.$tab.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&delete='.$row.'">Delete</a></div>';
+							echo '<div class="col-xs-2"><a class="btn btn-danger btn-block btn-center" href="/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&delete='.$row.'">Delete</a></div>';
 							echo '<div class="col-xs-10"><p>'.$row.'</p></div>';
 							echo '</div>';
 						}
@@ -198,7 +203,7 @@
 							echo '<div class="row options">';
 							echo '<div class="col-xs-12 col-sm-3"><p>'.$data['sheetname'].':</p></div>';
 							echo '<div class="col-xs-12 col-sm-9 btn-group" role="group" aria-label="...">';
-							echo '<a class="btn btn-default" href="/sync?tab='.$tab.'&section='.$section.'&sheet='.$data['sheetid'].'">Update content</a>';
+							echo '<a class="btn btn-default" href="/sync?tab='.$area.'&section='.$section.'&sheet='.$data['sheetid'].'">Update content</a>';
 							echo '<a class="btn btn-default" href="https://docs.google.com/spreadsheets/d/'.$data['sheetid'].'" target="'.mt_rand().'">Edit spreadsheet</a>';
 							echo '<a class="btn btn-default" href="/'.$siteLoc.'/'.clean($section).'/'.clean($data['sheetname']).'" target="'.mt_rand().'">Visit content</a>';
 							echo '</div>';

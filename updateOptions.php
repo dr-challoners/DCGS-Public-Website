@@ -111,9 +111,6 @@
     <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/spreadsheets/d/1oDZmEOsifN8iQpEE_XI1QBNGiiIMNk-Cont-UsLyFwU/edit#gid=0" target="<?php echo mt_rand(); ?>"><i class="fa fa-table fa-fw"></i> View SJT contributor records</a></div>
     <div class="col-xs-12 col-sm-7 col-md-8"><p>Use the filter icon to change which students you can see.</p></div>
   </div>
-  <!--<div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://statcounter.com/" target="<?php echo mt_rand(); ?>"><i class="fa fa-line-chart fa-fw"></i> Review website statistics</a></div>        <div class="col-xs-12 col-sm-7 col-md-8"><p>Speak to Mr Burn if you want access to this.</p></div>
-  </div>-->
   <hr />
   <div class="row buttonLine">
     <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://trello.com/b/rEUcWF5b/website" target="<?php echo mt_rand(); ?>"><i class="fa fa-trello fa-fw"></i> Trello: Main SJT board</a></div>
