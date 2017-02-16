@@ -13,7 +13,9 @@
           <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
           <?php
           if (scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/') === false) {
-            echo 'nope';
+            echo 'not working';
+          } else {
+            echo 'something else';
           }
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/');
           $dirData = array();
