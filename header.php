@@ -115,11 +115,11 @@
 					$dir = array_reverse($dir);
 					foreach ($dir as $row) {
 						if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
-							$dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'pages/'.clean($menu).'/'.$row);
+							$dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu).'/'.$row);
 							$dir = json_decode($dir, true);
 							break;
 						}
-					}
+					} view($dir);
 					foreach ($dir as $sheetName => $pages) {
 						$navMenu .= '<h3>'.$sheetName.'</h3>';
 						$navMenu .= '<ul>';
