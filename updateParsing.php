@@ -68,7 +68,7 @@
         }
         switch ($dataType) {
           case 'title':
-            $output['title'] = formatText(ltrim($row['content'],'#'),0);
+            $output['title'] = formatText(trim($row['content'],'#'),0);
             break;
           case 'infodate':
             $output['info']['date'] = $row['content'];
@@ -82,9 +82,9 @@
             $previewText = preg_replace("/<h[0-9]>[^<]+<\/h[0-9]>/",'',$previewText);
             $previewText = strip_tags($previewText);
             if (isset($navData['preview']['text'])) {
-              $navData['preview']['text'] .= $previewText;
+              $navData['preview']['text'] .= $previewText.' ';
             } else {
-              $navData['preview']['text'] = $previewText;
+              $navData['preview']['text'] = $previewText.' ';
             }
             if ($row['format'] != 'hidden') {
               include('modules/parsing/textMaths.php');
@@ -146,7 +146,7 @@
     }
     if (!isset($output['title'])) {
       $output['title'] = str_ireplace(array('[hidden]','[link]'),'',$pageName);
-      $output['title'] = trim($output['title']);
+      $output['title'] = formatText(trim($output['title']),0);
     }
     // Creating the code for the actual page
     $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';

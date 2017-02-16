@@ -124,7 +124,7 @@
 						$navMenu .= '<h3>'.$sheetName.'</h3>';
 						$navMenu .= '<ul>';
 						foreach ($pages as $pageName => $data) {
-							$navMenu .= '<li><a href="'.$data['link'].'">'.$pageName.'</a></li>';
+							$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
 						}
 						$navMenu .= '</ul>';
 					}

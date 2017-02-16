@@ -36,7 +36,7 @@
               echo '<div class="panel-heading" role="tab" id="heading-'.$key1.'-'.clean($key2).'">';
               echo '<h4 class="panel-title">';
               echo '<a role="button" data-toggle="collapse" data-parent="#learnMenu" href="#collapse-'.$key1.'-'.clean($key2).'" aria-expanded="true" aria-controls="collapse-'.$key1.'-'.clean($key2).'">';
-              echo $key2;
+              echo formatText($key2,0);
               echo '</a>';
               echo '</h4>';
               echo '</div>';

@@ -36,7 +36,7 @@ foreach ($dir as $sheetName => $pages) {
   echo '<ul class="list-group">';
   foreach ($pages as $pageName => $data) {
     echo '<li class="list-group-item">';
-    echo '<a href="'.$data['link'].'">'.$pageName.'</a>';
+    echo '<a href="'.$data['link'].'">'.formatText($pageName,0).'</a>';
     echo '</li>';
   }
   echo '</ul>';

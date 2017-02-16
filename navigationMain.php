@@ -42,7 +42,7 @@ foreach($dir as $sheet => $pages) {
   foreach ($pages as $title => $page) {
     echo '<div class="col-xs-6 col-md-4">';
     echo '<a href="'.$page['link'].'">';
-    echo '<p>'.$title.'</p>';
+    echo '<p>'.formatText($title,0).'</p>';
     echo '</a>';
     echo '</div>';
   }

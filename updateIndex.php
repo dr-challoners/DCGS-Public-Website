@@ -97,13 +97,15 @@
 					} else {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content');
 						$directory = $pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
-						$workingPage = file_get_contents($directory.'/'.clean($_GET['page']).'.php');
-						$imagesArray = file_get_contents($directory.'/'.clean($_GET['page']).'.json');
+						$fileName = str_ireplace('[hidden]','',$_GET['page']);
+						$fileName = clean($fileName);
+						$workingPage = file_get_contents($directory.'/'.$fileName.'.php');
+						$imagesArray = file_get_contents($directory.'/'.$fileName.'.json');
           	$imagesArray = json_decode($imagesArray, true);
 						$imagesArray = $imagesArray[$_GET['stage']];
 						include ('modules/parsing/images.php');
 						$workingPage = str_replace('[IMAGE:'.$imagesArray['id'].']',$content,$workingPage);
-						file_put_contents($directory.'/'.clean($_GET['page']).'.php', $workingPage);
+						file_put_contents($directory.'/'.$fileName.'.php', $workingPage);
 						$next = $_GET['stage']+1;
 						if ($next < $_GET['end']) {
 							$percent = round((100*($next+1))/($_GET['end']+1));
@@ -112,7 +114,7 @@
 						} else {
 							$percent = 100;
 							$message = 'finishing processing';
-							unlink($directory.'/'.clean($_GET['page']).'.json');
+							unlink($directory.'/'.$fileName.'.json');
 							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						}
 					}
