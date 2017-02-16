@@ -2,11 +2,11 @@
 
 echo '<div class="hidden-xs col-sm-4 hidden-print">';
 echo '<div class="panel-group sideNav" id="'.$section.'Nav" role="tablist" aria-multiselectable="true">';
-$dir = scandir($_SERVER['DOCUMENT_ROOT'].'pages/'.$section);
+$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.$section);
 $dir = array_reverse($dir);
 foreach ($dir as $row) {
   if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
-    $dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'pages/'.$section.'/'.$row);
+    $dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/'.$section.'/'.$row);
     $dir = json_decode($dir, true);
     break;
   }

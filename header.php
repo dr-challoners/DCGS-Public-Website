@@ -119,7 +119,7 @@
 							$dir = json_decode($dir, true);
 							break;
 						}
-					} view($dir);
+					}
 					foreach ($dir as $sheetName => $pages) {
 						$navMenu .= '<h3>'.$sheetName.'</h3>';
 						$navMenu .= '<ul>';

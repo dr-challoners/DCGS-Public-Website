@@ -13,16 +13,14 @@
           <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
           <?php
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages');
-          echo $_SERVER['DOCUMENT_ROOT'];
-          view($dir);
           $dirData = array();
           foreach ($dir as $subdir) {
             if ($subdir != '.' && $subdir != '..') {
-              $subdirData = scandir($_SERVER['DOCUMENT_ROOT'].'maths/pages/'.$subdir);
+              $subdirData = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/'.$subdir);
               $subdirData = array_reverse($subdirData);
               foreach ($subdirData as $row) {
                 if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
-                  $row = file_get_contents($_SERVER['DOCUMENT_ROOT'].'maths/pages/'.$subdir.'/'.$row);
+                  $row = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/maths/pages/'.$subdir.'/'.$row);
                   $row = json_decode($row, true);
                   $dirData[$subdir] = $row;
                   break;
@@ -51,67 +49,13 @@
               foreach ($pages as $title => $page) {
                 echo '<li><a href="'.$page['link'].'">'.$title.'</a></li>';
               }
-              //foreach ($sheet['pages'] as $page) {
-                /*
-                if (stripos($page,'[hidden]') === false) {
-                  if (stripos($page,'[link:')) === false) {
-                    echo '<li><a href="/learn/'.clean($_GET['subject']).'/'.clean($section).'/'.clean($sheet['sheetname']).'/'.clean($page).'">'.$page.'</a></li>';
-                  } else {
-                    $link = explode('[link:',$page);
-                    $linkName = trim($link[0]);
-                    $linkURL  = explode(']',$link[1])[0];
-                    echo '<li><a href="'.$linkURL.'">'.formatText($linkName,0).'</a></li>';
-                  }
-                }
-                */
-              //}
               echo '</ul></div>';
               echo '</div>';
               echo '</div>';
             }
             echo '</div>';
           }
-          /*
-                    foreach($siteData['data']['sheets'] as $sheet) {
-                      if (!isset($section) || $section != $sheet['section']) {
-                        if (isset($section)) { echo '</div>'; } // Finishes up the previous panel group
-                        $section = $sheet['section'];
-                        echo '<h3>'.$section.'</h3>';
-                        echo '<div class="panel-group" id="learnMenu" role="tablist" aria-multiselectable="true">';
-                      }
-                      if (isset($sheet['sheetname'])) {
-                        echo '<div class="panel">';
-                          echo '<div class="panel-heading" role="tab" id="heading-'.clean($section).'-'.clean($sheet['sheetname']).'">';
-                            echo '<h4 class="panel-title">';
-                              echo '<a role="button" data-toggle="collapse" data-parent="#learnMenu" href="#collapse-'.clean($section).'-'.clean($sheet['sheetname']).'" aria-expanded="true" aria-controls="collapse-'.clean($section).'-'.clean($sheet['sheetname']).'">';
-                                echo $sheet['sheetname'];
-                              echo '</a>';
-                            echo '</h4>';
-                          echo '</div>';
-                          echo '<div id="collapse-'.clean($section).'-'.clean($sheet['sheetname']).'" class="panel-collapse collapse';
-                            if (isset($_GET['sheet']) && clean($_GET['sheet']) == clean($sheet['sheetname']) && clean($_GET['section']) == clean($section)) {
-                              echo ' in';
-                            }
-                          echo '" role="tabpanel" aria-labelledby="heading-'.clean($section).'-'.clean($sheet['sheetname']).'">';
-                            echo '<div class="panel-body"><ul>';
-                              foreach ($sheet['pages'] as $page) {
-                                if (stripos($page,'[hidden]') === false) {
-                                  if (stripos($page,'[link:') === false) {
-                                    echo '<li><a href="/learn/'.clean($_GET['subject']).'/'.clean($section).'/'.clean($sheet['sheetname']).'/'.clean($page).'">'.$page.'</a></li>';
-                                  } else {
-                                    $link = explode('[link:',$page);
-                                    $linkName = trim($link[0]);
-                                    $linkURL  = explode(']',$link[1])[0];
-                                    echo '<li><a href="'.$linkURL.'">'.formatText($linkName,0).'</a></li>';
-                                  }
-                                }
-                              }
-                            echo '</ul></div>';
-                          echo '</div>';
-                        echo '</div>';
-                      }
-                    }
-                  */ ?>
+          ?>
         </ul>
       </div>
     </div>
