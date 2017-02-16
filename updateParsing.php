@@ -18,8 +18,6 @@
   $section  = clean($_GET['section']);
   $sheet    = clean($sheetData['meta']['sheetname']);
   $directory = $section.'/'.$sheet;
-    $navData['link'] = '/c/'.$directory.'/'.$fileName;
-  $output['pageURL']  = 'http://www.challoners.com/c/'.$directory.'/'.$fileName;
   if (isset($sheetData['data'][$pageName])) {
     $pageData = $sheetData['data'][$pageName];
   } else {
@@ -32,6 +30,11 @@
     }
   }
   if (isset($pageData) && !empty($pageData)) {
+    if ($link > 0) {
+      $navData['link'] = $pageData[2]['url'];
+    } else {
+      $navData['link'] = '/c/'.$directory.'/'.$fileName;
+  $output['pageURL']  = 'http://www.challoners.com/c/'.$directory.'/'.$fileName;
     foreach ($pageData as $row) {
       unset($imageName,$dataType,$file,$content,$set);
       if (!empty($row['datatype'])) {
@@ -146,7 +149,7 @@
     $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/header.php\'); ?>';
     $output['page'] .= '<div class="row">';
-    $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/contentNavigation.php\'); ?>';
+    $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/navigationSide.php\'); ?>';
     $output['page'] .= '<div class="col-sm-8">';
     $output['page'] .= '<div class="row articleInfo">';
     $output['page'] .= '<div class="col-xs-10">';
@@ -245,6 +248,7 @@
     $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/footer.php\'); ?>';
+    }
     $directory = 'pages/'.$directory;
     if (!file_exists($directory)) {
       mkdir($directory,0777,true);
@@ -280,11 +284,15 @@
           $newDir[$row['sheetname']] = $curDir[$row['sheetname']];
         }
       }
+      $pageName = str_ireplace('[link]','',$pageName);
+      $pageName = trim($pageName);
       foreach ($sheetData['data'] as $key => $row) {
-        if (trim($key) == $pageName) {
-          $newDir[$sheetData['meta']['sheetname']][trim($key)] = $navData;
-        } elseif (isset($curDir[$sheetData['meta']['sheetname']][trim($key)])) {
-          $newDir[$sheetData['meta']['sheetname']][trim($key)] = $curDir[$sheetData['meta']['sheetname']][trim($key)];
+        $key = str_ireplace('[link]','',$key);
+        $key = trim($key);
+        if ($key == $pageName) {
+          $newDir[$sheetData['meta']['sheetname']][$key] = $navData;
+        } elseif (isset($curDir[$sheetData['meta']['sheetname']][$key])) {
+          $newDir[$sheetData['meta']['sheetname']][$key] = $curDir[$sheetData['meta']['sheetname']][$key];
         }
       }
       $timestamp = mktime();
@@ -300,5 +308,6 @@
       file_put_contents($directory.'/'.$fileName.'.json', json_encode($images));
       return count($images);
     }
+  }
   } 
-} ?>
+ ?>
