@@ -12,6 +12,9 @@
           <li><a href="/maths"><i class="fa fa-home fa-fw"></i> Home</a></li>
           <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
           <?php
+          if (is_dir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/')) {
+            echo 'yes';
+          }
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/');
           echo $_SERVER['DOCUMENT_ROOT'].'/maths/pages/';
           view($dir);
