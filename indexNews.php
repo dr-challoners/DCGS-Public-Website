@@ -1,10 +1,10 @@
 <?php
 
-$dir = scandir($_SERVER['DOCUMENT_ROOT'].'pages/news/');
+$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/news/');
 $dir = array_reverse($dir);
 foreach ($dir as $row) {
   if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
-    $dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'pages/news/'.$row);
+    $dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/news/'.$row);
     $dir = json_decode($dir, true);
     break;
   }
@@ -12,7 +12,7 @@ foreach ($dir as $row) {
 $c = 0;
 $stories = array();
 foreach ($dir as $month => $pages) {
-  $monthDir = scandir($_SERVER['DOCUMENT_ROOT'].'pages/news/'.clean($month).'/');
+  $monthDir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/news/'.clean($month).'/');
   foreach ($pages as $key => $data) {
     if ($c < 12) {
       $stories[$key] = $data;
