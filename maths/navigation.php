@@ -15,7 +15,7 @@
           if (scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/') === false) {
             echo 'not working';
           } else {
-            echo 'something else';
+            view(scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/'));
           }
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/');
           $dirData = array();
