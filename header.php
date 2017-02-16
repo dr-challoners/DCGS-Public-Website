@@ -62,15 +62,15 @@
 
     // Common links
     $hardLink_termdates         = '/c/information/general-information/term-and-holiday-dates';
-    $hardLink_admissions        = '/c/information/admissions/';
+    $hardLink_admissions        = '/c/information/admissions/general-information';
     $hardLink_prospectus        = '/c/overview/introduction/prospectus';
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
-    $hardLink_supportingus      = '/c/information/supporting-us/';
+    $hardLink_supportingus      = '/c/information/supporting-us/annual-giving-programme';
     $hardLink_information       = '/c/information/';
     $hardLink_schoolshop        = '/c/information/general-information/school-shop-uniform-and-stationery-information';
     $hardLink_privacyandcookies = '/c/information/general-information/privacy-and-cookies';
     $hardLink_contactus         = '/c/information/general-information/contact-us';
-    $hardLink_alumni            = '/c/information/alumni/';
+    $hardLink_alumni            = '/c/information/alumni/overview';
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
