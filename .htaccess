@@ -34,6 +34,7 @@ RewriteRule    ^teamsheet/([0-9]+)-([0-9A-Za-z]+)-([0-9]+)$    diaryTeamSheets.p
 
 #Learn Maths
 RewriteRule    ^maths/background.jpg?$                    maths/background.jpg              [L]
+RewriteRule    ^maths/pages/([^/]+)/?$                    maths/pages/$1                    [L]
 RewriteRule    ^maths/?$                                  maths/index.php                   [L]
 RewriteRule    ^maths/([^/]+)/?$                          maths/index.php                   [L]
 RewriteRule    ^maths/([^/]+)/([^/]+)/?$                  maths/index.php                   [L]
