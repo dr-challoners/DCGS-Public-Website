@@ -51,10 +51,10 @@
     
     <?php
     date_default_timezone_set("Europe/London");
-    include($_SERVER['DOCUMENT_ROOT'].'modules/functions/parsedown.php');
-		include($_SERVER['DOCUMENT_ROOT'].'modules/functions/miscTools.php');
-		include($_SERVER['DOCUMENT_ROOT'].'modules/functions/fetchData.php');
-		include($_SERVER['DOCUMENT_ROOT'].'modules/functions/transformText.php');    
+    include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/parsedown.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/miscTools.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/fetchData.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/transformText.php');    
     ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->

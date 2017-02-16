@@ -12,11 +12,6 @@
           <li><a href="/maths"><i class="fa fa-home fa-fw"></i> Home</a></li>
           <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
           <?php
-          if (scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/') === false) {
-            echo 'not working';
-          } else {
-            view(scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/'));
-          }
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/');
           $dirData = array();
           foreach ($dir as $subdir) {
