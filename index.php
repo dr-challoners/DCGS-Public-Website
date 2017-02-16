@@ -56,8 +56,8 @@
       </div>
     </div>
     <a href="#astraLA_tab" aria-controls="astraLA_tab" role="button" class="btn btn-Astra btn-block" data-toggle="tab">
-      <img src="/img/astraLA_logo2.png" />
-      <img src="/img/astraLA_logo1.png" alt="Astra Learning Alliance" />
+      <img src="/img/astraLA_logoR.png" />
+      <img src="/img/astraLA_logoL.png" alt="Astra Learning Alliance" />
     </a>
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
