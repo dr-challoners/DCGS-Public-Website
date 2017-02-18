@@ -29,7 +29,7 @@
       <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="<?php echo mt_rand(); ?>"><i class="fa fa-table fa-fw"></i> Modify the master spreadsheet</a></div>
     </div>
     <div class="row buttonLine">
-      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/a/challoners.org/dcgs-publishing/" target="<?php echo mt_rand(); ?>"><i class="fa fa-question-circle fa-fw"></i> Open the support wiki</a></div>
+      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing" target="<?php echo mt_rand(); ?>"><i class="fa fa-question-circle fa-fw"></i> Open the support wiki</a></div>
     </div>
     <div class="row buttonLine">
       <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="/" target="<?php echo mt_rand(); ?>"><i class="fa fa-shield fa-fw"></i> Go to the school website</a></div>
@@ -47,7 +47,7 @@
             <li><a href="/intranet/parents/update" target="<?php echo mt_rand(); ?>">Parents</a></li>
           </ul>
         </div>
-        <a class="btn btn-default" href="https://sites.google.com/a/challoners.org/dcgs-publishing/managing-the-website/intranet-links" target="<?php echo mt_rand(); ?>">View help file</a>
+        <a class="btn btn-default" href="https://sites.google.com/challoners.org/dcgs-publishing/managing-the-website/intranet-links" target="<?php echo mt_rand(); ?>">View help file</a>
       </div>
     </div>
     <div class="row options">
@@ -56,7 +56,7 @@
         <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fklEcU5ZakNocS1LVW9lTHNQaWNUYzV4Z29pbkFfWno3S0VYdnVaQXNZdlk" target="<?php echo mt_rand(); ?>">Open content folder</a>
         <a class="btn btn-default" href="/update" target="<?php echo mt_rand(); ?>">Force re-sync</a>
         <a class="btn btn-default" href="/preview" target="<?php echo mt_rand(); ?>">Preview overrides</a>
-        <a class="btn btn-default" href="https://sites.google.com/a/challoners.org/dcgs-publishing/managing-the-website/override-messages" target="<?php echo mt_rand(); ?>">View help file</a>
+        <a class="btn btn-default" href="https://sites.google.com/challoners.org/dcgs-publishing/managing-the-website/override-messages" target="<?php echo mt_rand(); ?>">View help file</a>
       </div>
     </div>
     <div class="row options">
@@ -97,15 +97,11 @@
   }
   ?>
   <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/a/challoners.org/dcgstv/bookings" target="<?php echo mt_rand(); ?>"><i class="fa fa-camera fa-fw"></i> Book camera and TV Studio time</a></div>
-  </div>
-  <hr />
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/a/challoners.org/dcgs-publishing/dcgs-style-guide" target="<?php echo mt_rand(); ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Read the style guide</a></div>
+    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing/dcgs-style-guide" target="<?php echo mt_rand(); ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Read the style guide</a></div>
     <div class="col-xs-12 col-sm-7 col-md-8"><p>You must know and follow this for all articles.</p></div>
   </div>
   <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/a/challoners.org/dcgs-publishing/managing-the-website/datatypes" target="<?php echo mt_rand(); ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Read article formatting instructions</a></div>
+    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing/managing-the-website/dcgs-website-pages" target="<?php echo mt_rand(); ?>"><i class="fa fa-pencil-square-o fa-fw"></i> Read article formatting instructions</a></div>
   </div>
   <div class="row buttonLine">
     <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/spreadsheets/d/1oDZmEOsifN8iQpEE_XI1QBNGiiIMNk-Cont-UsLyFwU/edit#gid=0" target="<?php echo mt_rand(); ?>"><i class="fa fa-table fa-fw"></i> View SJT contributor records</a></div>
