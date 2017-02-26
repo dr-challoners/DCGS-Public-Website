@@ -80,6 +80,8 @@
   
 </head>
 <body>
+  <!-- Load Google Analytics --> 
+  <?php include_once("analyticstracking.php") ?>
   <div class="container dcgsBanner hidden-xs">
     <a href="/"></a>
     <img class="img-responsive" src="/img/dcgsBanner.png" alt="Dr Challoner's Grammar School" />
