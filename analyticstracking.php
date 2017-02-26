@@ -6,7 +6,6 @@
 	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	/* Replace 'trackingID' with tracking ID
 	Obtainable here: https://analytics.google.com/analytics/web/provision/?authuser=0#provision/CreateAccount/ */
-	ga('create', 'trackingID', 'auto');
+	ga('create', 'UA-92676121-1', 'auto');
 	ga('send', 'pageview');
-
 </script>

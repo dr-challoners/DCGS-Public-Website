@@ -64,6 +64,8 @@
   
   </head>
   <body>
+	<!-- Load Google Analytics --> 
+  <?php include_once("analyticstracking.php") ?>
   <nav class="navbar navbar-learnBanner navbar-fixed-top hidden-xs">
     <a href="/maths">
       <div class="container">
