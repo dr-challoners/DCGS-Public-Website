@@ -113,5 +113,11 @@
   </div>
   <div class="row buttonLine">
     <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://trello.com/b/GHzwVAhu/editorial" target="<?php echo mt_rand(); ?>"><i class="fa fa-trello fa-fw"></i> Trello: SJT editors' board</a></div>
+</div>
+    <hr />
+  <div class="row buttonLine">
+    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://analytics.google.com/analytics/web/?authuser=0#realtime/rt-overview/a92676121w137153019p141382362/" target="<?php echo mt_rand(); ?>"><i class="fa fa-line-chart fa-fw"></i> Google Analytics</a></div>
+    <div class="col-xs-12 col-sm-7 col-md-8"><p>Website traffic data. Speak to Mr Burn if you would like read access.</p></div>
+  </div>
   </div>
 </div>
