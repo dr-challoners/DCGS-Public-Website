@@ -4,40 +4,49 @@ RewriteEngine On    #Turn on the rewriting engine
 #See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
 
 #Content management system
-RewriteRule    ^cms/?$     sheetCMS.php   [L]
-RewriteRule    ^sync/?$    sheetCMS.php   [L]
+RewriteRule    ^cms/?$        updateIndex.php   [L]
+RewriteRule    ^sync/?$       updateIndex.php   [L]
 
-RewriteRule    ^update/?$     ?sync=1   [L]
-RewriteRule    ^preview/?$    ?preview=1   [L]
+RewriteRule    ^update/?$     ?sync=1           [L]
+RewriteRule    ^preview/?$    ?preview=1        [L]
 
 #Content pages
-RewriteRule    ^c/([^/]+)/?$                          content.php?section=$1                           [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/?$                  content.php?section=$1&sheet=$2                  [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/?$          content.php?section=$1&sheet=$2&page=$3          [L]
-RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/update/?$   content.php?section=$1&sheet=$2&page=$3&sync=1   [L]
+RewriteRule    ^c/([^/]+)/?$                              navigationMain.php?section=$1     [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/?$                      navigationMain.php?section=$1     [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/?$              pages/$1/$2/$3.php                [L]
+RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/update/?$       pages/$1/$2/$3.php?sync=1         [L]
 
-RewriteRule    ^ucas/?$    content.php?section=student-life&sheet=sixth-form&page=ucas    [L]
-
-#Search page
-RewriteRule    ^search/    content_search.php    [L]
+RewriteRule    ^ucas/?$    content.php?section=student-life&sheet=sixth-form&page=ucas      [L]
 
 #Intranet pages
-RewriteRule    ^intranet/?$    intranet.php    [L]
-RewriteRule    ^intranet/([^/.]+)/?$    intranet.php?user=$1    [L]
-RewriteRule    ^intranet/([^/.]+)/update/?$    intranet.php?user=$1&sync=1    [L]
+RewriteRule    ^intranet/?$                               intranet.php                      [L]
+RewriteRule    ^intranet/([^/.]+)/?$                      intranet.php?user=$1              [L]
+RewriteRule    ^intranet/([^/.]+)/update/?$               intranet.php?user=$1&sync=1       [L]
 
 #Diary entries, where $1 is the day, $2 the month and $3 the year
-RewriteRule    ^diary/?$    diary.php    [L]
-RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$    diary.php?d=$1&m=$2&y=$3    [L]
-RewriteRule    ^diary/update/?$    diary.php?diarySync=1    [L]    #Force syncing the diary
-RewriteRule    ^diary/year/?$    diaryYearSummary.php    [L]
-RewriteRule    ^diary/calendar/?$    diary.php?calendar=1   [L]    #Viewing the calendar on mobiles
-RewriteRule    ^teamsheet/([0-9]+)-([0-9A-Za-z]+)-([0-9]+)$    diaryTeamSheets.php?date=$1&eventID=$2&sheet=$3    [L]
+RewriteRule    ^diary/?$                                       diary.php                    [L]
+RewriteRule    ^diary/([0-9]+)/([0-9]+)/([0-9]+)/?$            diary.php?d=$1&m=$2&y=$3     [L]
+RewriteRule    ^diary/update/?$                                diary.php?diarySync=1        [L]   #Force syncing the diary
+RewriteRule    ^diary/year/?$                                  diaryYearSummary.php         [L]
+RewriteRule    ^diary/calendar/?$                              diary.php?calendar=1         [L]   #Viewing the calendar on mobiles
 
-#Learn websites
-RewriteRule    ^learn/([^/.]+)/?$    learn.php?subject=$1   [L]
-RewriteRule    ^learn/([^/.]+)/([^/.]+)/?$    learn.php?subject=$1  [L]
-RewriteRule    ^learn/([^/.]+)/([^/.]+)/([^/.]+)/?$    learn.php?subject=$1&section=$2&sheet=$3   [L]
-RewriteRule    ^learn/([^/.]+)/([^/.]+)/([^/.]+)/([^/.]+)/?$    learn.php?subject=$1&section=$2&sheet=$3&page=$4   [L]
-RewriteRule    ^learn/([^/.]+)/([^/.]+)/([^/.]+)/([^/.]+)/update/?$    learn.php?subject=$1&section=$2&sheet=$3&page=$4&sync=1   [L]
+RewriteRule    ^teamsheet/([0-9]+)-([0-9A-Za-z]+)-([0-9]+)$    diaryTeamSheets.php?date=$1&eventID=$2&sheet=$3   [L]
+
+#Learn Maths
+RewriteRule    ^maths/background.jpg?$                    maths/background.jpg              [L]
+RewriteRule    ^maths/pages/([^/]+)/?$                    maths/pages/$1                    [L]
+RewriteRule    ^maths/?$                                  maths/index.php                   [L]
+RewriteRule    ^maths/([^/]+)/?$                          maths/index.php                   [L]
+RewriteRule    ^maths/([^/]+)/([^/]+)/?$                  maths/index.php                   [L]
+RewriteRule    ^maths/([^/]+)/([^/]+)/([^/]+)/?$          maths/pages/$1/$2/$3.php          [L]
+RewriteRule    ^maths/([^/]+)/([^/]*)/([^/]*)/update/?$   maths/pages/$1/$2/$3.php?sync=1   [L]
+
+#Deprecated: lose at some point
+RewriteRule    ^learn/maths/background.jpg?$                    maths/background.jpg              [L]
+RewriteRule    ^learn/maths/?$                                  maths/index.php                   [L]
+RewriteRule    ^learn/maths/([^/]+)/?$                          maths/index.php                   [L]
+RewriteRule    ^learn/maths/([^/]+)/([^/]+)/?$                  maths/index.php                   [L]
+RewriteRule    ^learn/maths/([^/]+)/([^/]+)/([^/]+)/?$          maths/pages/$1/$2/$3.php          [L]
+RewriteRule    ^learn/maths/([^/]+)/([^/]*)/([^/]*)/update/?$   maths/pages/$1/$2/$3.php?sync=1   [L]
+
 </Ifmodule>

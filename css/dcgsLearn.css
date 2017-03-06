@@ -7,7 +7,7 @@ body {
   background-repeat: no-repeat;
 }
 a {
-  color: #666;
+  color: #25549B;
 }
 a:hover {
   color: #aaa;
@@ -16,6 +16,7 @@ a:hover {
   body {
     padding-top: 95px;
     background-color: #f6f6f6;
+    background-image: url('../maths/background.jpg');
   }
   .learnPage {
     border-radius: 4px;
@@ -30,7 +31,7 @@ a:hover {
 }
 
 .navbar-learnBanner {
-  background-color: #666;
+  background-color: #25549B;
   box-shadow: 0 6px 8px -6px #333;
   border: 0;
   border-radius: 0;
@@ -60,7 +61,7 @@ a:hover {
   box-shadow: 0 4px 8px -6px #333;
 }
 .navbar-learnMenu .navbar-header {
-  background-color: #666;
+  background-color: #25549B;
   color: #fff;
 }
   .navbar-learnMenu .navbar-header a {
@@ -85,7 +86,7 @@ a:hover {
 }
 .navbar-learnMenu .navbar-collapse a {
   display: block;
-  color: #666;
+  color: #25549B;
   border-bottom: 0!important;
 }
 .navbar-learnMenu .navbar-collapse h3 {
@@ -129,5 +130,5 @@ a:hover {
   padding-top: 31px;
 }
 .barLink:hover {
-  background-color: #666;
+  background-color: #25549B;
 }

@@ -1,14 +1,6 @@
-<?php
-  $userID = time().'-'.mt_rand();
-  if (!isset($_COOKIE['user'])) {
-    setcookie('user', $userID, time() + (86400 * 7), "/");
-  } else {
-    $userID = $_COOKIE['user'];
-  }
-?>
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- HERE IS A NICE HTML COMMENT. -->
+<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,28 +55,22 @@
   <?php
 
     date_default_timezone_set("Europe/London");
-    include('modules/commonFunctions.php');
-    include('modules/functionsCMS.php');
-    include('modules/content/process.php');
-    include('modules/parsedown.php');
-
-    // All pages rely on the mainData, even if just for navigation
-    if (file_exists($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json')) {
-      $mainData = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/data/content/mainData_dcgs.json');
-      $mainData = json_decode($mainData, true);
-    }
+		include('modules/functions/parsedown.php');
+		include('modules/functions/miscTools.php');
+		include('modules/functions/fetchData.php');
+		include('modules/functions/transformText.php');
 
     // Common links
     $hardLink_termdates         = '/c/information/general-information/term-and-holiday-dates';
-    $hardLink_admissions        = '/c/information/admissions/';
+    $hardLink_admissions        = '/c/information/admissions/general-information';
     $hardLink_prospectus        = '/c/overview/introduction/prospectus';
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
-    $hardLink_supportingus      = '/c/information/supporting-us/';
+    $hardLink_supportingus      = '/c/information/supporting-us/annual-giving-programme';
     $hardLink_information       = '/c/information/';
     $hardLink_schoolshop        = '/c/information/general-information/school-shop-uniform-and-stationery-information';
     $hardLink_privacyandcookies = '/c/information/general-information/privacy-and-cookies';
     $hardLink_contactus         = '/c/information/general-information/contact-us';
-    $hardLink_alumni            = '/c/information/alumni/';
+    $hardLink_alumni            = '/c/information/alumni/overview';
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
@@ -94,6 +80,8 @@
   
 </head>
 <body>
+  <!-- Load Google Analytics --> 
+  <?php include_once("analyticstracking.php") ?>
   <div class="container dcgsBanner hidden-xs">
     <a href="/"></a>
     <img class="img-responsive" src="/img/dcgsBanner.png" alt="Dr Challoner's Grammar School" />
@@ -109,57 +97,52 @@
       </a>  
     </div>
     <div class="collapse navbar-collapse" id="menuContent">
-      <ul class="nav nav-justified navbar-nav navbar-righ">
+      <ul class="nav nav-justified navbar-nav">
         <li class="hidden-xs"><a href="/">Home</a></li>
         <?php
+				function makeNavMenu($menu, $mobile = 0) {
+					global $section;
+					$navMenu = '<li class="dropdown';
+					if (isset($section) && $section == clean($menu)) {
+						$navMenu .= ' active';
+					}
+					if (!empty($mobile)) {
+						$navMenu .= ' visible-xs-block';
+					}
+					$navMenu .= '">';
+					$navMenu .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.str_replace(' ','&nbsp;',$menu).'</a>';
+					$navMenu .= '<div class="dropdown-menu">';
+					
+					$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
+					$dir = array_reverse($dir);
+					foreach ($dir as $row) {
+						if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
+							$dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu).'/'.$row);
+							$dir = json_decode($dir, true);
+							break;
+						}
+					}
+					foreach ($dir as $sheetName => $pages) {
+						$navMenu .= '<h3>'.$sheetName.'</h3>';
+						$navMenu .= '<ul>';
+						foreach ($pages as $pageName => $data) {
+							$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+						}
+						$navMenu .= '</ul>';
+					}
+					$navMenu .= '</div>';
+					$navMenu .= '</li>';
+					return $navMenu;
+				}
 
-          function makeNavMenu($section, $mobile = 0) {
-            global $mainData, $area;
-            $navMenu = '<li class="dropdown';
-            if (isset($area) && clean($area) == clean($section)) {
-              $navMenu .= ' active';
-            }
-            if (!empty($mobile)) {
-              $navMenu .= ' visible-xs-block';
-            }
-            $navMenu .= '">';
-            $navMenu .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.str_replace(' ','&nbsp;',$section).'</a>';
-            $navMenu .= '<div class="dropdown-menu">';
-            foreach ($mainData['data']['sheets'] as $row) {
-              if (clean($row['section']) == clean($section) && isset($row['sheetname'])) {
-                $navMenu .= '<h3>'.formatText($row['sheetname'],0).'</h3>';
-                $navMenu .= '<ul>';
-                foreach ($row['pages'] as $page) {
-                  if (stripos($page,'[hidden]') === false) {
-                    if (stripos($page,'[link:') === false) {
-                    $navMenu .= '<li><a href="/c/'.clean($section).'/'.clean($row['sheetname']).'/'.clean($page).'">'.formatText($page,0).'</a></li>';
-                    } else {
-                      $link = explode('[link:',$page);
-                      $linkName = trim($link[0]);
-                      $linkURL  = explode(']',$link[1])[0];
-                      $navMenu .= '<li><a href="'.$linkURL.'">'.formatText($linkName,0).'</a></li>';
-                    }
-                  }
-                }
-                $navMenu .= '</ul>';
-              }
-            }
-            $navMenu .= '</div></li>';
-            return $navMenu;
-          }
-
-          if (isset($_GET['section'])) {
-            $area = $_GET['section'];
-          }
-
-          echo makeNavMenu('Overview');
-          echo makeNavMenu('Information',1);
-          echo makeNavMenu('Student Life');
-          echo makeNavMenu('Community');
-          echo makeNavMenu('News',1);
+				echo makeNavMenu('Overview');
+				echo makeNavMenu('Information',1);
+				echo makeNavMenu('Student Life');
+				echo makeNavMenu('Community');
+				echo makeNavMenu('News',1);
           
           echo '<li class="hidden-xs';
-          if (isset($area) && clean($area) == 'intranet') {
+          if (isset($section) && $section == 'intranet') {
             echo ' active';
           }
           echo '"><a href="/intranet">Intranet</a></li>';
@@ -174,7 +157,7 @@
             echo '</div>';
           echo '</li>';
           echo '<li class="hidden-xs';
-          if (isset($area) && clean($area) == 'diary') {
+          if (isset($section) && $section == 'diary') {
             echo ' active';
           }
           echo '"><a href="/diary">Diary</a></li>';

@@ -16,7 +16,7 @@ h1 {
 .buttonLine {
   margin-bottom: 8px;
 }
-.buttonLine .btn-block {
+.buttonLine .btn-block:not(.btn-center) {
   text-align: left;
 }
 

@@ -7,7 +7,7 @@
     $curTimestamp = time();
   }
 
-  $area = 'diary';
+  $section = 'diary';
   include('header.php');
 
 ?>
@@ -183,7 +183,7 @@
     echo '<div id="diaryPreview"></div>';
     echo '<div id="diaryLinks" class="hidden-xs">';
       echo '<h4 class="panel-title"><a href="/diary/year/">Year summary</a></h4>';
-			echo '<h4 class="panel-title"><a href="/c/Information/General-information/Term-and-holiday-dates">Term dates</a></h4>';
+			echo '<h4 class="panel-title"><a href="'.$hardLink_termdates.'">Term dates</a></h4>';
       echo '<p class="panel-title"><a target="page'.mt_rand().'" href="https://www.google.com/calendar/embed?src=challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com&ctz=Europe/London">View in Google Calendar</a></p>';
       echo '<p class="panel-title"><a href="https://www.google.com/calendar/ical/challoners.org_1e3c7g4qn1kic52usnlbrn63ts%40group.calendar.google.com/public/basic.ics">Download iCal format</a></p>';
 		echo "</div>";
