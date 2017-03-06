@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "cssnano": "^3.10.0",
+    "postcss-calc": "^5.3.1",
+    "postcss-cli": "^3.0.0-beta",
+    "postcss-css-variables": "^0.6.0",
+    "postcss-media-minmax": "^2.1.2",
+    "postcss-media-variables": "^2.0.0",
+    "postcss-nested": "^1.0.0",
+    "postcss-partial-import": "^3.1.1",
+    "rucksack-css": "^0.9.1"
+  },
+  "scripts": {
+    "build": "postcss css/src/[^_]*.css --dir css",
+    "watch": "postcss css/src/[^_]*.css --dir css --watch"
+  }
+}

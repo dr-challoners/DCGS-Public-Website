@@ -1,2 +1,5 @@
 # postcss'd files
-css/*.css
+css/*
+!css/src
+
+node_modules
