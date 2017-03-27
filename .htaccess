@@ -16,7 +16,7 @@ RewriteRule    ^c/([^/]+)/([^/]*)/?$                      navigationMain.php?sec
 RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/?$              pages/$1/$2/$3.php                [L]
 RewriteRule    ^c/([^/]+)/([^/]*)/([^/]*)/update/?$       pages/$1/$2/$3.php?sync=1         [L]
 
-RewriteRule    ^ucas/?$    content.php?section=student-life&sheet=sixth-form&page=ucas      [L]
+RewriteRule    ^ucas/?$    c/student-life/sixth-form/ucas                                   [L]
 
 #Intranet pages
 RewriteRule    ^intranet/?$                               intranet.php                      [L]
