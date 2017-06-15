@@ -25,7 +25,7 @@ foreach ($houses as $house) {
   $$house = array();
   foreach ($houseLists['data']['House Captains'] as $entry) {
     if ($entry['house'] == $house) {
-      ${$house}[$entry['rank']] = $entry['forename'].' '.$entry['surname'];
+      ${$house}[$entry['rank']][] = $entry['forename'].' '.$entry['surname'];
     }
   }
   foreach ($houseLists['data']['Year 7 mentors'] as $entry) {
@@ -45,7 +45,7 @@ foreach ($houses as $house) {
   }
   echo '<h2 id="'.strtolower($house).'">'.$house.'</h2>';
   echo '<h3><strong>Captains:</strong> ';
-    echo ${$house}['Captain'].' and '.${$house}['Deputy Captain'];
+    echo ${$house}['Captain'][0].', '.${$house}['Deputy Captain'][0].' and '.${$house}['Deputy Captain'][1];
   echo '</h3>';
   echo '<p><strong>Sixth Form Mentors for Year 7</strong><br />';
     echo commaList(${$house}['Mentors']);
