@@ -274,6 +274,7 @@
             unset($navData['preview']['images'][$key]);
           }
         }
+        $navData['preview']['images'] = array_values($navData['preview']['images']);
       }
       $dir = scandir($pageLoc.$section);
       $dir = array_reverse($dir);
