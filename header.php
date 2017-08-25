@@ -68,7 +68,7 @@
     $hardLink_supportingus      = '/c/information/supporting-us/annual-giving-programme';
     $hardLink_information       = '/c/information/';
     $hardLink_schoolshop        = '/c/information/general-information/school-shop-uniform-and-stationery-information';
-    $hardLink_privacyandcookies = '/c/information/general-information/privacy-and-cookies';
+    $hardLink_privacy           = '/c/information/general-information/privacy';
     $hardLink_contactus         = '/c/information/general-information/contact-us';
     $hardLink_alumni            = '/c/information/alumni/overview';
   ?>
