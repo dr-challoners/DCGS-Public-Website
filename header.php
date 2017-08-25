@@ -68,7 +68,7 @@
     $hardLink_supportingus      = '/c/information/supporting-us/annual-giving-programme';
     $hardLink_information       = '/c/information/';
     $hardLink_schoolshop        = '/c/information/general-information/school-shop-uniform-and-stationery-information';
-    $hardLink_privacy           = '/c/information/general-information/privacy';
+    $hardLink_privacy           = 'https://dcgs.box.com/s/naaj3kzym9wfbolj3a7tgath4gl5ihpt';
     $hardLink_contactus         = '/c/information/general-information/contact-us';
     $hardLink_alumni            = '/c/information/alumni/overview';
   ?>
