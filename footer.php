@@ -18,7 +18,7 @@
       <p class="pull-left hidden-xs">Dr Challoner's Grammar School, &copy; 2005-<?php echo date("y"); ?></p>
       <p class="pull-right visible-xs-block"><a href="/">Home</a> - <a href="#">Page top</a> - <a href="<?php echo $hardLink_privacy; ?>">Privacy</a></p>
       <p class="pull-right hidden-xs">
-        <a href="/">Home</a> - <a href="<?php echo $hardLink_termdates; ?>">Term dates</a> - <a href="<?php echo $hardLink_admissions; ?>">Admissions</a> - <a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a> - <a href="<?php echo $hardLink_supportingus; ?>">Supporting us</a> - <a href="<?php echo $hardLink_information; ?>">Information</a> - <a href="<?php echo $hardLink_privacyandcookies; ?>">Privacy and cookies</a> - <a href="<?php echo $hardLink_contactus; ?>">Contact us</a>
+        <a href="/">Home</a> - <a href="<?php echo $hardLink_termdates; ?>">Term dates</a> - <a href="<?php echo $hardLink_admissions; ?>">Admissions</a> - <a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a> - <a href="<?php echo $hardLink_supportingus; ?>">Supporting us</a> - <a href="<?php echo $hardLink_information; ?>">Information</a> - <a href="<?php echo $hardLink_privacy; ?>">Privacy</a> - <a href="<?php echo $hardLink_contactus; ?>">Contact us</a>
       </p>
     </div>
   </nav>
