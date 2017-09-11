@@ -77,7 +77,7 @@
     <div class="row options">
       <div class="col-xs-12 col-sm-3 col-md-2"><p>Clubs and societies:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
-        <a class="btn btn-default" href="/c/community/clubs-and-societies/what~1s-on-this-term/update" target="<?php echo mt_rand(); ?>">Update website</a>
+        <a class="btn btn-default" href="http://www.challoners.com/sync?tab=content&section=Community&sheet=1VMkASAp3CAXzl9wpjDRUJT_nUL-VVcPnx22ls_jghz0&page=What%27s%20on%20this%20term?">Update website</a>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit calendar <span class="caret"></span></button>
           <ul class="dropdown-menu">
