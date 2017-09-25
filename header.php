@@ -7,7 +7,7 @@
   
   <title>Dr Challoner's Grammar School</title>
   <link rel="icon" type="image/png" href="img/favicon.png" />
-  <meta name="description" content="Prospectus, ethos, history and academic achievements of well-established boys' school catering for ages 11 - 18." />
+  <meta name="description" content="Well established boys' secondary school with co-educational Sixth Form. News, prospectus, ethos, history and academic achievements." />
 
   <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
