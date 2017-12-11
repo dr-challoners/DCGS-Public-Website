@@ -37,22 +37,19 @@ $r = 0;
 $a = 0; // Keeping track of the position in order to put the audio feature in
 foreach ($stories as $title => $story) {
   if ($a >= 2 && !isset($audio)) {
-    $ab = 'https://audioboom.com/users/4576749/boos.rss';
-    $ab = simplexml_load_file($ab);
-    $ab = (array) $ab->channel;
-    $ab = $ab['item'];
+    $scfeed = file_get_contents('http://api.soundcloud.com/users/316458242/tracks.json?client_id=59f4a725f3d9f62a3057e87a9a19b3c6'); //Get a feed from Soundcloud
+    $scjson = json_decode($scfeed, true); //Decode feed to JSON
     $track1 = rand(0,24);
     $track2 = rand(0,24);
     if ($track1 == $track2) {
       $track2++;
     }
-    $tracks = array($track1,$track2);
+    $tracks = [$scjson[$track1],$scjson[$track2]]; //Insert two randomly chosen tracks to new array
     echo '<div class="row">';
     foreach ($tracks as $track) {
-      $src = $ab[$track]->link;
-      $src = str_replace('https://','//embeds.',$src);
+      $src  = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/'.$track['id'].'&amp;color=2358A3&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=false'; //iFrame Embed source
       echo '<div class="col-sm-6 embed-responsive embed-responsive-audioFront">';
-      echo '<iframe class="embed-responsive-item" src="'.$src.'/embed/v3?link_color=%232358A3&amp;image_option=none" scrolling="no"></iframe>';
+      echo '<iframe class="embed-responsive-item" src="' . $src. '" scrolling="no"></iframe>';
       echo '</div>';
     }
     echo '</div>';
