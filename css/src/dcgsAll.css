@@ -1,12 +1,14 @@
 /* --- GENERAL COLOURS --- -/
 
-  Background blue: #173F7A
-    Link on hover: #2358A3
-   Active element: #1B4B87
+  Background blue: var(--bg-blue)
+    Link on hover: var(--link-hover)
+   Active element: var(--el-active)
      #sports_team: #9B0B0B
          #astraLA: #8EAFCE (background)
 
 /- ----------------------- */
+
+@import '_variables';
 
 body {
   font-family: "Quattrocento Sans", Helvetica, sans-serif;
@@ -24,7 +26,7 @@ h1, h2, h3, h4, h5, h6,
     margin-top: 0;
   }
 a {
-  color: #2358A3;
+  color: var(--link-hover);
 }
 
 .container {
@@ -56,7 +58,7 @@ a {
 
 .twitterColumn {
   border-bottom: 4px solid;
-  border-color: #173F7A;
+  border-color: var(--bg-blue);
 }
 
 .twitterColumn a.twitter-timeline {
@@ -69,7 +71,7 @@ a {
   padding: 5px 10px;
   margin-bottom: 9px;
   color: #fff;
-  background-color: #173F7A;
+  background-color: var(--bg-blue);
 }
 
 .twitterColumn#sports_team {
