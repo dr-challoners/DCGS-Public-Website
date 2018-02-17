@@ -8,8 +8,8 @@ $(document).ready(function() {
       transitionDuration: 0
 	});
 	// layout Masonry after each image loads
-	$grid.imagesLoaded().progress( function() {
-	  $grid.masonry('layout');
+	$gallery.imagesLoaded().progress( function() {
+	  $gallery.masonry('layout');
 	});
     
 });
