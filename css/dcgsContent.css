@@ -95,6 +95,24 @@
   margin-bottom: 0;
 }
 
+.gallery {
+  width: 100%;
+  margin: auto;
+}
+.galleryItem {
+  width: calc(100% / 3);
+}
+.galleryItem-medium {
+  width: calc(100% / 3 * 2);
+}
+.galleryItem-large {
+  width: 100%;
+}
+.galleryItem img {
+  padding: 6px;
+}
+
+
 .setDisplay {
   padding: 0 9px;
 }

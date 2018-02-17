@@ -24,7 +24,7 @@
         }
       }
     }
-    if (strpos($format,'set') === false) {
+    if (strpos($format,'set') === false && strpos($format, 'gallery') === false) {
       // Build a basic container first and then modify it if there's any formatting
       $container = '<div class="row"><div class="embedFeature col-sm-X col-sm-offset-X">';
       $content = $container.$content.'</div></div>';
