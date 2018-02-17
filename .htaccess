@@ -45,7 +45,8 @@ RewriteRule    ^maths/([^/]+)/([^/]*)/([^/]*)/update/?$   maths/pages/$1/$2/$3.p
 RewriteRule    ^mun/?$        http//www.challonersmun.com/     [L,R=301,NC]   
 
 #DCGS Robotics
-RewriteRule    ^robots/?$     https://robots.dcgs.io/          [L,R=301,NC]   
+RewriteRule    ^robots/?$     https://robots.dcgs.io/          [L,R=301,NC]
+RewriteRule    ^robotics/?$   https://robots.dcgs.io/          [L,R=301,NC]  
 
 #Deprecated: lose at some point
 RewriteRule    ^learn/maths/background.jpg?$                    maths/background.jpg              [L]
