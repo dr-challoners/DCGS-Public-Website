@@ -53,6 +53,13 @@
         } else {
           $c = count($output['content']);
         }
+        if (strpos($row['format'],'gallery') !== false) {
+          if (isset($output['content'][$c-1]['gallery']) && strpos($row['format'],'new') === false) {
+            $gallery = $c-1;
+          } else {
+            $gallery = $c;
+          }
+        }
         if (strpos($row['format'],'set') !== false) {
           if (isset($output['content'][$c-1]['set']) && strpos($row['format'],'new') === false) {
             $set = $c-1;
@@ -98,10 +105,12 @@
             $imageID = makeID($row['url'], 1);
             $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $row['format']);
             if ($row['format'] != 'hidden') {
-              if (!isset($set)) {
-                $output['content'][] = '[IMAGE:'.$imageID.']';
-              } else {
+              if (isset($set)) {
                 $output['content'][$set]['set'][] = '[IMAGE:'.$imageID.']';
+              } elseif (isset($gallery)) {
+                $output['content'][$gallery]['gallery'][] = array('name' => '[IMAGE:'.$imageID.']', 'format' => $row['format']);
+              } else {
+                $output['content'][] = '[IMAGE:'.$imageID.']';
               }
             }
             if (!empty($row['content'])) {
@@ -245,6 +254,30 @@
           $setHold--;
         }
         $output['page'] .= '</div>';
+      } elseif (isset($block['gallery'])) {
+        $galleryCount = 0;
+        $setBox  = '<div class="col-sm-X">Y</div>';
+        $output['page'] .= '<div class="row gallery">';
+        
+        foreach ($block['gallery'] as $nibble) {
+          $output['page'] .= '<div class="galleryItem';
+          if (strpos($nibble['format'],'medium') !== false) {
+            $output['page'] .= ' galleryItem-medium';
+          } elseif (strpos($nibble['format'],'large') !== false) {
+            $output['page'] .= ' galleryItem-large';
+          } else {
+            $output['page'] .= ' galleryItem-small';
+          }
+          if ($galleryCount == 0 && strpos($nibble['format'],'large') == false && strpos($nibble['format'],'medium') == false) {
+            $output['page'] .= ' gallerySizer';
+            $galleryCount++;
+          }
+          $output['page'] .= '">' . $nibble['name'] .'</div>';
+          
+        }
+
+        $output['page'] .= '</div>';
+
       } else {
         $block = str_replace('&lt;?php ','<?php ',$block); // Makes sure php in code blocks is recognised
         $output['page'] .= $block;
