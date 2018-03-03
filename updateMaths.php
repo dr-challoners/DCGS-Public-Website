@@ -5,4 +5,3 @@
   <li role="presentation"><a href="?tab=content" aria-controls="content">Update DCGS</a></li>
   <li role="presentation" class="active"><a href="?tab=maths" aria-controls="maths">Mathematics</a></li>
 </ul>
-<div class="tab-content">
