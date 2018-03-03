@@ -40,10 +40,10 @@
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_schoolshop; ?>">School shop</a></p>
+          <p><a href="<?php echo $hardLink_schoolshop; ?>">School Shop</a></p>
         </div>
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_information; ?>">Information</a></p>
+          <p><a href="<?php echo $hardLink_sixthform; ?>">Sixth Form</a></p>
         </div>
       </div>
       <div class="row">
@@ -51,7 +51,7 @@
           <p><a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a></p>
         </div>
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_supportingus; ?>">Support us</a></p>
+          <p><a href="<?php echo $hardLink_supportingus; ?>">Support Us</a></p>
         </div>
       </div>
     </div>

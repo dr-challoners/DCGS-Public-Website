@@ -5,20 +5,12 @@
   ?>
   </div> <!-- .container -->
   <nav class="navbar footerBar navbar-fixed-bottom">
-    <?php
-      if (isset($_GET['user']) && $_GET['user'] == 'students') {
-        echo '<div class="visible-xs-block puzzleButton-mobile">';
-          echo '<a class="puzzleButton" href="/modules/weeklyPuzzle/weeklyPuzzle.php">';
-            echo 'Weekly puzzle <span class="pull-right"><i class="fa fa-puzzle-piece fa-lg"></i></span>';
-          echo '</a>';
-        echo '</div>';
-      } ?>
     <div class="container">
       <p class="pull-left visible-xs-block">DCGS, &copy; 2005-<?php echo date("y"); ?></p>
       <p class="pull-left hidden-xs">Dr Challoner's Grammar School, &copy; 2005-<?php echo date("y"); ?></p>
       <p class="pull-right visible-xs-block"><a href="/">Home</a> - <a href="#">Page top</a> - <a href="<?php echo $hardLink_privacy; ?>">Privacy</a></p>
       <p class="pull-right hidden-xs">
-        <a href="/">Home</a> - <a href="<?php echo $hardLink_termdates; ?>">Term dates</a> - <a href="<?php echo $hardLink_admissions; ?>">Admissions</a> - <a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a> - <a href="<?php echo $hardLink_supportingus; ?>">Supporting us</a> - <a href="<?php echo $hardLink_information; ?>">Information</a> - <a href="<?php echo $hardLink_privacy; ?>">Privacy</a> - <a href="<?php echo $hardLink_contactus; ?>">Contact us</a>
+        <a href="/">Home</a> - <a href="<?php echo $hardLink_termdates; ?>">Term Dates</a> - <a href="<?php echo $hardLink_admissions; ?>">Admissions</a> - <a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a> - <a href="<?php echo $hardLink_supportingus; ?>">Supporting the School</a> - <a href="<?php echo $hardLink_contactus; ?>">Contact Us</a>
       </p>
     </div>
   </nav>

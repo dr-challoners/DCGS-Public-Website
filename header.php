@@ -62,15 +62,16 @@
 
     // Common links
     $hardLink_termdates         = '/c/information/general-information/term-and-holiday-dates';
-    $hardLink_admissions        = '/c/information/admissions/general-information';
-    $hardLink_prospectus        = '/c/overview/introduction/prospectus';
+    $hardLink_admissions        = '/c/information/admissions/admissions-policy';
+    $hardLink_prospectus        = '/c/information/admissions/prospectus';
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
-    $hardLink_supportingus      = '/c/information/supporting-us/annual-giving-programme';
+    $hardLink_supportingus      = '/c/information/supporting-the-school/annual-giving-programme';
     $hardLink_information       = '/c/information/';
-    $hardLink_schoolshop        = '/c/information/general-information/school-shop-uniform-and-stationery-information';
+    $hardLink_schoolshop        = '/c/information/general-information/uniform-and-stationery';
     $hardLink_privacy           = 'https://dcgs.box.com/s/naaj3kzym9wfbolj3a7tgath4gl5ihpt';
-    $hardLink_contactus         = '/c/information/general-information/contact-us';
-    $hardLink_alumni            = '/c/information/alumni/overview';
+    $hardLink_contactus         = '/c/information/general-information/contacting-us';
+    $hardLink_alumni            = '/c/our-school/alumni/old-challoners';
+		$hardLink_sixthform         = '/c/our-school/sixth-form/welcome-to-the-sixth-form';
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
@@ -138,10 +139,9 @@
 					return $navMenu;
 				}
 
-				echo makeNavMenu('Overview');
-				echo makeNavMenu('Information',1);
-				echo makeNavMenu('Student Life');
-				echo makeNavMenu('Community');
+				echo makeNavMenu('Our School');
+				echo makeNavMenu('Information');
+				echo makeNavMenu('Enrichment');
 				echo makeNavMenu('News',1);
           
           echo '<li class="hidden-xs';
@@ -168,14 +168,14 @@
             echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>';
             echo '<div class="dropdown-menu">';
               echo '<ul>';
-                echo '<li><a href="/diary">This week\'s events</a></li>';
-                echo '<li><a href="/diary/calendar/">Navigate the calendar</a></li>';
+                echo '<li><a href="/diary">This Week\'s Events</a></li>';
+                echo '<li><a href="/diary/calendar/">Navigate the Calendar</a></li>';
               echo '</ul>';
             echo '</div>';
           echo '</li>';
         ?>
         <li><a href="<?php echo $hardLink_alumni; ?>">Alumni</a></li>
-        <li><a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;us</a></li>
+        <li><a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a></li>
         
       </ul>
     </div><!-- /.navbar-collapse -->
