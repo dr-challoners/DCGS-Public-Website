@@ -206,7 +206,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
                 echo 'target="page'.mt_rand().'" ';
               }
               echo 'href="'.$link['url'].'">';
-              echo '<p>'.$link['title'].'</p>';
+              echo $link['title'];
               echo '</a>';
               if (!empty($link['notes'])) {
                 echo '<p>';

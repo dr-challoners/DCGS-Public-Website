@@ -151,6 +151,13 @@
   padding: 15px 20px 10px 0;
 }
 
+.quickLinks li > a {
+  padding: 0;
+}
 .quickLinks li > p {
-  margin-top: -10px;
+  margin: -5px 0 0 0;
+}
+.quickLinks li {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
