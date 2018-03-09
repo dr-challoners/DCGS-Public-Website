@@ -101,7 +101,7 @@
             <li><a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="<?php echo mt_rand(); ?>">Summer</a></li>
           </ul>
         </div>
-        <a class="btn btn-default" href="http://drogo-sbu351302.codeanyapp.com/sync?tab=content&section=Enrichment&sheet=1xMyo79efTDBV0GRx6fja4CcF-9JvW3L7pqMaEcPybNs&page=Clubs%20and%20Societies%20Calendar">Sync</a>
+        <a class="btn btn-default" href="http://www.challoners.com/sync?tab=content&section=Enrichment&sheet=1xMyo79efTDBV0GRx6fja4CcF-9JvW3L7pqMaEcPybNs&page=Clubs%20and%20Societies%20Calendar">Sync</a>
       </div>
     </div>
   </div> <!-- Ends the tab panel -->
