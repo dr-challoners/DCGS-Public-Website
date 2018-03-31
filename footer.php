@@ -18,23 +18,19 @@
     /*! Main */
     jQuery(document).ready(function($) {
 
-        var navbar = $('#DCGSMainNav-Links'),
+        var navbar = $('.menuFix'),
             distance = navbar.offset().top,
             $window = $(window);
-        var navbar2 = $('.DCGSMainNav-MenuBkgd');
 
         $window.scroll(function() {
             if ($window.scrollTop() >= distance) {
                 navbar.removeClass('navbar-fixed-top').addClass('navbar-fixed-top');
-                navbar2.removeClass('navbar-fixed-top').addClass('navbar-fixed-top');
                 $('body').css('padding-top',distance+57+'px');
                 $('.dcgsBanner').css('display','none');
             } else {
                 navbar.removeClass('navbar-fixed-top');
-                navbar2.removeClass('navbar-fixed-top');
                 $('body').css('padding-top', '0px');
                 navbar.css('top','0px');
-                navbar2.css('top','38px');
                 $('.dcgsBanner').css('display','block');
             }
         });
@@ -85,14 +81,6 @@
       });
     });
   </script>
-  <!-- Twitter and Facebook feeds -->
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>
 </html>
