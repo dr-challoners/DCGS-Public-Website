@@ -43,6 +43,39 @@
   background-color: #2358a3;
   text-decoration: none;
 }
+.DCGSMainNav-MenuBkgd {
+  margin-bottom: 20px;
+  background-color:#f6f6f6;
+  border-bottom: 1px solid #dcdcdc;
+}
+#DCGSMainNav-Menu .panel {
+  margin: 0;
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+#DCGSMainNav-Menu .panel .col-xs-4 {
+  margin: 5px 0 5px;
+}
+#DCGSMainNav-Menu .panel h3 {
+  padding-bottom: 5px;
+  margin: 15px 0 10px;
+  color: #173f7a;
+  border-bottom: 1px solid #808080;
+}
+#DCGSMainNav-Menu .panel ul {
+  list-style-type: none;
+  padding: 0;
+}
+#DCGSMainNav-Menu .panel a {
+  color: #000;
+  display: block;
+  padding: 2px 8px;
+}
+  #DCGSMainNav-Menu .panel a:hover {
+    background-color: #e2e2e2;
+    text-decoration: none;
+  }
 
 .dcgsNavbar .navbar-header {
   background-color: #173F7A;

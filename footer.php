@@ -18,19 +18,23 @@
     /*! Main */
     jQuery(document).ready(function($) {
 
-        var navbar = $('#menuFix'),
+        var navbar = $('#DCGSMainNav-Links'),
             distance = navbar.offset().top,
             $window = $(window);
+        var navbar2 = $('.DCGSMainNav-MenuBkgd');
 
         $window.scroll(function() {
             if ($window.scrollTop() >= distance) {
                 navbar.removeClass('navbar-fixed-top').addClass('navbar-fixed-top');
+                navbar2.removeClass('navbar-fixed-top').addClass('navbar-fixed-top');
                 $('body').css('padding-top',distance+57+'px');
                 $('.dcgsBanner').css('display','none');
             } else {
                 navbar.removeClass('navbar-fixed-top');
+                navbar2.removeClass('navbar-fixed-top');
                 $('body').css('padding-top', '0px');
                 navbar.css('top','0px');
+                navbar2.css('top','38px');
                 $('.dcgsBanner').css('display','block');
             }
         });

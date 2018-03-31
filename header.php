@@ -90,8 +90,8 @@
     <a href="/"></a>
     <img class="img-responsive" src="/img/dcgsBanner.png" alt="Dr Challoner's Grammar School" />
   </div>
-	<div class="container-fluid" id="DCGSMainNav-Links">
-		<div class="container">
+	<div class="container-fluid">
+		<div class="container" id="DCGSMainNav-Links">
 			<p>
 				<a href="/">Home</a>
 				<a id="our-school" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-our-school" aria-expanded="false" aria-controls="collapse-our-school">Our&nbsp;School</a>
@@ -103,42 +103,53 @@
 				<a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a>
 			</p>
 		</div>
-	</div>
-	<div class="container-fluid" style="background-color:grey;">
-		<div class="container" id="DCGSMainNav" role="tablist" aria-multiselectable="true">
-			<div class="panel">
-				<div id="collapse-general-information" class="collapse" role="tabpanel" aria-labelledby="general-information">
-					<ul>
-						<li>
-							<a href="/c/information/general-information/contacting-us">Contacting Us</a>
-						</li>
-						<li>
-							<a href="/c/information/general-information/term-and-holiday-dates">Term and HOLIDYA Dates</a>
-						</li>
-						<li>
-							<a href="/c/information/general-information/uniform-and-stationery">Uniform and Stationery</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="panel">
-				<div id="collapse-general-information2" class="collapse" role="tabpanel" aria-labelledby="general-information2">
-					<ul>
-						<li>
-							<a href="/c/information/general-information/contacting-us">Contacting Us</a>
-						</li>
-						<li>
-							<a href="/c/information/general-information/term-and-holiday-dates">Term and Holiday Dates</a>
-						</li>
-						<li>
-							<a href="/c/information/general-information/uniform-and-stationery">Uniform and Stationery</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<div class="container" id="DCGSMainNav-Menu" role="tablist" aria-multiselectable="true">
+		<?php
+			function makeScreenMenu($menu) {
+				$navMenu  = '<div class="panel">';
+				$navMenu .= '<div id="collapse-'.clean($menu).'" class="collapse" role="tabpanel" aria-labelledby="'.clean($menu).'">';
+				$navMenu .= '<div class="row">';
+				$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
+				$dir = array_reverse($dir);
+				foreach ($dir as $row) {
+					if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
+						$dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu).'/'.$row);
+						$dir = json_decode($dir, true);
+						break;
+					}
+				}
+				$colCount = 0;
+				foreach ($dir as $sheetName => $pages) {
+					if ($colCount % 2 == 0) {
+					if ($colCount > 0) {
+						$navMenu .= '</div>';
+					}
+					$navMenu .= '<div class="col-xs-4">';
+					}
+					$navMenu .= '<h3>'.$sheetName.'</h3>';
+					$navMenu .= '<ul>';
+					foreach ($pages as $pageName => $data) {
+						$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+					}
+					$navMenu .= '</ul>';
+					$colCount++;
+				}
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				return $navMenu;
+			}
+			echo makeScreenMenu('Our School');
+			echo makeScreenMenu('Information');
+			echo makeScreenMenu('Enrichment');
+		?>
 		</div>
 	</div>
-  <nav class="navbar dcgsNavbar" id="menuFix">
+	<div class="container-fluid DCGSMainNav-MenuBkgd">
+
+	</div>
+  <nav class="navbar dcgsNavbar" style="display:none;" id="menuFix">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand visible-xs-block" href="/">
