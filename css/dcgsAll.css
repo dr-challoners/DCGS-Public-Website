@@ -54,11 +54,6 @@ a {
 
 /* --- Twitter feeds --- */
 
-.twitterColumn {
-  border-bottom: 4px solid;
-  border-color: #173F7A;
-}
-
 .twitterColumn a.twitter-timeline {
   color: #000;
   margin: 0 5px;
@@ -67,21 +62,14 @@ a {
 .twitterColumn a:first-child {
   display: block;
   padding: 5px 10px;
-  margin-bottom: 9px;
   color: #fff;
   background-color: #173F7A;
 }
 
-.twitterColumn#sports_team {
-  border-color: #9B0B0B;
-}
 .twitterColumn#sports_team a:first-child {
   background-color: #9B0B0B;
 }
 
-.twitterColumn#astraLA {
-  border-color: #8EAFCE;
-}
 .twitterColumn#astraLA a:first-child {
   background-color: #8EAFCE;
   color: #fff;

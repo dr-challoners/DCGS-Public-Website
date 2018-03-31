@@ -90,10 +90,70 @@
     <a href="/"></a>
     <img class="img-responsive" src="/img/dcgsBanner.png" alt="Dr Challoner's Grammar School" />
   </div>
-  <nav class="navbar dcgsNavbar" id="menuFix">
+	<div class="container-fluid hidden-xs menuFix">
+		<div class="container" id="DCGSMainNav-Links">
+			<p>
+				<a href="/">Home</a>
+				<a id="our-school" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-our-school" aria-expanded="false" aria-controls="collapse-our-school">Our&nbsp;School</a>
+				<a id="information" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-information" aria-expanded="false" aria-controls="collapse-information">Information</a>
+				<a id="enrichment" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-enrichment" aria-expanded="false" aria-controls="collapse-enrichment">Enrichment</a>
+				<a href="/intranet">Intranet</a>
+				<a href="/diary">Diary</a>
+				<a href="<?php echo $hardLink_alumni; ?>">Alumni</a>
+				<a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a>
+			</p>
+		</div>
+		<div class="container-fluid DCGSMainNav-MenuBkgd">
+		<div class="container" id="DCGSMainNav-Menu" role="tablist" aria-multiselectable="true">
+		<?php
+			function makeScreenMenu($menu) {
+				$navMenu  = '<div class="panel">';
+				$navMenu .= '<div id="collapse-'.clean($menu).'" class="collapse" role="tabpanel" aria-labelledby="'.clean($menu).'">';
+				$navMenu .= '<div class="row">';
+				$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
+				$dir = array_reverse($dir);
+				foreach ($dir as $row) {
+					if (strpos($row,'navDir-') !== false && strpos($row,'.json') !== false) {
+						$dir = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu).'/'.$row);
+						$dir = json_decode($dir, true);
+						break;
+					}
+				}
+				$colCount = 0;
+				foreach ($dir as $sheetName => $pages) {
+					if ($colCount % 2 == 0) {
+					if ($colCount > 0) {
+						$navMenu .= '</div>';
+					}
+					$navMenu .= '<div class="col-xs-4">';
+					}
+					$navMenu .= '<h3>'.$sheetName.'</h3>';
+					$navMenu .= '<ul>';
+					foreach ($pages as $pageName => $data) {
+						$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+					}
+					$navMenu .= '</ul>';
+					$colCount++;
+				}
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				$navMenu .= '</div>';
+				return $navMenu;
+			}
+			echo makeScreenMenu('Our School');
+			echo makeScreenMenu('Information');
+			echo makeScreenMenu('Enrichment');
+		?>
+		</div>
+	</div>
+	
+
+	</div>
+  <nav class="navbar dcgsNavbar visible-xs-block menuFix">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand visible-xs-block" href="/">
+      <a class="navbar-brand" href="/">
         <img src="/img/dcgsBanner_mobile.png" alt="Dr Challoner's Grammar School" />
       </a>
       <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuContent" aria-expanded="false">
@@ -102,21 +162,11 @@
     </div>
     <div class="collapse navbar-collapse" id="menuContent">
       <ul class="nav nav-justified navbar-nav">
-        <li class="hidden-xs"><a href="/">Home</a></li>
         <?php
-				function makeNavMenu($menu, $mobile = 0) {
-					global $section;
-					$navMenu = '<li class="dropdown';
-					if (isset($section) && $section == clean($menu)) {
-						$navMenu .= ' active';
-					}
-					if (!empty($mobile)) {
-						$navMenu .= ' visible-xs-block';
-					}
-					$navMenu .= '">';
+				function makeMobileMenu($menu) {
+					$navMenu = '<li class="dropdown">';
 					$navMenu .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">'.str_replace(' ','&nbsp;',$menu).'</a>';
-					$navMenu .= '<div class="dropdown-menu">';
-					
+					$navMenu .= '<div class="dropdown-menu">';					
 					$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
 					$dir = array_reverse($dir);
 					foreach ($dir as $row) {
@@ -138,41 +188,29 @@
 					$navMenu .= '</li>';
 					return $navMenu;
 				}
-
-				echo makeNavMenu('Our School');
-				echo makeNavMenu('Information');
-				echo makeNavMenu('Enrichment');
-				echo makeNavMenu('News',1);
-          
-          echo '<li class="hidden-xs';
-          if (isset($section) && $section == 'intranet') {
-            echo ' active';
-          }
-          echo '"><a href="/intranet">Intranet</a></li>';
-          echo '<li class="visible-xs-block dropdown">';
-            echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Intranet</a>';
-            echo '<div class="dropdown-menu">';
-              echo '<ul>';
-                echo '<li><a href="/intranet/students">Students</a></li>';
-                echo '<li><a href="/intranet/staff">Staff</a></li>';
-                echo '<li><a href="/intranet/parents">Parents</a></li>';
-              echo '</ul>';
-            echo '</div>';
-          echo '</li>';
-          echo '<li class="hidden-xs';
-          if (isset($section) && $section == 'diary') {
-            echo ' active';
-          }
-          echo '"><a href="/diary">Diary</a></li>';
-          echo '<li class="visible-xs-block dropdown">';
-            echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>';
-            echo '<div class="dropdown-menu">';
-              echo '<ul>';
-                echo '<li><a href="/diary">This Week\'s Events</a></li>';
-                echo '<li><a href="/diary/calendar/">Navigate the Calendar</a></li>';
-              echo '</ul>';
-            echo '</div>';
-          echo '</li>';
+				echo makeMobileMenu('Our School');
+				echo makeMobileMenu('Information');
+				echo makeMobileMenu('Enrichment');
+				echo makeMobileMenu('News');
+				echo '<li class="dropdown">';
+				echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Intranet</a>';
+				echo '<div class="dropdown-menu">';
+				echo '<ul>';
+				echo '<li><a href="/intranet/students">Students</a></li>';
+				echo '<li><a href="/intranet/staff">Staff</a></li>';
+				echo '<li><a href="/intranet/parents">Parents</a></li>';
+				echo '</ul>';
+				echo '</div>';
+				echo '</li>';
+				echo '<li class="dropdown">';
+				echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Diary</a>';
+				echo '<div class="dropdown-menu">';
+				echo '<ul>';
+				echo '<li><a href="/diary">This Week\'s Events</a></li>';
+				echo '<li><a href="/diary/calendar/">Navigate the Calendar</a></li>';
+				echo '</ul>';
+				echo '</div>';
+				echo '</li>';
         ?>
         <li><a href="<?php echo $hardLink_alumni; ?>">Alumni</a></li>
         <li><a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a></li>

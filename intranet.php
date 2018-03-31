@@ -118,7 +118,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
         case 'parents':
           echo '<div class="twitterColumn">';
             echo '<a href="https://twitter.com/DCGSParenting" target="'.mt_rand().'">DCGS Parenting <span class="pull-right"><i class="fa fa-twitter fa-lg"></i></span></a>';
-            echo '<a class="twitter-timeline" href="https://twitter.com/DCGSParenting" data-chrome="noborders noheader nofooter" data-widget-id="606699684757913600">Tweets by @DCGSParenting</a>';
+            echo '<a class="twitter-timeline" data-height="530" data-chrome="noheader nofooter" data-link-color="#2358A3" href="https://twitter.com/DCGSParenting?ref_src=twsrc%5Etfw">Tweets by DCGSParenting</a>';
           echo '</div>';
         break;
         case "students":

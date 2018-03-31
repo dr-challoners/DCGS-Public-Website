@@ -87,7 +87,7 @@
       <div class="col-xs-12 col-sm-3 col-md-2"><p>House Competition:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
         <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="<?php echo mt_rand(); ?>">Edit</a>
-        <a class="btn btn-default" href="/c/community/house-competition/current-positions/update" target="<?php echo mt_rand(); ?>">Sync</a>
+        <a class="btn btn-default" href="/c/enrichment/house-competition/current-positions/update" target="<?php echo mt_rand(); ?>">Sync</a>
       </div>
     </div>
     <div class="row options">
