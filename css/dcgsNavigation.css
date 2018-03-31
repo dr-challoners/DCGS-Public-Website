@@ -15,6 +15,35 @@
   pointer-events: none;
 }
 
+#DCGSMainNav-Links {
+  background-color: #173F7A;
+  padding: 0;
+}
+#DCGSMainNav-Links p {
+  margin: 0;
+}
+#DCGSMainNav-Links a {
+  position: relative;
+  display: table-cell;
+  width: 1%;
+  text-align: center;
+  font-family: "Crimson Text", "Palatino Linotype", serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #fff;
+  margin: 0;
+  padding: 7px 0 7px;
+}
+@media (max-width: 880px) {
+  #DCGSMainNav-Links a {
+    font-size: 16px;
+  }
+}
+#DCGSMainNav-Links a:hover, #DCGSMainNav-Links a:focus {
+  background-color: #2358a3;
+  text-decoration: none;
+}
+
 .dcgsNavbar .navbar-header {
   background-color: #173F7A;
 }

@@ -90,6 +90,54 @@
     <a href="/"></a>
     <img class="img-responsive" src="/img/dcgsBanner.png" alt="Dr Challoner's Grammar School" />
   </div>
+	<div class="container-fluid" id="DCGSMainNav-Links">
+		<div class="container">
+			<p>
+				<a href="/">Home</a>
+				<a id="our-school" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-our-school" aria-expanded="false" aria-controls="collapse-our-school">Our&nbsp;School</a>
+				<a id="information" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-information" aria-expanded="false" aria-controls="collapse-information">Information</a>
+				<a id="enrichment" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-enrichment" aria-expanded="false" aria-controls="collapse-enrichment">Enrichment</a>
+				<a href="/intranet">Intranet</a>
+				<a href="/diary">Diary</a>
+				<a href="<?php echo $hardLink_alumni; ?>">Alumni</a>
+				<a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a>
+			</p>
+		</div>
+	</div>
+	<div class="container-fluid" style="background-color:grey;">
+		<div class="container" id="DCGSMainNav" role="tablist" aria-multiselectable="true">
+			<div class="panel">
+				<div id="collapse-general-information" class="collapse" role="tabpanel" aria-labelledby="general-information">
+					<ul>
+						<li>
+							<a href="/c/information/general-information/contacting-us">Contacting Us</a>
+						</li>
+						<li>
+							<a href="/c/information/general-information/term-and-holiday-dates">Term and HOLIDYA Dates</a>
+						</li>
+						<li>
+							<a href="/c/information/general-information/uniform-and-stationery">Uniform and Stationery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel">
+				<div id="collapse-general-information2" class="collapse" role="tabpanel" aria-labelledby="general-information2">
+					<ul>
+						<li>
+							<a href="/c/information/general-information/contacting-us">Contacting Us</a>
+						</li>
+						<li>
+							<a href="/c/information/general-information/term-and-holiday-dates">Term and Holiday Dates</a>
+						</li>
+						<li>
+							<a href="/c/information/general-information/uniform-and-stationery">Uniform and Stationery</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
   <nav class="navbar dcgsNavbar" id="menuFix">
   <div class="container">
     <div class="navbar-header">
