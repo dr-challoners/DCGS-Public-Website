@@ -78,30 +78,50 @@
               $quizFileName    = clean($quizName);
             }
             if ($quizFileName == clean($_GET['quiz'])) {
+              // Found the correct quiz. Stop here with the quiz name data.
+              // If syncing, now make/update the relevant json file.
               if (isset($_GET['sync'])) {
-                // Parse text and image/video links here before putting them into the json
+                $quizArray = array();
                 foreach ($quizData as $question) {
-                  $questionContent;
-                  if (!empty($question['questiontext'])) {
-                    $questionContent .= Parsedown::instance()->parse($question['questiontext']);
-                  }
-                  if (!empty($question['imagevideourl'])) {
-                    // Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
-                    if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-                      $questionContent .= '<img src="'.fetchImageFromURL('/quiz/data',$question['imagevideourl']).'" />';
-                    } else { // YouTube videos
-                      if (strpos($question['imagevideourl'],'v=')) {
-                        $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
-                      } elseif (strpos($question['imagevideourl'],'youtu.be/')) {
-                        $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
-                      }
-                      $questionContent .= '<iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true"></iframe>';
-                    }
-                  }
-                  echo $questionContent;
-                  unset($questionContent);
+									if ((!empty($question['questiontext']) || !empty($question['imagevideourl'])) && !empty($question['answer'])) { // Must have a question and answer
+										// Parse the text and image/video link as a single entry in the array.
+										$questionContent;
+										if (!empty($question['questiontext'])) {
+											$questionContent .= Parsedown::instance()->parse($question['questiontext']);
+										}
+										if (!empty($question['imagevideourl'])) {
+											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
+											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
+												$questionContent .= '<img src="'.fetchImageFromURL('/quiz/data',$question['imagevideourl']).'" />';
+											} else { // YouTube videos
+												if (strpos($question['imagevideourl'],'v=')) {
+													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
+												} elseif (strpos($question['imagevideourl'],'youtu.be/')) {
+													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
+												}
+												$questionContent .= '<iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true"></iframe>';
+											}
+										}
+										// Validate the format type
+										$questionFormat = clean($question['questionformat']);
+										if ($questionFormat != 'loose' && $questionFormat != 'choice') {
+											$questionFormat = 'strict';
+										}
+										// Parse the answers: strip whitespace from either side and check the formatting
+										$questionAnswers = explode('#',$question['answer']);
+										foreach ($questionAnswers as $answerKey => $answerData) {
+											$answerData = trim($answerData);
+											if ($questionFormat == 'loose') {
+												$answerData = clean($answerData);
+											}
+											$answerData = md5($answerData);
+											$questionAnswers[$answerKey] = $answerData;
+										}
+										$quizArray[] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
+										unset($questionContent,$questionAnswers,$questionFormat);
+									}
                 }
-                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizData));
+                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
@@ -113,9 +133,6 @@
       // Progress bar
       // Question content
       // Answer submission form
-      view($quizDisplayName);
-      view($quizData);
-      view($winnerCode);
     } else {
       // The admin menu for teachers will go here.
     }
