@@ -3,7 +3,7 @@
 unset ($vID,$pID,$time);
 if (strpos($row['url'],'youtube.com') !== false || strpos($row['url'],'youtu.be') !== false) { // YouTube
   $vType = 'youtube';
-  if (strpos($row['url'],'v=') !== false) { // There's a video ID (this will be most of them, though you can get playlists without
+  if (strpos($row['url'],'v=') !== false) { // There's a video ID (this will be most of them, though you can get playlists without)
     $id = substr($row['url'],strpos($row['url'],'v=')+2,11); // All video IDs seem to be 11 characters long
   } elseif (strpos($row['url'],'youtu.be/') !== false) { // Short URLs have the video ID just past the short domain
     $id = substr($row['url'],strpos($row['url'],'youtu.be/')+9,11);
