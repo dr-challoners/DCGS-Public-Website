@@ -1,15 +1,15 @@
 <?php
 
-  $image = fetchImageFromURL($directory,$imagesArray['url'],$imagesArray['content']);
+  $image = fetchImageFromURL($directory,$currentImage['url'],$currentImage['content']);
   if ($image != false) {
-    $format = $imagesArray['format'];
+    $format = $currentImage['format'];
     $content = '<a class="fancyBox" rel="page" href="/'.$image.'"><img class="img-responsive" src="/'.$image.'" /></a>';
     // Setting a constant group includes ALL images on the page as part of a fancyBox set
-    if (!empty($imagesArray['content'])) {
-      $imageTitle = str_replace('=','-',formatText($imagesArray['content'],0));
+    if (!empty($currentImage['content'])) {
+      $imageTitle = str_replace('=','-',formatText($currentImage['content'],0));
       $content = str_replace('<a','<a title="'.$imageTitle.'"',$content);
       $content = str_replace('/>','alt="'.$imageTitle.'" />',$content);
-      $imageTitle = explode('=',$imagesArray['content']);
+      $imageTitle = explode('=',$currentImage['content']);
       if (isset($imageTitle[1])) {
         $credit = trim($imageTitle[1]);
         if (stripos($credit,', Year ') == true) {

@@ -73,52 +73,62 @@
 				}
 				if (isset($_GET['page'])) { // Write a single page to the server
 					if (!isset($_GET['stage'])) {
-						$sheetData = sheetToArray($_GET['sheet'],'data/content');
+						//$sheetData = sheetToArray($_GET['sheet'],'data/content'); //- I don't think this is needed.
+						// To begin, just add a message to indicate that the process has started.
 						$percent = 0;
-						$message = 'fetching content, please wait';
-						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=cnt">';
-					} elseif ($_GET['stage'] == 'cnt') {
+						$message = 'checking for images';
+						echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=img">';
+					} elseif ($_GET['stage'] == 'img') {
+						// First stage - check to see if there are images.
 						$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
-						if ($_GET['section'] == 'News') {
-							$share = 1;
-						} else {
-							$share = 0;
-						}
-						$c = parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc, $share);
+						$c = searchPageForImages($sheetData, $_GET['page'], $pageLoc);
 						if ($c > 0) {
 							$percent = round(100/($c+1));
-							$message = 'processing images';
+							$message = 'images found, processing';
 							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=0&end='.$c.'">';
 						} else {
-							$percent = 100;
-							$message = 'no images found, finishing processing';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							$percent = 50;
+							$message = 'no images found, building page';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=pge">';
 						}
-					} else {
-						$sheetData = sheetToArray($_GET['sheet'],'data/content');
-						$directory = $pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
-						$fileName = str_ireplace('[hidden]','',$_GET['page']);
-						$fileName = clean($fileName);
-						$workingPage = file_get_contents($directory.'/'.$fileName.'.php');
-						$imagesArray = file_get_contents($directory.'/'.$fileName.'.json');
-          	$imagesArray = json_decode($imagesArray, true);
-						$imagesArray = $imagesArray[$_GET['stage']];
-						include ('modules/parsing/images.php');
-						$workingPage = str_replace('[IMAGE:'.$imagesArray['id'].']',$content,$workingPage);
-						file_put_contents($directory.'/'.$fileName.'.php', $workingPage);
-						$next = $_GET['stage']+1;
-						if ($next < $_GET['end']) {
-							$percent = round((100*($next+1))/($_GET['end']+1));
-							$message = 'processing images';
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
+					} elseif ($_GET['stage'] == 'pge') {
+							// This is the final stage, after images have processed, but the code comes in first so the if function here works.
+							$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
+							if ($_GET['section'] == 'News') {
+								$share = 1;
+							} else {
+								$share = 0;
+							}
+							parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc, $share);
+							$percent = 100;
+							$message = 'page updated, finishing processing';
+							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
 						} else {
-							$percent = 100;
-							$message = 'finishing processing';
-							unlink($directory.'/'.$fileName.'.json');
-							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
+							// Processing images. Each page reload takes one image from the json,
+							// saves the image file, and updates the json with the code to go on the page.
+							$sheetData = sheetToArray($_GET['sheet'],'data/content');
+							$directory = $pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
+							$fileName = str_ireplace('[hidden]','',$_GET['page']);
+							$fileName = clean($fileName);
+							$imagesArray = file_get_contents($directory.'/'.$fileName.'.json');
+							$imagesArray = json_decode($imagesArray, true);
+							$currentImage = $imagesArray[$_GET['stage']];
+							include ('modules/parsing/images.php');
+							$imagesArray[$_GET['stage']] = array('id' => $currentImage['id'], 'output' => $content);
+							file_put_contents($directory.'/'.$fileName.'.json', json_encode($imagesArray));
+							$next = $_GET['stage']+1;
+							if ($next < $_GET['end']) {
+								$percent = round((100*($next))/($_GET['end']+1));
+								$message = 'processing images';
+								echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage='.$next.'&end='.$_GET['end'].'">';
+							} else {
+								$percent = round((100*($next))/($_GET['end']+1));
+								$message = 'images processed, building page';
+								//unlink($directory.'/'.$fileName.'.json'); - needs to go in after the page has been created
+								echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&page='.$_GET['page'].'&stage=pge">';
+							}
 						}
-					}
-				}
+				} 
 				if (isset($_GET['sheet'])) { // Display the pages in a single section to update
 					if (!isset($sheetData)) {
 						$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
@@ -183,8 +193,7 @@
 					}
 					echo '</div>';
 					echo '</div>';
-				}
-				else { // Display the main options
+				}	else { // Display the main options
 					$mainData = sheetToArray($mainID,'data/content',0);
 					foreach ($mainData['data'] as $section => $row) {
 						echo '<div class="panel panel-default content">';
