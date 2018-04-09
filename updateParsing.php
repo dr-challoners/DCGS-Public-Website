@@ -1,4 +1,6 @@
-<?php function parsePagesSheet($sheetData, $pageName, $mainID, $siteLoc, $pageLoc, $share = 0) {
+<?php
+
+  function parsePagesSheet($sheetData, $pageName, $mainID, $siteLoc, $pageLoc, $share = 0) {
 
   // This function goes through the collected array and converts each row into HTML according to the content found there
   // It is stored as a single string, to which some content like author credits is then added before the content is returned
@@ -102,15 +104,25 @@
             include('modules/parsing/links.php');
             break;
           case 'image': case 'newsimage':
+            if (!isset($imagesArray)) {
+              if (file_exists('pages/'.$directory.'/'.$fileName.'.json')) {
+								$imagesArray = file_get_contents('pages/'.$directory.'/'.$fileName.'.json');
+								$imagesArray = json_decode($imagesArray, true);
+							}
+            }
             $imageID = makeID($row['url'], 1);
-            $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $row['format']);
+            foreach ($imagesArray as $imageRow) {
+              if ($imageRow['id'] == $imageID) {
+                $imageContent = $imageRow['output'];
+              }
+            }
             if ($row['format'] != 'hidden') {
               if (isset($set)) {
-                $output['content'][$set]['set'][] = '[IMAGE:'.$imageID.']';
+                $output['content'][$set]['set'][] = $imageContent;
               } elseif (isset($gallery)) {
-                $output['content'][$gallery]['gallery'][] = array('name' => '[IMAGE:'.$imageID.']', 'format' => $row['format']);
+                $output['content'][$gallery]['gallery'][] = array('name' => $imageContent, 'format' => $row['format']);
               } else {
-                $output['content'][] = '[IMAGE:'.$imageID.']';
+                $output['content'][] = $imageContent;
               }
             }
             if (!empty($row['content'])) {
@@ -347,10 +359,50 @@
       }
     }
     file_put_contents($directory.'/'.$fileName.'.php', $output['page']);
-    if (count($images) > 0) {
-      file_put_contents($directory.'/'.$fileName.'.json', json_encode($images));
-      return count($images);
+  }
+  }
+
+  function searchPageForImages($sheetData, $pageName, $pageLoc) {
+    // This function goes through the collected array looking for images, and then creates an array of their data
+    if (isset($sheetData['data'][$pageName])) {
+      $pageData = $sheetData['data'][$pageName];
+    } else {
+      // Dealing with titles that accidentally have whitespace at either end
+      foreach ($sheetData['data'] as $pageMatch => $row) {
+        if (trim($pageMatch) == $pageName) {
+          $pageData = $sheetData['data'][$pageMatch];
+          break;
+        }
+      }
+    }
+    if (isset($pageData) && !empty($pageData)) {
+      $images = array();
+      $fileName = str_ireplace('[hidden]','',$pageName,$hidden);
+      $fileName = str_ireplace('[link]','',$fileName,$link);
+      $fileName = clean($fileName);
+      $section  = clean($_GET['section']);
+      $sheet    = clean($sheetData['meta']['sheetname']);
+      $directory = $section.'/'.$sheet;
+      foreach ($pageData as $row) {
+        unset($imageName,$dataType,$file,$content,$set);
+        if (!empty($row['datatype'])) {
+          $dataType = clean($row['datatype']);
+          if ($dataType == 'image' || $dataType == 'newsimage') {
+            $imageID = makeID($row['url'], 1);
+            $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $row['format']);
+          }
+        }
+      }
+      
+      if (count($images) > 0) {
+        $directory = $pageLoc.$directory;
+        if (!file_exists($directory)) {
+          mkdir($directory,0777,true);
+        }
+        file_put_contents($directory.'/'.$fileName.'.json', json_encode($images));
+        return count($images);
+      }
     }
   }
-  } 
+
  ?>
