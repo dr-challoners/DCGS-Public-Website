@@ -100,6 +100,7 @@ if ($section == 'news') {
     }
     $ordering[$dateParts[1]][$month] = $row;
   }
+  krsort($ordering);
   $sec = array();
   foreach($ordering as $y) {
     foreach ($y as $m) {
@@ -125,6 +126,7 @@ if ($section == 'news') {
       }
     }
     makeSideNav ($sheetName, $pages, $sheet);
+    unset($pages);
     // In the News section, only display the most recent 12 months
     if (isset($c)) {
       $c++;
