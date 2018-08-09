@@ -1,8 +1,8 @@
 <?php
 
-function makeNav ($sheetName, $pages, $sheet = 0) {
+function makeNav ($sheetName, $pages, $sheet) {
   // This creates the navigation both for the side bar and for archive pages
-  if ($sheet != 0) {
+  if (isset($sheet)) {
     echo '<div class="panel panel-default">';
     echo '<div class="panel-heading" role="tab" id="'.clean($sheetName).'">';
     echo '<h4 class="panel-title">';
