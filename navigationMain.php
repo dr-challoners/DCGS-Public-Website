@@ -4,6 +4,8 @@ $section = $_GET['section'];
 include('header.php');
 echo '<div class="sectionNavigation">';
 echo '<h1>'.revert($section).'</h1>';
+include('navigationSide.php');
+/*
 $dir = scandir('pages/'.$section);
 $dir = array_reverse($dir);
 foreach ($dir as $row) {
@@ -48,6 +50,7 @@ foreach($dir as $sheet => $pages) {
   }
   echo '</div>';
 }
+*/
 echo '</div>';
 include('footer.php');
 

@@ -1,7 +1,9 @@
 <?php
 
-function makeSideNav ($sheetName, $pages, $sheet) {
-  echo '<div class="panel panel-default">';
+function makeNav ($sheetName, $pages, $sheet = 0) {
+  // This creates the navigation both for the side bar and for archive pages
+  if ($sheet != 0) {
+    echo '<div class="panel panel-default">';
     echo '<div class="panel-heading" role="tab" id="'.clean($sheetName).'">';
     echo '<h4 class="panel-title">';
     echo '<a ';
@@ -31,10 +33,26 @@ function makeSideNav ($sheetName, $pages, $sheet) {
     echo '</ul>';
     echo '</div>';
     echo '</div>';
+  } else {
+    echo '<div class="row">';
+    echo '<div class="col-xs-12">';
+    echo '<h2>'.$sheetName.'</h2>';
+    echo '</div>';
+    foreach ($pages as $title => $page) {
+      echo '<div class="col-xs-6">';
+      echo '<a href="'.$page['link'].'">';
+      echo '<p>'.formatText($title,0).'</p>';
+      echo '</a>';
+      echo '</div>';
+    }
+    echo '</div>';
+  }
 }
 
-echo '<div class="hidden-xs col-sm-4 hidden-print">';
-echo '<div class="panel-group sideNav" id="'.$section.'Nav" role="tablist" aria-multiselectable="true">';
+if (isset($sheet)) {
+  echo '<div class="hidden-xs col-sm-4 hidden-print">';
+  echo '<div class="panel-group sideNav" id="'.$section.'Nav" role="tablist" aria-multiselectable="true">';
+}
 $sec = array();
 $nav = array();
 $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.$section);
@@ -110,8 +128,7 @@ if ($section == 'news') {
     }
   }
   foreach ($sec as $row) {
-    $sheetName = str_replace('-',' ',$row);
-    $sheetName = ucwords($sheetName);
+    $sheetName = revert($row);
     if (isset($nav[$sheetName])) {
       $pages = $nav[$sheetName];
     } else {
@@ -119,13 +136,12 @@ if ($section == 'news') {
       foreach ($pageDir as $page) {
         $page = explode('.',$page);
         if ($page[1] == 'php') {
-          $pageName = str_replace('-',' ',$page[0]);
-          $pageName = ucwords($pageName);
+          $pageName = revert($page[0]);
           $pages[$pageName] = array('link' => '/c/news/'.clean($sheetName).'/'.$page[0]);
         }
       }
     }
-    makeSideNav ($sheetName, $pages, $sheet);
+    makeNav ($sheetName, $pages, $sheet);
     unset($pages);
     // In the News section, only display the most recent 12 months
     if (isset($c)) {
@@ -141,10 +157,11 @@ if ($section == 'news') {
 } else {
   // If it isn't the News section, just work on whatever navigation information is available.
   foreach ($nav as $sheetName => $pages) {
-    makeSideNav ($sheetName, $pages, $sheet);
+    makeNav ($sheetName, $pages, $sheet);
   }
 }
-echo '</div>';
-echo '</div>';
-
+if (isset($sheet)) {
+  echo '</div>';
+  echo '</div>';
+}
 ?>
