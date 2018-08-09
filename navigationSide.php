@@ -143,15 +143,17 @@ if ($section == 'news') {
     }
     makeNav ($sheetName, $pages, $sheet);
     unset($pages);
-    // In the News section, only display the most recent 12 months
-    if (isset($c)) {
-      $c++;
-    } else {
-      $c = 1;
-    }
-    if ($c == 12) {
-      echo '<p class="newsArchiveLink"><a href="/c/news/"><i class="fa fa-clock-o"></i> News archives</a></p>';
-      break;
+    if (isset($sheet)) {
+      // On News pages, only display the most recent 12 months in the sidebar
+      if (isset($c)) {
+        $c++;
+      } else {
+        $c = 1;
+      }
+      if ($c == 12) {
+        echo '<p class="newsArchiveLink"><a href="/c/news/"><i class="fa fa-clock-o"></i> News archives</a></p>';
+        break;
+      }
     }
   }
 } else {
