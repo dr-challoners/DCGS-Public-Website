@@ -3,8 +3,8 @@
     document.getElementById('diaryLinks').style.display = 'none';
     document.getElementById('diaryPreview').innerHTML = '<ul>';
     var previews = text.split('//');
-    for (x in previews) {
-      if (previews[x] != '') {
+    for (var x in previews) {
+      if (previews[x] !== '') {
         document.getElementById('diaryPreview').innerHTML += '<li>' + previews[x] + '</li>';
       }
     }
@@ -53,6 +53,9 @@
                 var preview = "";
                 $.each(_d, function(key, val){
                   if (preview) preview += "//";
+                  if (val.sport) {
+                    preview += val.sport + ": ";
+                  }
                   preview += val.event;
                 })
                 _dayLink.attr("onmouseover", 'diaryPreview("' + preview + '");').attr("onmouseleave", 'diaryLinks();')

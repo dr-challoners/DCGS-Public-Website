@@ -11,9 +11,9 @@
   <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   
-  <!-- Favicons, baby! -->
   <link rel="apple-touch-icon" sizes="57x57" href="/img/icons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/img/icons/apple-touch-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/img/icons/apple-touch-icon-72x72.png">
@@ -68,7 +68,7 @@
         if (clean($authorData['authorname']) == clean($_GET['author'])) {
           $quizList = sheetToArray($authorData['sheetid'], 'data', manual);
           foreach ($quizList['data'] as $quizName => $quizData) {
-            if (strpos($quizName,'#')) {
+            if (strpos($quizName,'#') !== false) {
             $quizName = explode('#',$quizName);
             $quizDisplayName   = trim($quizName[0]);
             $quizFileName      = clean($quizName[0]);
@@ -78,50 +78,117 @@
               $quizFileName    = clean($quizName);
             }
             if ($quizFileName == clean($_GET['quiz'])) {
+              // Found the correct quiz. Stop here with the quiz name data.
+              // If syncing, now make/update the relevant json file.
               if (isset($_GET['sync'])) {
-                // Parse text and image/video links here before putting them into the json
+                $quizArray = array();
                 foreach ($quizData as $question) {
-                  $questionContent;
-                  if (!empty($question['questiontext'])) {
-                    $questionContent .= Parsedown::instance()->parse($question['questiontext']);
-                  }
-                  if (!empty($question['imagevideourl'])) {
-                    // Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
-                    if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-                      $questionContent .= '<img src="'.fetchImageFromURL('/quiz/data',$question['imagevideourl']).'" />';
-                    } else { // YouTube videos
-                      if (strpos($question['imagevideourl'],'v=')) {
-                        $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
-                      } elseif (strpos($question['imagevideourl'],'youtu.be/')) {
-                        $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
-                      }
-                      $questionContent .= '<iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true"></iframe>';
-                    }
-                  }
-                  echo $questionContent;
-                  unset($questionContent);
+									if ((!empty($question['questiontext']) || !empty($question['imagevideourl'])) && !empty($question['answer'])) { // Must have a question and answer
+										// Parse the text and image/video link as a single entry in the array.
+										$questionContent;
+										if (!empty($question['questiontext'])) {
+											$questionContent .= Parsedown::instance()->parse($question['questiontext']);
+										}
+										if (!empty($question['imagevideourl'])) {
+											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
+											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
+												$questionContent .= '<img src="'.fetchImageFromURL('/quiz/data',$question['imagevideourl']).'" />';
+											} else { // YouTube videos
+												if (strpos($question['imagevideourl'],'v=') !== false) {
+													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
+												} elseif (strpos($question['imagevideourl'],'youtu.be/') !== false) {
+													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
+												}
+												$questionContent .= '<iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true"></iframe>';
+											}
+										}
+										// Validate the format type
+										if (strpos(clean($question['questionformat']),'choice') !== false) {
+											$questionFormat = explode('#',$question['questionformat']);
+											$choiceAnswer = clean($questionFormat[1])-1;
+											$questionFormat = clean($questionFormat[0]);
+										} else {
+											$questionFormat = clean($question['questionformat']);
+											if ($questionFormat != 'loose') {
+												$questionFormat = 'strict';
+											}
+										}
+										// Parse the answers: strip whitespace from either side and check the formatting
+										$questionAnswers = explode('#',$question['answer']);
+										if (isset($choiceAnswer)) {
+											if(array_key_exists($choiceAnswer,$questionAnswers)) {
+												$keys = array_keys($questionAnswers);
+												$keys[array_search($choiceAnswer,$keys)] = 'c';
+												$questionAnswers = array_combine($keys,$questionAnswers);
+											}
+										}
+										foreach ($questionAnswers as $answerKey => $answerData) {
+											$answerData = trim($answerData);
+											if ($questionFormat == 'loose') {
+												$answerData = clean($answerData);
+											}
+											if ($questionFormat != 'choice') {
+												$answerData = md5($answerData);
+											}
+											$questionAnswers[$answerKey] = $answerData;
+										}
+										$quizArray[] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
+										unset($questionContent,$questionAnswers,$questionFormat);
+									}
                 }
-                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizData));
+                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
           }
         }
       }
-      // Empty html ready to be filled by the js
-      // Quiz title
-      // Progress bar
-      // Question content
-      // Answer submission form
-      view($quizDisplayName);
-      view($quizData);
-      view($winnerCode);
+			// Empty html ready to be filled by the js
+	?>
+	<div class="container">
+		<div class="row">
+			<h1 id="quizTitle"></h1>
+		</div>
+		<div class="row">
+			<div class="progress">
+  			<div class="progress-bar" role="progressbar" id="quizProgress"></div>
+			</div>
+		</div>
+		<div class="row" id="quizContent"></div>
+		<div class="row">
+			<form id="answerInput">
+			</form>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
+			$.getJSON('./data/<?php echo $quizFileName; ?>.json', function(data) {
+				var countCurrent = 1;
+				var countTotal   = data.length;
+				var quizPosition = (countCurrent - 1) * 100 / countTotal;
+				$('#quizProgress').css('width', quizPosition + '%');
+				$('#quizContent').html('<h2>Question ' + countCurrent + ' of ' + countTotal + '</h2>');
+      	$('#quizContent').append(data[countCurrent-1].content);
+				if (data[countCurrent-1].format != 'choice') {
+					$('#answerInput').html(
+						'<label for="answerBox">' +
+							'Answer:' +
+							'<input type="text" id="answerBox" />' +
+						'</label>' +
+						'<button type="submit" id="checkAnswer">Submit</button>'
+					);
+				} else {
+					// Multiple choice form building
+				}
+			});
+		});
+	</script>
+	<?php
     } else {
       // The admin menu for teachers will go here.
     }
   ?>
-  <script type="text/javascript" async
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
+	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
