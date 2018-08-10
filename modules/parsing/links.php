@@ -3,7 +3,7 @@ $linkType = 'fas';
 
 if (!empty($format)) {
   foreach ($format as $f) {
-    if ($f != 'set') {
+    if ($f != 'set' && $f != 'new') {
       $linkIcon = $f;
     }
   }
