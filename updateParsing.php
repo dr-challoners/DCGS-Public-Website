@@ -1,6 +1,6 @@
 <?php
 
-  function parsePagesSheet($sheetData, $pageName, $mainID, $siteLoc, $pageLoc, $share = 0) {
+  function parsePagesSheet($sheetData, $pageName, $mainID, $siteLoc, $pageLoc) {
 
   // This function goes through the collected array and converts each row into HTML according to the content found there
   // It is stored as a single string, to which some content like author credits is then added before the content is returned
@@ -182,7 +182,7 @@
     $output['page'] .= '<div class="col-sm-8">';
      }
     $output['page'] .= '<div class="row articleInfo">';
-    $output['page'] .= '<div class="col-xs-10">';
+    $output['page'] .= '<div class="col-xs-12">';
     $output['page'] .= '<h1>'.$output['title'].'</h1>';
     if (isset($output['info']['date'])) {
       $output['page'] .= '<p><strong>'.$output['info']['date'].'</strong></p>';
@@ -211,30 +211,6 @@
         $output['page'] .= rollCredits($output['info'][$creditType],$displayCredit);
       }
     }
-    $output['page'] .= '</div>';
-    $output['page'] .= '<div class="col-xs-2 hidden-print">';
-    if ($share == 1) {
-      $output['page'] .= '<a role="button" class="twitterLink" href="https://twitter.com/intent/tweet?url='.$output['pageURL'].'&amp;text='.urlencode(strip_tags($output['title'])).'&amp;via=ChallonersGS">';
-      $output['page'] .= '<i class="fa fa-twitter fa-fw"></i>';
-      $output['page'] .= '</a>';
-    }
-      $output['page'] .= '<a role="button" href="javascript:window.print()">';
-      $output['page'] .= '<i class="fa fa-print fa-fw hidden-xs"></i>';
-      $output['page'] .= '</a>';
-      $output['page'] .= '<a role="button" data-toggle="modal" data-target="#qrCode">'; 
-      $output['page'] .= '<i class="fa fa-qrcode fa-fw hidden-xs"></i>';
-      $output['page'] .= '</a>';
-    $output['page'] .= '</div>';
-    $output['page'] .= '</div>';
-    // QR code pop-up and suggestions for use
-    $output['page'] .= '<div class="modal fade" id="qrCode" tabindex="-1" role="dialog" aria-labelledby="QR code for page">';
-    $output['page'] .= '<div class="modal-dialog" role="document">';
-    $output['page'] .= '<div class="modal-content">';
-    $output['page'] .= '<div class="modal-body qrCode_display">';
-    $output['page'] .= '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl='.$output['pageURL'].'&choe=UTF-8" />';
-    $output['page'] .= '<p>QR code for this page. Right click on the image and select \'Copy image\' or \'Save image as...\' to take a copy of this QR code. Add it to a worksheet for students to scan and jump immediately to this page. Or just display this pop-up box on your classroom projector.</p>';
-    $output['page'] .= '</div>';
-    $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     $output['page'] .= '</div>';
     // Article content

@@ -18,16 +18,16 @@
     .articleInfo div:first-child p:last-child {
       margin-bottom: 8px;
     }
-  .articleInfo div:last-child {
+  .articleInfo .col-xs-2 {
     padding: 11px 0 0;
     text-align: right;
     font-size: 18px;
   }
-    .articleInfo div:last-child a:not(.twitterLink),
+    .articleInfo .col-xs-2 a:not(.twitterLink),
     #intranetMenu .links span a {
       color: #888;
     }
-    .articleInfo div:last-child a:not(.twitterLink):hover,
+    .articleInfo .col-xs-2 a:not(.twitterLink):hover,
     #intranetMenu .links span a:hover {
       color: #555;
     }

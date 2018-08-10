@@ -94,12 +94,7 @@
 					} elseif ($_GET['stage'] == 'pge') {
 							// This is the final stage, after images have processed, but the code comes in first so the if function here works.
 							$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
-							if ($_GET['section'] == 'News') {
-								$share = 1;
-							} else {
-								$share = 0;
-							}
-							parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc, $share);
+							parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc);
 							$percent = 100;
 							$message = 'page updated, finishing processing';
 							echo '<META HTTP-EQUIV="Refresh" CONTENT="0;URL=/sync?tab='.$area.'&section='.$_GET['section'].'&sheet='.$_GET['sheet'].'&stage='.$_GET['page'].'">';
