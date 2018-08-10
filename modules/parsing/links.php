@@ -12,6 +12,8 @@ if (!empty($url)) {
       // Gives brand icons to some websites
       if (strpos($url,"twitter.com") !== false) {
         $linkIcon = 'twitter';
+      } elseif (strpos($url,"instagram.com") !== false) {
+        $linkIcon = 'instagram';
       } else {
         $linkIcon = 'link';
       }
