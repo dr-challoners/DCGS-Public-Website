@@ -43,14 +43,14 @@
 
 
 
-.barLink {
+.barLink, .barLink-disabled {
   border-radius: 0;
   font-size: 16px;
   text-align: left;
   margin-bottom: 12px;
   clear: both;
 }
-  .barLink i {
+  .barLink i, .barLink-disabled i {
     margin-right: 10px;
   }
   .barLink:hover, .barLink:focus {
