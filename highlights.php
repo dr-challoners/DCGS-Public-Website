@@ -1,4 +1,16 @@
 <?php
+
+$dataFolder = 'data/highlights';
+if (isset($_GET['sync'])) {
+  // You can automatically re-sync the highlights on the website by deleting the old cache, thereby forcing it to start again
+  $data = scandir($dataFolder.'/', 1);
+  foreach ($data as $datum) {
+    if (strpos($datum,'.json') !== false) {
+      unlink($dataFolder.'/'.$datum);
+    }
+  }
+}
+
 if ((!isset($override) && rand(1,10) >= 7) || isset($_GET['highlight']) || isset($_GET['sync'])) {
   $highlightData = sheetToArray('1A2ZDoOM57fcVAADHgU9aUf1G9IAIGkz3wWXBiazYPoE','data/highlights');
   if (isset($_GET['highlight'])) {
