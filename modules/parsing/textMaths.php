@@ -1,11 +1,6 @@
 <?php
 
 unset($button,$textID);
-if (!empty($row['format'])) {
-  $format = explode(' ',$row['format']);
-} else {
-  $format = array();
-}
 unset ($block);
 if (in_array('left-block',$format) || in_array('right-block',$format)) {
   if (in_array('left-block',$format)) {

@@ -50,20 +50,25 @@
           $dataType = 'text';
         }
       }
+      if (!empty($row['format'])) {
+        $format = explode(' ',$row['format']);
+      } else {
+        $format = array();
+      }
         if (!isset($output['content'])) {
           $c = 0;
         } else {
           $c = count($output['content']);
         }
-        if (strpos($row['format'],'gallery') !== false) {
-          if (isset($output['content'][$c-1]['gallery']) && strpos($row['format'],'new') === false) {
+        if (in_array('gallery',$format)) {
+          if (isset($output['content'][$c-1]['gallery']) && !in_array('new',$format)) {
             $gallery = $c-1;
           } else {
             $gallery = $c;
           }
         }
-        if (strpos($row['format'],'set') !== false) {
-          if (isset($output['content'][$c-1]['set']) && strpos($row['format'],'new') === false) {
+        if (in_array('set',$format)) {
+          if (isset($output['content'][$c-1]['set']) && !in_array('new',$format)) {
             $set = $c-1;
           } else {
             $set = $c;
@@ -87,7 +92,7 @@
             include('modules/parsing/contributors.php');
             break;
           default: case 'text': case 'maths': case 'math':
-            if (strpos($row['format'],'quote') === false) {
+            if (!in_array('quote',$format)) {
               $previewText = formatText($row['content'],0);
               $previewText = preg_replace("/<h[0-9]>[^<]+<\/h[0-9]>/",'',$previewText);
               $previewText = strip_tags($previewText);
@@ -97,7 +102,7 @@
                 $navData['preview']['text'] = $previewText.' ';
               }
             }
-            if ($row['format'] != 'hidden') {
+            if (!in_array('hidden',$format)) {
               include('modules/parsing/textMaths.php');
             }
             break;
@@ -118,11 +123,11 @@
                 $imageContent = $imageRow['output'];
               }
             }
-            if ($row['format'] != 'hidden') {
+            if (!in_array('hidden',$format)) {
               if (isset($set)) {
                 $output['content'][$set]['set'][] = $imageContent;
               } elseif (isset($gallery)) {
-                $output['content'][$gallery]['gallery'][] = array('name' => $imageContent, 'format' => $row['format']);
+                $output['content'][$gallery]['gallery'][] = array('name' => $imageContent, 'format' => $format);
               } else {
                 $output['content'][] = $imageContent;
               }
@@ -135,7 +140,7 @@
             $navData['preview']['images'][] = array('file' => $image, 'type' => $dataType);
             break;
           case 'video': case 'newsvideo': case 'youtube':
-            if ($row['format'] != 'hidden') {
+            if (!in_array('hidden',$format)) {
               include ('modules/parsing/video.php');
             }
             if ($dataType == 'newsvideo') {
@@ -251,14 +256,14 @@
         
         foreach ($block['gallery'] as $nibble) {
           $output['page'] .= '<div class="galleryItem';
-          if (strpos($nibble['format'],'medium') !== false) {
+          if (in_array('medium',$nibble['format'])) {
             $output['page'] .= ' galleryItem-medium';
-          } elseif (strpos($nibble['format'],'large') !== false) {
+          } elseif (in_array('large',$nibble['format'])) {
             $output['page'] .= ' galleryItem-large';
           } else {
             $output['page'] .= ' galleryItem-small';
           }
-          if ($galleryCount == 0 && strpos($nibble['format'],'large') == false && strpos($nibble['format'],'medium') == false) {
+          if ($galleryCount == 0 && !in_array('large',$nibble['format']) && !in_array('medium',$nibble['format'])) {
             $output['page'] .= ' gallerySizer';
             $galleryCount++;
           }
@@ -366,8 +371,13 @@
         if (!empty($row['datatype'])) {
           $dataType = clean($row['datatype']);
           if ($dataType == 'image' || $dataType == 'newsimage') {
+            if (!empty($row['format'])) {
+              $format = explode(' ',$row['format']);
+            } else {
+              $format = array();
+            }
             $imageID = makeID($row['url'], 1);
-            $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $row['format']);
+            $images[] = array('id' => $imageID, 'url' => $row['url'], 'content' => $row['content'], 'format' => $format);
           }
         }
       }

@@ -12,7 +12,7 @@ if (strpos($row['url'],'soundcloud') !== false) {
     $boxType    = 'audio';
   }
   $src  = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/'.$outputType.'/'.$id.'&amp;color=2358A3&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=false';
-  $output['content'][] = makeiFrame($src,$boxType,$row['content'],$row['format']);
+  $output['content'][] = makeiFrame($src,$boxType,$row['content'],$format);
 }
 elseif (strpos($row['url'],'audioboom') !== false) {
   if (strpos($row['url'],'playlists') === false) {

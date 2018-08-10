@@ -24,33 +24,33 @@
         }
       }
     }
-    if (strpos($format,'set') === false && strpos($format, 'gallery') === false) {
+    if (!in_array('set',$format) && !in_array('gallery',$format)) {
       // Build a basic container first and then modify it if there's any formatting
       $container = '<div class="row"><div class="embedFeature col-sm-X col-sm-offset-X">';
       $content = $container.$content.'</div></div>';
       $size = '8'; // Default full width for iFrames
       $offset = '2';
-      if (strpos($format,'left') !== false || strpos($format,'right') !== false) {
+      if (in_array('left',$format) || in_array('right',$format)) {
         $content = str_replace('<div class="row">','',$content);
         $content = substr($content,0,-6);
         $content = str_replace(' col-sm-offset-X','',$content);
-        if (strpos($format,'right') !== false) {
+        if (in_array('right',$format)) {
           $content = str_replace('embedFeature','embedFeature pull-right',$content);
         } else {
           $content = str_replace('embedFeature','embedFeature pull-left',$content);
         }
         $size = 6;
       }
-      if (strpos($format,'tiny') !== false) {
+      if (in_array('tiny',$format)) {
         $size = '4';
         $offset = '4';
-      } elseif (strpos($format,'small') !== false) {
+      } elseif (in_array('small',$format)) {
         $size = '6';
         $offset = '3';
-      } elseif (strpos($format,'medium') !== false) {
+      } elseif (in_array('medium',$format)) {
         $size = '8';
         $offset = '2';
-      } elseif (strpos($format,'wide') !== false) {
+      } elseif (in_array('wide',$format)) {
         $size = '12';
         $offset = '0';
       }

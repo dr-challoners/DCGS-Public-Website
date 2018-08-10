@@ -57,13 +57,13 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
   }
   // Now display the table
   $content = '';
-  if (strpos($row['format'],'tab') !== false) {
+  if (in_array('tab',$format)) {
     $tabList = '';
   }
   unset($active);
   foreach ($processedTable as $table => $rows) {
     unset($top);
-    if (strpos($row['format'],'tab') !== false) {
+    if (in_array('tab',$format)) {
       $tabList .= '<li role="presentation"';
       if (!isset($active)) {
         $tabList .= ' class="active"';
@@ -76,7 +76,7 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
       }
       $content .= '" id="'.clean($table).'">';
     }
-    if (strpos($row['format'],'title') !== false && strpos($row['format'],'tab') === false && $table[0] != '_') {
+    if (in_array('title',$format) && !in_array('tab',$format) && $table[0] != '_') {
       $content .= '<h3>'.$table.'</h3>';
     }
     $content .= '<table class="table table-hover table-condensed">';
@@ -97,11 +97,11 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
       }
     }
     $content .= '</table>';
-    if (strpos($row['format'],'tab') !== false) {
+    if (in_array('tab',$format)) {
       $content .= '</div>';
     }
   }
-  if (strpos($row['format'],'tab') !== false) {
+  if (in_array('tab',$format)) {
     $tabList = '<ul class="nav nav-tabs tableTabs" role="tablist">'.$tabList.'</ul>';
     $content = $tabList.'<div class="tab-content">'.$content.'</div>';
   }

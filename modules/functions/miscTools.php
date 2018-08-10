@@ -38,26 +38,26 @@ function isImage($url) {
     return false;
   }
 
-function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format = '') {
+function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format = array()) {
       $line = '';
       $line .= '<div class="embed-responsive embed-responsive-'.$iFrameClass.' hidden-print">';
         $line .= '<iframe class="embed-responsive-item" src="'.$iFrameContent.'" allowfullscreen="true"></iframe>';
       $line .= '</div>';
-      if (!empty($iFrameText) && (strpos($format,'set') === false || $iFrameClass != 'video')) {
+      if (!empty($iFrameText) && (!in_array('set',$format) || $iFrameClass != 'video')) {
         $frameID = makeID($iFrameContent.$iFrameText,1);
         switch ($iFrameClass) {
           case 'video':
-            $frameIcon = 'television';
+            $frameIcon = 'tv-retro';
           break;
           case 'audio':
           case 'audioPlaylist':
-            $frameIcon = 'music';
+            $frameIcon = 'headphones';
           break;
           case 'form':
             $frameIcon = 'pencil';
           break;
           case 'geogebra':
-            $frameIcon = 'bar-chart';
+            $frameIcon = 'chart-bar';
           break;
           case 'document':
           case 'presentation':
@@ -76,7 +76,7 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format
         $line = $button.$line;
       }
       $line .= '<p class="visible-print-block"><strong>'.ucwords($iFrameClass).': '.$iFrameContent.'</strong></p>';
-  if (strpos($format,'set') === false || $iFrameClass != 'video') {
+  if (!in_array('set',$format) || $iFrameClass != 'video') {
     // Build a basic container first and then modify it if there's any formatting (videos only, not audio)
     $container = '<div class="row"><div class="embedFeature col-sm-X col-sm-offset-X">';
     $line = $container.$line.'</div></div>';
@@ -84,27 +84,27 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format
   $size = '12'; // Default full width for iFrames
   $offset = '0';
   if ($iFrameClass == 'video') {
-    if (strpos($format,'left') !== false || strpos($format,'right') !== false) {
+    if (in_array('left',$format) || in_array('right',$format)) {
       $line = str_replace('<div class="row">','',$line);
       $line = substr($line,0,-6);
       $line = str_replace(' col-sm-offset-X','',$line);
-      if (strpos($format,'right') !== false) {
+      if (in_array('right',$format)) {
         $line = str_replace('embedFeature','embedFeature pull-right',$line);
       } else {
         $line = str_replace('embedFeature','embedFeature pull-left',$line);
       }
       $size = 6;
     }
-    if (strpos($format,'tiny') !== false) {
+    if (in_array('tiny',$format)) {
       $size = '4';
       $offset = '4';
-    } elseif (strpos($format,'small') !== false) {
+    } elseif (in_array('small',$format)) {
       $size = '6';
       $offset = '3';
-    } elseif (strpos($format,'medium') !== false) {
+    } elseif (in_array('medium',$format)) {
       $size = '8';
       $offset = '2';
-    } elseif (strpos($format,'wide') !== false) {
+    } elseif (in_array('wide',$format)) {
       $size = '12';
       $offset = '0';
     }

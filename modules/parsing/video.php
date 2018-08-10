@@ -46,7 +46,7 @@ if (strpos($row['url'],'youtube.com') !== false || strpos($row['url'],'youtu.be'
 } else {
   $src = ''; // This will just break the iFrame, but it means there won't be php errors on the page
 }
-$content = makeiFrame($src,'video',$row['content'],$row['format']);
+$content = makeiFrame($src,'video',$row['content'],$format);
 if (!isset($set)) {
   $output['content'][] = $content;
 } else {
