@@ -42,7 +42,11 @@ if (!isset($linkIcon)) {
 }
 
 if (!empty($row['url'])) {
-  $content = '<a target="'.mt_rand().'" class="barLink btn btn-default btn-block" href="'.$row['url'].'" role="button">';
+  $content = '<a ';
+  if (substr($row['url'],0,4) == 'http') {
+    $content .= 'target="'.mt_rand().'"';
+  }
+  $content .= ' class="barLink btn btn-default btn-block" href="'.$row['url'].'" role="button">';
 } else {
   $content = '<a class="barLink-disabled btn btn-default btn-block" disabled role="button">';
 }
