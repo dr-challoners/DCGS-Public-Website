@@ -21,9 +21,9 @@ if (in_array('dropdown',$format)) {
   $buttonText = explode(PHP_EOL,$row['content']);
   $button = '<a class="barLink btn btn-default btn-block hidden-print" role="button" data-toggle="collapse" href="#'.$textID.'" aria-expanded="false" aria-controls="collapseExample">';
   if (in_array('quote',$format)) {
-    $button .= '<i class="fa fa-comment"></i>';
+    $button .= '<i class="fas fa-comment"></i>';
   } else {
-    $button .= '<i class="fa fa-align-left"></i>';
+    $button .= '<i class="fas fa-align-left"></i>';
   }
   $button .= array_shift($buttonText);
   $button .= '</a>';

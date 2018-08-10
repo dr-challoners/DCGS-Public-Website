@@ -27,7 +27,7 @@
 
 <div class="row globalError">
   <div class="col-xs-3">
-    <i class="fa fa-exclamation-triangle fa-5x"></i>
+    <i class="fas fa-exclamation-triangle fa-5x"></i>
   </div>
   <div class="col-xs-9">
     <h1>Oh no!</h1>

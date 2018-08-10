@@ -198,10 +198,10 @@
     $nextWeek = date('d/m/Y',mktime(0,0,0,date('m',$curWeek),date('d',$curWeek)+7,date('Y',$curWeek)));
     echo '<div class="row weekNav visible-xs">';
       echo '<div class="col-xs-6">';
-        echo '<p><a class="last" href="/diary/'.$lastWeek.'/"><i class="fa fa-caret-left"></i> Last week</a></p>';
+        echo '<p><a class="last" href="/diary/'.$lastWeek.'/"><i class="fas fa-caret-left"></i> Last week</a></p>';
       echo '</div>';
       echo '<div class="col-xs-6">';
-        echo '<p><a class="next" href="/diary/'.$nextWeek.'/">Next week <i class="fa fa-caret-right"></i></a></p>';
+        echo '<p><a class="next" href="/diary/'.$nextWeek.'/">Next week <i class="fas fa-caret-right"></i></a></p>';
       echo '</div>';
     echo '</div>';
     for ($d = 0; $d < 7; $d++) {

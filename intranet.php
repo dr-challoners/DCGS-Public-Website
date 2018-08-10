@@ -70,7 +70,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
                   if (in_array('qrcode',$special)) {
                     echo '<p>';
                       echo $url;
-                      echo '<span class="pull-right hidden-xs"><a role="button" data-toggle="modal" data-target="#'.makeID($link['url']).'"><i class="fa fa-qrcode"></i></a></span>';
+                      echo '<span class="pull-right hidden-xs"><a role="button" data-toggle="modal" data-target="#'.makeID($link['url']).'"><i class="fas fa-qrcode"></i></a></span>';
                     echo '</p>';
                     // QR code pop-up and suggestions for use
                     echo '<div class="modal fade" id="'.makeID($link['url']).'" tabindex="-1" role="dialog" aria-labelledby="QR code for page">';
@@ -117,7 +117,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
       switch (strtolower($_GET['user'])) {
         case 'parents':
           echo '<div class="twitterColumn">';
-            echo '<a href="https://twitter.com/DCGSParenting" target="'.mt_rand().'">DCGS Parenting <span class="pull-right"><i class="fa fa-twitter fa-lg"></i></span></a>';
+            echo '<a href="https://twitter.com/DCGSParenting" target="'.mt_rand().'">DCGS Parenting <span class="pull-right"><i class="fab fa-twitter"></i></span></a>';
             echo '<a class="twitter-timeline" data-height="530" data-chrome="noheader nofooter" data-link-color="#2358A3" href="https://twitter.com/DCGSParenting?ref_src=twsrc%5Etfw">Tweets by DCGSParenting</a>';
           echo '</div>';
         break;

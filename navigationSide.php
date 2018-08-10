@@ -151,7 +151,7 @@ if ($section == 'news') {
         $c = 1;
       }
       if ($c == 12) {
-        echo '<p class="newsArchiveLink"><a href="/c/news/"><i class="fa fa-clock-o"></i> News archives</a></p>';
+        echo '<p class="newsArchiveLink"><a href="/c/news/"><i class="fas fa-clock-o"></i> News archives</a></p>';
         break;
       }
     }

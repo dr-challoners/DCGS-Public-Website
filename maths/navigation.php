@@ -3,14 +3,14 @@
     <div class="container">
       <div class="navbar-header">
         <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
-          Menu <i class="fa fa-chevron-down"></i>
+          Menu <i class="fas fa-chevron-down"></i>
         </button>    
         <a class="navbar-brand visible-xs-block" href="/maths">Learn Mathematics</a>
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><a href="/maths"><i class="fa fa-home fa-fw"></i> Home</a></li>
-          <li><a href="/"><i class="fa fa-shield fa-fw"></i> DCGS</a></li>
+          <li><a href="/maths"><i class="fas fa-home fa-fw"></i> Home</a></li>
+          <li><a href="/"><i class="fas fa-shield fa-fw"></i> DCGS</a></li>
           <?php
           $dir = scandir($_SERVER['DOCUMENT_ROOT'].'/maths/pages/');
           $dirData = array();

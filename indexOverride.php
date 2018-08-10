@@ -35,12 +35,12 @@
     if ((isset($start) && $start > time()) || (isset($end) && $end < time())) { $archived = 1; }
     
     // Make the code for the icon - anything from Font Awesome may be specified, but there are some defaults
-    $icon = '<i class="fa fa-info-circle fa-lg"></i>';
+    $icon = '<i class="fas fa-info-circle"></i>';
     if (!empty($row['icon'])) {
       if (clean($row['icon']) == 'alert') {
         $icon = str_replace('info','exclamation',$icon);
       } elseif (clean($row['icon']) == 'travel') {
-        $icon = '<i class="fa fa-bus"></i>';
+        $icon = '<i class="fas fa-bus"></i>';
       } else {
         $icon = str_replace('info-circle',clean($row['icon']),$icon);
       }

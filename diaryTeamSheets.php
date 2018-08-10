@@ -135,15 +135,15 @@
     }
 
     echo '<p class="links">';
-      echo '<a href="javascript:window.print()"><i class="fa fa-print"></i> Print</a>';
+      echo '<a href="javascript:window.print()"><i class="fas fa-print"></i> Print</a>';
       echo ' <span>';
       if (isset($lpos)) {
-        echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$lpos.'"><i class="fa fa-arrow-left"></i> Previous page</a> ';
+        echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$lpos.'"><i class="fas fa-arrow-left"></i> Previous page</a> ';
       }
       if (isset($npos)) {
-        echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$npos.'"><i class="fa fa-arrow-right"></i> Next page</a> ';
+        echo '<a href="/teamsheet/'.$date.'-'.$eventID.'-'.$npos.'"><i class="fas fa-arrow-right"></i> Next page</a> ';
       }
-      echo '<a href="/diary/'.date('d/m/Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'/"><i class="fa fa-arrow-circle-left fa-lg"></i> Back to diary</a>';
+      echo '<a href="/diary/'.date('d/m/Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'/"><i class="fas fa-arrow-circle-left fa-lg"></i> Back to diary</a>';
       echo '</span>';
     echo '</p>';
 

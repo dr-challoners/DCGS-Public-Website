@@ -74,7 +74,7 @@
   } else { $startY = $y-1; $endY = $y; }
 
   echo '<h1>DCGS events for Sep '.$startY.' to Jul '.$endY.'</h1>';
-  echo '<p class="link"><a href="javascript:window.print()"><i class="fa fa-print"></i> Print</a> <span><a href="/diary"><i class="fa fa-arrow-circle-left fa-lg"></i> Back to diary</a></span></p>';
+  echo '<p class="link"><a href="javascript:window.print()"><i class="fas fa-print"></i> Print</a> <span><a href="/diary"><i class="fas fa-arrow-circle-left fa-lg"></i> Back to diary</a></span></p>';
   echo '<p>Warning: subject to changes and additions over the course of the year.</p>';
   if ($m == 7) { echo '<p>Next year\'s calendar will be available from August.</p>'; }
 

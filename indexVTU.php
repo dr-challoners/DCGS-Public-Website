@@ -93,13 +93,13 @@ foreach ($tweetArray['data'] as $tweet) {
     echo '</style>';
     echo '<div class="row overrideMessage" id="messageVTU">';
       echo '<div class="iconPanel col-xs-2">';
-        echo '<i class="fa fa-bus"></i>';
+        echo '<i class="fas fa-bus"></i>';
       echo '</div>';
       echo '<div class="messagePanel col-xs-10">';
         echo '<h1>Travel update</h1>';
         //view($tweet['content']);
         echo formatText(str_replace('#vtu','',$tweet['content']));
-        echo '<p><i class="fa fa-twitter fa-lg" style="color:#1b95e0;"></i> For more visits information, see the <a href="https://twitter.com/DCGSVisits">DCGS Visits</a> Twitter feed.</p>';
+        echo '<p><i class="fab fa-twitter" style="color:#1b95e0;"></i> For more visits information, see the <a href="https://twitter.com/DCGSVisits">DCGS Visits</a> Twitter feed.</p>';
       echo '</div>';
     echo '</div>';
     break;

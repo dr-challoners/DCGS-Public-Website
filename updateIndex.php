@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" href="img/faviconSync.png" />
   
   <link rel="stylesheet" href="/css/bootstrap.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/dcgsCMS.css" />
   
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,7 +40,7 @@
   <div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-        <h1><a href="./sync" style="color:black";><i class="fa fa-cog"></i></a> DCGS content management system</h1>
+        <h1><a href="./sync" style="color:black";><i class="fas fa-cog"></i></a> DCGS Content Management System</h1>
       </div>
 		</div>
 		<div class="row">

@@ -1,4 +1,5 @@
 <?php
+$linkType = 'fas';
 
 switch ($dataType) {
   case 'link':
@@ -6,8 +7,10 @@ switch ($dataType) {
     if (!empty($row['url'])) {
       if (strpos($row['url'],"twitter.com") !== false) {
         $linkIcon = 'twitter';
+        $linkType = 'fab';
       } elseif (strpos($row['url'],"instagram.com") !== false) {
         $linkIcon = 'instagram';
+        $linkType = 'fab';
       } else {
         $linkIcon = 'link';
       }
@@ -34,7 +37,7 @@ if (!empty($row['url'])) {
 } else {
   $content = '<a class="barLink-disabled btn btn-default btn-block" disabled role="button">';
 }
-$content .= '<i class="fa fa-'.$linkIcon.'"></i>';
+$content .= '<i class="'.$linkType.' fa-'.$linkIcon.'"></i>';
 if (!empty($row['content'])) {
   $content .= formatText($row['content'],0);
 } else {

@@ -62,7 +62,7 @@
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active">
         <div class="twitterColumn" id="sports_team">
-          <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fa fa-twitter fa-lg"></i></span></a>
+          <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fab fa-twitter"></i></span></a>
 					<a class="twitter-timeline" data-height="1860" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
         </div>
       </div>
