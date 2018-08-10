@@ -87,13 +87,15 @@
             include('modules/parsing/contributors.php');
             break;
           default: case 'text': case 'maths': case 'math':
-            $previewText = formatText($row['content'],0);
-            $previewText = preg_replace("/<h[0-9]>[^<]+<\/h[0-9]>/",'',$previewText);
-            $previewText = strip_tags($previewText);
-            if (isset($navData['preview']['text'])) {
-              $navData['preview']['text'] .= $previewText.' ';
-            } else {
-              $navData['preview']['text'] = $previewText.' ';
+            if (strpos($row['format'],'quote') === false) {
+              $previewText = formatText($row['content'],0);
+              $previewText = preg_replace("/<h[0-9]>[^<]+<\/h[0-9]>/",'',$previewText);
+              $previewText = strip_tags($previewText);
+              if (isset($navData['preview']['text'])) {
+                $navData['preview']['text'] .= $previewText.' ';
+              } else {
+                $navData['preview']['text'] = $previewText.' ';
+              }
             }
             if ($row['format'] != 'hidden') {
               include('modules/parsing/textMaths.php');
