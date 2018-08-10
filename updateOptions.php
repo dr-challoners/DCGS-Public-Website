@@ -76,6 +76,14 @@
       </div>
     </div>
     <div class="row options">
+      <div class="col-xs-12 col-sm-3 col-md-2"><p>Highlight Adverts:</p></div>
+      <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
+        <a class="btn btn-default" href="https://docs.google.com/spreadsheets/d/1A2ZDoOM57fcVAADHgU9aUf1G9IAIGkz3wWXBiazYPoE/" target="<?php echo mt_rand(); ?>">Edit</a>
+        <a class="btn btn-default" href="/update" target="<?php echo mt_rand(); ?>">Sync</a>
+        <a class="btn btn-default" href="https://docs.google.com/document/d/1y-KKKgOD_q3Q9NaPusLM9hy1hne4oDpJNXyctdT8xDs/edit#" target="<?php echo mt_rand(); ?>">Help File</a>
+      </div>
+    </div>
+    <div class="row options">
       <div class="col-xs-12 col-sm-3 col-md-2"><p>Sports Fixtures:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
         <a class="btn btn-default" href="https://docs.google.com/spreadsheets/d/1nDL3NXiwdO-wfbHcTLJmIvnZPL73BZeF7fYBj_heIyA/edit#gid=0" target="<?php echo mt_rand(); ?>">Edit</a>

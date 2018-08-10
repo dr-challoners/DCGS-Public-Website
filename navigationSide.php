@@ -51,6 +51,7 @@ function makeNav ($sheetName, $pages, $sheet) {
 
 if (isset($sheet)) {
   echo '<div class="hidden-xs col-sm-4 hidden-print">';
+  include('highlights.php');
   echo '<div class="panel-group sideNav" id="'.$section.'Nav" role="tablist" aria-multiselectable="true">';
 }
 $sec = array();

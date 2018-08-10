@@ -4,6 +4,7 @@
     <?php
       include('indexVTU.php');
       include('indexOverride.php');
+      include('highlights.php');
       include('indexNews.php');
     ?>
   </div>

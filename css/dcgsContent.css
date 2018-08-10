@@ -1,3 +1,19 @@
+.highlightBox {
+  margin-bottom: 15px;
+}
+.highlightBox a {
+  display: block;
+  padding: 8px 10px;
+  color: #000;
+  font-weight: bold;
+  background-position: center center;
+  background-size: cover;
+  line-height: 18px;
+}
+.highlightBox i {
+  float: right;
+}
+
 .articleInfo {
   border-bottom: 1px solid #eee;
   margin-left: 0;
