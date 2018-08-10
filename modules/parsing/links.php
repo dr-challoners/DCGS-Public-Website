@@ -1,35 +1,44 @@
 <?php
 $linkType = 'fas';
 
-switch ($dataType) {
-  case 'link':
-    // Gives brand icons to some websites
-    if (!empty($row['url'])) {
-      if (strpos($row['url'],"twitter.com") !== false) {
-        $linkIcon = 'twitter';
-        $linkType = 'fab';
-      } elseif (strpos($row['url'],"instagram.com") !== false) {
-        $linkIcon = 'instagram';
-        $linkType = 'fab';
+if (!empty($format)) {
+  foreach ($format as $f) {
+    if ($f != 'set') {
+      $linkIcon = $f;
+    }
+  }
+}
+if (!isset($linkIcon)) {
+  switch ($dataType) {
+    case 'link':
+      // Gives brand icons to some websites
+      if (!empty($row['url'])) {
+        if (strpos($row['url'],"twitter.com") !== false) {
+          $linkIcon = 'twitter';
+          $linkType = 'fab';
+        } elseif (strpos($row['url'],"instagram.com") !== false) {
+          $linkIcon = 'instagram';
+          $linkType = 'fab';
+        } else {
+          $linkIcon = 'link';
+        }
       } else {
         $linkIcon = 'link';
       }
-    } else {
-      $linkIcon = 'link';
-    }
-    break;
-  case 'file':
-    $linkIcon = 'file';
-    break;
-  case 'email':
-    $linkIcon = 'envelope-o';
-    // Add the 'mailto:' component and some simple robot baffling
-    $address = ""; $i = 0;
-    if (!empty($row['url'])) {
-      for ($i = 0; $i < strlen($row['url']); $i++) { $address .= '&#'.ord($row['url'][$i]).';'; }
-      $row['url'] = "mailto:".$address; 
-    }
-    break;
+      break;
+    case 'file':
+      $linkIcon = 'file';
+      break;
+    case 'email':
+      $linkIcon = 'envelope-o';
+      // Add the 'mailto:' component and some simple robot baffling
+      $address = ""; $i = 0;
+      if (!empty($row['url'])) {
+        for ($i = 0; $i < strlen($row['url']); $i++) { $address .= '&#'.ord($row['url'][$i]).';'; }
+        $row['url'] = "mailto:".$address; 
+      }
+      break;
+  }
 }
 
 if (!empty($row['url'])) {
@@ -49,5 +58,7 @@ if (isset($set)) {
 } else {
   $output['content'][] = $content;
 }
+
+unset($linkIcon);
 
 ?>
