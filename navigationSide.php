@@ -72,51 +72,52 @@ if ($section == 'news') {
   // The following failsafe allows the News section to display regardless of that
   // The failsafe can't be applied to every section, as it would revert the ordering of all the subsections to alphabetical order
   foreach ($sec as $row) {
-    // News does need reordering, but it follows a predictable pattern
-    // This *does* require all news subsections to be in the form Month YYYY
-    $dateParts = explode('-',$row);
-    switch ($dateParts[0]) {
-      case 'january':
-        $month = 1;
-        break;
-      case 'february':
-        $month = 2;
-        break;
-      case 'march':
-        $month = 3;
-        break;
-      case 'april':
-        $month = 4;
-        break;
-      case 'may':
-        $month = 5;
-        break;
-      case 'june':
-        $month = 6;
-        break;
-      case 'july':
-        $month = 7;
-        break;
-      case 'august':
-        $month = 8;
-        break;
-      case 'september':
-        $month = 9;
-        break;
-      case 'october':
-        $month = 10;
-        break;
-      case 'november':
-        $month = 11;
-        break;
-      case 'december':
-        $month = 12;
-        break;
+    if (preg_match("/\A([a-zA-Z]+)-(\d{4})\z/", $row)) { // Ignores anything not in the form month-yyyy
+      // News does need reordering, but it follows a predictable pattern
+      $dateParts = explode('-',$row);
+      switch ($dateParts[0]) {
+        case 'january':
+          $month = 1;
+          break;
+        case 'february':
+          $month = 2;
+          break;
+        case 'march':
+          $month = 3;
+          break;
+        case 'april':
+          $month = 4;
+          break;
+        case 'may':
+          $month = 5;
+          break;
+        case 'june':
+          $month = 6;
+          break;
+        case 'july':
+          $month = 7;
+          break;
+        case 'august':
+          $month = 8;
+          break;
+        case 'september':
+          $month = 9;
+          break;
+        case 'october':
+          $month = 10;
+          break;
+        case 'november':
+          $month = 11;
+          break;
+        case 'december':
+          $month = 12;
+          break;
+      }
+      if (!($ordering[$dateParts[1]])) {
+        $ordering[$dateParts[1]] = array(12 => '', 11 => '', 10 => '', 9 => '', 8 => '', 7 => '', 6 => '', 5 => '', 4 => '', 3 => '', 2 => '', 1 => '');
+      }
+      $ordering[$dateParts[1]][$month] = $row;
     }
-    if (!($ordering[$dateParts[1]])) {
-      $ordering[$dateParts[1]] = array(12 => '', 11 => '', 10 => '', 9 => '', 8 => '', 7 => '', 6 => '', 5 => '', 4 => '', 3 => '', 2 => '', 1 => '');
-    }
-    $ordering[$dateParts[1]][$month] = $row;
   }
   krsort($ordering);
   $sec = array();
