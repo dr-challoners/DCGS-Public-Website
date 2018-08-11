@@ -1,17 +1,7 @@
 <?php
 
+  if (isset($_GET['preview'])) { $_GET['sync'] = 1; }
   $dataFolder = 'data/override';
-
-  if ((isset($_GET['sync']) || isset($_GET['preview'])) && file_exists($dataFolder.'/')) {
-    // You can automatically re-sync the override messages on the website by deleting the old cache, thereby forcing it to start again
-    $data = scandir($dataFolder.'/', 1);
-    foreach ($data as $datum) {
-      if (strpos($datum,'.json') !== false) {
-        unlink($dataFolder.'/'.$datum);
-      }
-    }
-  }
-
   $overrideData = sheetToArray('1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk',$dataFolder,1);
 
   foreach ($overrideData['data']['Messages'] as $key => $row) {

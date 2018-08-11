@@ -123,6 +123,25 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
         break;
         case "students":
 				case "staff":
+          if (strtolower($_GET['user']) == 'staff') {
+            // Welfare articles for staff
+            $welfareData = sheetToArray('1CaUH0nOye8se5_Y4F7YiKavDDxT1JIU8gkWcDEKWVDI','data/intranet');
+            $welfareData = $welfareData['data']['Articles'];
+            foreach ($welfareData as $key => $row) {
+              if (empty($row['approved'])) {
+                unset($welfareData[$key]);
+              }
+            }
+            shuffle($welfareData);
+            $welfareData = array_shift($welfareData);
+            echo '<div class="row welfareArticle">';
+            echo '<div class="col-sm-12">';
+            echo '<a class="articleLink" target="'.mt_rand().'" href="'.$welfareData['articleresourceurl'].'">'.$welfareData['summarytitle'].'</a>';
+            echo '<a class="submitLink" target="'.mt_rand().'" href="https://docs.google.com/forms/d/e/1FAIpQLSfko_xYWOIf6wVRdnBwD3-djnCmZegKRYcfJiY2beNATWH3yQ/viewform?usp=sf_link">Submit an article</a>';
+            echo '</div>';
+            echo '</div>';
+          }
+          // Educational videos for staff and students
 					if (file_exists('data/intranet/edVideos.json') && !isset($_GET['sync'])) {
 						$edVideos = file_get_contents('data/intranet/edVideos.json');
       			$edVideos = json_decode($edVideos, true);
@@ -147,7 +166,12 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
 						file_put_contents('data/intranet/edVideos.json', json_encode($edVideos));
 					}
 					shuffle ($edVideos);
-					for ($v = 0; $v < 3; $v++) {
+          if (strtolower($_GET['user']) == 'students') {
+            $n = 3;
+          } else {
+            $n = 2;
+          }
+					for ($v = 0; $v < $n; $v++) {
 						$video = array_shift($edVideos);
 						echo '<div class="row edVideo">';
 							echo '<div class="embedFeature col-sm-12">';
