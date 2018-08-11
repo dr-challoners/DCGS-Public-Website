@@ -176,9 +176,15 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
 						echo '<div class="row edVideo">';
 							echo '<div class="embedFeature col-sm-12">';
 								echo '<div class="embed-responsive embed-responsive-video hidden-print">';
-									echo '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video['id'].'?showinfo=0" allowfullscreen="true"></iframe>';
+									echo '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video['id'].'?wmode=opaque&showinfo=0" allowfullscreen="true"></iframe>';
+                  echo '<div class="watchLater"><a target="'.mt_rand().'" href="https://www.youtube.com/watch?v='.$video['id'].'"><i class="fas fa-external-link"></i></a></div>';
 								echo '</div>';
-								echo '<p>'.$video['title'].'</p>';
+                // Making shorter and neater video titles
+                $videoTitle = str_replace(array(' - ',' -- ',' – ','//','|','(',':'),'#',$video['title']);
+                $videoTitle = explode('#',$videoTitle);
+                $videoTitle = trim($videoTitle[0]);
+                $videoTitle = ucwords(strtolower($videoTitle));
+								echo '<p>'.$videoTitle.'</p>';
 							echo '</div>';
 						echo '</div>';
 					}
