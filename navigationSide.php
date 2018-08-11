@@ -130,6 +130,41 @@ if ($section == 'news') {
     }
   }
   foreach ($sec as $row) {
+    if ((!isset($newYear) || explode('-',$row)[1] !== $newYear) && !isset($sheet)) {
+      // Creates a nice display of photos at the beginning of each new year in the archives section
+      $newYear = explode('-',$row)[1];
+      $displayPhotos = array();
+      foreach ($sec as $pRow) {
+        if (explode('-',$pRow)[1] === $newYear) {
+          $allPhotos = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/news/'.$pRow);
+          foreach($allPhotos as $photo) {
+            if (substr($photo,-3) == 'jpg') {
+              $displayPhotos[] = $pRow.'/'.$photo;
+            }
+          }
+        }
+      }
+      shuffle($displayPhotos);
+      $displayPhotos = array_slice($displayPhotos,0,6);
+      //view($displayPhotos);
+      echo '<div class="archiveH1Banner">';
+        echo '<h1>';
+        if (!isset($firstYear)) {
+          echo 'News: ';
+        }
+        echo $newYear.'</h1>';
+        for ($p = 0; $p <= 5; $p++) {
+          echo '<div class="bannerPhoto" style="background-image:url(';
+          if (isset($displayPhotos[$p])) {
+            echo '/pages/news/'.$displayPhotos[$p];
+          } else {
+            echo '/img/navigation/'.$p.'.jpg';
+          }
+          echo ')"></div>';
+        }
+      echo '</div>';
+      $firstYear = 1;
+    }
     $sheetName = revert($row);
     if (isset($nav[$sheetName])) {
       $pages = $nav[$sheetName];
