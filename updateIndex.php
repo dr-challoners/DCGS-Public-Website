@@ -145,7 +145,7 @@
 					echo '</div>';
 					echo '<div class="panel-body">';
 					foreach ($sheetData['data'] as $page => $row) {
-						$eCheck = str_ireplace(array('[hidden]','[link]'),'',$page);
+						$eCheck = preg_replace('/\[(hidden|show|link)([^\]]*)\]/i', '', $page);
 						$eCheck = clean($eCheck);
 						$e = array_search($eCheck.'.php',$exists);
 						if ($e !== false) {

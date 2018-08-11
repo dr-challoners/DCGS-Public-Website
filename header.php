@@ -129,7 +129,9 @@
 					$navMenu .= '<h3>'.$sheetName.'</h3>';
 					$navMenu .= '<ul>';
 					foreach ($pages as $pageName => $data) {
-						$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+            if (!isset($data['show']) || $data['show'] < mktime()) {
+						  $navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+            }
 					}
 					$navMenu .= '</ul>';
 					$colCount++;
@@ -180,7 +182,9 @@
 						$navMenu .= '<h3>'.$sheetName.'</h3>';
 						$navMenu .= '<ul>';
 						foreach ($pages as $pageName => $data) {
-							$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+              if (!isset($data['show']) || $data['show'] < mktime()) {
+							  $navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
+              }
 						}
 						$navMenu .= '</ul>';
             $sheetCount++;

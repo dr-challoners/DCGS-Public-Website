@@ -14,21 +14,23 @@ $stories = array();
 foreach ($dir as $month => $pages) {
   $monthDir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/news/'.clean($month).'/');
   foreach ($pages as $key => $data) {
-    if ($c < 12) {
-      $stories[$key] = $data;
-      foreach ($stories[$key]['preview']['images'] as $n => $file) {
-        $file = $file['file'];
-        foreach ($monthDir as $line) {
-          if (strpos($line,$file) !== false) {
-            $file = 'pages/news/'.clean($month).'/'.$line;
-            break;
+    if (!isset($data['show']) || $data['show'] < mktime()) {
+      if ($c < 12) {
+        $stories[$key] = $data;
+        foreach ($stories[$key]['preview']['images'] as $n => $file) {
+          $file = $file['file'];
+          foreach ($monthDir as $line) {
+            if (strpos($line,$file) !== false) {
+              $file = 'pages/news/'.clean($month).'/'.$line;
+              break;
+            }
           }
+          $stories[$key]['preview']['images'][$n] = $file;
         }
-        $stories[$key]['preview']['images'][$n] = $file;
+        $c++;
+      } else {
+        break;
       }
-      $c++;
-    } else {
-      break;
     }
   }
 }

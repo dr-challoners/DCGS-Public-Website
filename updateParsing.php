@@ -10,12 +10,13 @@
   // If tools is set to 0, then the page won't display print and QR code icons
   
   // This system creates Bootstrap standard HTML markup, and does not include any additional styles
-  
+
   $navData = array();
   $output = array();
   $images = array();
-  $fileName = str_ireplace('[hidden]','',$pageName,$hidden);
-  $fileName = str_ireplace('[link]','',$fileName,$link);
+  $fileName = str_ireplace('[hidden]', '', $pageName, $hidden);
+  $fileName = str_ireplace('[link]', '', $fileName, $link);
+  $fileName = preg_replace('/\[(show)([^\]]*)\]/i', '', $fileName, -1, $show);
   $fileName = clean($fileName);
   $section  = clean($_GET['section']);
   $sheet    = clean($sheetData['meta']['sheetname']);
@@ -32,6 +33,25 @@
     }
   }
   if (isset($pageData) && !empty($pageData)) {
+    if ($show > 0) {
+      preg_match("/\[(show)( *)[0-9]{2}[\/][0-9]{2}[\/][0-9]{2}([,]( *)[0-9]{2}[:][0-9]{2})?( *)\]/i", $pageName, $sDate);
+      $sDate = $sDate[0];
+      $sDate = str_replace(array('[show',']',' ','/',',',':'),array('','','','#','#','#'),$sDate);
+      $sDate = explode('#',$sDate);
+      // You now have the time parameters:
+      
+      // [0] is day in the month
+      // [1] is month
+      // [2] is year
+      // [3] is hours in 24 hour clock
+      // [4] is minutes past the hour
+      
+      // [3] and [4] may not be set
+      if (!isset($sDate[3])) { $sDate[3] = 0; }
+      if (!isset($sDate[4])) { $sDate[4] = 0; }
+      $sDate = mktime($sDate[3],$sDate[4],0,$sDate[1],$sDate[0],$sDate[2]);
+      $navData['show'] = $sDate;
+    }
     if ($link > 0) {
       $navData['link'] = $pageData[2]['url'];
     } else {
@@ -173,7 +193,7 @@
         }
     }
     if (!isset($output['title'])) {
-      $output['title'] = str_ireplace(array('[hidden]','[link]'),'',$pageName);
+      $output['title'] = preg_replace('/\[(hidden|show|link)([^\]]*)\]/i', '', $pageName);
       $output['title'] = formatText(trim($output['title']),0);
     }
     // Creating the code for the actual page
@@ -322,10 +342,10 @@
           $newDir[$row['sheetname']] = $curDir[$row['sheetname']];
         }
       }
-      $pageName = str_ireplace('[link]','',$pageName);
+      $pageName = preg_replace('/\[(show|link)([^\]]*)\]/i', '', $pageName);
       $pageName = trim($pageName);
       foreach ($sheetData['data'] as $key => $row) {
-        $key = str_ireplace('[link]','',$key);
+        $key = preg_replace('/\[(show|link)([^\]]*)\]/i', '', $key);
         $key = trim($key);
         if ($key == $pageName) {
           $newDir[$sheetData['meta']['sheetname']][$key] = $navData;
@@ -360,8 +380,7 @@
     }
     if (isset($pageData) && !empty($pageData)) {
       $images = array();
-      $fileName = str_ireplace('[hidden]','',$pageName,$hidden);
-      $fileName = str_ireplace('[link]','',$fileName,$link);
+      $fileName = preg_replace('/\[(hidden|show|link)([^\]]*)\]/i', '', $pageName);
       $fileName = clean($fileName);
       $section  = clean($_GET['section']);
       $sheet    = clean($sheetData['meta']['sheetname']);

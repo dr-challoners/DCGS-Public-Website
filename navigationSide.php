@@ -26,9 +26,11 @@ function makeNav ($sheetName, $pages, $sheet) {
     echo '" role="tabpanel" aria-labelledby="'.clean($sheetName).'">';
     echo '<ul class="list-group">';
     foreach ($pages as $pageName => $data) {
-      echo '<li class="list-group-item">';
-      echo '<a href="'.$data['link'].'">'.formatText($pageName,0).'</a>';
-      echo '</li>';
+      if (!isset($data['show']) || $data['show'] < mktime()) {
+        echo '<li class="list-group-item">';
+        echo '<a href="'.$data['link'].'">'.formatText($pageName,0).'</a>';
+        echo '</li>';
+      }
     }
     echo '</ul>';
     echo '</div>';
@@ -39,11 +41,13 @@ function makeNav ($sheetName, $pages, $sheet) {
     echo '<h2>'.$sheetName.'</h2>';
     echo '</div>';
     foreach ($pages as $title => $page) {
-      echo '<div class="col-xs-6">';
-      echo '<a href="'.$page['link'].'">';
-      echo '<p>'.formatText($title,0).'</p>';
-      echo '</a>';
-      echo '</div>';
+      if (!isset($page['show']) || $page['show'] < mktime()) {
+        echo '<div class="col-xs-6">';
+        echo '<a href="'.$page['link'].'">';
+        echo '<p>'.formatText($title,0).'</p>';
+        echo '</a>';
+        echo '</div>';
+      }
     }
     echo '</div>';
   }
