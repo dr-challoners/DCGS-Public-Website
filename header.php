@@ -175,6 +175,7 @@
 							break;
 						}
 					}
+          $sheetCount = 1;
 					foreach ($dir as $sheetName => $pages) {
 						$navMenu .= '<h3>'.$sheetName.'</h3>';
 						$navMenu .= '<ul>';
@@ -182,6 +183,10 @@
 							$navMenu .= '<li><a href="'.$data['link'].'">'.formatText($pageName,0).'</a></li>';
 						}
 						$navMenu .= '</ul>';
+            $sheetCount++;
+            if ($menu === 'News' && $sheetCount > 12) {
+              break;
+            }
 					}
 					$navMenu .= '</div>';
 					$navMenu .= '</li>';
