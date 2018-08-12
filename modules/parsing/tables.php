@@ -5,7 +5,10 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
   $cutoff = $cutoff+15;
   $sheetID = substr($row['url'],$cutoff);
   $sheetID = explode('/',$sheetID)[0];
-  $tableArray = sheetToArray($sheetID,'data/content',1);
+} else {
+  $sheetID = $row['url'];
+}
+  $tableArray = sheetToArray($sheetID,'data/content',0);
   $processedTable = array();
   foreach ($tableArray['data'] as $table => $rows) {
     $processedTable[$table] = array();
@@ -57,26 +60,29 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
   }
   // Now display the table
   $content = '';
-  if (in_array('tab',$format)) {
+  if (in_array('tabs',$format)) {
     $tabList = '';
   }
   unset($active);
   foreach ($processedTable as $table => $rows) {
     unset($top);
-    if (in_array('tab',$format)) {
+    if (in_array('tabs',$format)) {
       $tabList .= '<li role="presentation"';
       if (!isset($active)) {
         $tabList .= ' class="active"';
       }
-      $tabList .= '><a href="#'.clean($table).'" aria-controls="'.clean($table).'" role="tab" data-toggle="tab"><h3>'.$table.'</h3></a></li>';
+      $tabList .= '><a href="#'.clean($table).$sheetID.'" aria-controls="'.clean($table).$sheetID.'" role="tab" data-toggle="tab"><h3>'.$table.'</h3></a></li>';
       $content .= '<div role="tabpanel" class="tab-pane';
+      if (in_array('tabs',$format)) {
+        $content .= ' fade';
+      }
       if (!isset($active)) {
-        $content .= ' active';
+        $content .= ' in active';
         $active = 1;
       }
-      $content .= '" id="'.clean($table).'">';
+      $content .= '" id="'.clean($table).$sheetID.'">';
     }
-    if (in_array('title',$format) && !in_array('tab',$format) && $table[0] != '_') {
+    if (in_array('titles',$format) && !in_array('tabs',$format) && $table[0] != '_') {
       $content .= '<h3>'.$table.'</h3>';
     }
     $content .= '<table class="table table-hover table-condensed">';
@@ -91,21 +97,20 @@ if (strpos($row['url'],'google.com/spreadsheets') !== false) {
       } else {
         $content .= '<tr>';
         foreach ($line as $cell) {
-          $content .= '<td>'.$cell.'</td>';
+          $content .= '<td>'.formatText($cell,0).'</td>';
         }
         $content .= '</tr>';
       }
     }
     $content .= '</table>';
-    if (in_array('tab',$format)) {
+    if (in_array('tabs',$format)) {
       $content .= '</div>';
     }
   }
-  if (in_array('tab',$format)) {
-    $tabList = '<ul class="nav nav-tabs tableTabs" role="tablist">'.$tabList.'</ul>';
+  if (in_array('tabs',$format)) {
+    $tabList = '<ul class="nav nav-pills nav-justified tableTabs" role="tablist">'.$tabList.'</ul>';
     $content = $tabList.'<div class="tab-content">'.$content.'</div>';
   }
   $output['content'][] = $content;
-}
 
 ?>

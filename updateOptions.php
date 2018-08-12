@@ -104,12 +104,12 @@
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit Calendar <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="https://docs.google.com/spreadsheets/d/1cRJPvzWoKjVBeoyzgUrt1gq0qYqXFfRgl7STRBkW8KQ/edit#gid=0" target="<?php echo mt_rand(); ?>">Autumn</a></li>
-            <li><a href="https://docs.google.com/spreadsheets/d/1mVNNX_V_3veJC6pAzQeZ6uC48xhO5zJukNMsZhEkEz4/edit#gid=0" target="<?php echo mt_rand(); ?>">Spring</a></li>
-            <li><a href="https://docs.google.com/spreadsheets/d/1CGSyQHppyse_T2xXj3K9-8aKyoR6lzCRXAsDMM7mG9c/edit#gid=0" target="<?php echo mt_rand(); ?>">Summer</a></li>
+            <li><a href="https://docs.google.com/spreadsheets/d/1ijdhkk8bvUYULZPZW8EuyN_kq34Q3AjleJjflY_EAZo/edit" target="<?php echo mt_rand(); ?>">Autumn</a></li>
+            <li><a href="https://docs.google.com/spreadsheets/d/148yVcohmWBpNAhjpnSqsphqMIJ4MVo_GR_izk-jGdZg/edit" target="<?php echo mt_rand(); ?>">Spring</a></li>
+            <li><a href="https://docs.google.com/spreadsheets/d/1jyOqFPjfAp9BmkGGu6i6YTn-NeHbmAjbwBk1uTDw6sw/edit" target="<?php echo mt_rand(); ?>">Summer</a></li>
           </ul>
         </div>
-        <a class="btn btn-default" href="http://www.challoners.com/sync?tab=content&section=Enrichment&sheet=1xMyo79efTDBV0GRx6fja4CcF-9JvW3L7pqMaEcPybNs&page=Clubs%20and%20Societies%20Calendar">Sync</a>
+        <a class="btn btn-default" href="/sync?tab=content&section=Enrichment&sheet=1xMyo79efTDBV0GRx6fja4CcF-9JvW3L7pqMaEcPybNs&page=Clubs%20and%20Societies%20Calendar">Sync</a>
       </div>
     </div>
   </div> <!-- Ends the tab panel -->

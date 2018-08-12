@@ -164,6 +164,10 @@
 
 .tableTabs h3 {
   margin: 0;
+  font-size: 20px;
+}
+.tableTabs li:not(.active) h3 {
+  color: #111;
 }
 .tableTabs > li > a {
   border-radius: 0;
