@@ -83,7 +83,7 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format
   }
   $size = '12'; // Default full width for iFrames
   $offset = '0';
-  if ($iFrameClass == 'video') {
+  if ($iFrameClass == 'video' && !in_array('set',$format)) {
     if (in_array('left',$format) || in_array('right',$format)) {
       $line = str_replace('<div class="row">','',$line);
       $line = substr($line,0,-6);
@@ -95,18 +95,22 @@ function makeiFrame($iFrameContent, $iFrameClass = '', $iFrameText = '', $format
       }
       $size = 6;
     }
-    if (in_array('tiny',$format)) {
-      $size = '4';
-      $offset = '4';
+    $findSize = preg_grep ("/^(size-)(\d+)$/", $format);
+    $findSize = array_values($findSize);
+    if (isset($findSize[0])) {
+      $size = substr($findSize[0],5);
+    } elseif (in_array('tiny',$format)) {
+      $size = 4;
     } elseif (in_array('small',$format)) {
-      $size = '6';
-      $offset = '3';
+      $size = 6;
     } elseif (in_array('medium',$format)) {
-      $size = '8';
-      $offset = '2';
+      $size = 8;
     } elseif (in_array('wide',$format)) {
-      $size = '12';
-      $offset = '0';
+      $size = 12;
+    }
+    $offset = (12 - $size) / 2;
+    if ($size % 2 == 1) {
+      $offset = floor($offset).'h';
     }
   }
   $line = str_replace('col-sm-X','col-sm-'.$size,$line);

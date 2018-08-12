@@ -178,3 +178,24 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+@media (min-width: 768px) {
+  .col-sm-offset-5h {
+    margin-left: 45.83333333%;
+  }
+  .col-sm-offset-4h {
+    margin-left: 37.5%;
+  }
+  .col-sm-offset-3h {
+    margin-left: 29.16666667%;
+  }
+  .col-sm-offset-2h {
+    margin-left: 20.83333333%;
+  }
+  .col-sm-offset-1h {
+    margin-left: 12.5%;
+  }
+  .col-sm-offset-0h {
+    margin-left: 4.16666667%;
+  }
+}

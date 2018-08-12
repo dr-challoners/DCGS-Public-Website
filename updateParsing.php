@@ -71,7 +71,8 @@
         }
       }
       if (!empty($row['format'])) {
-        $format = explode(' ',$row['format']);
+        $format = preg_replace("/(size)( *)(\d)/", "size-$3", $row['format']);
+        $format = explode(' ',$format);
       } else {
         $format = array();
       }
@@ -391,7 +392,8 @@
           $dataType = clean($row['datatype']);
           if ($dataType == 'image' || $dataType == 'newsimage') {
             if (!empty($row['format'])) {
-              $format = explode(' ',$row['format']);
+              $format = preg_replace("/(size)( *)(\d)/", "size-$3", $row['format']);
+              $format = explode(' ',$format);
             } else {
               $format = array();
             }

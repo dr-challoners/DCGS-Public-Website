@@ -28,7 +28,7 @@
       // Build a basic container first and then modify it if there's any formatting
       $container = '<div class="row"><div class="embedFeature col-sm-X col-sm-offset-X">';
       $content = $container.$content.'</div></div>';
-      $size = '8'; // Default full width for iFrames
+      $size = '8'; // Default to slightly indented and centred for images
       $offset = '2';
       if (in_array('left',$format) || in_array('right',$format)) {
         $content = str_replace('<div class="row">','',$content);
@@ -41,18 +41,22 @@
         }
         $size = 6;
       }
-      if (in_array('tiny',$format)) {
-        $size = '4';
-        $offset = '4';
+      $findSize = preg_grep ("/^(size-)(\d+)$/", $format);
+      $findSize = array_values($findSize);
+      if (isset($findSize[0])) {
+        $size = substr($findSize[0],5);
+      } elseif (in_array('tiny',$format)) {
+        $size = 4;
       } elseif (in_array('small',$format)) {
-        $size = '6';
-        $offset = '3';
+        $size = 6;
       } elseif (in_array('medium',$format)) {
-        $size = '8';
-        $offset = '2';
+        $size = 8;
       } elseif (in_array('wide',$format)) {
-        $size = '12';
-        $offset = '0';
+        $size = 12;
+      }
+      $offset = (12 - $size) / 2;
+      if ($size % 2 == 1) {
+        $offset = floor($offset).'h';
       }
       $content = str_replace('col-sm-X','col-sm-'.$size,$content);
       $content = str_replace('col-sm-offset-X','col-sm-offset-'.$offset,$content);
