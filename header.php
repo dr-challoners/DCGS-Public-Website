@@ -107,8 +107,8 @@
 		<?php
 			function makeScreenMenu($menu) {
 				$navMenu  = '<div class="panel">';
-				$navMenu .= '<div id="collapse-'.clean($menu).'" class="collapse" role="tabpanel" aria-labelledby="'.clean($menu).'">';
-				$navMenu .= '<div class="row">';
+				$navMenu .= '<div id="collapse-'.clean($menu).'" class="collapse collapseMain" role="tabpanel" aria-labelledby="'.clean($menu).'">';
+				$navMenu .= '<div class="row panelMain">';
 				$dir = scandir($_SERVER['DOCUMENT_ROOT'].'/pages/'.clean($menu));
 				$dir = array_reverse($dir);
 				foreach ($dir as $row) {
@@ -124,9 +124,9 @@
 					if ($colCount > 0) {
 						$navMenu .= '</div>';
 					}
-					$navMenu .= '<div class="col-xs-4">';
+					$navMenu .= '<div class="col-xs-4 panelMain">';
 					}
-					$navMenu .= '<h3>'.$sheetName.'</h3>';
+					$navMenu .= '<h3 class="panelMain">'.$sheetName.'</h3>';
 					$navMenu .= '<ul>';
 					foreach ($pages as $pageName => $data) {
             if (!isset($data['show']) || $data['show'] < mktime()) {

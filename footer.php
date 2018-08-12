@@ -42,6 +42,13 @@
       generateDiary(moment('<?php echo date('Y-m',$curTimestamp).'-01'; ?>'), moment('<?php echo date('Y-m-d',$curTimestamp); ?>'));
     </script>
   <?php } ?>
+  <script type="text/javascript">
+    $(document).click(function(e) {
+      if (!$(e.target).is('.panelMain')) {
+        $('.collapseMain').collapse('hide');	    
+      }
+    });
+  </script>
   <script type="text/javascript" src="/modules/js/fadeSlideShow.js"></script>
   <script type="text/javascript">
     jQuery(document).ready(function(){
