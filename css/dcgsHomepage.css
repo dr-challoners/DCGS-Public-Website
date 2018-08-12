@@ -205,10 +205,11 @@
 
 .overrideMessage {
   background-color: #1B4B87;
-  background-repeat: no-repeat;
-  background-size: auto 100%;
   margin-bottom: 15px;
   padding-right: 7px;
+}
+.overrideBanner {
+  margin-bottom: 15px;
 }
 
 .overrideMessage .messagePanel {
