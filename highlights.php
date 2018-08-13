@@ -1,5 +1,5 @@
 <?php
-if ((!isset($override) && rand(1,10) >= 7) || isset($_GET['highlight']) || isset($_GET['sync'])) {
+if ((!isset($override) && rand(1,10) >= 8) || isset($_GET['highlight']) || isset($_GET['sync'])) {
   $highlightData = sheetToArray('1A2ZDoOM57fcVAADHgU9aUf1G9IAIGkz3wWXBiazYPoE','data/highlights');
   if (isset($_GET['highlight'])) {
     $highlightData = $highlightData['data']['Highlights'][$_GET['highlight']];

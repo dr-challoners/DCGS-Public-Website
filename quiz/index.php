@@ -11,7 +11,7 @@
   <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
   
-  <link rel="stylesheet" href="../css/bootstrap.css" />
+  <link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   
   <link rel="apple-touch-icon" sizes="57x57" href="/img/icons/apple-touch-icon-57x57.png">
@@ -45,19 +45,22 @@
   
   <?php
     date_default_timezone_set("Europe/London");
-		include('../modules/functions/parsedown.php');
-		include('../modules/functions/miscTools.php');
-		include('../modules/functions/fetchData.php');
-		include('../modules/functions/transformText.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/parsedown.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/miscTools.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/fetchData.php');
+		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/transformText.php');
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-  <script type='text/javascript' src='../modules/js/moment.js'></script>
-  <script src="../modules/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src='/modules/js/moment.js'></script>
+  <script src="/modules/js/bootstrap.min.js"></script>
+  <script src="/modules/js/md5.js"></script>
+  <script src="/modules/js/jquery.base64.js"></script>
   
 </head>
 <body>
+
   <?php
     // Fetch appropriate data for the quizzes
     // Note the use of 'manual' throughout, to prevent updates while students are loading quizzes
@@ -92,7 +95,7 @@
 										if (!empty($question['imagevideourl'])) {
 											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
 											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-												$questionContent .= '<img src="'.fetchImageFromURL('/quiz/data',$question['imagevideourl']).'" />';
+												$questionContent .= '<img src="'.fetchImageFromURL('data',$question['imagevideourl']).'" />';
 											} else { // YouTube videos
 												if (strpos($question['imagevideourl'],'v=') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
@@ -115,13 +118,6 @@
 										}
 										// Parse the answers: strip whitespace from either side and check the formatting
 										$questionAnswers = explode('#',$question['answer']);
-										if (isset($choiceAnswer)) {
-											if(array_key_exists($choiceAnswer,$questionAnswers)) {
-												$keys = array_keys($questionAnswers);
-												$keys[array_search($choiceAnswer,$keys)] = 'c';
-												$questionAnswers = array_combine($keys,$questionAnswers);
-											}
-										}
 										foreach ($questionAnswers as $answerKey => $answerData) {
 											$answerData = trim($answerData);
 											if ($questionFormat == 'loose') {
@@ -129,14 +125,22 @@
 											}
 											if ($questionFormat != 'choice') {
 												$answerData = md5($answerData);
-											}
+											} elseif ($answerKey == $choiceAnswer) {
+                        $choiceAnswer = md5($answerData);
+                      }
 											$questionAnswers[$answerKey] = $answerData;
 										}
-										$quizArray[] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
+                    if ($questionFormat == 'choice') {
+                      $questionAnswers['c'] = $choiceAnswer;
+                    }
+                    if (isset($winnerCode)) {
+                      $quizArray['id'] = base64_encode($winnerCode);
+                    }
+										$quizArray['questions'][] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
                 }
-                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
+                file_put_contents('/data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
@@ -161,33 +165,120 @@
 		</div>
 	</div>
 	<script>
+    var buildQuestion = function() {
+      var quizPosition = (countCurrent - 1) * 100 / countTotal;
+      $('#quizProgress').css('width', quizPosition + '%');
+      $('#quizContent').html('<h2>Question ' + countCurrent + ' of ' + countTotal + '</h2>');
+      $('#quizContent').append(quizData['questions'][countCurrent-1].content);
+      if (quizData['questions'][countCurrent-1].format != 'choice') {
+        $('#answerInput').html(
+          '<label for="answerBox">' +
+          'Answer:' +
+          '<input type="text" id="answerBox" />' +
+          '</label>' +
+          '<button type="submit">Submit</button>'
+        ); 
+      } else {
+        $('#answerInput').empty();
+        $.each(quizData['questions'][countCurrent-1].answer, function(key, answer) {
+          if (key != 'c') {
+            $('#answerInput').append(
+              '<input type="radio" id="answer-' + key + '" name="choice" value="' + answer + '"/>' +
+              '<label for="answer-' + key + '">' + answer + '</label>');
+          }
+        });
+        $('#answerInput').append('<button type="submit">Submit</button>');
+      }
+    };
+    var correctAnswer = function () {
+      if (countCurrent < countTotal) {
+        countCurrent++;
+        buildQuestion();
+      } else {
+        $('#quizProgress').css('width', '100%');
+        $('#answerInput').remove();
+        $('#quizContent').html('<h2>Quiz Complete!</h2>');
+        if (quizData['id']) {
+          $('#quizContent').append('<p>The winning code is ' + $.base64.decode(quizData['id']) + '<p>');
+        }
+      }
+    };
+    var wrongAnswer = function () {
+      $(':input[type="submit"]').prop('disabled', true);
+      $('#answerInput').append('<p id="wrongAnswer">That\'s not correct. Check your working and try again.</p>');
+      setTimeout(function() {
+        $(':input[type="submit"]').prop('disabled', false);
+        $('#wrongAnswer').remove();
+      }, 5000);
+    };
 		$(document).ready(function() {
 			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
-			$.getJSON('./data/<?php echo $quizFileName; ?>.json', function(data) {
-				var countCurrent = 1;
-				var countTotal   = data.length;
-				var quizPosition = (countCurrent - 1) * 100 / countTotal;
-				$('#quizProgress').css('width', quizPosition + '%');
-				$('#quizContent').html('<h2>Question ' + countCurrent + ' of ' + countTotal + '</h2>');
-      	$('#quizContent').append(data[countCurrent-1].content);
-				if (data[countCurrent-1].format != 'choice') {
-					$('#answerInput').html(
-						'<label for="answerBox">' +
-							'Answer:' +
-							'<input type="text" id="answerBox" />' +
-						'</label>' +
-						'<button type="submit" id="checkAnswer">Submit</button>'
-					);
-				} else {
-					// Multiple choice form building
-				}
-			});
+			$.getJSON('/data/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
+        console.log(json);
+        quizData = json;
+        countCurrent = 1;
+        countTotal   = quizData['questions'].length;
+        buildQuestion();
+      });
 		});
+    $('#answerInput').submit(function(event) {
+      event.preventDefault();
+      if (quizData['questions'][countCurrent-1].format != 'choice') {
+        if (quizData['questions'][countCurrent-1].format === 'loose') {
+          var answerToCheck = $('input#answerBox').val().toLowerCase().trim();
+              answerToCheck = answerToCheck.replace(/ /g,'-');
+              answerToCheck = answerToCheck.replace(/[^a-z0-9\-]/g,'');
+              answerToCheck = answerToCheck.replace(/-+/g,'-');
+              answerToCheck = md5(answerToCheck);
+        } else {
+          var answerToCheck = md5($('input#answerBox').val().trim());
+        }
+        if ($.inArray(answerToCheck,quizData['questions'][countCurrent-1].answer) != -1) {
+          correctAnswer();
+        } else {
+          wrongAnswer();
+        }
+      } else {
+        var answerToCheck = $('input[name="choice"]:checked').val();
+            answerToCheck = md5(answerToCheck);
+        if (answerToCheck == quizData['questions'][countCurrent-1].answer['c']) {
+          correctAnswer();
+        } else {
+          wrongAnswer();
+        }
+      }
+    });
 	</script>
 	<?php
     } else {
-      // The admin menu for teachers will go here.
-    }
+      echo '<div class="container">';
+        echo '<div class="row">';
+          echo '<h1>Quiz Admin</h1>';
+          echo '<a href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
+        echo '</div>';
+        foreach ($authorList['data']['quiz'] as $authorData) {
+          echo '<h2>'.$authorData['authorname'].'</h2>';
+          echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
+          echo '<a href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
+          if (isset($sync) && $sync == $authorData['sheetid']) {
+            $syncStatus = 0;
+          } else {
+            $syncStatus = manual;
+          }
+          $quizList = sheetToArray($authorData['sheetid'], 'data', $syncStatus);
+          foreach ($quizList['data'] as $quizName => $quizData) {
+            $quizName = explode('#',$quizName)[0];
+            $quizName = trim($quizName);
+            echo '<p>';
+              echo $quizName;
+              echo ' <a href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
+              echo ' <a href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
+              echo ' <a href="">QR Code</a>';
+            echo '</p>';
+          }
+        }
+      echo '</div>';
+     }*/
   ?>
 	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
