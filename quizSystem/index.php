@@ -188,6 +188,7 @@
         });
         $('#answerInput').append('<button type="submit">Submit</button>');
       }
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     };
     var correctAnswer = function () {
       if (countCurrent < countTotal) {
@@ -196,9 +197,14 @@
       } else {
         $('#quizProgress').css('width', '100%');
         $('#answerInput').remove();
-        $('#quizContent').html('<h2>Quiz Complete!</h2>');
+        var winnerMessage = ['Congratulations!', 'Well done!', 'Great job!', 'Nice one!', 'Good work!', 'Awesome!', 'Hooray!'];
+        var messageNumber = Math.floor(Math.random() * (winnerMessage.length - 1))
+        $('#quizContent').html(
+          '<h2>' + winnerMessage[messageNumber] + '</h2>' +
+          '<p>You have completed this quiz!</p>'
+        );
         if (quizData['id']) {
-          $('#quizContent').append('<p>The winning code is ' + $.base64.decode(quizData['id']) + '<p>');
+          $('#quizContent').append('<p>The winning code is ' + $.base64.decode(quizData['id']) + '.<p>');
         }
       }
     };
@@ -273,8 +279,19 @@
               $targetLoadID = mt_rand();
               echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
               echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
-              echo ' <a href="">QR Code</a>';
+              echo ' <a data-toggle="modal" data-target="#QR-'.clean($authorData['authorname']).'-'.clean($quizName).'">Link for Students</a>';
             echo '</p>';
+            echo '<div class="modal fade" id="QR-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1" role="dialog" aria-labelledby="QR code for this quiz">';
+              echo '<div class="modal-dialog" role="document">';
+                echo '<div class="modal-content">';
+                  echo '<div class="modal-body">';
+                    echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
+                    echo '<p>QR code for this quiz. You can display this screen via your projector for students to scan the code on their iPads. Or right click on the image and select \'Copy image\' or \'Save image as...\' to take a copy of this QR code, to add to your presentation.</p>';
+                    echo '<p>You can also point students to the quiz by telling them the address: <b>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</b></p>';
+                  echo '</div>';
+                echo '</div>';
+              echo '</div>';  
+            echo '</div>';
           }
         }
       echo '</div>';
