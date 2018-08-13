@@ -45,10 +45,10 @@
   
   <?php
     date_default_timezone_set("Europe/London");
-		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/parsedown.php');
-		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/miscTools.php');
-		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/fetchData.php');
-		include($_SERVER['DOCUMENT_ROOT'].'/modules/functions/transformText.php');
+		include('../modules/functions/parsedown.php');
+		include('../modules/functions/miscTools.php');
+		include('../modules/functions/fetchData.php');
+		include('../modules/functions/transformText.php');
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
@@ -60,7 +60,6 @@
   
 </head>
 <body>
-
   <?php
     // Fetch appropriate data for the quizzes
     // Note the use of 'manual' throughout, to prevent updates while students are loading quizzes
@@ -95,7 +94,7 @@
 										if (!empty($question['imagevideourl'])) {
 											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
 											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-												$questionContent .= '<img src="'.fetchImageFromURL('data',$question['imagevideourl']).'" />';
+												$questionContent .= '<img src="'.fetchImageFromURL('/quizSystem/data',$question['imagevideourl']).'" />';
 											} else { // YouTube videos
 												if (strpos($question['imagevideourl'],'v=') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
@@ -140,7 +139,7 @@
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
                 }
-                file_put_contents('/data/'.$quizFileName.'.json', json_encode($quizArray));
+                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
@@ -213,7 +212,7 @@
     };
 		$(document).ready(function() {
 			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
-			$.getJSON('/data/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
+			$.getJSON('/quizSystem/data/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
         console.log(json);
         quizData = json;
         countCurrent = 1;
@@ -254,12 +253,12 @@
       echo '<div class="container">';
         echo '<div class="row">';
           echo '<h1>Quiz Admin</h1>';
-          echo '<a href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
+          echo '<a target="'.mt_rand().'" href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
         echo '</div>';
         foreach ($authorList['data']['quiz'] as $authorData) {
           echo '<h2>'.$authorData['authorname'].'</h2>';
           echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
-          echo '<a href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
+          echo '<a target="'.mt_rand().'" href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
           if (isset($sync) && $sync == $authorData['sheetid']) {
             $syncStatus = 0;
           } else {
@@ -271,14 +270,15 @@
             $quizName = trim($quizName);
             echo '<p>';
               echo $quizName;
-              echo ' <a href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
-              echo ' <a href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
+              $targetLoadID = mt_rand();
+              echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
+              echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
               echo ' <a href="">QR Code</a>';
             echo '</p>';
           }
         }
       echo '</div>';
-     }*/
+     }
   ?>
 	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
