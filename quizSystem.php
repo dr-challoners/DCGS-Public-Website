@@ -46,30 +46,30 @@
   
   <?php
     date_default_timezone_set("Europe/London");
-		include('../modules/functions/parsedown.php');
-		include('../modules/functions/miscTools.php');
-		include('../modules/functions/fetchData.php');
-		include('../modules/functions/transformText.php');
+		include('modules/functions/parsedown.php');
+		include('modules/functions/miscTools.php');
+		include('modules/functions/fetchData.php');
+		include('modules/functions/transformText.php');
   ?>
   
   <!-- Major JavaScript libraries: at the top for general usage -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script type='text/javascript' src='/modules/js/moment.js'></script>
-  <script src="/modules/js/bootstrap.min.js"></script>
-  <script src="/modules/js/md5.js"></script>
-  <script src="/modules/js/jquery.base64.js"></script>
+  <script type='text/javascript' src="/modules/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="/modules/js/md5.js"></script>
+  <script type='text/javascript' src="/modules/js/jquery.base64.js"></script>
   
 </head>
 <body>
   <?php
     // Fetch appropriate data for the quizzes
     // Note the use of 'manual' throughout, to prevent updates while students are loading quizzes
-    $authorList = sheetToArray('1O6JfZ1dVshPmRL8RIK6_b63V_OoQ30hOR0aXPRUltes', 'data', 'manual'); // Master sheet
+    $authorList = sheetToArray('1O6JfZ1dVshPmRL8RIK6_b63V_OoQ30hOR0aXPRUltes', 'data/quiz', 'manual'); // Master sheet
     if (isset($_GET['author']) && isset($_GET['quiz'])) {
       // Build the quiz page if we're looking at a specific quiz
       foreach ($authorList['data']['quiz'] as $authorData) {
         if (clean($authorData['authorname']) == clean($_GET['author'])) {
-          $quizList = sheetToArray($authorData['sheetid'], 'data', 'manual');
+          $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
           foreach ($quizList['data'] as $quizName => $quizData) {
             if (strpos($quizName,'#') !== false) {
             $quizName = explode('#',$quizName);
@@ -95,7 +95,7 @@
 										if (!empty($question['imagevideourl'])) {
 											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
 											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-												$questionContent .= '<img src="'.fetchImageFromURL('/quizSystem/data',$question['imagevideourl']).'" class="img-responsive" />';
+												$questionContent .= '<img src="'.fetchImageFromURL('/data/quiz',$question['imagevideourl']).'" class="img-responsive" />';
 											} else { // YouTube videos
 												if (strpos($question['imagevideourl'],'v=') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
@@ -140,7 +140,7 @@
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
                 }
-                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
+                file_put_contents('data/quiz/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
@@ -264,7 +264,7 @@
     };
 		$(document).ready(function() {
 			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
-			$.getJSON('/quizSystem/data/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
+			$.getJSON('/data/quiz/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
         console.log(json);
         quizData = json;
         countCurrent = 1;
@@ -326,7 +326,7 @@
         } else {
           $syncStatus = 'manual';
         }
-        $quizList = sheetToArray($authorData['sheetid'], 'data', $syncStatus);
+        $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', $syncStatus);
         foreach ($quizList['data'] as $quizName => $quizData) {
           echo '<div class="row quizRow">';
           $quizName = explode('#',$quizName)[0];

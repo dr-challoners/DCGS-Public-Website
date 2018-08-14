@@ -16,7 +16,7 @@
     box-shadow: 10px 10px 0 0 rgba(0,0,0,.1);
   }
   .winning {
-    background-image: url(/quizSystem/winning.png);
+    background-image: url(img/finishedQuiz.png);
     background-size: cover;
     background-repeat: no-repeat;
   }
