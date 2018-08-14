@@ -12,7 +12,8 @@
   <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
   
   <link rel="stylesheet" href="/css/bootstrap.css" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/dcgsQuiz.css" />
   
   <link rel="apple-touch-icon" sizes="57x57" href="/img/icons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/img/icons/apple-touch-icon-60x60.png">
@@ -94,14 +95,14 @@
 										if (!empty($question['imagevideourl'])) {
 											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
 											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-												$questionContent .= '<img src="'.fetchImageFromURL('/quizSystem/data',$question['imagevideourl']).'" />';
+												$questionContent .= '<img src="'.fetchImageFromURL('/quizSystem/data',$question['imagevideourl']).'" class="img-responsive" />';
 											} else { // YouTube videos
 												if (strpos($question['imagevideourl'],'v=') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
 												} elseif (strpos($question['imagevideourl'],'youtu.be/') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
 												}
-												$questionContent .= '<iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true"></iframe>';
+												$questionContent .= '<div class="embed-responsive embed-responsive-16by9"><iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true" class="embed-responsive-item"></iframe></div>';
 											}
 										}
 										// Validate the format type
@@ -150,17 +151,26 @@
 	?>
 	<div class="container">
 		<div class="row">
-			<h1 id="quizTitle"></h1>
+      <div class="col-xs-12">
+			  <h1 id="quizTitle"></h1>
+      </div>
 		</div>
 		<div class="row">
-			<div class="progress">
-  			<div class="progress-bar" role="progressbar" id="quizProgress"></div>
-			</div>
+      <div class="col-xs-12">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" id="quizProgress"></div>
+        </div>
+      </div>
 		</div>
-		<div class="row" id="quizContent"></div>
 		<div class="row">
-			<form id="answerInput">
-			</form>
+      <div class="col-xs-12" id="quizContent"></div>
+    </div>
+		<div class="row">
+      <div class="col-xs-12">
+        <form id="answerForm" autocomplete="off">
+          <div class="row" id="answerInput">
+        </form>
+      </div>
 		</div>
 	</div>
 	<script>
@@ -171,23 +181,46 @@
       $('#quizContent').append(quizData['questions'][countCurrent-1].content);
       if (quizData['questions'][countCurrent-1].format != 'choice') {
         $('#answerInput').html(
+          '<div class="col-sm-2 col-xs-3">' +
           '<label for="answerBox">' +
           'Answer:' +
-          '<input type="text" id="answerBox" />' +
           '</label>' +
-          '<button type="submit">Submit</button>'
-        ); 
+          '</div>' +
+          '<div class="col-sm-8 col-xs-6">' +
+          '<input type="text" id="answerBox" />' +
+          '</div>'
+        );
+        $(':input[type="text"]').focus();
       } else {
         $('#answerInput').empty();
+        $('#answerInput').append(
+          '<div class="col-sm-10 col-xs-9">' +
+          '<div class="row" id="choiceOptions">' +
+          '</div>' +
+          '</div>'
+          );
+        var countAnswers = Object.keys(quizData['questions'][countCurrent-1]['answer']).length-1;
+        if (countAnswers == 3 || countAnswers >= 5) {
+          $col = 4;
+        } else {
+          $col = 6;
+        }
         $.each(quizData['questions'][countCurrent-1].answer, function(key, answer) {
           if (key != 'c') {
-            $('#answerInput').append(
+            $('#choiceOptions').append(
+              '<div class="col-xs-' + $col + '">' +
               '<input type="radio" id="answer-' + key + '" name="choice" value="' + answer + '"/>' +
-              '<label for="answer-' + key + '">' + answer + '</label>');
+              '<label for="answer-' + key + '">' + answer + '</label>' +
+              '<div>'
+            );
           }
         });
-        $('#answerInput').append('<button type="submit">Submit</button>');
       }
+      $('#answerInput').append(
+        '<div class="col-sm-2 col-xs-3">' +
+        '<button type="submit">Submit</button>' +
+        '</div>'
+      );
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     };
     var correctAnswer = function () {
@@ -199,22 +232,35 @@
         $('#answerInput').remove();
         var winnerMessage = ['Congratulations!', 'Well done!', 'Great job!', 'Nice one!', 'Good work!', 'Awesome!', 'Hooray!'];
         var messageNumber = Math.floor(Math.random() * (winnerMessage.length - 1))
-        $('#quizContent').html(
-          '<h2>' + winnerMessage[messageNumber] + '</h2>' +
-          '<p>You have completed this quiz!</p>'
-        );
+        $('#quizTitle').html(winnerMessage[messageNumber]);
+        $('body').addClass('winning');
+        $('#quizContent').html('<p>You have completed this quiz!</p>');
         if (quizData['id']) {
-          $('#quizContent').append('<p>The winning code is ' + $.base64.decode(quizData['id']) + '.<p>');
+          $('#quizContent').append('<p>The winning code is <b>' + $.base64.decode(quizData['id']) + '</b>.<p>');
         }
       }
     };
     var wrongAnswer = function () {
-      $(':input[type="submit"]').prop('disabled', true);
-      $('#answerInput').append('<p id="wrongAnswer">That\'s not correct. Check your working and try again.</p>');
-      setTimeout(function() {
-        $(':input[type="submit"]').prop('disabled', false);
+      $(':input[type="submit"]').prop('disabled', true).addClass('disabled');
+      $('#wrongAnswer').css({'visibility' : 'visible'});
+      $('#answerInput').append(
+        '<div class="row">' +
+        '<div class="col-xs-12">' +
+        '<p id="wrongAnswer">That\'s not correct. Check your working and try again.</p>' +
+        '</div>' +
+        '</div>'
+      );
+      $('.disabled').pietimer({
+        seconds: 4,
+        color: 'rgba(0, 0, 0, 0.8)',
+        height: 16, width: 16
+      },
+        function(){
+        $(':input[type="submit"]').prop('disabled', false).removeClass('disabled');
+        $(':input[type="submit"]').html('Submit');
         $('#wrongAnswer').remove();
-      }, 5000);
+      });
+      $('.disabled').pietimer('start');
     };
 		$(document).ready(function() {
 			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
@@ -226,7 +272,7 @@
         buildQuestion();
       });
 		});
-    $('#answerInput').submit(function(event) {
+    $('#answerForm').submit(function(event) {
       event.preventDefault();
       if (quizData['questions'][countCurrent-1].format != 'choice') {
         if (quizData['questions'][countCurrent-1].format === 'loose') {
@@ -257,46 +303,70 @@
 	<?php
     } else {
       echo '<div class="container">';
-        echo '<div class="row">';
-          echo '<h1>Quiz Admin</h1>';
-          echo '<a target="'.mt_rand().'" href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
-        echo '</div>';
-        foreach ($authorList['data']['quiz'] as $authorData) {
-          echo '<h2>'.$authorData['authorname'].'</h2>';
-          echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
-          echo '<a target="'.mt_rand().'" href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
-          if (isset($sync) && $sync == $authorData['sheetid']) {
-            $syncStatus = 0;
-          } else {
-            $syncStatus = manual;
-          }
-          $quizList = sheetToArray($authorData['sheetid'], 'data', $syncStatus);
-          foreach ($quizList['data'] as $quizName => $quizData) {
-            $quizName = explode('#',$quizName)[0];
-            $quizName = trim($quizName);
-            echo '<p>';
-              echo $quizName;
-              $targetLoadID = mt_rand();
-              echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
-              echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
-              echo ' <a data-toggle="modal" data-target="#QR-'.clean($authorData['authorname']).'-'.clean($quizName).'">Link for Students</a>';
-            echo '</p>';
-            echo '<div class="modal fade" id="QR-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1" role="dialog" aria-labelledby="QR code for this quiz">';
-              echo '<div class="modal-dialog" role="document">';
-                echo '<div class="modal-content">';
-                  echo '<div class="modal-body">';
-                    echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
-                    echo '<p>QR code for this quiz. You can display this screen via your projector for students to scan the code on their iPads. Or right click on the image and select \'Copy image\' or \'Save image as...\' to take a copy of this QR code, to add to your presentation.</p>';
-                    echo '<p>You can also point students to the quiz by telling them the address: <b>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</b></p>';
-                  echo '</div>';
-                echo '</div>';
-              echo '</div>';  
-            echo '</div>';
-          }
-        }
+      echo '<div class="row">';
+      echo '<div class="col-xs-12">';
+      echo '<h1>Quiz Admin</h1>';
       echo '</div>';
-     }
+      echo '</div>';
+      echo '<div class="row">';
+      echo '<div class="col-xs-12 col-sm-6 col-sm-offset-3" id="helpLink">';
+      echo '<a target="'.mt_rand().'" href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
+      echo '</div>';
+      echo '</div>';
+      foreach ($authorList['data']['quiz'] as $authorData) {
+        echo '<div class="row authorRow">';
+        echo '<div class="col-sm-4 col-xs-12"><h2>'.$authorData['authorname'].'</h2></div>';
+        echo '<div class="col-sm-8 col-xs-12">';
+        echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
+        echo '<a target="'.mt_rand().'" href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
+        echo '</div>';
+        echo '</div>';
+        if (isset($sync) && $sync == $authorData['sheetid']) {
+          $syncStatus = 0;
+        } else {
+          $syncStatus = manual;
+        }
+        $quizList = sheetToArray($authorData['sheetid'], 'data', $syncStatus);
+        foreach ($quizList['data'] as $quizName => $quizData) {
+          echo '<div class="row quizRow">';
+          $quizName = explode('#',$quizName)[0];
+          $quizName = trim($quizName);
+          echo '<div class="col-sm-4 col-xs-12"><h3>';
+          echo $quizName;
+          echo '</h3></div>';
+          $targetLoadID = mt_rand();
+          echo '<div class="col-sm-8 col-xs-12">';
+          echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
+          echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
+          echo ' <a data-toggle="modal" data-target="#QR-'.clean($authorData['authorname']).'-'.clean($quizName).'">QR Code</a>';
+          echo ' <a data-toggle="modal" data-target="#Link-'.clean($authorData['authorname']).'-'.clean($quizName).'">Display Link</a>';
+          echo '</div>';
+          echo '</div>';
+          echo '<div class="modal fade" id="QR-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
+          echo '<div class="modal-dialog" role="document">';
+          echo '<div class="modal-content">';
+          echo '<div class="modal-body">';
+          echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
+          echo '</div>';
+          echo '</div>';
+          echo '</div>';  
+          echo '</div>';
+          echo '<div class="modal fade" id="Link-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
+          echo '<div class="modal-dialog textURL">';
+          echo '<div class="modal-content">';
+          echo '<div class="modal-body">';
+          echo '<p>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</p>';
+          echo '</div>';
+          echo '</div>';
+          echo '</div>';  
+          echo '</div>';
+        }
+      }
+      echo '</div>';
+      echo '</div>';
+    }
   ?>
 	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  <script src="/modules/js/jquery.pietimer.min.js"></script>
 </body>
 </html>
