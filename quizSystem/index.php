@@ -64,12 +64,12 @@
   <?php
     // Fetch appropriate data for the quizzes
     // Note the use of 'manual' throughout, to prevent updates while students are loading quizzes
-    $authorList = sheetToArray('1O6JfZ1dVshPmRL8RIK6_b63V_OoQ30hOR0aXPRUltes', 'data', manual); // Master sheet
+    $authorList = sheetToArray('1O6JfZ1dVshPmRL8RIK6_b63V_OoQ30hOR0aXPRUltes', 'data', 'manual'); // Master sheet
     if (isset($_GET['author']) && isset($_GET['quiz'])) {
       // Build the quiz page if we're looking at a specific quiz
       foreach ($authorList['data']['quiz'] as $authorData) {
         if (clean($authorData['authorname']) == clean($_GET['author'])) {
-          $quizList = sheetToArray($authorData['sheetid'], 'data', manual);
+          $quizList = sheetToArray($authorData['sheetid'], 'data', 'manual');
           foreach ($quizList['data'] as $quizName => $quizData) {
             if (strpos($quizName,'#') !== false) {
             $quizName = explode('#',$quizName);
@@ -88,7 +88,7 @@
                 foreach ($quizData as $question) {
 									if ((!empty($question['questiontext']) || !empty($question['imagevideourl'])) && !empty($question['answer'])) { // Must have a question and answer
 										// Parse the text and image/video link as a single entry in the array.
-										$questionContent;
+										$questionContent = "";
 										if (!empty($question['questiontext'])) {
 											$questionContent .= Parsedown::instance()->parse($question['questiontext']);
 										}
@@ -324,7 +324,7 @@
         if (isset($sync) && $sync == $authorData['sheetid']) {
           $syncStatus = 0;
         } else {
-          $syncStatus = manual;
+          $syncStatus = 'manual';
         }
         $quizList = sheetToArray($authorData['sheetid'], 'data', $syncStatus);
         foreach ($quizList['data'] as $quizName => $quizData) {
