@@ -140,11 +140,7 @@
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
                 }
-                $dataDirectory = $_SERVER['DOCUMENT_ROOT'].'/quizSystem/data';
-                if (!file_exists($dataDirectory)) {
-                  mkdir($dataDirectory,0777,true);
-                }
-                file_put_contents($dataDirectory.'/'.$quizFileName.'.json', json_encode($quizArray));
+                file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
             }
