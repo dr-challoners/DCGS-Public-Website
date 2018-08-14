@@ -140,6 +140,9 @@
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
                 }
+                if (!file_exists('data')) {
+                  mkdir('data',0777,true);
+                }
                 file_put_contents('data/'.$quizFileName.'.json', json_encode($quizArray));
               }
               break;
