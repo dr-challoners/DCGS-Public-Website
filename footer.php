@@ -45,7 +45,7 @@
   <script type="text/javascript">
     $(document).click(function(e) {
       if (!$(e.target).is('.panelMain')) {
-        $('.collapseMain').collapse('hide');	    
+        $('.collapseMain').collapse('hide');
       }
     });
   </script>
@@ -55,9 +55,7 @@
       jQuery('#slideshow').fadeSlideShow();
     });
   </script>
-  <script type="text/javascript" async
-    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   <script type="text/javascript" src="/modules/fancyBox/jquery.fancybox.js?v=2.1.5"></script>
   <script type="text/javascript" src="/modules/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
   <script>
