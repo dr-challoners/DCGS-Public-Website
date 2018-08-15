@@ -157,9 +157,8 @@
 	<script>
 
     let q = new Quiz("root");
-    let displayName = "<?php echo $quizDisplayName; ?>";
     let fileName = "<?php echo $quizFileName; ?>";
-    q.generateQuiz(displayName,fileName);
+    q.generateQuiz(fileName);
 
 	</script>
 	<?php
