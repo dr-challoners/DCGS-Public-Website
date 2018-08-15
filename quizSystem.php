@@ -136,6 +136,8 @@
                     if (isset($winnerCode)) {
                       $quizArray['id'] = base64_encode($winnerCode);
                     }
+                    $quizArray['author'] = clean($authorData['authorname']);
+                    $quizArray['name'] = $quizDisplayName;
 										$quizArray['questions'][] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
 										unset($questionContent,$questionAnswers,$questionFormat);
 									}
