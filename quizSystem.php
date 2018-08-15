@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <title>Dr Challoner's Grammar School</title>
   <meta name="description" content="Well established boys' secondary school with co-educational Sixth Form. News, prospectus, ethos, history and academic achievements." />
 
   <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
-  
+
   <link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/dcgsQuiz.css" />
-  
+
   <link rel="apple-touch-icon" sizes="57x57" href="/img/icons/apple-touch-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/img/icons/apple-touch-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="/img/icons/apple-touch-icon-72x72.png">
@@ -43,7 +43,7 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  
+
   <?php
     date_default_timezone_set("Europe/London");
 		include('modules/functions/parsedown.php');
@@ -51,14 +51,14 @@
 		include('modules/functions/fetchData.php');
 		include('modules/functions/transformText.php');
   ?>
-  
+
   <!-- Major JavaScript libraries: at the top for general usage -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script type='text/javascript' src='/modules/js/moment.js'></script>
   <script type='text/javascript' src="/modules/js/bootstrap.min.js"></script>
   <script type='text/javascript' src="/modules/js/md5.js"></script>
   <script type='text/javascript' src="/modules/js/jquery.base64.js"></script>
-  
+
 </head>
 <body>
   <?php
@@ -100,7 +100,7 @@
 												if (strpos($question['imagevideourl'],'v=') !== false) {
 													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
 												} elseif (strpos($question['imagevideourl'],'youtu.be/') !== false) {
-													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);   
+													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);
 												}
 												$questionContent .= '<div class="embed-responsive embed-responsive-16by9"><iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true" class="embed-responsive-item"></iframe></div>';
 											}
@@ -174,6 +174,42 @@
 		</div>
 	</div>
 	<script>
+    const shuffleArray = (arr) => {
+        for (let i = arr.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+        return arr;
+    };
+    const constructOptions = () => {
+        $('#answerInput').empty();
+        $('#answerInput').append(
+          `<div class="col-sm-12">
+          <div class="row" id="choiceOptions">
+          </div>
+          </div>`
+          );
+        var countAnswers = Object.keys(quizData['questions'][countCurrent-1]['answer']).length-1;
+        var col = ((countAnswers == 3 || countAnswers >= 5) ? 4 : 6);
+
+        // Get option data and remove filter to only include values and shuffle
+        let options = Object.values(quizData['questions'][countCurrent-1].answer).filter(
+            (answer, index) => Object.keys(quizData['questions'][countCurrent-1].answer)[index] !== 'c'
+        );
+        options = shuffleArray(options);
+
+        // Construct options markup
+        let optionsRTN = options.map( (answer, index) => `
+            <div class=${'col-xs-' + col}>
+                <input type="radio" id=${'answer-' + index} name="choice" value=${answer} onclick="document.getElementById('answerForm').dispatchEvent(new Event('submit'))" />
+                <label for=${'answer-' + index}>${answer}</label>
+            </div>`
+        ).join('');
+        document.getElementById('choiceOptions').insertAdjacentHTML('beforeend', optionsRTN);
+    };
+
     var buildQuestion = function() {
       var quizPosition = (countCurrent - 1) * 100 / countTotal;
       $('#quizProgress').css('width', quizPosition + '%');
@@ -191,38 +227,17 @@
           '</div>'
         );
         $(':input[type="text"]').focus();
-      } else {
-        $('#answerInput').empty();
         $('#answerInput').append(
-          '<div class="col-sm-10 col-xs-9">' +
-          '<div class="row" id="choiceOptions">' +
-          '</div>' +
+          '<div class="col-sm-2 col-xs-3">' +
+          '<button type="submit">Submit</button>' +
           '</div>'
-          );
-        var countAnswers = Object.keys(quizData['questions'][countCurrent-1]['answer']).length-1;
-        if (countAnswers == 3 || countAnswers >= 5) {
-          $col = 4;
-        } else {
-          $col = 6;
-        }
-        $.each(quizData['questions'][countCurrent-1].answer, function(key, answer) {
-          if (key != 'c') {
-            $('#choiceOptions').append(
-              '<div class="col-xs-' + $col + '">' +
-              '<input type="radio" id="answer-' + key + '" name="choice" value="' + answer + '"/>' +
-              '<label for="answer-' + key + '">' + answer + '</label>' +
-              '<div>'
-            );
-          }
-        });
+        );
+      } else {
+        constructOptions()
       }
-      $('#answerInput').append(
-        '<div class="col-sm-2 col-xs-3">' +
-        '<button type="submit">Submit</button>' +
-        '</div>'
-      );
       MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     };
+
     var correctAnswer = function () {
       if (countCurrent < countTotal) {
         countCurrent++;
@@ -241,38 +256,43 @@
       }
     };
     var wrongAnswer = function () {
-      $(':input[type="submit"]').prop('disabled', true).addClass('disabled');
-      $('#wrongAnswer').css({'visibility' : 'visible'});
-      $('#answerInput').append(
-        '<div class="row">' +
-        '<div class="col-xs-12">' +
-        '<p id="wrongAnswer">That\'s not correct. Check your working and try again.</p>' +
-        '</div>' +
-        '</div>'
-      );
-      $('.disabled').pietimer({
-        seconds: 4,
-        color: 'rgba(0, 0, 0, 0.8)',
-        height: 16, width: 16
-      },
-        function(){
-        $(':input[type="submit"]').prop('disabled', false).removeClass('disabled');
-        $(':input[type="submit"]').html('Submit');
-        $('#wrongAnswer').remove();
-      });
-      $('.disabled').pietimer('start');
+        if (quizData['questions'][countCurrent-1].format != 'choice') {
+            $(':input[type="submit"]').prop('disabled', true).addClass('disabled');
+            $('#wrongAnswer').css({'visibility' : 'visible'});
+            $('#answerInput').append(
+                `<div class="row" id="wrongAnswer">
+                <div class="col-xs-12">
+                <p>That's not correct. Check your working and try again.</p>
+                </div>
+                </div>`
+            );
+        } else {
+            $('#answerInput').append(
+                `<div class="row" id="wrongAnswer">
+                <div class="col-xs-12">
+                <p class="disabled"></p>
+                <p>That's not correct. Check your working and try again.</p>
+                </div>
+                </div>`
+            );
+            $('#choiceOptions').css({'display' : 'none'});
+        }
+
+          $('.disabled').pietimer({
+            seconds: 4,
+            color: 'rgba(0, 0, 0, 0.8)',
+            height: 16, width: 16
+          },
+            function(){
+            $(':input[type="submit"]').prop('disabled', false).removeClass('disabled');
+            $(':input[type="submit"]').html('Submit');
+            $('#choiceOptions').css({'display' : ''});
+            $('#wrongAnswer').remove();
+            if (quizData['questions'][countCurrent-1].format === 'choice') constructOptions();
+          });
+          $('.disabled').pietimer('start');
     };
-		$(document).ready(function() {
-			$('#quizTitle').html('<?php echo $quizDisplayName; ?>');
-			$.getJSON('/data/quiz/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
-        console.log(json);
-        quizData = json;
-        countCurrent = 1;
-        countTotal   = quizData['questions'].length;
-        buildQuestion();
-      });
-		});
-    $('#answerForm').submit(function(event) {
+    const submitForm = (event) => {
       event.preventDefault();
       if (quizData['questions'][countCurrent-1].format != 'choice') {
         if (quizData['questions'][countCurrent-1].format === 'loose') {
@@ -298,7 +318,18 @@
           wrongAnswer();
         }
       }
+    };
+    $(document).ready(function() {
+        $('#quizTitle').html('<?php echo $quizDisplayName; ?>');
+        $.getJSON('/data/quiz/<?php echo $quizFileName; ?>.json', {_: new Date().getTime()}, function(json) {
+            console.log(json);
+            quizData = json;
+            countCurrent = 1;
+            countTotal   = quizData['questions'].length;
+            buildQuestion();
+        });
     });
+    document.getElementById('answerForm').addEventListener("submit", submitForm);
 	</script>
 	<?php
     } else {
@@ -349,7 +380,7 @@
           echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
           echo '</div>';
           echo '</div>';
-          echo '</div>';  
+          echo '</div>';
           echo '</div>';
           echo '<div class="modal fade" id="Link-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
           echo '<div class="modal-dialog textURL">';
@@ -358,7 +389,7 @@
           echo '<p>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</p>';
           echo '</div>';
           echo '</div>';
-          echo '</div>';  
+          echo '</div>';
           echo '</div>';
         }
       }
