@@ -13,24 +13,26 @@ h1 {
     padding-top: 7px;
   }
 
-.buttonLine {
-  margin-bottom: 8px;
-}
-.buttonLine .btn-block:not(.btn-center) {
+.buttonLine .btn-block {
   text-align: left;
 }
-
-.buttonLine p {
-  margin: 10px 10px 0;
+.buttonLine .col-xs-6 {
+  padding-bottom: 15px;
 }
-.col-sm-9.btn-group > .btn, .col-sm-9.btn-group > .btn-group {
-  width: 25%;
-}
-@media (min-width: 768px) {
-  .buttonLine p {
-    margin: 7px 0 0 -15px;
+@media (max-width: 767px) {
+  .buttonLine .col-xs-6:not(:nth-child(2n)) {
+    padding-right: 0;
   }
 }
+@media (min-width: 768px) {
+  .buttonLine .col-xs-6:not(:nth-child(3n)) {
+    padding-right: 0;
+  }
+}
+.buttonLine i {
+  padding-right: 5px;
+}
+
 @media (min-width: 992px) {
   .col-sm-9.btn-group > .btn, .col-sm-9.btn-group > .btn-group {
     width: 20%;

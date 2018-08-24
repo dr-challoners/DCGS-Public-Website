@@ -6,7 +6,6 @@
       $tab = 'main';
     }
     $tabs =  '<li role="presentation"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Main Options</a></li>';
-    $tabs .= '<li role="presentation"><a href="#sjt" aria-controls="sjt" role="tab" data-toggle="tab">SJT</a></li>';
     $tabs .= '<li role="presentation"><a href="#content" aria-controls="content" role="tab" data-toggle="tab">Update DCGS</a></li>';
     $tabs .= '<li role="presentation"><a href="?tab=maths" aria-controls="maths">Mathematics</a></li>';
     $tabs = str_replace('><a href="#'.$tab,' class="active"><a href="#'.$tab,$tabs);
@@ -21,20 +20,22 @@
       echo '<div role="tabpanel" class="tab-pane fade" id="main">';
     }
     ?>
-    <div class="row buttonLine">
-      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="<?php echo mt_rand(); ?>"><i class="fas fa-folder-open"></i> Main content folder on Drive</a></div>
-      <div class="col-xs-12 col-sm-7 col-md-8"><p>Contact SBU if you need access.</p></div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>Speak to Mr Burn if you require permission to access any of the following.</p>
+      </div>
     </div>
     <div class="row buttonLine">
-      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="<?php echo mt_rand(); ?>"><i class="fas fa-table"></i> Modify the master spreadsheet</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="/" target="<?php echo mt_rand(); ?>"><i class="fas fa-shield"></i> Challoner's Website</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="<?php echo mt_rand(); ?>"><i class="fab fa-google-drive"></i> Website Content Folder</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="<?php echo mt_rand(); ?>"><i class="fas fa-table"></i> Sections Master Spreadsheet</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing" target="<?php echo mt_rand(); ?>"><i class="fas fa-question-circle"></i> Publishing Guidance</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://trello.com/b/rEUcWF5b/website" target="<?php echo mt_rand(); ?>"><i class="fab fa-trello"></i> Student Journalist Team</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://analytics.google.com/analytics/web/?authuser=0#realtime/rt-overview/a92676121w137153019p141382362/" target="<?php echo mt_rand(); ?>"><i class="fas fa-chart-line"></i> Website Traffic Data</a></div>
     </div>
-    <div class="row buttonLine">
-      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing" target="<?php echo mt_rand(); ?>"><i class="fas fa-question-circle"></i> Open the support wiki</a></div>
-    </div>
-    <div class="row buttonLine">
-      <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="/" target="<?php echo mt_rand(); ?>"><i class="fas fa-shield"></i> Go to the school website</a></div>
-    </div>
-    <h3>Website systems</h3>
+    
+    
+    <h3>Website Systems</h3>
     <div class="row options">
       <div class="col-xs-12 col-sm-3 col-md-2"><p>Intranet Links:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
@@ -113,35 +114,4 @@
       </div>
     </div>
   </div> <!-- Ends the tab panel -->
-  <?php
-  if ($tab == 'sjt') {
-    echo '<div role="tabpanel" class="tab-pane fade in active" id="sjt">';
-  } else {
-    echo '<div role="tabpanel" class="tab-pane fade" id="sjt">';
-  }
-  ?>
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/document/d/184KLUQFE2UoCvbqSZ9R0hyRmnh_UxqXrd9LzJ1t-S18/" target="<?php echo mt_rand(); ?>"><i class="fas fa-edit"></i> Read the style guide</a></div>
-    <div class="col-xs-12 col-sm-7 col-md-8"><p>You must know and follow this for all articles.</p></div>
-  </div>
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/document/d/1BU32XD-1zGaFehwfs2dMD7vFnOwV83vAVAo9NIIbWwc/" target="<?php echo mt_rand(); ?>"><i class="fas fa-edit"></i> Read article formatting instructions</a></div>
-  </div>
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://docs.google.com/spreadsheets/d/1oDZmEOsifN8iQpEE_XI1QBNGiiIMNk-Cont-UsLyFwU/edit#gid=0" target="<?php echo mt_rand(); ?>"><i class="fas fa-table"></i> View SJT contributor records</a></div>
-    <div class="col-xs-12 col-sm-7 col-md-8"><p>Use the filter icon to change which students you can see.</p></div>
-  </div>
-  <hr />
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://trello.com/b/rEUcWF5b/website" target="<?php echo mt_rand(); ?>"><i class="fab fa-trello"></i> Trello: Main SJT board</a></div>
-  </div>
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://trello.com/b/GHzwVAhu/editorial" target="<?php echo mt_rand(); ?>"><i class="fab fa-trello"></i> Trello: SJT Editors' board</a></div>
-</div>
-    <hr />
-  <div class="row buttonLine">
-    <div class="col-xs-12 col-sm-5 col-md-4"><a class="btn btn-default btn-block" href="https://analytics.google.com/analytics/web/?authuser=0#realtime/rt-overview/a92676121w137153019p141382362/" target="<?php echo mt_rand(); ?>"><i class="fas fa-chart-line"></i> Google Analytics</a></div>
-    <div class="col-xs-12 col-sm-7 col-md-8"><p>Website traffic data. Speak to Mr Burn if you would like read access.</p></div>
-  </div>
-  </div>
 
