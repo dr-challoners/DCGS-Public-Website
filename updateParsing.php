@@ -8,7 +8,7 @@
   // pageName is presumed to have spaces and none-url friendly characters stripped from it (it does a clean anyway).
   // If share is set to 1 then a Twitter link is added to the page
   // If tools is set to 0, then the page won't display print and QR code icons
-  
+
   // This system creates Bootstrap standard HTML markup, and does not include any additional styles
 
   $navData = array();
@@ -39,13 +39,13 @@
       $sDate = str_replace(array('[show',']',' ','/',',',':'),array('','','','#','#','#'),$sDate);
       $sDate = explode('#',$sDate);
       // You now have the time parameters:
-      
+
       // [0] is day in the month
       // [1] is month
       // [2] is year
       // [3] is hours in 24 hour clock
       // [4] is minutes past the hour
-      
+
       // [3] and [4] may not be set
       if (!isset($sDate[3])) { $sDate[3] = 0; }
       if (!isset($sDate[4])) { $sDate[4] = 0; }
@@ -154,7 +154,7 @@
               }
             }
             if (!empty($row['content'])) {
-              $image = makeID($row['url'],1).'-'.clean($row['content']);                      
+              $image = makeID($row['url'],1).'-'.clean($row['content']);
             } else {
               $image = makeID($row['url']);
             }
@@ -191,6 +191,9 @@
           case 'wolframalpha': case 'wolfram-alpha':
             include ('modules/parsing/wolframAlpha.php');
             break;
+          case 'quiz':
+            include ('modules/parsing/quiz.php');
+            break;
         }
     }
     if (!isset($output['title'])) {
@@ -226,7 +229,7 @@
       }
       $credits .= '</p>';
       return $credits;
-    } 
+    }
     foreach (array('writing','photos','recording','editing') as $creditType) {
       if (isset($output['info'][$creditType])) {
         if ($creditType == 'photos') {
@@ -274,7 +277,7 @@
         $galleryCount = 0;
         $setBox  = '<div class="col-sm-X">Y</div>';
         $output['page'] .= '<div class="row gallery">';
-        
+
         foreach ($block['gallery'] as $nibble) {
           $output['page'] .= '<div class="galleryItem';
           if (in_array('medium',$nibble['format'])) {
@@ -289,7 +292,7 @@
             $galleryCount++;
           }
           $output['page'] .= '">' . $nibble['name'] .'</div>';
-          
+
         }
 
         $output['page'] .= '</div>';
@@ -402,7 +405,7 @@
           }
         }
       }
-      
+
       if (count($images) > 0) {
         $directory = $pageLoc.$directory;
         if (!file_exists($directory)) {
