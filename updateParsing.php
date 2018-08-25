@@ -193,6 +193,7 @@
             break;
           case 'quiz':
             include ('modules/parsing/quiz.php');
+            break;
         }
     }
     if (!isset($output['title'])) {

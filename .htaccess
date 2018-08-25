@@ -43,15 +43,16 @@ RewriteRule    ^maths/([^/]+)/([^/]*)/([^/]*)/update/?$   maths/pages/$1/$2/$3.p
 
 #Quiz System
 RewriteRule    ^quiz/?$                            quizSystem.php                           [L]
+RewriteRule    ^quiz/([^/]+)/?$                    quizSystem.php?author=$1                 [L]
 RewriteRule    ^quiz/([^/]+)/([^/]+)/?$            quizSystem.php?author=$1&quiz=$2         [L]
 RewriteRule    ^quiz/([^/]+)/([^/]*)/update/?$     quizSystem.php?author=$1&quiz=$2&sync=1  [L]
 
 #Challoner's MUN
-RewriteRule    ^mun/?$        http//www.challonersmun.com/     [L,R=301,NC]   
+RewriteRule    ^mun/?$        http//www.challonersmun.com/     [L,R=301,NC]
 
 #DCGS Robotics
 RewriteRule    ^robots/?$     https://robots.dcgs.io/          [L,R=301,NC]
-RewriteRule    ^robotics/?$   https://robots.dcgs.io/          [L,R=301,NC]  
+RewriteRule    ^robotics/?$   https://robots.dcgs.io/          [L,R=301,NC]
 
 #Deprecated: lose at some point
 RewriteRule    ^learn/maths/background.jpg?$                    maths/background.jpg              [L]

@@ -178,8 +178,8 @@ class Quiz {
         }
     }
 
-    async generateQuiz(fileName) {
-        let response = await fetch('/data/quiz/' + fileName + '.json');
+    async generateQuiz(author, fileName) {
+        let response = await fetch('/data/quiz/' + author + '/' + fileName + '.json');
         let json = await response.json();
         json['_'] = new Date().getTime();
         console.log(json);
