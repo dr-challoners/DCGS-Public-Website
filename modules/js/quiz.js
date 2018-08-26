@@ -3,8 +3,7 @@ class Quiz {
         // 'root' is the ID of the div you would like the form to be constructed inside of
 
         document.getElementById(root).innerHTML =
-        `<div class="container">
-            <div class="row">
+        `<div class="row">
           <div class="col-xs-12">
                   <h1 id="quizTitle"></h1>
           </div>
@@ -25,8 +24,7 @@ class Quiz {
               <div class="row" id="answerInput">
             </form>
           </div>
-            </div>
-        </div>`;
+            </div>`;
     }
 
     shuffleArray(arr) {

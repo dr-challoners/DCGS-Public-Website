@@ -13,7 +13,7 @@ h1 {
     padding-top: 7px;
   }
 
-.buttonLine .btn-block {
+.buttonLine .btn-block:not(.btn-center) {
   text-align: left;
 }
 .buttonLine .col-xs-6 {

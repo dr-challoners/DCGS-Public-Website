@@ -139,7 +139,7 @@ button:focus:not(.disabled) {
   padding-left: 4px;
 }
 
-#wrongAnswer {
+#wrongAnswer p {
   text-align: center;
   margin: 15px 0 0;
   font-weight: bold;

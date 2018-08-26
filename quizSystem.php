@@ -104,7 +104,6 @@
         }
 
         if ($pageExists && ((isset($_GET['sync']) || $syncPage))) {
-            echo 'trigger1';
             if (!$quizList) $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
             $quizDataToSync = array();
             foreach ($quizList['data'] as $quizName => $quizData) {
@@ -199,8 +198,10 @@
         // Empty html ready to be filled by the js
         if ($pageExists) {
             echo '
-                <div id="root"></div>
-                <script type="text/javascript" src="/modules/quiz/quiz.js"></script>
+                <div class="container">
+                  <div id="root"></div>
+                </div>
+                <script type="text/javascript" src="/modules/js/quiz.js"></script>
             	<script>
                     let q = new Quiz("root");
                     let author = "'. $_GET['author'] .'";
@@ -250,7 +251,7 @@
         // Display only the names of one quiz author
         if (isset($_GET['author'])) {
             foreach ($authorList['data']['quiz'] as $key => $authorData) {
-                if (clean($authorData['authorname']) !== $_GET['author']) unset($authorList['data']['quiz'][$key]);
+                if (clean($authorData['authorname']) !== clean($_GET['author'])) { unset($authorList['data']['quiz'][$key]); }
             }
         }
         echo '<div class="container">';

@@ -203,3 +203,79 @@
     margin-left: 4.16666667%;
   }
 }
+
+/* Quizzes: */
+#root {
+  margin-bottom: 25px;
+}
+#root h2 {
+  margin-top: 0;
+}
+#root .progress {
+  height: 25px;
+  border-radius: 0;
+  margin: 5px 0 15px;
+}
+#root .progress-bar {
+  background-color: #173F7A;
+}
+#root #answerInput {
+  margin-top: 15px;
+}
+#root #answerInput .col-sm-8, #choiceOptions .col-xs-6, #choiceOptions .col-xs-4 {
+  padding: 0;
+}
+#root label {
+  width: 100%;
+  text-align: right;
+  padding: 3px 0;
+}
+#root #answerBox {
+  padding: 1px 10px;
+  width: 100%;
+}
+#root button {
+  float: right;
+  border: 0;
+  padding: 3px 15px;
+  width: 100%;
+}
+#root button:hover:not(.disabled), button:focus:not(.disabled), #choiceOptions label:hover, #choiceOptions input:checked+label {
+  background-color: #2358A3;
+  color: #fff;
+}
+#root #choiceOptions label:hover {
+  cursor: pointer;
+}
+/*
+#root button:focus:not(.disabled) {
+  box-shadow: inset 3px 3px 0 0 rgba(0,0,0,.1);
+}
+
+#root #choiceOptions input {
+  position: absolute;
+  opacity: 0;
+}
+
+#root #choiceOptions label {
+  text-align: center;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+#root #choiceOptions .col-xs-6:nth-child(2n-1), #choiceOptions .col-xs-4:nth-child(3n-2) {
+  padding-right: 4px;
+}
+#root #choiceOptions .col-xs-4:nth-child(3n-1) {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+#root #choiceOptions .col-xs-6:nth-child(2n), #choiceOptions .col-xs-4:nth-child(3n) {
+  padding-left: 4px;
+}
+#root #wrongAnswer p {
+  text-align: center;
+  margin: 15px 0 0;
+  font-weight: bold;
+}
+*/
