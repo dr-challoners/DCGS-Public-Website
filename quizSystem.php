@@ -61,171 +61,264 @@
 
 </head>
 <body>
-  <?php
+    <?php
     // Fetch appropriate data for the quizzes
     // Note the use of 'manual' throughout, to prevent updates while students are loading quizzes
     $authorList = sheetToArray('1O6JfZ1dVshPmRL8RIK6_b63V_OoQ30hOR0aXPRUltes', 'data/quiz', 'manual'); // Master sheet
     if (isset($_GET['author']) && isset($_GET['quiz'])) {
-      // Build the quiz page if we're looking at a specific quiz
-      foreach ($authorList['data']['quiz'] as $authorData) {
-        if (clean($authorData['authorname']) == clean($_GET['author'])) {
-          $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
-          foreach ($quizList['data'] as $quizName => $quizData) {
-            if (strpos($quizName,'#') !== false) {
-            $quizName = explode('#',$quizName);
-            $quizDisplayName   = trim($quizName[0]);
-            $quizFileName      = clean($quizName[0]);
-            $winnerCode        = trim($quizName[1]);
-            } else {
-              $quizDisplayName = trim($quizName);
-              $quizFileName    = clean($quizName);
-            }
-            if ($quizFileName == clean($_GET['quiz'])) {
-              // Found the correct quiz. Stop here with the quiz name data.
-              // If syncing, now make/update the relevant json file.
-              if (isset($_GET['sync'])) {
-                $quizArray = array();
-                foreach ($quizData as $question) {
-									if ((!empty($question['questiontext']) || !empty($question['imagevideourl'])) && !empty($question['answer'])) { // Must have a question and answer
-										// Parse the text and image/video link as a single entry in the array.
-										$questionContent = "";
-										if (!empty($question['questiontext'])) {
-											$questionContent .= Parsedown::instance()->parse($question['questiontext']);
-										}
-										if (!empty($question['imagevideourl'])) {
-											// Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
-											if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
-												$questionContent .= '<img src="'.fetchImageFromURL('/data/quiz',$question['imagevideourl']).'" class="img-responsive" />';
-											} else { // YouTube videos
-												if (strpos($question['imagevideourl'],'v=') !== false) {
-													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
-												} elseif (strpos($question['imagevideourl'],'youtu.be/') !== false) {
-													$videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);
-												}
-												$questionContent .= '<div class="embed-responsive embed-responsive-16by9"><iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true" class="embed-responsive-item"></iframe></div>';
-											}
-										}
-										// Validate the format type
-										if (strpos(clean($question['questionformat']),'choice') !== false) {
-											$questionFormat = explode('#',$question['questionformat']);
-											$choiceAnswer = clean($questionFormat[1])-1;
-											$questionFormat = clean($questionFormat[0]);
-										} else {
-											$questionFormat = clean($question['questionformat']);
-											if ($questionFormat != 'loose') {
-												$questionFormat = 'strict';
-											}
-										}
-										// Parse the answers: strip whitespace from either side and check the formatting
-										$questionAnswers = explode('#',$question['answer']);
-										foreach ($questionAnswers as $answerKey => $answerData) {
-											$answerData = trim($answerData);
-											if ($questionFormat == 'loose') {
-												$answerData = clean($answerData);
-											}
-											if ($questionFormat != 'choice') {
-												$answerData = md5($answerData);
-											} elseif ($answerKey == $choiceAnswer) {
-                        $choiceAnswer = md5($answerData);
-                      }
-											$questionAnswers[$answerKey] = $answerData;
-										}
-                    if ($questionFormat == 'choice') {
-                      $questionAnswers['c'] = $choiceAnswer;
+        // Build the quiz page if we're looking at a specific quiz
+        // Check author exists
+        $pageExists = false;
+        $syncPage = false;
+        $quizList = null;
+        $rawFileName = null;
+        foreach ($authorList['data']['quiz'] as $authorData) {
+            if (clean($authorData['authorname']) === clean($_GET['author'])) {
+                // Check quiz exists
+                if (!file_exists('data/quiz/' . clean($authorData['authorname']))) break;
+                $localQuizList = array_diff(scandir('data/quiz/' . clean($authorData['authorname'])), array('.', '..'));
+                $rawFileName = $authorData['sheetid'];
+                if (file_exists('data/quiz/'.$_GET['author'].'/'.$_GET['quiz'].'.json')) {
+                    // File exists: check if data in file
+                    $rawQuizData = json_decode(file_get_contents('data/quiz/'.$_GET['author'].'/'.$_GET['quiz'].'.json'), true);
+                    $pageExists = true;
+                    if (array_key_exists('update', $rawQuizData)) $syncPage = true; // Placeholder, needs syncing
+                } else {
+                    $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
+                    // File doesn't exist: check if quiz exists: we already know that the author exists
+                    $quizFileName = null;
+                    //print_r($quizList['data']);
+                    foreach (array_keys($quizList['data']) as $quizName) {
+                        if (clean(explode('#',$quizName)[0]) === $_GET['quiz']) {
+                            $quizFileName = clean($_GET['quiz']);
+                        }
                     }
-                    if (isset($winnerCode)) {
-                      $quizArray['id'] = base64_encode($winnerCode);
+                    if ($quizFileName !== null) {
+                        // Quiz exists: we want to sync the page as this is the first time visiting
+                        $pageExists = true;
+                        $syncPage = true;
                     }
-										$quizArray['questions'][] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
-										unset($questionContent,$questionAnswers,$questionFormat);
-									}
                 }
-                file_put_contents('data/quiz/'.$quizFileName.'.json', json_encode($quizArray));
-              }
-              break;
+                break;
             }
-          }
         }
-      }
-			// Empty html ready to be filled by the js
-	?>
-    <div id="root"></div>
 
-    <script type='text/javascript' src="/modules/quiz/quiz.js"></script>
-	<script>
+        if ($pageExists && ((isset($_GET['sync']) || $syncPage))) {
+            echo 'trigger1';
+            if (!$quizList) $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
+            $quizDataToSync = array();
+            foreach ($quizList['data'] as $quizName => $quizData) {
+                // Select the correct data to build quiz from
+                $quizURLName = $quizName;
+                if (strpos($quizURLName,'#') !== false) $quizURLName = explode('#',$quizName)[0];
+                $quizURLName = clean($quizURLName);
+                if ($quizURLName === $_GET['quiz']) {
+                    $quizDataToSync = $quizData;
+                    $quizNameToSync = $quizName;
+                }
+            }
 
-    let q = new Quiz("root");
-    let displayName = "<?php echo $quizDisplayName; ?>";
-    let fileName = "<?php echo $quizFileName; ?>";
-    q.generateQuiz(displayName,fileName);
+            echo $quizNameToSync;
+            if (strpos($quizNameToSync,'#') !== false) {
+                $quizNameToSync = explode('#',$quizNameToSync);
+                $quizDisplayName   = trim($quizNameToSync[0]);
+                $quizFileName      = clean($quizNameToSync[0]);
+                $winnerCode        = trim($quizNameToSync[1]);
+            } else {
+                $quizDisplayName = trim($quizNameToSync);
+                $quizFileName    = clean($quizNameToSync);
+            }
 
-	</script>
-	<?php
-    } else {
-      echo '<div class="container">';
-      echo '<div class="row">';
-      echo '<div class="col-xs-12">';
-      echo '<h1>Quiz Admin</h1>';
-      echo '</div>';
-      echo '</div>';
-      echo '<div class="row">';
-      echo '<div class="col-xs-12 col-sm-6 col-sm-offset-3" id="helpLink">';
-      echo '<a target="'.mt_rand().'" href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
-      echo '</div>';
-      echo '</div>';
-      foreach ($authorList['data']['quiz'] as $authorData) {
-        echo '<div class="row authorRow">';
-        echo '<div class="col-sm-4 col-xs-12"><h2>'.$authorData['authorname'].'</h2></div>';
-        echo '<div class="col-sm-8 col-xs-12">';
-        echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
-        echo '<a target="'.mt_rand().'" href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
-        echo '</div>';
-        echo '</div>';
-        if (isset($sync) && $sync == $authorData['sheetid']) {
-          $syncStatus = 0;
+            $quizArray = array();
+
+            foreach ($quizDataToSync as $question) {
+                if ((!empty($question['questiontext']) || !empty($question['imagevideourl'])) && !empty($question['answer'])) { // Must have a question and answer
+                    // Parse the text and image/video link as a single entry in the array.
+                    $questionContent = "";
+                    if (!empty($question['questiontext'])) {
+                        $questionContent .= Parsedown::instance()->parse($question['questiontext']);
+                    }
+                    if (!empty($question['imagevideourl'])) {
+                        // Simple check to see if it's a YouTube video; if it isn't, assume an image instead.
+                        if (!strpos($question['imagevideourl'],'youtube') && !strpos($question['imagevideourl'],'youtu.be')) {
+                            $questionContent .= '<img src="'.fetchImageFromURL('/data/quiz',$question['imagevideourl']).'" class="img-responsive" />';
+                        } else { // YouTube videos
+                            if (strpos($question['imagevideourl'],'v=') !== false) {
+                                $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'v=')+2,11);
+                            } elseif (strpos($question['imagevideourl'],'youtu.be/') !== false) {
+                                $videoID = substr($question['imagevideourl'],strpos($question['imagevideourl'],'youtu.be/')+9,11);
+                            }
+                            $questionContent .= '<div class="embed-responsive embed-responsive-16by9"><iframe src="https://www.youtube.com/embed/'.$videoID.'" allowfullscreen="true" class="embed-responsive-item"></iframe></div>';
+                            }
+                        }
+                        // Validate the format type
+                        if (strpos(clean($question['questionformat']),'choice') !== false) {
+                            $questionFormat = explode('#',$question['questionformat']);
+                            $choiceAnswer = clean($questionFormat[1])-1;
+                            $questionFormat = clean($questionFormat[0]);
+                        } else {
+                            $questionFormat = clean($question['questionformat']);
+                            if ($questionFormat != 'loose') {
+                                $questionFormat = 'strict';
+                            }
+                        }
+                        // Parse the answers: strip whitespace from either side and check the formatting
+                        $questionAnswers = explode('#',$question['answer']);
+                        foreach ($questionAnswers as $answerKey => $answerData) {
+                            $answerData = trim($answerData);
+                            if ($questionFormat == 'loose') {
+                                $answerData = clean($answerData);
+                            }
+                            if ($questionFormat != 'choice') {
+                                $answerData = md5($answerData);
+                            } elseif ($answerKey == $choiceAnswer) {
+                                $choiceAnswer = md5($answerData);
+                            }
+                            $questionAnswers[$answerKey] = $answerData;
+                        }
+                        if ($questionFormat == 'choice') {
+                            $questionAnswers['c'] = $choiceAnswer;
+                        }
+                        if (isset($winnerCode)) {
+                            $quizArray['id'] = base64_encode($winnerCode);
+                        }
+                        $quizArray['author'] = clean($authorData['authorname']);
+                        $quizArray['name'] = $quizDisplayName;
+                        $quizArray['questions'][] = array('content' => $questionContent, 'answer' => $questionAnswers, 'format' => $questionFormat);
+                        unset($questionContent,$questionAnswers,$questionFormat);
+                    }
+                }
+                file_put_contents('data/quiz/'.$_GET['author'].'/'.$quizFileName.'.json', json_encode($quizArray));
+
+        }
+        // Delete file if exists
+        if ($rawFileName && file_exists('data/quiz/'.$rawFileName.'.json')) {
+            unlink('data/quiz/'.$rawFileName.'.json');
+        }
+
+        // Empty html ready to be filled by the js
+        if ($pageExists) {
+            echo '
+                <div id="root"></div>
+                <script type="text/javascript" src="/modules/quiz/quiz.js"></script>
+            	<script>
+                    let q = new Quiz("root");
+                    let author = "'. $_GET['author'] .'";
+                    let fileName = "'. $_GET['quiz'] .'";
+                    q.generateQuiz(author,fileName);
+            	</script>';
         } else {
-          $syncStatus = 'manual';
+            echo '
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h1 id="quizTitle">Error 404: Quiz Not Found</h1>
+                    </div>
+                </div>
+            </div>
+            ';
         }
-        $quizList = sheetToArray($authorData['sheetid'], 'data/quiz', $syncStatus);
-        foreach ($quizList['data'] as $quizName => $quizData) {
-          echo '<div class="row quizRow">';
-          $quizName = explode('#',$quizName)[0];
-          $quizName = trim($quizName);
-          echo '<div class="col-sm-4 col-xs-12"><h3>';
-          echo $quizName;
-          echo '</h3></div>';
-          $targetLoadID = mt_rand();
-          echo '<div class="col-sm-8 col-xs-12">';
-          echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
-          echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
-          echo ' <a data-toggle="modal" data-target="#QR-'.clean($authorData['authorname']).'-'.clean($quizName).'">QR Code</a>';
-          echo ' <a data-toggle="modal" data-target="#Link-'.clean($authorData['authorname']).'-'.clean($quizName).'">Display Link</a>';
-          echo '</div>';
-          echo '</div>';
-          echo '<div class="modal fade" id="QR-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
-          echo '<div class="modal-dialog" role="document">';
-          echo '<div class="modal-content">';
-          echo '<div class="modal-body">';
-          echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
-          echo '</div>';
-          echo '</div>';
-          echo '</div>';
-          echo '</div>';
-          echo '<div class="modal fade" id="Link-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
-          echo '<div class="modal-dialog textURL">';
-          echo '<div class="modal-content">';
-          echo '<div class="modal-body">';
-          echo '<p>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</p>';
-          echo '</div>';
-          echo '</div>';
-          echo '</div>';
-          echo '</div>';
+    } else {
+        if (array_key_exists('sync', $_GET)) {
+            foreach ($authorList['data']['quiz'] as $authorData) {
+                if ($authorData['sheetid'] === $_GET['sync']) {
+                    $data = sheetToArray($authorData['sheetid'], 'data/quiz', 'manual');
+
+                    // Check if directory exists and create if not
+                    if (!file_exists('data/quiz/' . clean($data['meta']['sheetname']))) mkdir('data/quiz/' . clean($data['meta']['sheetname']), 0777, true);
+                    $localQuizList = array_diff(scandir('data/quiz/' . clean($data['meta']['sheetname'])), array('.', '..'));
+                    foreach ($data['data'] as $quiz => $quizTitle) {
+                        $file = clean(explode('#',$quiz)[0]).'.json';
+                        $key = array_search($file, $localQuizList);
+                        if($key) {
+                            // The quiz already exists, remove from local array
+                            unset($localQuizList[$key]);
+                        } else {
+                            // The quiz does not exist, create temporary file
+                            file_put_contents('data/quiz/'.clean($data['meta']['sheetname']).'/'.$file, json_encode(array("update"=>true,"name"=>explode('#',$quiz)[0])));
+                        }
+                    }
+                    // Now delete all files left as these are deleted or renamed quizzes
+                    foreach ($localQuizList as $file) {
+                        unlink('data/quiz/'.clean($data['meta']['sheetname']).'/'.$file);
+                    }
+                    unlink('data/quiz/'.$authorData['sheetid'].'.json');
+                }
+            }
         }
-      }
-      echo '</div>';
-      echo '</div>';
+
+        // Display only the names of one quiz author
+        if (isset($_GET['author'])) {
+            foreach ($authorList['data']['quiz'] as $key => $authorData) {
+                if (clean($authorData['authorname']) !== $_GET['author']) unset($authorList['data']['quiz'][$key]);
+            }
+        }
+        echo '<div class="container">';
+        echo '<div class="row">';
+        echo '<div class="col-xs-12">';
+        echo '<h1>Quiz Admin</h1>';
+        echo '</div>';
+        echo '</div>';
+        echo '<div class="row">';
+        echo '<div class="col-xs-12 col-sm-6 col-sm-offset-3" id="helpLink">';
+        echo '<a target="'.mt_rand().'" href="https://docs.google.com/document/d/1qQdBAcW8AcPEuLv38I17PkMPfk7me_kFV8Vy6hiYOL8">How to make a quiz</a>';
+        echo '</div>';
+        echo '</div>';
+
+        // Check if any authors left, if none then invalid author
+        if (empty($authorList['data']['quiz'])) echo '<h3>Error 404: Author not found</h3>';
+        foreach ($authorList['data']['quiz'] as $authorData) {
+            echo '<div class="row authorRow">';
+            echo '<div class="col-sm-4 col-xs-12"><h2>'.$authorData['authorname'].'</h2></div>';
+            echo '<div class="col-sm-8 col-xs-12">';
+            echo '<a href="/quiz/?sync='.$authorData['sheetid'].'">Refresh Quiz List</a>';
+            echo '<a target="'.mt_rand().'" href="https://docs.google.com/spreadsheets/d/'.$authorData['sheetid'].'">Edit My Quizzes</a>';
+            echo '</div>';
+            echo '</div>';
+
+            if (file_exists('data/quiz/' . clean($authorData['authorname']))) {
+                $authorQuizzes = array_diff(scandir('data/quiz/' . clean($authorData['authorname'])), array('.', '..'));
+                foreach($authorQuizzes as $quiz) {
+                    $quizData = json_decode(file_get_contents('data/quiz/' . clean($authorData['authorname']) .'/'.$quiz), true);
+                    $quizName = $quizData['name'];
+                    echo '<div class="row quizRow">';
+                    echo '<div class="col-sm-4 col-xs-12"><h3>';
+                    echo $quizName;
+                    echo '</h3></div>';
+                    $targetLoadID = mt_rand();
+                    echo '<div class="col-sm-8 col-xs-12">';
+                    echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'">Go to Quiz</a>';
+                    echo ' <a target="'.clean($authorData['authorname']).'-'.clean($quizName).'-'.$targetLoadID.'" href="/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'/update">Update</a>';
+                    echo ' <a data-toggle="modal" data-target="#QR-'.clean($authorData['authorname']).'-'.clean($quizName).'">QR Code</a>';
+                    echo ' <a data-toggle="modal" data-target="#Link-'.clean($authorData['authorname']).'-'.clean($quizName).'">Display Link</a>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div class="modal fade" id="QR-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
+                    echo '<div class="modal-dialog" role="document">';
+                    echo '<div class="modal-content">';
+                    echo '<div class="modal-body">';
+                    echo '<img class="img-responsive" src="https://chart.googleapis.com/chart?cht=qr&chs=540x540&chl=http://www.challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'&choe=UTF-8" />';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '<div class="modal fade" id="Link-'.clean($authorData['authorname']).'-'.clean($quizName).'" tabindex="-1">';
+                    echo '<div class="modal-dialog textURL">';
+                    echo '<div class="modal-content">';
+                    echo '<div class="modal-body">';
+                    echo '<p>challoners.com/quiz/'.clean($authorData['authorname']).'/'.clean($quizName).'</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+        }
+
+        echo '</div>';
+        echo '</div>';
     }
-  ?>
+    ?>
 	<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
   <script src="/modules/js/jquery.pietimer.min.js"></script>
 </body>

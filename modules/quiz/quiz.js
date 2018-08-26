@@ -178,12 +178,12 @@ class Quiz {
         }
     }
 
-    async generateQuiz(displayName, fileName) {
-        $('#quizTitle').html(displayName);
-        let response = await fetch('/data/quiz/' + fileName + '.json');
+    async generateQuiz(author, fileName) {
+        let response = await fetch('/data/quiz/' + author + '/' + fileName + '.json');
         let json = await response.json();
         json['_'] = new Date().getTime();
         console.log(json);
+        $('#quizTitle').html(json.name);
         this.quizData     = json;
         this.countCurrent = 1;
         this.countTotal   = this.quizData['questions'].length;
