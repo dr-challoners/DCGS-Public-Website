@@ -116,8 +116,6 @@
                     $quizNameToSync = $quizName;
                 }
             }
-
-            echo $quizNameToSync;
             if (strpos($quizNameToSync,'#') !== false) {
                 $quizNameToSync = explode('#',$quizNameToSync);
                 $quizDisplayName   = trim($quizNameToSync[0]);
