@@ -66,7 +66,7 @@
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
     $hardLink_supportingus      = '/c/information/supporting-the-school/annual-giving-programme';
     $hardLink_information       = '/c/information/';
-    $hardLink_schoolshop        = '/c/information/general-information/uniform-and-stationery';
+    $hardLink_schoolshop        = '/c/information/general-information/uniform-stationery-and-lockers';
     $hardLink_privacy           = 'https://dcgs.box.com/s/naaj3kzym9wfbolj3a7tgath4gl5ihpt';
     $hardLink_contactus         = '/c/information/general-information/contacting-us';
     $hardLink_alumni            = '/c/our-school/alumni/old-challoners';

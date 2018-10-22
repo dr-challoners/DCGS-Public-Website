@@ -193,7 +193,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
     ?>
   </div>
   <div class="col-sm-8">
-    <h1><?php echo ucwords($_GET['user']); ?> intranet</h1>
+    <h1><?php echo ucwords($_GET['user']); ?> Intranet</h1>
     <div id="intranetMenu" role="tablist" aria-multiselectable="true">
       <?php
       switch ($_GET['user']) {
