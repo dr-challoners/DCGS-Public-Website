@@ -48,7 +48,7 @@ RewriteRule    ^quiz/([^/]+)/([^/]+)/?$            quizSystem.php?author=$1&quiz
 RewriteRule    ^quiz/([^/]+)/([^/]*)/update/?$     quizSystem.php?author=$1&quiz=$2&sync=1  [L]
 
 #External Websites
-RewriteRule    ^mun/?$                https://www.challonersmun.com/                          [L,R=301,NC]
+RewriteRule    ^mun?$                 https://www.challonersmun.com/                        [L,R=301,NC]
 RewriteRule    ^tabletop/?$           https://sites.google.com/challoners.org/tabletop/     [L,R=301,NC]
 RewriteRule    ^tabletop/([^/]+)/?$   https://sites.google.com/challoners.org/tabletop/$1   [L,R=301,NC]
 
