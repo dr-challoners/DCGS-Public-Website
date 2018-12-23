@@ -41,7 +41,7 @@
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_schoolshop; ?>">School Shop</a></p>
+          <p><a href="<?php echo $hardLink_alumni; ?>">Alumni</a></p>
         </div>
         <div class="col-sm-6">
           <p><a href="<?php echo $hardLink_sixthform; ?>">Sixth Form</a></p>

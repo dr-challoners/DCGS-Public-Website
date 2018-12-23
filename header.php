@@ -64,12 +64,11 @@
     $hardLink_admissions        = '/c/information/admissions/admissions-policy';
     $hardLink_prospectus        = '/c/information/admissions/prospectus';
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
-    $hardLink_supportingus      = '/c/information/supporting-the-school/annual-giving-programme';
+    $hardLink_supportingus      = '/c/community/supporting-the-school/annual-giving-programme';
     $hardLink_information       = '/c/information/';
-    $hardLink_schoolshop        = '/c/information/general-information/uniform-stationery-and-lockers';
     $hardLink_privacy           = 'https://dcgs.box.com/s/naaj3kzym9wfbolj3a7tgath4gl5ihpt';
     $hardLink_contactus         = '/c/information/general-information/contacting-us';
-    $hardLink_alumni            = '/c/our-school/alumni/old-challoners';
+    $hardLink_alumni            = '/c/community/alumni/old-challoners';
 		$hardLink_sixthform         = '/c/our-school/sixth-form/welcome-to-the-sixth-form';
   ?>
   
@@ -94,11 +93,11 @@
 			<p>
 				<a href="/">Home</a>
 				<a id="our-school" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-our-school" aria-expanded="false" aria-controls="collapse-our-school">Our&nbsp;School</a>
+        <a id="community" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-community" aria-expanded="false" aria-controls="collapse-community">Community</a>
 				<a id="information" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-information" aria-expanded="false" aria-controls="collapse-information">Information</a>
 				<a id="enrichment" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-enrichment" aria-expanded="false" aria-controls="collapse-enrichment">Enrichment</a>
 				<a href="/intranet">Intranet</a>
 				<a href="/diary">Diary</a>
-				<a href="<?php echo $hardLink_alumni; ?>">Alumni</a>
 				<a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a>
 			</p>
 		</div>
@@ -143,6 +142,7 @@
 				return $navMenu;
 			}
 			echo makeScreenMenu('Our School');
+      echo makeScreenMenu('Community');
 			echo makeScreenMenu('Information');
 			echo makeScreenMenu('Enrichment');
 		?>
