@@ -5,7 +5,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <title>Dr Challoner's Grammar School</title>
+  <title>
+    <?php
+      date_default_timezone_set("Europe/London");
+		  include('modules/functions/parsedown.php');
+		  include('modules/functions/miscTools.php');
+		  include('modules/functions/fetchData.php');
+		  include('modules/functions/transformText.php');
+    
+      if (isset($displayTitle)) {
+        echo $displayTitle.' - ';
+      } elseif (isset($sheet)) {
+        if ($section == 'news') {
+          echo 'News - ';
+        }
+        else {
+          echo revert($sheet).' - ';
+        }
+      }
+    ?>
+    Dr Challoner's Grammar School
+  </title>
   <meta name="description" content="Well established boys' secondary school with co-educational Sixth Form. News, prospectus, ethos, history and academic achievements." />
 
   <link href='https://fonts.googleapis.com/css?family=Crimson+Text:400,400italic' rel='stylesheet' type='text/css'>
@@ -52,13 +72,6 @@
   <meta name="theme-color" content="#1b4b87">
 
   <?php
-
-    date_default_timezone_set("Europe/London");
-		include('modules/functions/parsedown.php');
-		include('modules/functions/miscTools.php');
-		include('modules/functions/fetchData.php');
-		include('modules/functions/transformText.php');
-
     // Common links
     $hardLink_termdates         = '/c/information/general-information/term-and-holiday-dates';
     $hardLink_admissions        = '/c/information/admissions/admissions-policy';

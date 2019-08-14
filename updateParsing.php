@@ -201,7 +201,7 @@
       $output['title'] = formatText(trim($output['title']),0);
     }
     // Creating the code for the actual page
-    $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; ?>';
+    $output['page']  = '<?php $section = \''.$section.'\'; $sheet = \''.$sheet.'\'; $displayTitle = \''.$output['title'].'\'; ?>';
      if($_GET['tab'] == 'maths') {
        $output['page'] .= '<?php include($_SERVER[\'DOCUMENT_ROOT\'].\'/maths/header.php\'); ?>';
      } else {
