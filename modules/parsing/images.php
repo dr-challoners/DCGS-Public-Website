@@ -41,7 +41,7 @@
         }
         $size = 6;
       }
-      $findSize = preg_grep ("/^(size-)(\d+)$/", $format);
+      $findSize = preg_grep("/^(size-)(\d+)$/", $format);
       $findSize = array_values($findSize);
       if (isset($findSize[0])) {
         $size = substr($findSize[0],5);

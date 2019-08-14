@@ -72,6 +72,7 @@
       }
       if (!empty($row['format'])) {
         $format = preg_replace("/(size)( *)(\d)/", "size-$3", $row['format']);
+        $format = preg_replace("/(?:show)(?: *)(\d{2})(?:\/)(\d{2})(?:\/)(\d{2})((?:, *)(\d{2})(?::)(\d{2}))?/", "show-$3-$2-$1-$5-$6", $format);
         $format = explode(' ',$format);
       } else {
         $format = array();
@@ -195,6 +196,27 @@
             include ('modules/parsing/quiz.php');
             break;
         }
+      // Marks out a content block that is using the 'show' feature to only appear after a specific point in time
+      $findShow = preg_grep("/^(show-)([\d-]+)$/", $format);
+      $findShow = array_values($findShow);
+      if (isset($findShow[0])) {
+        $showTime = explode("-",$findShow[0]);
+        if (!empty($showTime[4])) {
+          $showHr = $showTime[4];
+        } else {
+          $showHr = 0;
+        }
+        if (!empty($showTime[5])) {
+          $showMi = $showTime[5];
+        } else {
+          $showMi = 0;
+        }
+        $showMn = $showTime[2];
+        $showDy = $showTime[3];
+        $showYr = $showTime[1];
+        $showTime = mktime($showHr,$showMi,0,$showMn,$showDy,$showYr);
+        $output['content'][$c] = array('content' => $output['content'][$c], 'show' => $showTime);
+      }
     }
     if (!isset($output['title'])) {
       $output['title'] = preg_replace('/\[(hidden|show|link)([^\]]*)\]/i', '', $pageName);
@@ -244,6 +266,9 @@
     $output['page'] .= '</div>';
     // Article content
     foreach ($output['content'] as $block) {
+      if (isset($block['show'])) {
+        $output['page'] .= '<?php if (mktime() < '.$block['show'].') { echo \'<div style="display:none;">\'; } else { echo \'<div>\'; } ?>';
+      }
       if (isset($block['set'])) {
         $setHold = 0;
         $setBox  = '<div class="col-sm-X">Y</div>';
@@ -298,8 +323,14 @@
         $output['page'] .= '</div>';
 
       } else {
-        $block = str_replace('&lt;?php ','<?php ',$block); // Makes sure php in code blocks is recognised
-        $output['page'] .= $block;
+        if (isset($block['show'])) {
+          $block['content'] = str_replace('&lt;?php ','<?php ',$block['content']); // Makes sure php in code blocks is recognised
+          $output['page'] .= $block['content'];
+          $output['page'] .= '</div>';
+        } else {
+          $block = str_replace('&lt;?php ','<?php ',$block); // Makes sure php in code blocks is recognised
+          $output['page'] .= $block;
+        }
       }
     }
       if($_GET['tab'] == 'maths') {
