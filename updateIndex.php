@@ -104,6 +104,7 @@
 							$sheetData = sheetToArray($_GET['sheet'],'data/content');
 							$directory = $pageLoc.clean($_GET['section']).'/'.clean($sheetData['meta']['sheetname']);
 							$fileName = str_ireplace('[hidden]','',$_GET['page']);
+              $fileName = preg_replace('/\[(show)([^\]]*)\]/i', '', $fileName, -1);
 							$fileName = clean($fileName);
 							$imagesArray = file_get_contents($directory.'/'.$fileName.'.json');
 							$imagesArray = json_decode($imagesArray, true);
