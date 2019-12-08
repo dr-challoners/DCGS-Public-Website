@@ -31,6 +31,11 @@
   float: right;
 }
 
+img#ofstedLogo {
+  margin-top: 1px;
+  margin-bottom: 8px;
+}
+
 #astraLA_tab p {
   font-size: 14px;
   text-align: justify;
@@ -177,8 +182,9 @@
   background-color: #f5f5f5;
 }
 .shortcutLinks {
-  padding: 4px 4px 0;
-  margin-bottom: 11px;
+  padding: 4px;
+  margin: 5px 0 10px;
+  background-color: #f5f5f5;
 }
 .intranetAreas, .shortcutLinks .row {
   text-align: center;
