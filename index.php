@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-    <a href="https://files.ofsted.gov.uk/v1/file/50127865" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="ofstedLogo" src="/img/ofsted-outstanding.jpg" /></a>
+    <a href="https://files.ofsted.gov.uk/v1/file/50147384" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="ofstedLogo" src="/img/ofsted-outstanding.jpg" /></a>
     <a href="#astraLA_tab" aria-controls="astraLA_tab" role="button" class="btn btn-Astra btn-block" data-toggle="tab">
       <img src="/img/astraLA_logoR.png" />
       <img src="/img/astraLA_logoL.png" alt="Astra Learning Alliance" />
