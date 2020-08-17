@@ -65,14 +65,14 @@
       <div role="tabpanel" class="tab-pane active">
         <div class="twitterColumn" id="sports_team">
           <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fab fa-twitter"></i></span></a>
-					<a class="twitter-timeline" data-height="1860" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
+					<a class="twitter-timeline" data-height="1560" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
         </div>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="astraLA_tab">
         <p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p>
         <p class="astraURL"><a href="http://www.astra-alliance.com/">www.astra-alliance.com</a></p>
         <div class="twitterColumn" id="astraLA">
-					<a class="twitter-timeline" data-height="1700" data-chrome="nofooter" data-link-color="#2358A3" href="https://twitter.com/AstraAlliance?ref_src=twsrc%5Etfw">Tweets by AstraAlliance</a>
+					<a class="twitter-timeline" data-height="1400" data-chrome="nofooter" data-link-color="#2358A3" href="https://twitter.com/AstraAlliance?ref_src=twsrc%5Etfw">Tweets by AstraAlliance</a>
         </div>
       </div>
     </div>

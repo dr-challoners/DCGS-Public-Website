@@ -123,6 +123,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
         break;
         case "students":
 				case "staff":
+          /*
           if (strtolower($_GET['user']) == 'staff') {
             // Welfare articles for staff
             $welfareData = sheetToArray('1CaUH0nOye8se5_Y4F7YiKavDDxT1JIU8gkWcDEKWVDI','data/intranet');
@@ -140,37 +141,17 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
             echo '<a class="submitLink" target="'.mt_rand().'" href="https://docs.google.com/forms/d/e/1FAIpQLSfko_xYWOIf6wVRdnBwD3-djnCmZegKRYcfJiY2beNATWH3yQ/viewform?usp=sf_link">Submit an article</a>';
             echo '</div>';
             echo '</div>';
-          }
+          }*/
           // Educational videos for staff and students
-					if (file_exists('data/intranet/edVideos.json') && !isset($_GET['sync'])) {
-						$edVideos = file_get_contents('data/intranet/edVideos.json');
-      			$edVideos = json_decode($edVideos, true);
-					} else {
-						$edVideos = array();
-						$pageToken = '';
-						while (isset($pageToken)) {
-							$playlistData = file_get_contents('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50'.$pageToken.'&playlistId=PL95IE7ddeVd5R77NTS_cdoBB1xW3l3GR4&key=AIzaSyCgnnpTk5H9pCr41VyXEicVtxoORxccvfo');
-							$playlistData = json_decode($playlistData, true);
-							if (isset($playlistData['nextPageToken'])) {
-								$pageToken = '&pageToken='.$playlistData['nextPageToken'];
-							} else {
-								unset($pageToken);
-							}
-							foreach ($playlistData['items'] as $item) {
-								$videoData = array();
-								$videoData['id']     = $item['snippet']['resourceId']['videoId'];
-								$videoData['title']  = $item['snippet']['title'];
-								$edVideos[] = $videoData;
-							}
-						}
-						file_put_contents('data/intranet/edVideos.json', json_encode($edVideos));
-					}
+          $edVideos = sheetToArray('1SI87uQbEGa513bJidyMDuaIVNt_Ac38tnXJQBu64pzc','data/intranet');
+          $edVideos = $edVideos['data']['videos'];
 					shuffle ($edVideos);
-          if (strtolower($_GET['user']) == 'students') {
+          //view ($edVideos);
+          // if (strtolower($_GET['user']) == 'students') {
             $n = 3;
-          } else {
-            $n = 2;
-          }
+          // } else {
+          //   $n = 2;
+          // }
 					for ($v = 0; $v < $n; $v++) {
 						$video = array_shift($edVideos);
 						echo '<div class="row edVideo">';
@@ -178,12 +159,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
 								echo '<div class="embed-responsive embed-responsive-video hidden-print">';
 									echo '<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/'.$video['id'].'?modestbranding=1&rel=0" allowfullscreen="true"></iframe>';
 								echo '</div>';
-                // Making shorter and neater video titles
-                $videoTitle = str_replace(array(' - ',' -- ',' – ','//','|','(',':'),'#',$video['title']);
-                $videoTitle = explode('#',$videoTitle);
-                $videoTitle = trim($videoTitle[0]);
-                $videoTitle = ucwords(strtolower($videoTitle));
-								echo '<p>'.$videoTitle.'</p>';
+                echo '<p>'.$video['title'].'</p>';
 							echo '</div>';
 						echo '</div>';
 					}
@@ -206,7 +182,7 @@ function makeIntranetLinks($sheetKey,$section = 'block') {
             makeIntranetLinks('1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg');
         break;
         }
-        echo "<h2>Subject resources</h2>";
+        echo "<h2>Subject Resources</h2>";
         makeIntranetLinks('1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs','subjects');
       ?>
     </div>
