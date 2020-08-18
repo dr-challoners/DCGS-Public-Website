@@ -169,14 +169,8 @@ img#ofstedLogo {
     padding: 12px 14px;
   }
 }
-.intranetButtons a#Drive           { background-image: url('/img/shortcutIcons/shortcutDrive.png'), url('/img/shortcutIcons/shortcutDrive_hover.png'); }
-.intranetButtons a#Drive:hover     { background-image: url('/img/shortcutIcons/shortcutDrive_hover.png'); }
-.intranetButtons a#Gmail           { background-image: url('/img/shortcutIcons/shortcutGmail.png'), url('/img/shortcutIcons/shortcutGmail_hover.png'); }
-.intranetButtons a#Gmail:hover     { background-image: url('/img/shortcutIcons/shortcutGmail_hover.png'); }
-.intranetButtons a#Box             { background-image: url('/img/shortcutIcons/shortcutBox.png'), url('/img/shortcutIcons/shortcutBox_hover.png'); }
-.intranetButtons a#Box:hover       { background-image: url('/img/shortcutIcons/shortcutBox_hover.png'); }
-.intranetButtons a#Classroom       { background-image: url('/img/shortcutIcons/shortcutClassroom.png'), url('/img/shortcutIcons/shortcutClassroom_hover.png'); }
-.intranetButtons a#Classroom:hover { background-image: url('/img/shortcutIcons/shortcutClassroom_hover.png'); }
+.intranetButtons a#CPOMS           { background-image: url('/img/shortcutIcons/CPOMS.png'), url('/img/shortcutIcons/CPOMS_hover.png'); }
+.intranetButtons a#CPOMS:hover     { background-image: url('/img/shortcutIcons/CPOMS_hover.png'); }
 
 .intranetAreas {
   background-color: #f5f5f5;

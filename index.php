@@ -14,9 +14,7 @@
         <p>Intranet</p>
       </div>
       <div class="col-sm-7">
-        <a href="http://docs.challoners.org/"   id="Drive"    ></a>
-        <a href="http://mail.challoners.org/"   id="Gmail"    ></a>
-        <a href="https://classroom.google.com/" id="Classroom"></a>
+        <a href="https://challoners.cpoms.net/" id="CPOMS"></a>
       </div>
     </div>
     <div class="row intranetAreas">
