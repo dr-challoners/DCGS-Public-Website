@@ -210,6 +210,7 @@
 					return $navMenu;
 				}
 				echo makeMobileMenu('Our School');
+        echo makeMobileMenu('Community');
 				echo makeMobileMenu('Information');
 				echo makeMobileMenu('Enrichment');
 				echo makeMobileMenu('News');
