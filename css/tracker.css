@@ -1,0 +1,29 @@
+body {
+  margin: 16px;
+}
+
+.panel-heading {
+  padding: 10px 15px 10px 8px;
+}
+
+.panel-heading span {
+  font-weight: bold;
+  color: #777;
+}
+
+span.red {
+  color: #d9534f;
+}
+
+.overdueCount {
+  float: right;
+}
+
+td, th {
+  width: 20%;
+}
+
+td.assignment, th.assignment {
+  width: 40%;
+}
+
