@@ -70,7 +70,7 @@
         }
         if (isset($complete)) {
           echo '<div class="panel panel-success">';
-          echo '<div class="panel-heading"><h3 class="panel-title">Completed in the last week</h3></div>';
+          echo '<div class="panel-heading"><h3 class="panel-title">Completed recently</h3></div>';
           echo '<table class="table">';
           foreach ($complete as $row) {
             echo $row;
