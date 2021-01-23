@@ -29,13 +29,13 @@
           $assignment = '<tr>';
           $assignment .= '<td>'.$row['subject'].'</td>';
           $assignment .= '<td class="assignment">'.$row['assignment'].'</td>';
-          if (strtotime($row['datedue']) < mktime() && $row['status'] != 'Complete') {
+          if (strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete' && $row['status'] != 'Abandoned') {
             $assignment .= '<td>Due: '.$row['datedue'].'</td>';
             $assignment .= '<td>'.$row['status'].'</td>';
             $assignment .= '</tr>';
             $overdue[] = $assignment;
           }
-          if (strtotime($row['datedue']) > mktime() && $row['status'] != 'Complete') {
+          if (strtotime($row['datedue']) >= mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete' && $row['status'] != 'Abandoned') {
             $assignment .= '<td>Due: '.$row['datedue'].'</td>';
             $assignment .= '<td></td>';
             $assignment .= '</tr>';
@@ -100,7 +100,16 @@
             $assignmentData = $assignmentData[$adno];
             foreach ($assignmentData as $row) {
               if (strtotime($row['datedue']) < mktime() && $row['status'] != 'Complete') {
-                $assignment = '<tr>';
+                switch ($row['status']) {
+                  case 'Incomplete':
+                    $assignment = '<tr class="danger">';
+                    break;
+                  case 'Partially complete':
+                    $assignment = '<tr class="warning">';
+                    break;
+                  default:
+                    $assignment = '<tr>';
+                }
                 $assignment .= '<td>'.$row['subject'].'</td>';
                 $assignment .= '<td class="assignment">'.$row['assignment'].'</td>';
                 $assignment .= '<td>Due: '.$row['datedue'].'</td>';
@@ -182,6 +191,9 @@
                   break;
                 case 'm';
                   $assignmentDetails['status'] = 'Partially complete';
+                  break;
+                case 'x';
+                  $assignmentDetails['status'] = 'Abandoned';
                   break;
                 default:
                   $assignmentDetails['status'] = 'Not yet reviewed';
