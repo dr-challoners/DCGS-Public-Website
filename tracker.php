@@ -99,7 +99,7 @@
             $assignmentData = json_decode($assignmentData, true);
             $assignmentData = $assignmentData[$adno];
             foreach ($assignmentData as $row) {
-              if (strtotime($row['datedue']) < mktime() && $row['status'] != 'Complete') {
+              if (strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete') {
                 switch ($row['status']) {
                   case 'Incomplete':
                     $assignment = '<tr class="danger">';

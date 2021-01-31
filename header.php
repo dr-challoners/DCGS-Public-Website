@@ -79,7 +79,7 @@
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
     $hardLink_supportingus      = '/c/community/supporting-the-school/annual-giving-programme';
     $hardLink_information       = '/c/information/';
-    $hardLink_privacy           = 'https://dcgs.box.com/s/naaj3kzym9wfbolj3a7tgath4gl5ihpt';
+    $hardLink_privacy           = 'https://drive.google.com/file/d/1quXxCLdklK9QLZ6kJPwUXU4okuEJOcLq/view';
     $hardLink_contactus         = '/c/information/general-information/contacting-us';
     $hardLink_alumni            = '/c/community/alumni/old-challoners';
 		$hardLink_sixthform         = '/c/our-school/sixth-form/welcome-to-the-sixth-form';
