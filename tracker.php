@@ -188,13 +188,13 @@
         array_shift($class);
         foreach ($class as $assignment) {
           foreach ($assignment as $key => $row) {
-            if ($key[0] == 'a' && $key != 'assignment') {
+            if ($key[0] == 'a' && $key != 'assignment' && $row != 'a') {
               $adno = substr($key,1);
               $assignmentDetails['dateset'] = $assignment['dateset'];
               $assignmentDetails['subject'] = $assignment['subject'];
               $assignmentDetails['assignment'] = $assignment['assignment'];
               $assignmentDetails['datedue'] = $assignment['datedue'];
-              switch ($row) {
+              switch (strtolower($row)) {
                 case 'y';
                   $assignmentDetails['status'] = 'Complete';
                   break;
