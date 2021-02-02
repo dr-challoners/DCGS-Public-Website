@@ -29,23 +29,35 @@
           $assignment = '<tr>';
           $assignment .= '<td>'.$row['subject'].'</td>';
           $assignment .= '<td class="assignment">'.$row['assignment'].'</td>';
-          if (strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete' && $row['status'] != 'Abandoned') {
-            $assignment .= '<td>Due: '.$row['datedue'].'</td>';
-            $assignment .= '<td>'.$row['status'].'</td>';
-            $assignment .= '</tr>';
-            $overdue[] = $assignment;
-          }
-          if (strtotime($row['datedue']) >= mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete' && $row['status'] != 'Abandoned') {
-            $assignment .= '<td>Due: '.$row['datedue'].'</td>';
-            $assignment .= '<td></td>';
-            $assignment .= '</tr>';
-            $upcoming[] = $assignment;
-          }
-          if (strtotime($row['datedue']) + 604800 > mktime() && $row['status'] == 'Complete') {
-            $assignment .= '<td></td>';
-            $assignment .= '<td></td>';
-            $assignment .= '</tr>';
-            $complete[] = $assignment;
+          if ($row['status'] != 'Abandoned') {
+            if ($row['status'] == 'Complete') {
+              if (strtotime($row['datedue']) + 604800 > mktime()) {
+                $assignment .= '<td></td>';
+                $assignment .= '<td></td>';
+                $assignment .= '</tr>';
+                $complete[] = $assignment;
+              }
+            } else {
+              if (!empty($row['datedue'])) {
+                if (strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y'))) {
+                  $assignment .= '<td>Due: '.$row['datedue'].'</td>';
+                  $assignment .= '<td>'.$row['status'].'</td>';
+                  $assignment .= '</tr>';
+                  $overdue[] = $assignment;
+                }
+                if (strtotime($row['datedue']) >= mktime(0,0,0,date('m'),date('d'),date('Y'))) {
+                  $assignment .= '<td>Due: '.$row['datedue'].'</td>';
+                  $assignment .= '<td></td>';
+                  $assignment .= '</tr>';
+                  $upcoming[] = $assignment;
+                }
+              } else {
+                $assignment .= '<td>No due date</td>';
+                $assignment .= '<td></td>';
+                $assignment .= '</tr>';
+                $upcoming[] = $assignment;
+              }
+            }
           }
         }
         if (isset($overdue)) {
@@ -99,7 +111,7 @@
             $assignmentData = json_decode($assignmentData, true);
             $assignmentData = $assignmentData[$adno];
             foreach ($assignmentData as $row) {
-              if (strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete') {
+              if (!empty($row['datedue']) && strtotime($row['datedue']) < mktime(0,0,0,date('m'),date('d'),date('Y')) && $row['status'] != 'Complete') {
                 switch ($row['status']) {
                   case 'Incomplete':
                     $assignment = '<tr class="danger">';
