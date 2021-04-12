@@ -14,7 +14,7 @@
         <p>Intranet</p>
       </div>
       <div class="col-sm-7">
-        <a href="https://challoners.cpoms.net/" id="CPOMS"></a>
+        <!-- Other navigation icons could go in here -->
       </div>
     </div>
     <div class="row intranetAreas">
