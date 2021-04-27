@@ -1,6 +1,6 @@
 <?php
   $houseScores = sheetToArray('1ooT12BlAoiaEJD-cqukrfJ8-Oyxs6AI5qgo7hVudcVw','data/content/',24);
-  $current = $houseScores['data']['Past winners'][2];
+  $current = $houseScores['data']['Roll of Honour'][2];
 ?>
 
 <div class="row podium">
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<h2>Previous years</h2>
+<h2>Previous Years</h2>
 
 <?php
   $pastScores = $houseScores['data']['Past winners'];
@@ -46,7 +46,7 @@
     echo '</div>';
   }
 ?>
-
+<!-- Removed as it feels a little unfair to some houses
 <h2>Overall ranking</h2>
 <table class="table overallRanks">
   <thead>
@@ -58,7 +58,9 @@
       <th>3rd place</th>
     </tr>
   </thead>
+-->
   <?php
+    /*
     $overall = array();
     foreach(array('foxell','holman','newman','pearson','rayner','thorne') as $house) {
       $overall[$house] = array('score' => 0, 'champions' => 0, 'second' => 0, 'third' => 0);
@@ -103,5 +105,6 @@
         echo '</td>';
       echo '</tr>';
     }
+    */
   ?>
-</table>
+<!--</table>-->

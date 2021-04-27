@@ -2,7 +2,7 @@
   $houseScores = sheetToArray('1ooT12BlAoiaEJD-cqukrfJ8-Oyxs6AI5qgo7hVudcVw','data/content/',24);
   $totals = array('foxell' => 0,'holman' => 0,'newman' => 0,'pearson' => 0,'rayner' => 0,'thorne' => 0);
   $trends = array();
-  $houseScores['data']['Scores'] = array_reverse($houseScores['data']['Scores']);
+  $houseScores['data']['Scores'] = array_reverse($houseScores['data']['Current Scores']);
   foreach ($houseScores['data']['Scores'] as $event) {
     if (preg_match('/[0-9.]+/',$event['foxell'])) {
       foreach ($event as $house => $score) {
@@ -117,7 +117,7 @@
   }
 </script>
 
-<h2>Scores breakdown</h2>
+<h2>Scores Breakdown</h2>
 
 <div class="panel-group" id="houseBreakdown" role="tablist" aria-multiselectable="true">
 <?php // Relies on the scores array having been created above for the total scores
