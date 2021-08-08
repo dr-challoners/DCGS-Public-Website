@@ -109,7 +109,7 @@
         <a id="community" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-community" aria-expanded="false" aria-controls="collapse-community">Community</a>
 				<a id="information" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-information" aria-expanded="false" aria-controls="collapse-information">Information</a>
 				<a id="enrichment" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-enrichment" aria-expanded="false" aria-controls="collapse-enrichment">Enrichment</a>
-				<a href="/intranet">Intranet</a>
+        <a id="resources" role="button" data-toggle="collapse" data-parent="#DCGSMainNav-Menu" href="#collapse-resources" aria-expanded="false" aria-controls="collapse-resources">Resources</a>
 				<a href="/diary">Diary</a>
 				<a href="<?php echo $hardLink_contactus; ?>">Contact&nbsp;Us</a>
 			</p>
@@ -159,6 +159,36 @@
 			echo makeScreenMenu('Information');
 			echo makeScreenMenu('Enrichment');
 		?>
+      <div class="panel">
+        <div id="collapse-resources" class="collapse collapseMain" role="tabpanel" aria-labelledby="resources">
+          <div class="row panelMain">
+            <div class="col-xs-4 panelMain">
+              <h3 class="panelMain">Students</h3>
+                <ul>
+                  <li><a href="https://sites.google.com/challoners.org/student-resources" target="<?php echo 'page'.mt_rand(); ?>">Student Resources</a></li>
+                  <li><a href="https://www.google.com/url?q=https%3A%2F%2Fchalloners.students.isams.cloud%2F&sa=D&sntz=1&usg=AFQjCNEF9Rz-SU_ljeMGy4BrZPekMbWv6w" target="<?php echo 'page'.mt_rand(); ?>">Student Portal</a></li>
+                  <li><a href="https://sites.google.com/challoners.org/student-resources/subject-resources" target="<?php echo 'page'.mt_rand(); ?>">Subject Resources</a></li>
+                  <li><a href="https://sites.google.com/challoners.org/sixth-form" target="<?php echo 'page'.mt_rand(); ?>">Sixth Form</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-4 panelMain">
+              <h3 class="panelMain">Staff</h3>
+                <ul>
+                  <li><a href="https://sites.google.com/challoners.org/staff-resources" target="<?php echo 'page'.mt_rand(); ?>">Staff Resources</a></li>
+                  <li><a href="https://challoners.isams.cloud/Main/Framework" target="<?php echo 'page'.mt_rand(); ?>">iSAMS</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-4 panelMain">
+              <h3 class="panelMain">Parents</h3>
+                <ul>
+                  <li><a href="https://sites.google.com/challoners.org/parent-handbook" target="<?php echo 'page'.mt_rand(); ?>">Parent Handbook</a></li>
+                  <li><a href="https://www.google.com/url?q=https%3A%2F%2Fchalloners.parents.isams.cloud%2F&sa=D&sntz=1&usg=AFQjCNHrk4gTCFQkEoFM0XOnrOjtjkQw8g" target="<?php echo 'page'.mt_rand(); ?>">Parent Portal</a></li>
+                  <li><a href="https://sites.google.com/challoners.org/sixth-form/handbook" target="<?php echo 'page'.mt_rand(); ?>">Sixth Form Handbook</a></li>
+                </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 		</div>
 	</div>
 	
@@ -215,12 +245,12 @@
 				echo makeMobileMenu('Enrichment');
 				echo makeMobileMenu('News');
 				echo '<li class="dropdown">';
-				echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Intranet</a>';
+				echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Resources</a>';
 				echo '<div class="dropdown-menu">';
 				echo '<ul>';
-				echo '<li><a href="/intranet/students">Students</a></li>';
-				echo '<li><a href="/intranet/staff">Staff</a></li>';
-				echo '<li><a href="/intranet/parents">Parents</a></li>';
+				echo '<li><a href="https://sites.google.com/challoners.org/student-resources">Students</a></li>';
+				echo '<li><a href="https://sites.google.com/challoners.org/staff-resources">Staff</a></li>';
+				echo '<li><a href="https://sites.google.com/challoners.org/parent-handbook">Parents</a></li>';
 				echo '</ul>';
 				echo '</div>';
 				echo '</li>';

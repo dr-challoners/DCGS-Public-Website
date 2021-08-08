@@ -11,7 +11,7 @@
   <div class="col-sm-frontSmall hidden-xs">
     <div class="row intranetButtons">
       <div class="col-sm-5">
-        <p>Intranet</p>
+        <p>Resources</p>
       </div>
       <div class="col-sm-7">
         <!-- Other navigation icons could go in here -->
@@ -19,13 +19,13 @@
     </div>
     <div class="row intranetAreas">
       <div class="col-sm-4">
-        <p><a href="/intranet/students">Students</a></p>
+        <p><a href="https://sites.google.com/challoners.org/student-resources" target="<?php echo 'page'.mt_rand(); ?>">Students</a></p>
       </div>
       <div class="col-sm-4">
-        <p><a href="/intranet/staff">Staff</a></p>
+        <p><a href="https://sites.google.com/challoners.org/staff-resources" target="<?php echo 'page'.mt_rand(); ?>">Staff</a></p>
       </div>
       <div class="col-sm-4">
-        <p><a href="/intranet/parents">Parents</a></p>
+        <p><a href="https://sites.google.com/challoners.org/parent-handbook" target="<?php echo 'page'.mt_rand(); ?>">Parents</a></p>
       </div>
     </div>
     <div class="shortcutLinks">
