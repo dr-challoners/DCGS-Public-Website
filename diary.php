@@ -93,7 +93,7 @@
       } else { $location = ''; }
       $description = $description.$location;
       if ($description !== '') {
-        $eventDetails['otherdetails'] = $description;
+        $eventDetails['other-details'] = $description;
       }
 
       // Now generate an ID for this event and work out which dates it occurs on
@@ -138,10 +138,10 @@
           }
           // Generate a unique, orderable ID for the event, as above
           $eventID = makeID($entry['event'],1).$i;
-          if (isset($entry['meettime'])) {
-            $eventID = str_replace(':','',$entry['meettime']).$eventID;
-          } elseif (isset($entry['matchtime'])) {
-            $eventID = str_replace(':','',$entry['matchtime']).$eventID;
+          if (isset($entry['meet-time'])) {
+            $eventID = str_replace(':','',$entry['meet-time']).$eventID;
+          } elseif (isset($entry['match-time'])) {
+            $eventID = str_replace(':','',$entry['match-time']).$eventID;
           } else {
             $eventID = '0000'.$eventID;
           }
@@ -219,10 +219,10 @@
         foreach ($diaryArray['events'][date('Ymd',$curDay)] as $id => $event) { // ID not needed for much, except picking out teamsheets to print
           echo '<div class="col-xs-4 col-sm-3 eventTime"><p>';
             if (isset($event['timestart']))     { echo $event['timestart']; }
-            elseif (isset($event['matchtime'])) { echo $event['matchtime']; }
-            if ((isset($event['timestart']) || isset($event['matchtime']))) {
+            elseif (isset($event['match-time'])) { echo $event['match-time']; }
+            if ((isset($event['timestart']) || isset($event['match-time']))) {
               if (isset($event['timeend'])) { echo ' - '.$event['timeend']; }
-              if (isset($event['pickuptime'])) { echo ' - '.$event['pickuptime']; }
+              if (isset($event['pick-up-time'])) { echo ' - '.$event['pick-up-time']; }
             }
           echo '</p></div>';
           echo '<div class="col-xs-8 col-sm-9 eventDetails">';
@@ -294,22 +294,22 @@
                 echo '<p class="details lrg"><a href="/teamsheet/'.date('Ymd',$curDay).'-'.$id.'-1">View printable team sheets</a>.</p>';
               }
             }
-            if (isset($event['venuename']) || isset($event['venuepostcode'])) {
+            if (isset($event['venue-name']) || isset($event['venue-postcode'])) {
               echo '<p class="details">';
-              if (isset($event['venuename'])) {
-                echo $event['venuename'].'. ';
+              if (isset($event['venue-name'])) {
+                echo $event['venue-name'].'. ';
               }
-              if (isset($event['venuepostcode'])) {
-                echo '<a href="https://www.google.co.uk/maps?q='.$event['venuepostcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>.';
+              if (isset($event['venue-postcode'])) {
+                echo '<a href="https://www.google.co.uk/maps?q='.$event['venue-postcode'].'" target="'.mt_rand().'">See the location on Google Maps</a>.';
               }
               echo '</p>';
             }
-            if (isset($event['otherdetails'])) {
+            if (isset($event['other-details'])) {
               $remove = array('[display]','[display only]','[repeat]');
               if (isset($event['sportCheck'])) {
                 $details = '';
-                $event['otherdetails'] = preg_split('/[;:]/',$event['otherdetails']);
-                foreach ($event['otherdetails'] as $line) {
+                $event['other-details'] = preg_split('/[;:]/',$event['other-details']);
+                foreach ($event['other-details'] as $line) {
                   if (stripos($line,'[display]') !== false || stripos($line,'[display only]') !== false) {
                     $line = str_ireplace($remove,'',$line);
                     $line = trim($line);
@@ -318,7 +318,7 @@
                 }
                 $details = str_replace('<p class="details"></p>','',$details);
               } else {
-                $details = $event['otherdetails'];
+                $details = $event['other-details'];
               }
               $details = Parsedown::instance()->parse($details);
               $details = str_replace('<p>','<p class="details">',$details);

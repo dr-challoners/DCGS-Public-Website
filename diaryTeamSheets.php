@@ -86,11 +86,11 @@
     
     $pos = $_GET['sheet']*2-1;
     
-    if (isset($matchData['otherdetails'])) {
+    if (isset($matchData['other-details'])) {
       $details = array();
-      $matchData['otherdetails'] = $matchData['otherdetails'];
-      $matchData['otherdetails'] = preg_split('/[;:]/',$matchData['otherdetails']);
-      foreach ($matchData['otherdetails'] as $key => $line) {
+      $matchData['other-details'] = $matchData['other-details'];
+      $matchData['other-details'] = preg_split('/[;:]/',$matchData['other-details']);
+      foreach ($matchData['other-details'] as $key => $line) {
         if (stripos($line,'[display only]') == false) {
           if (stripos($line,'[repeat]') == false) {
             unset($lastLine);
@@ -166,15 +166,15 @@
       }
       if (isset($matchData['venue'])) {
         echo '<p>'.$matchData['venue'];
-        if (isset($matchData['venuename'])) { echo ' - '.$matchData['venuename']; }
+        if (isset($matchData['venue-name'])) { echo ' - '.$matchData['venue-name']; }
         echo '</p>';
       }
       echo '<p id="break">'.date('l jS F Y',mktime(0,0,0,substr($date,4,2),substr($date,6,2),substr($date,0,4))).'</p>';
-      if (isset($matchData['meettime']) || isset($matchData['matchtime'])) {
+      if (isset($matchData['meet-time']) || isset($matchData['match-time'])) {
         echo '<p id="times">';
-          if (isset($matchData['meettime']))  { echo ' <span>Meet '.$matchData['meettime'].'</span>'; }
-          if (isset($matchData['matchtime'])) { echo ' <span>Match start '.$matchData['matchtime'].'</span>';  }
-          if (isset($matchData['pickuptime']))   { echo ' <span>Pick up '.$matchData['pickuptime'].'</span>';   }
+          if (isset($matchData['meet-time']))  { echo ' <span>Meet '.$matchData['meet-time'].'</span>'; }
+          if (isset($matchData['match-time'])) { echo ' <span>Match start '.$matchData['match-time'].'</span>';  }
+          if (isset($matchData['pick-up-time']))   { echo ' <span>Pick up '.$matchData['pick-up-time'].'</span>';   }
         echo '</p>';
       }
     echo '</div>';
