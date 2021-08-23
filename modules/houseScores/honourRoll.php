@@ -21,8 +21,8 @@
   <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
     <h1><?php echo $current['year']; ?> Champions</h1>
     <h3>Captains:</h3>
-    <p><?php echo $current['outgoingcaptains']; ?></p>
-    <p><?php echo $current['incomingcaptains']; ?></p>
+    <p><?php echo $current['outgoing-captains']; ?></p>
+    <p><?php echo $current['incoming-captains']; ?></p>
   </div>
 </div>
 
@@ -36,8 +36,8 @@
       echo '<div class="col-xs-8">';
       echo '<h3 id="'.strtolower($year['first']).'">'.$year['year'].' Champions: '.$year['first'].'</h3>';
         echo '<p>Captains:</p>';
-        echo '<p>'.$year['outgoingcaptains'].'</p>';
-        echo '<p>'.$year['incomingcaptains'].'</p>';
+        echo '<p>'.$year['outgoing-captains'].'</p>';
+        echo '<p>'.$year['incoming-captains'].'</p>';
       echo '</div>';
       echo '<div class="col-xs-4">';
         echo '<h3 id="'.strtolower($year['second']).'">2nd: '.$year['second'].'</h3>';
@@ -46,65 +46,4 @@
     echo '</div>';
   }
 ?>
-<!-- Removed as it feels a little unfair to some houses
-<h2>Overall ranking</h2>
-<table class="table overallRanks">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>Champions</th>
-      <th>2nd place</th>
-      <th>3rd place</th>
-    </tr>
-  </thead>
--->
-  <?php
-    /*
-    $overall = array();
-    foreach(array('foxell','holman','newman','pearson','rayner','thorne') as $house) {
-      $overall[$house] = array('score' => 0, 'champions' => 0, 'second' => 0, 'third' => 0);
-    }
-    foreach($houseScores['data']['Past winners'] as $year) {
-      $overall[clean($year['first'])]['score'] = $overall[clean($year['first'])]['score']+3;
-      $overall[clean($year['first'])]['champions']++;
-      $overall[clean($year['second'])]['second']++;
-      $overall[clean($year['second'])]['score'] = $overall[clean($year['second'])]['score']+2;
-      $overall[clean($year['third'])]['third']++;
-      $overall[clean($year['third'])]['score']++;
-    }
-    function compareScores($a, $b) {
-      return $a['score'] - $b['score'];
-    }
-    uasort($overall, 'compareScores');
-    $overall = array_reverse($overall);
-    $positions = array('1st','2nd','3rd','4th','5th','6th');
-    $score = false;
-    foreach ($overall as $house => $data) {
-      $position = array_shift($positions);
-      echo '<tr id="'.$house.'">';
-        echo '<td>';
-          if ($data['score'] !== $score) {
-          echo '<p>'.$position.'</p>';
-          } else {
-            echo '<p>=</p>';
-          }
-          $score = $data['score'];
-        echo '</td>';
-        echo '<td>';
-          echo '<p>'.ucwords($house).'</p>';
-        echo '</td>';
-        echo '<td>';
-          echo '<p>'.$data['champions'].'</p>';
-        echo '</td>';
-        echo '<td>';
-          echo '<p>'.$data['second'].'</p>';
-        echo '</td>';
-        echo '<td>';
-          echo '<p>'.$data['third'].'</p>';
-        echo '</td>';
-      echo '</tr>';
-    }
-    */
-  ?>
 <!--</table>-->

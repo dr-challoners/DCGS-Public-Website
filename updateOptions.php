@@ -37,31 +37,6 @@
     
     <h3>Website Systems</h3>
     <div class="row options">
-      <div class="col-xs-12 col-sm-3 col-md-2"><p>Intranet Links:</p></div>
-      <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Edit Links <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="https://drive.google.com/open?id=1tUKJxXeaWxf1vyGeI4YLysHPGE24f1uQzUNcGwcUmLw" target="<?php echo mt_rand(); ?>">Students</a></li>
-            <li><a href="https://drive.google.com/open?id=1VSyWX6JwnA9qFF-uY6GCshpdyqHnqYI00P4--p-YvYk" target="<?php echo mt_rand(); ?>">Staff</a></li>
-            <li><a href="https://drive.google.com/open?id=1LImIk6cenrhgsEBqmx-peV5EsHoFYBtDf4EYVNfC0dg" target="<?php echo mt_rand(); ?>">Parents</a></li>
-            <li><a href="https://drive.google.com/open?id=1vTDVUq_zKKHTn7NvRt8r8akOeAVmWXh7CLC5UMW-IYs" target="<?php echo mt_rand(); ?>">Subjects</a></li>
-          </ul>
-        </div>
-        <a class="btn btn-default" href="https://drive.google.com/drive/u/0/folders/0ByH41whuUvC_fi1QWkgyMloxM0w1eFdPVWhIa29NcEZ1Sk91UU85X0JGV2tkUzNYRXljWUE" target="<?php echo mt_rand(); ?>">Resources Folder</a>
-        <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sync <span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="/intranet/students/update" target="<?php echo mt_rand(); ?>">Students</a></li>
-            <li><a href="/intranet/staff/update" target="<?php echo mt_rand(); ?>">Staff</a></li>
-            <li><a href="/intranet/parents/update" target="<?php echo mt_rand(); ?>">Parents</a></li>
-            <li><a href="/intranet/students/update" target="<?php echo mt_rand(); ?>">Subjects</a></li>
-          </ul>
-        </div>
-        <a class="btn btn-default" href="https://docs.google.com/document/d/1CtDwI8j_JemHoyHJyF8V8jJJyF9aXljy3YdU6hpTyQ0/" target="<?php echo mt_rand(); ?>">Help File</a>
-      </div>
-    </div>
-    <div class="row options">
       <div class="col-xs-12 col-sm-3 col-md-2"><p>Front Page Notices:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
         <a class="btn btn-default" href="https://drive.google.com/open?id=1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk" target="<?php echo mt_rand(); ?>">Edit</a>

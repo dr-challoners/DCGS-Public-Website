@@ -94,6 +94,7 @@
 					} elseif ($_GET['stage'] == 'pge') {
 							// This is the final stage, after images have processed, but the code comes in first so the if function here works.
 							$sheetData = sheetToArray($_GET['sheet'],'data/content',0);
+              
 							parsePagesSheet($sheetData, $_GET['page'], $mainID, $siteLoc, $pageLoc);
 							$percent = 100;
 							$message = 'page updated, finishing processing';

@@ -3,15 +3,16 @@
   if (isset($_GET['preview'])) { $_GET['sync'] = 1; }
   $dataFolder = 'data/override';
   $overrideData = sheetToArray('1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk',$dataFolder,1);
+//view($overrideData);
   foreach ($overrideData['data']['Messages'] as $key => $row) {
     unset($archived,$start,$end,$image);   
     // Only display the message if it is still within time
     $bounds = array('start','end');
     foreach ($bounds as $bound) {
-      if (!empty($row[$bound.'date'])) { 
-        $$bound = explode('/',$row[$bound.'date']);
-        if (!empty($row[$bound.'time'])) { 
-          $time = explode(':',$row[$bound.'time']);
+      if (!empty($row[$bound.'-date'])) { 
+        $$bound = explode('/',$row[$bound.'-date']);
+        if (!empty($row[$bound.'-time'])) { 
+          $time = explode(':',$row[$bound.'-time']);
           foreach ($time as $part) {
              ${$bound}[] = $part;
           } 

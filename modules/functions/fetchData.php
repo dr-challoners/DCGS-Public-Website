@@ -33,55 +33,59 @@ function sheetToArray($sheetKey, $cacheFolder, $refreshTime = 24, $debug = 0) {
   
     // Create an array of all the worksheets within the specified sheet
 
-    $worksheetFile = 'https://spreadsheets.google.com/feeds/worksheets/'.$sheetKey.'/public/basic?alt=json';
+    $worksheetFile = 'https://sheets.googleapis.com/v4/spreadsheets/'.$sheetKey.'?fields=sheets.properties&key=AIzaSyAWo-CVq3zFK-kZwxxo0WELH88ggjEgTEo';
+    //view(file_get_contents($worksheetFile));
     if (@file_get_contents($worksheetFile) !== false) {
-    
       $worksheetList = file_get_contents($worksheetFile);
       $worksheetList = json_decode($worksheetList, true);
+      
       $sheetArray = array();
       $sheetArray['meta']['lastupdate'] = time();
-      $sheetArray['meta']['sheetname'] = $worksheetList['feed']['title']['$t'];
       $sheetArray['meta']['sheetid'] = $sheetKey;
-
-      $worksheetList = $worksheetList['feed']['entry'];
-
+      $spreadsheetTitle = 'https://sheets.googleapis.com/v4/spreadsheets/'.$sheetKey.'?fields=properties/title&key=AIzaSyAWo-CVq3zFK-kZwxxo0WELH88ggjEgTEo';
+      $spreadsheetTitle = file_get_contents($spreadsheetTitle);
+      $spreadsheetTitle = json_decode($spreadsheetTitle, true);
+      $sheetArray['meta']['sheetname'] = $spreadsheetTitle['properties']['title'];
+      
+      $worksheetList = $worksheetList['sheets'];
+      
       $worksheets = array();
 
       foreach ($worksheetList as $row) {
-        $worksheets[] = $row['title']['$t'];
+        $worksheets[$row['properties']['sheetId']] = $row['properties']['title'];
       }
-
+      //view($worksheets);
       // Now work through the spreadsheet one worksheet at a time, creating a multi-dimensional array of the link list data for the whole spreadsheet
-      $worksheetKey  = 1;
 
-      foreach ($worksheets as $worksheet) {
-        $worksheetData = file_get_contents('https://spreadsheets.google.com/feeds/list/'.$sheetKey.'/'.$worksheetKey.'/public/values?alt=json');
+      foreach ($worksheets as $key => $worksheet) {
+        $worksheetData = file_get_contents('https://sheets.googleapis.com/v4/spreadsheets/'.$sheetKey.'/values/'.urlencode($worksheet).'?key=AIzaSyAWo-CVq3zFK-kZwxxo0WELH88ggjEgTEo');
         $worksheetData = json_decode($worksheetData, true);
         
         if ($debug == 1) {
           view ($worksheetData);
         }
 
-        if (isset($worksheetData['feed']['entry'])) { // Ignores empty worksheets and worksheets that only have header information
-          $worksheetData = $worksheetData['feed']['entry'];
-
+        if (isset($worksheetData['values'][1])) { // Ignores empty worksheets and worksheets that only have header information
+          $worksheetData = $worksheetData['values'];
+          $worksheetHeadings = array_shift($worksheetData);
           $worksheetContents = array();
+          //view($worksheetHeadings);
+          //view($worksheetData);
           $rowNum = 2; // This gives each row entry in the array the same number as the row number in the worksheet
 
           foreach ($worksheetData as $rowData) {
             $worksheetRow = array();
             foreach ($rowData as $key => $data) {
-              if (strpos($key, 'gsx$') !== false) {
-                $header = substr($key,4);
-                $worksheetRow[$header] = $data['$t'];
-              }
+              $header = $worksheetHeadings[$key];
+              $header = clean($header);
+              $worksheetRow[$header] = $data;
             }
             $worksheetContents[$rowNum] = $worksheetRow;
             $rowNum++;
           }
+          //view($worksheetContents);
           $sheetArray['data'][$worksheet] = $worksheetContents;
         }
-        $worksheetKey++;
       }
 
       if (!empty($cacheFolder)) {
@@ -90,6 +94,7 @@ function sheetToArray($sheetKey, $cacheFolder, $refreshTime = 24, $debug = 0) {
           mkdir($cacheFolder,0777,true);
         }
         file_put_contents($stored, json_encode($sheetArray));
+        //view(json_encode($sheetArray));
       }
     } else { $sheetArray = 'ERROR'; }   
   }
