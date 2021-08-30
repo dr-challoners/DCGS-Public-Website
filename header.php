@@ -81,6 +81,7 @@
     $hardLink_information       = '/c/information/';
     $hardLink_privacy           = 'https://drive.google.com/file/d/1quXxCLdklK9QLZ6kJPwUXU4okuEJOcLq/view';
     $hardLink_contactus         = '/c/information/general-information/contacting-us';
+    $hardLink_reportconcern     = '/c/information/general-information/report-a-concern';
     $hardLink_alumni            = '/c/community/alumni/old-challoners';
 		$hardLink_sixthform         = '/c/our-school/sixth-form/welcome-to-the-sixth-form';
   ?>

@@ -30,7 +30,7 @@ if (!isset($linkIcon)) {
       $linkIcon = 'file';
       break;
     case 'email':
-      $linkIcon = 'envelope-o';
+      $linkIcon = 'envelope';
       // Add the 'mailto:' component and some simple robot baffling
       $address = ""; $i = 0;
       if (!empty($row['url'])) {
@@ -54,7 +54,11 @@ $content .= '<i class="'.$linkType.' fa-'.$linkIcon.'"></i>';
 if (!empty($row['content'])) {
   $content .= formatText($row['content'],0);
 } else {
-  $content .= $row['url'];
+  if ($dataType == 'email') {
+    $content .= $address;
+  } else {
+    $content .= $row['url'];
+  }
 }
 $content .= '</a>';
 if (isset($set)) {
