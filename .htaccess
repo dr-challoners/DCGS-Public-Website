@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On    #Turn on the rewriting engine
 
+Options -MultiViews
+
 #See http://coding.smashingmagazine.com/2011/11/02/introduction-to-url-rewriting/ for support
 
 #Content management system
