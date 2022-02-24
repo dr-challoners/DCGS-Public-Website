@@ -38,7 +38,17 @@ $s = 0;
 $r = 0;
 $a = 0; // Keeping track of the position in order to put the audio feature in
 foreach ($stories as $title => $story) {
+  
   if ($a >= 2 && !isset($audio)) {
+    
+    # Turning off SoundCloud for now until I can figure out the authorisation issues, or come up with a better solution.
+    # Might be easier to embed from Drive:
+    
+    #echo '<iframe frameborder="0" width="400" height="200" src="https://drive.google.com/file/d/1HjjNIG2uAWbxtKGyF_EoXdgXT1Z_YqBu/preview"></iframe>';
+    
+    # Still need to use OAuth to get a JSON list of the files in a Drive folder.
+    
+    /*
     $scfeed = file_get_contents('http://api.soundcloud.com/users/316458242/tracks.json?client_id=59f4a725f3d9f62a3057e87a9a19b3c6'); //Get a feed from Soundcloud
     $scjson = json_decode($scfeed, true); //Decode feed to JSON
     $track1 = rand(0,24);
@@ -55,6 +65,7 @@ foreach ($stories as $title => $story) {
       echo '</div>';
     }
     echo '</div>';
+    */
     $audio = 1;
   }
   unset ($featured);
