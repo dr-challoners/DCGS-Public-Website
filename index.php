@@ -54,25 +54,11 @@
         </div>
       </div>
     </div>
-    <a href="https://files.ofsted.gov.uk/v1/file/50147384" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="ofstedLogo" src="/img/ofsted-outstanding.jpg" /></a>
-    <a href="#astraLA_tab" aria-controls="astraLA_tab" role="button" class="btn btn-Astra btn-block" data-toggle="tab">
-      <img src="/img/astraLA_logoR.png" />
-      <img src="/img/astraLA_logoL.png" alt="Astra Learning Alliance" />
-    </a>
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active">
-        <div class="twitterColumn" id="sports_team">
-          <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fab fa-twitter"></i></span></a>
-					<a class="twitter-timeline" data-height="1560" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="astraLA_tab">
-        <p>DCGS is the lead school of the Astra Learning Alliance, providing outstanding opportunities for all staff through training, support and action research across a range of secondary and primary schools in Buckinghamshire.</p>
-        <p class="astraURL"><a href="http://www.astra-alliance.com/">www.astra-alliance.com</a></p>
-        <div class="twitterColumn" id="astraLA">
-					<a class="twitter-timeline" data-height="1400" data-chrome="nofooter" data-link-color="#2358A3" href="https://twitter.com/AstraAlliance?ref_src=twsrc%5Etfw">Tweets by AstraAlliance</a>
-        </div>
-      </div>
+    <a href="https://files.ofsted.gov.uk/v1/file/50147384" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="ofstedLogo" src="/img/ofsted-outstanding.jpg" alt="Ofsted Outstanding Provider" /></a>
+    <a href="https://www.astrahub.org/" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="astraLogo" src="/img/astraTSHlogo.jpg" alt="Astra Teaching School Hub Buckinghamshire" /></a>
+    <div class="twitterColumn" id="sports_team">
+      <a href="https://twitter.com/DCGSSport" target="<?php echo 'page'.mt_rand(); ?>">DCGS Sport <span class="pull-right"><i class="fab fa-twitter"></i></span></a>
+		  <a class="twitter-timeline" data-height="1560" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
     </div>
   </div>
 </div>

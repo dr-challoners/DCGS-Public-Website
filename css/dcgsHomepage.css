@@ -32,8 +32,11 @@
 }
 
 img#ofstedLogo {
-  margin-top: 1px;
-  margin-bottom: 8px;
+  margin-top: 2px;
+  margin-bottom: 14px;
+}
+img#astraLogo {
+  margin-bottom: 14px;
 }
 
 #astraLA_tab p {
