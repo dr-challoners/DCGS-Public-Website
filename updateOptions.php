@@ -71,7 +71,14 @@
       <div class="col-xs-12 col-sm-3 col-md-2"><p>House Competition:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
         <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="<?php echo mt_rand(); ?>">Edit</a>
-        <a class="btn btn-default" href="/c/enrichment/house-competition/current-positions/update" target="<?php echo mt_rand(); ?>">Sync</a>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sync <span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="/c/enrichment/house-competition/current-positions/update" target="<?php echo mt_rand(); ?>">Current Positions</a></li>
+            <li><a href="/c/enrichment/house-competition/about-the-houses/update" target="<?php echo mt_rand(); ?>">About the Houses</a></li>
+            <li><a href="/c/enrichment/house-competition/roll-of-honour/update" target="<?php echo mt_rand(); ?>">Roll of Honour</a></li>
+          </ul>
+        </div>
         <a class="btn btn-default" href="https://docs.google.com/document/d/1IBPUFyvle3JRe62CfqOVhHKYYV2yxhM4as-P2GKmwpw/edit" target="<?php echo mt_rand(); ?>">Help File</a>
       </div>
     </div>

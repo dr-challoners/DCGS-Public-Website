@@ -29,7 +29,8 @@
 <h2>Previous Years</h2>
 
 <?php
-  $pastScores = $houseScores['data']['Past winners'];
+//view($houseScores);  
+$pastScores = $houseScores['data']['Roll of Honour'];
   unset ($pastScores[2]);
   foreach ($pastScores as $year) {
     echo '<div class="row honourRoll">';
