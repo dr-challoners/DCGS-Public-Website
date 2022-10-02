@@ -27,7 +27,7 @@
     </div>
     <div class="row buttonLine">
       <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="/" target="<?php echo mt_rand(); ?>"><i class="fas fa-shield"></i> Challoner's Website</a></div>
-      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E" target="<?php echo mt_rand(); ?>"><i class="fab fa-google-drive"></i> Website Content Folder</a></div>
+      <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fnpLUVhXTGl6dUV4VWZyWWJCNlRQaGp5d0pDbE90QWlCSVJlVEg2ZURSZ0E?resourcekey=0-tFBggJxk8TJmvJQSXBrgmQ" target="<?php echo mt_rand(); ?>"><i class="fab fa-google-drive"></i> Website Content Folder</a></div>
       <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://drive.google.com/open?id=1n-oqN8rF98ZXqlH7A_eUx6K_5FgK2RUpiCx3aUMg3kM" target="<?php echo mt_rand(); ?>"><i class="fas fa-table"></i> Sections Master Spreadsheet</a></div>
       <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://sites.google.com/challoners.org/dcgs-publishing" target="<?php echo mt_rand(); ?>"><i class="fas fa-question-circle"></i> Publishing Guidance</a></div>
       <div class="col-xs-6 col-sm-4"><a class="btn btn-default btn-block" href="https://trello.com/b/rEUcWF5b/website" target="<?php echo mt_rand(); ?>"><i class="fab fa-trello"></i> Student Journalist Team</a></div>
@@ -40,7 +40,7 @@
       <div class="col-xs-12 col-sm-3 col-md-2"><p>Front Page Notices:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
         <a class="btn btn-default" href="https://drive.google.com/open?id=1icLE9k67sw9gN9dcnZYsWt5QOnUxe7mTQGZk_2EFLZk" target="<?php echo mt_rand(); ?>">Edit</a>
-        <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fklEcU5ZakNocS1LVW9lTHNQaWNUYzV4Z29pbkFfWno3S0VYdnVaQXNZdlk" target="<?php echo mt_rand(); ?>">Resources Folder</a>
+        <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fklEcU5ZakNocS1LVW9lTHNQaWNUYzV4Z29pbkFfWno3S0VYdnVaQXNZdlk?resourcekey=0-QHJySae_J-8D3pImIxR-Bw" target="<?php echo mt_rand(); ?>">Resources Folder</a>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sync <span class="caret"></span></button>
           <ul class="dropdown-menu">
@@ -70,7 +70,7 @@
     <div class="row options">
       <div class="col-xs-12 col-sm-3 col-md-2"><p>House Competition:</p></div>
       <div class="col-xs-12 col-sm-9 col-md-10 btn-group" role="group" aria-label="...">
-        <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc" target="<?php echo mt_rand(); ?>">Edit</a>
+        <a class="btn btn-default" href="https://drive.google.com/drive/folders/0ByH41whuUvC_fkt2c0pLTGEyMWhOcHVEeVNtX1pmRjFsRjk2RVZBS2lZcU5DOFp5QlFVWmc?resourcekey=0-Cbetjb1UCTUSdJ_mTiW-nQ" target="<?php echo mt_rand(); ?>">Edit</a>
         <div class="btn-group" role="group">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sync <span class="caret"></span></button>
           <ul class="dropdown-menu">
