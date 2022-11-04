@@ -31,10 +31,6 @@
   float: right;
 }
 
-img#ofstedLogo {
-  padding-top: 4px;
-  margin-bottom: 14px;
-}
 img#astraLogo {
   margin-bottom: 20px;
 }
@@ -202,6 +198,57 @@ img#astraLogo {
 .intranetAreas a:hover, .shortcutLinks .row a:hover {
   background-color: #ccc;
   text-decoration: none;
+}
+
+.sport p, .vacancies p {
+  text-align: center;
+  font-size: 18px;
+}
+.sport a, .vacancies a {
+  display: block;
+  padding: 5px 0px 4px;
+  text-decoration: none;
+}
+.sport a:hover, .vacancies a:hover {
+  text-decoration: none;
+}
+
+.sport a {
+  color: #000;
+  background-color: #eee;
+}
+.sport a:hover {
+  color: #fff;
+  background-color: #9B0B0B;
+}
+
+.vacancies a {
+  color: #000;
+  background-color: #ffecbe;
+}
+.vacancies a:hover {
+  background-color: #F9D27B;
+}
+.vacancies {
+  margin-bottom: 20px;
+}
+
+.socialMedia {
+  text-align: right;
+  padding: 0 0 8px;
+}
+.socialMedia p {
+  float: left;
+  color: #666;
+  font-size: 16px;
+  padding: 3px 0 0 3px;
+}
+.socialMedia img {
+  margin-left: 3px;
+  width: 10%;
+}
+.socialMedia .twitter-timeline {
+  width: 100%;
 }
 
 /* Override messages */

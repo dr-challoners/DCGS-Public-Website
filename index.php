@@ -34,34 +34,53 @@
           <p><a href="<?php echo $hardLink_admissions; ?>">Admissions</a></p>
         </div>
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_prospectus; ?>">Prospectus</a></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_alumni; ?>">Alumni</a></p>
-        </div>
-        <div class="col-sm-6">
           <p><a href="<?php echo $hardLink_sixthform; ?>">Sixth Form</a></p>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <p><a href="<?php echo $hardLink_vacancies; ?>">Vacancies</a></p>
+          <p><a href="<?php echo $hardLink_prospectus; ?>">Prospectus</a></p>
+        </div>
+        <div class="col-sm-6">
+          <p><a href="<?php echo $hardLink_alumni; ?>">Alumni</a></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <p><a href="https://files.ofsted.gov.uk/v1/file/50147384" target="<?php echo 'page'.mt_rand(); ?>">Ofsted</a></p>
         </div>
         <div class="col-sm-6">
           <p><a href="<?php echo $hardLink_supportingus; ?>">Support Us</a></p>
         </div>
       </div>
     </div>
-    <a href="https://files.ofsted.gov.uk/v1/file/50147384" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="ofstedLogo" src="/img/ofsted-outstanding.jpg" alt="Ofsted Outstanding Provider" /></a>
+    <div class="sport"><p><a href="https://sport.challoners.com/">Sports Information</a></p></div>
+    <div class="vacancies"><p><a href="<?php echo $hardLink_vacancies; ?>">Work with us</a></p></div>
     <a href="https://www.astrahub.org/" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="astraLogo" src="/img/astraTSHlogo.jpg" alt="Astra Teaching School Hub Buckinghamshire" /></a>
-    <div class="twitterColumn" id="sports_team">
-      <a href="https://sport.challoners.com/">
-        <h3>DCGS Sport</h3>
-        <p>sport.challoners.com</p>
-      </a>
-		  <a class="twitter-timeline" data-height="1560" data-chrome="noheader nofooter" data-link-color="#9B0B0B" href="https://twitter.com/DCGSSport?ref_src=twsrc%5Etfw">Tweets by DCGSSport</a>
+    
+    <div class="socialMedia">
+      <p>Social Media</p>
+      <a href="https://twitter.com/ChallonersGS" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_twitter.png" alt="Twitter" /></a>
+      <a href="https://www.facebook.com/drchallonersgrammarschool" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_facebook.png" alt="Facebook" /></a>
+      <a href="https://www.instagram.com/challonersgs/" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_instagram.png" alt="Instagram" /></a>
+      <a href="https://www.linkedin.com/school/dr-challoner's-grammar-school/" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_linkedin.png" alt="LinkedIn" /></a>
+      <?php
+        $tC = rand(0,7);
+        if ($tC == 0) {
+          $twitterFeed = 'astra_hub';
+        } elseif ($tC == 1) {
+          $twitterFeed = 'ChallonersHead';
+        } elseif ($tC <= 3) {
+          $twitterFeed = 'ChallonersGS';
+        } else {
+          $twitterFeed = 'DCGSSport';
+        }
+        echo '<a class="twitter-timeline" data-height="1200" data-chrome="noheader nofooter" href="https://twitter.com/'.$twitterFeed.'?ref_src=twsrc%5Etfw"></a>';
+      ?>
+    </div>
+    
+    <div class="twitterColumn">
+		  
     </div>
   </div>
 </div>
