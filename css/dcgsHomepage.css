@@ -214,12 +214,12 @@ img#astraLogo {
 }
 
 .sport a {
-  color: #000;
-  background-color: #eee;
+  color: #fff;
+  background-color: #9B0B0B;
 }
 .sport a:hover {
   color: #fff;
-  background-color: #9B0B0B;
+  background-color: #bf0b0b;
 }
 
 .vacancies a {

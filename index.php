@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="sport"><p><a href="https://sport.challoners.com/">Sports Information</a></p></div>
+    <div class="sport"><p><a href="https://sport.challoners.com/">Sports Website & Fixtures</a></p></div>
     <div class="vacancies"><p><a href="<?php echo $hardLink_vacancies; ?>">Work with us</a></p></div>
     <a href="https://www.astrahub.org/" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="astraLogo" src="/img/astraTSHlogo.jpg" alt="Astra Teaching School Hub Buckinghamshire" /></a>
     
