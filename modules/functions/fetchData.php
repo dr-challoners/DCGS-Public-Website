@@ -196,7 +196,7 @@ function fetchImageFromURL($localPath,$imageURL,$imageName = null) {
       $file = file_get_contents($file);
       
       // Image resizing
-      if ($fileWidth > 1200 || $fileHeight > 1200) {
+      /* if ($fileWidth > 1200 || $fileHeight > 1200) {
         if ($fileWidth >= $fileHeight) {
           $newWidth  = 1200;
           $newHeight = $fileHeight*1200/$fileWidth;
@@ -209,10 +209,10 @@ function fetchImageFromURL($localPath,$imageURL,$imageName = null) {
         $imageName = $imageName.'.jpg';
         imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $fileWidth, $fileHeight);
         imagejpeg($dst,$path.'/'.$imageName,60);
-      } else {
+      } else { */
         $imageName = $imageName.$fileType;
         file_put_contents($path.'/'.$imageName,$file);
-      }
+      /* } */
       
       return $localPath.'/'.$imageName;
       
