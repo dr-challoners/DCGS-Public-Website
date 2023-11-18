@@ -53,6 +53,11 @@
           <p><a href="<?php echo $hardLink_supportingus; ?>">Support Us</a></p>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <p><a href="/c/information/student-wellbeing/safeguarding">Safeguarding</a></p>
+        </div>
+      </div>
     </div>
     <div class="sport"><p><a href="https://sport.challoners.com/">Sports Website & Fixtures</a></p></div>
     <div class="vacancies"><p><a href="<?php echo $hardLink_vacancies; ?>">Work with us</a></p></div>
