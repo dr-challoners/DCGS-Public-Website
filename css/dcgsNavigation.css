@@ -1,3 +1,47 @@
+/* 400 Years banner styles */
+.banner400 {
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.banner400 .row {
+  margin: 0;
+  background-color: #fae7bb;
+}
+
+.banner400 .row img {
+  float: left;
+}
+
+.banner400 .row p {
+  flat: right;
+  margin: 0;
+}
+
+.banner400 .row a {
+  color: #000;
+  font-family: "Crimson Text", "Palatino Linotype", serif;
+  display: table-cell;
+  height: 34px;
+  padding-top: 2px;
+  width: 1%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 18px;
+}
+
+@media (max-width: 880px) {
+  .banner400 .row p {
+    top: 3px;
+  }
+  
+  .banner400 .row a {
+    font-size: 14px;
+    line-height: 12px;
+  }
+}
+/* End of 400 Years banner styles */
+
 .dcgsBanner {
   margin-bottom: -20px;
   position: relative;

@@ -195,6 +195,20 @@
 	
 
 	</div>
+  <!-- 400 Years banner -->
+  <div class="container hidden-xs banner400">
+    <div class="row">
+      <img src="/img/dcgsBanner_400YearsBanner.png" alt="400 Years of DCGS" />
+      <p>
+        <a href="https://www.challoners.com/c/our-school/400-years/calendar-of-events">Events Calendar</a>
+        <a href="https://www.challoners.com/c/our-school/400-years/a-brief-history-of-dcgs">History</a>
+        <a href="https://www.challoners.com/c/our-school/400-years/anniversary-book">Anniversary Book</a>
+        <a href="https://www.challoners.com/c/our-school/400-years/dcgs-in-pictures">DCGS in Pictures</a>
+        <a href="https://www.challoners.com/c/our-school/400-years/fondest-memories">Memories</a>
+        <a href="https://www.challoners.com/c/our-school/400-years/400-facts-for-400-years">400 Facts</a>
+    </div>
+  </div>
+  <!-- End of 400 Years banner -->
   <nav class="navbar dcgsNavbar visible-xs-block menuFix">
   <div class="container">
     <div class="navbar-header">

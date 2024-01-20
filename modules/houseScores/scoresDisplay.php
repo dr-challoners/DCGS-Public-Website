@@ -1,6 +1,7 @@
 <?php // Processing the data for display
   $houseScores = sheetToArray('1ooT12BlAoiaEJD-cqukrfJ8-Oyxs6AI5qgo7hVudcVw','data/content/',24);
   $totals = array('foxell' => 0,'holman' => 0,'newman' => 0,'pearson' => 0,'rayner' => 0,'thorne' => 0);
+  //$runningTotals = array();
   $trends = array();
   $houseScores['data']['Scores'] = array_reverse($houseScores['data']['Current Scores']);
   foreach ($houseScores['data']['Scores'] as $event) {
@@ -10,17 +11,23 @@
           $totals[$house] = $totals[$house]+$score;
         }
       }
+        /* This code is unused: it was an attempt to display running totals in the line chart, instead of trends, but it didn't look very good.
+        $currentTotal = "['',foxell,holman,newman,pearson,rayner,thorne]";
+        foreach ($totals as $house => $score) {
+          $currentTotal = str_replace($house,$score,$currentTotal);
+        }
+        $runningTotals[] = $currentTotal;
+        */
+      
         // The following sequence gets the data to put into the trendline chart
         $average = 0;
         foreach ($totals as $score) {
           $average = $average+$score;
-
         }
         $average = $average/6;
         $absolute = array();
         foreach ($totals as $house => $score) {      
           $absolute[$house] = abs($score-$average);
-          //
         }
         $absolute = max($absolute);
         $trendPoints = "['',foxell,holman,newman,pearson,rayner,thorne]";
@@ -29,6 +36,7 @@
           $trendPoints = str_replace($house,$trendPoint,$trendPoints);
         }
         $trends[] = $trendPoints;
+        //
     }
   }
 ?>
