@@ -77,7 +77,7 @@
     $hardLink_admissions        = '/c/information/admissions/admissions-policy';
     $hardLink_prospectus        = '/c/information/admissions/prospectus';
     $hardLink_vacancies         = '/c/information/general-information/staff-vacancies';
-    $hardLink_supportingus      = '/c/community/supporting-the-school/astra-fund';
+    $hardLink_supportingus      = '/c/community/supporting-the-school/astra-fund-make-an-online-donation';
     $hardLink_information       = '/c/information/';
     $hardLink_privacy           = 'https://drive.google.com/file/d/1quXxCLdklK9QLZ6kJPwUXU4okuEJOcLq/view';
     $hardLink_contactus         = '/c/information/general-information/contacting-us';
