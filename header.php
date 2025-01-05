@@ -202,7 +202,7 @@
       <p>
         <a href="https://www.challoners.com/c/our-school/400-years/calendar-of-events">Events Calendar</a>
         <a href="https://www.challoners.com/c/our-school/400-years/dinner-at-lords">Lord's Dinner</a>
-        <!--<a href="https://www.challoners.com/c/our-school/400-years/a-brief-history-of-dcgs">History</a>-->
+        <a href="https://www.challoners.com/c/our-school/400-years/a-brief-history-of-dcgs">History</a>
         <a href="https://www.challoners.com/c/our-school/400-years/anniversary-book">Anniversary Book</a>
         <a href="https://www.challoners.com/c/our-school/400-years/dcgs-in-pictures">DCGS in Pictures</a>
         <a href="https://www.challoners.com/c/our-school/400-years/fondest-memories">Memories</a>
