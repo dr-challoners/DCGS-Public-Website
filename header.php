@@ -195,7 +195,7 @@
 	
 
 	</div>
-  <!-- 400 Years banner -->
+  <!-- 400 Years banner 
   <div class="container hidden-xs banner400">
     <div class="row">
       <img src="/img/dcgsBanner_400YearsBanner.png" alt="400 Years of DCGS" />
@@ -209,7 +209,7 @@
         <a href="https://www.challoners.com/c/our-school/400-years/400-facts-for-400-years">400 Facts</a>
     </div>
   </div>
-  <!-- End of 400 Years banner -->
+   End of 400 Years banner -->
   <nav class="navbar dcgsNavbar visible-xs-block menuFix">
   <div class="container">
     <div class="navbar-header">
