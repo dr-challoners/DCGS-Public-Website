@@ -61,7 +61,7 @@
     </div>
     <div class="sport"><p><a href="https://sport.challoners.com/">Sports Website & Fixtures</a></p></div>
     <div class="vacancies"><p><a href="<?php echo $hardLink_vacancies; ?>">Work with us</a></p></div>
-    <a href="https://www.astrahub.org/" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="astraLogo" src="/img/astraTSHlogo.jpg" alt="Astra Teaching School Hub Buckinghamshire" /></a>
+    <a href="https://drive.google.com/file/d/1ZLDvvGWTDU-hY-HlW4tx3_UGAoQTH3L0/view?usp=drive_link" target="<?php echo 'page'.mt_rand(); ?>"><img class="img-responsive" id="astraLogo" src="/img/astraNewLogo.png" alt="Astra Teaching School Hub Buckinghamshire" /></a>
     
     <div class="socialMedia">
       <p>Social Media</p>
@@ -69,7 +69,7 @@
       <a href="https://www.facebook.com/drchallonersgrammarschool" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_facebook.png" alt="Facebook" /></a>
       <a href="https://www.instagram.com/challonersgs/" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_instagram.png" alt="Instagram" /></a>
       <a href="https://www.linkedin.com/school/dr-challoner's-grammar-school/" target="<?php echo 'page'.mt_rand(); ?>"><img src="/img/smIcon_linkedin.png" alt="LinkedIn" /></a>
-      <?php
+      <?php /*
         $tC = rand(0,7);
         if ($tC == 0) {
           $twitterFeed = 'astra_hub';
@@ -81,7 +81,7 @@
           $twitterFeed = 'DCGSSport';
         }
         echo '<a class="twitter-timeline" data-height="1200" data-chrome="noheader nofooter" href="https://twitter.com/'.$twitterFeed.'?ref_src=twsrc%5Etfw"></a>';
-      ?>
+      */ ?>
     </div>
     
     <div class="twitterColumn">
